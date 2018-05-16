@@ -1,0 +1,9 @@
+name: "GP"
+output_dir: "."
+navbar:
+  title: "PJO's Website"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
