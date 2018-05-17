@@ -13,6 +13,12 @@ The material presented in __TFUHP__ is developed from various sources, including
 
 * Probability Modeling: @iacus, @sde 
 
+The abstract given in the @pjo2017 paper gives a good idea of the overall theme of __TFUHP__. Mathematical tools are used to _predict_ the probabilty of traffic breakdown, or stated another way, the likelihood of an onset of a congestion event. 
+
+To reliably predict breakdown is not an easy problem. The root cause of traffic breakdown must be _identified and understood_ before reliable predictions can be made. 
+
+In this paper, the number of vehicles measured as a traffic density (vehicles per unit length) is used as an explanatory variable in lieu of traffic flow (number vehicles passing a point per unit of time). Traffic is a highly volatile process, thus probability plays a vital role. Thus, both (1) traffic density and (2) traffic noise (volatily) are used to explain breakdown. 
+
 
 ```{r label, out.width = "100%", fig.cap = "Footnote: I haven't figured out how to print the full six-page document.", echo = FALSE}
 knitr::include_graphics("IEEE_MT-ITS.pdf", auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
