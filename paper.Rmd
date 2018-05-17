@@ -2,4 +2,13 @@
 title: "Paper"
 ---
 
-Will be published.
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r cars}
+summary(cars)
+```
+
+
+

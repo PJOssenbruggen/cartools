@@ -1,6 +1,7 @@
 ---
 title: "Tools For UNDERSTANDING Highway Performance (TFUHP)"
 bibliography: "CF.bibtex"
+output: html_document
 ---
 
 The material presented in __TFUHP__ is developed from various sources, including full scale testing, transportation textbooks, research classified as _traffic flow theory_, and probability models. The following is an extremely small sample of the resources used in this development:
