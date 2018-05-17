@@ -1,5 +1,5 @@
 ---
-title: "About PJO"
+title: "About"
 ---
 
 Work in progress.

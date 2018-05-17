@@ -1,8 +1,24 @@
 ---
-title: "PJO's Website"
+title: "Tools For UNDERSTANDING Highway Performance (TFUHP)"
+bibliography: "CF.bibtex"
 ---
 
-Welcome
+The material presented in __TFUHP__ is developed from various sources, including full scale testing, transportation textbooks, research classified as _traffic flow theory_, and probability models. The following is an extremely small sample of the resources used in this development:
+
+* Full Scale Testing: @1367-2630-10-3-033001
+
+* Textbooks: @banks:1998, @deganzo:1997, @LiliBook, @trieber
+
+* Research: @pjo2017 
+
+* Probability Modeling: @iacus, @sde 
+
+
+```{r label, out.width = "100%", fig.cap = "Footnote: I haven't figured out how to print the full six-page document.", echo = FALSE}
+knitr::include_graphics("IEEE_MT-ITS.pdf", auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
+```
+
+
 
 ## References
 
