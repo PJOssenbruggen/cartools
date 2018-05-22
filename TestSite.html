@@ -11,7 +11,7 @@
 
 
 
-<title>Tools For UNDERSTANDING Highway Performance (TFUHP)</title>
+<title>TestSite</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -202,56 +202,102 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Tools For UNDERSTANDING Highway Performance (TFUHP)</h1>
+<h1 class="title toc-ignore">TestSite</h1>
 
 </div>
 
 
-<p>The material presented in <strong>TFUHP</strong> is developed from various sources, including full scale testing, transportation textbooks, research classified as <em>traffic flow theory</em>, and probability models. The following is an extremely small sample of the resources used in this development:</p>
-<ul>
-<li><p>Full Scale Testing: <span class="citation">Sugiyama et al. (2008)</span></p></li>
-<li><p>Textbooks: <span class="citation">Banks (1998)</span>, <span class="citation">Daganzo (1997)</span>, <span class="citation">Elefteriadou (2014)</span>, <span class="citation">Trieber and Kesting (2013)</span></p></li>
-<li><p>Research: <span class="citation">Ossenbruggen (2017)</span></p></li>
-<li><p>Probability Modeling: <span class="citation">Iacus (2008)</span>, <span class="citation">Iacus (2016)</span></p></li>
-</ul>
-<p>The abstract given in the <span class="citation">Ossenbruggen (2017)</span> paper gives a good idea of the overall theme of <strong>TFUHP</strong>. Mathematical tools are used to <em>predict</em> the probabilty of traffic breakdown, or stated another way, the likelihood of an onset of a congestion event.</p>
-<p>To reliably predict breakdown is not an easy problem. The root cause of traffic breakdown must be <em>identified and understood</em> before reliable predictions can be made.</p>
-<p>In this paper, the number of vehicles measured as a traffic density (vehicles per unit length) is used as an explanatory variable in lieu of traffic flow (number vehicles passing a point per unit of time). Traffic is a highly volatile process, thus probability plays a vital role. Thus, both (1) traffic density and (2) traffic noise (volatily) are used to explain breakdown.</p>
-<div class="figure">
-<img src="IEEE_MT-ITS.pdf" alt="Footnote: I haven't figured out how to print the full six-page document." width="100%" />
-<p class="caption">
-Footnote: I haven’t figured out how to print the full six-page document.
-</p>
+<div id="scatter-plot-of-bottleneck-data" class="section level3">
+<h3>Scatter Plot of Bottleneck Data</h3>
+<p><img src="TestSite_files/figure-html/speedplot-1.png" width="384" /></p>
 </div>
-<p><a href="https://pjossen.shinyapps.io/headway/" class="uri">https://pjossen.shinyapps.io/headway/</a></p>
-<div id="references" class="section level2 unnumbered">
-<h2>References</h2>
-<div id="refs" class="references">
-<div id="ref-banks:1998">
-<p>Banks, James A. 1998. <em>Introduction to Transportation Engineering</em>. McGraw-Hill.</p>
+<div id="density-speed-box-plot" class="section level3">
+<h3>Density-Speed Box Plot</h3>
+<p><img src="TestSite_files/figure-html/speedboxplot-1.png" width="480" /></p>
 </div>
-<div id="ref-deganzo:1997">
-<p>Daganzo, Carlos F. 1997. <em>Fundamentals of Transportation and Traffic Operations</em>. Permagon.</p>
+<div id="logistic-regression-model" class="section level3">
+<h3>Logistic Regression Model</h3>
+<p><img src="TestSite_files/figure-html/logisticmodel-1.png" width="480" /></p>
+<pre><code>## Deviance = 7.114999 Iterations - 1 
+## Deviance = 3.272687 Iterations - 2 
+## Deviance = 1.336828 Iterations - 3 
+## Deviance = 0.4534336 Iterations - 4 
+## Deviance = 0.1680281 Iterations - 5 
+## Deviance = 0.1261129 Iterations - 6 
+## Deviance = 0.1249035 Iterations - 7 
+## Deviance = 0.1249023 Iterations - 8 
+## Deviance = 0.1249023 Iterations - 9</code></pre>
+<p><img src="TestSite_files/figure-html/logisticmodel-2.png" width="480" /></p>
 </div>
-<div id="ref-LiliBook">
-<p>Elefteriadou, Lily. 2014. <em>An Introduction to Traffic Flow Theory</em>. New York, New York: Springer.</p>
+<div id="time-distance-diagrams-on-a-ring-road" class="section level3">
+<h3>Time-Distance Diagrams on a Ring Road</h3>
+<p><img src="TestSite_files/figure-html/ringroad1-1.png" width="480" /></p>
+<p><img src="TestSite_files/figure-html/ringroad2-1.png" width="480" /></p>
+<table>
+<colgroup>
+<col width="24%" />
+<col width="24%" />
+<col width="27%" />
+<col width="24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right"><strong>Scenario</strong></th>
+<th align="right"><span class="math inline">\(\bar{h}\)</span>, seconds</th>
+<th align="right"><span class="math inline">\(\hat{\sigma}_h\)</span>, seconds</th>
+<th align="right"><span class="math inline">\(\hat{Q}\)</span>, vehicles per hour (vph)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">Free-Flow</td>
+<td align="right">1.68</td>
+<td align="right">0.59</td>
+<td align="right">2137</td>
+</tr>
+<tr class="even">
+<td align="right">Congested-Flow</td>
+<td align="right">1.76</td>
+<td align="right">1.46</td>
+<td align="right">2045</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="ref-iacus">
-<p>Iacus, Stefano. 2008. <em>Simulation and Inference for Stochastic Differential Equations: With R Examples</em>. Springer-Verlag.</p>
+<div id="stationary-time-series-model-of-speed" class="section level3">
+<h3>Stationary Time-Series Model of Speed</h3>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   68.12   69.46   70.10   70.12   71.02   72.04</code></pre>
+<p><img src="TestSite_files/figure-html/cfanim1-1.png" width="576" /></p>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   32.42   37.38   40.11   41.50   45.03   54.92</code></pre>
+<p><img src="TestSite_files/figure-html/cfanim2-1.png" width="576" /></p>
 </div>
-<div id="ref-sde">
-<p>Iacus, Stefano Maria. 2016. <em>Simulation and Inference for Stochastic Differential Equations</em>. <a href="https://CRAN.R-project.org/package=sde" class="uri">https://CRAN.R-project.org/package=sde</a>.</p>
+<div id="car-following-and-merging-models" class="section level3">
+<h3>Car-Following and Merging Models</h3>
+<p><img src="TestSite_files/figure-html/CF-1.png" width="576" /></p>
+<p><img src="TestSite_files/figure-html/zipper-1.png" width="576" /></p>
 </div>
-<div id="ref-pjo2017">
-<p>Ossenbruggen, Paul J. 2017. “A Diffusion Model to Explain and Forecast Freeway Breakdown and Delay.” In <em>5th IEEE International Conference on Models and Technologies for Intelligent Transportation Systems</em>. Naples, Italy: IEEE.</p>
+<div id="flow-speed-plot" class="section level3">
+<h3>Flow-Speed Plot</h3>
+<pre><code>## Warning: Removed 6750 rows containing missing values (geom_point).</code></pre>
+<p><img src="TestSite_files/figure-html/speedtsplot-1.png" width="480" /></p>
 </div>
-<div id="ref-1367-2630-10-3-033001">
-<p>Sugiyama, Yuki, Minoru Fukui, Macoto Kikuchi, Katsuya Hasebe, Akihiro Nakayama, Katsuhiro Nishinari, Shin-ichi Tadaki, and Satoshi Yukawa. 2008. “Traffic Jams Without Bottlenecks—Experimental Evidence for the Physical Mechanism of the Formation of a Jam.” <em>New Journal of Physics</em> 10 (3):033001. <a href="http://stacks.iop.org/1367-2630/10/i=3/a=033001" class="uri">http://stacks.iop.org/1367-2630/10/i=3/a=033001</a>.</p>
+<div id="car-following-and-breakdown" class="section level3">
+<h3>Car-Following and Breakdown</h3>
+<p><img src="TestSite_files/figure-html/runBottleneck-1.png" width="576" /></p>
 </div>
-<div id="ref-trieber">
-<p>Trieber, Martin, and Arne Kesting. 2013. <em>Traffic Flow Dynamics: Data, Models and Simulation</em>. Springer.</p>
+<div id="stopping-at-signal" class="section level3">
+<h3>Stopping at Signal</h3>
+<p><img src="TestSite_files/figure-html/runSignal-1.png" width="576" /></p>
 </div>
+<div id="explaining-breakdown" class="section level3">
+<h3>Explaining Breakdown</h3>
+<p><img src="TestSite_files/figure-html/explainBreakdown-1.png" width="576" /></p>
 </div>
+<div id="brownian-motion-plots-trip-dispersion" class="section level3">
+<h3>Brownian Motion Plots (Trip Dispersion)</h3>
+<p><img src="TestSite_files/figure-html/tripdispersion-1.png" width="384" /><img src="TestSite_files/figure-html/tripdispersion-2.png" width="384" /></p>
 </div>
 
 

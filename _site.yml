@@ -7,10 +7,14 @@ navbar:
     href: index.html
   - text: About
     href: about.html
-  - text: "Paper"
+  - text: Paper
     href: paper.html
+  - text: TestSite
+    href: TestSite.html
 output:
   html_document:
     theme: flatly
     css: style.css
+    lib_dir: site_libs
+    self_contained: no
 

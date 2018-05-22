@@ -31,7 +31,7 @@ In this paper, the number of vehicles measured as a traffic density (vehicles pe
 
 
 ```{r label, out.width = "100%", fig.cap = "Footnote: I haven't figured out how to print the full six-page document.", echo = FALSE}
-knitr::include_graphics("IEEE_MT-its.jpeg", auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
+knitr::include_graphics("IEEE_MT-ITS.pdf", auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
 ```
 
 [https://pjossen.shinyapps.io/headway/](https://pjossen.shinyapps.io/headway/)
