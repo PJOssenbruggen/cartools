@@ -1,16 +1,16 @@
 name: GP
 output_dir: '.'
 navbar:
-  title: PJO's Website
+  title: TFUHP Website
   left:
   - text: Home
     href: index.html
-  - text: About
+  - text: Fundamentals
     href: about.html
-  - text: Paper
-    href: paper.html
-  - text: TestSite
-    href: TestSite.html
+  - text: Bottleneck
+    href: bottleneck.html
+  - text: Ring-Road
+    href: Ring-Road.html
 output:
   html_document:
     theme: flatly

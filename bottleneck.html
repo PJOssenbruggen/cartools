@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Bottleneck</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">TFUHP Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">Fundamentals</a>
+</li>
+<li>
+  <a href="bottleneck.html">Bottleneck</a>
+</li>
+<li>
+  <a href="Ring-Road.html">Ring-Road</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Bottleneck</h1>
+
+</div>
+
+
+<div id="a-zipper-merge" class="section level3">
+<h3>A Zipper Merge</h3>
+<p>Now, we turn attention to a bottleneck where there is a lane drop from two to one-lane. To better understand to various factors that can affect a breakdown, we will investigate a “zipper merge.”</p>
+<p>Imagine that we shrink ourselves down to a size that is sufficiently small to observe a zipper close. That’s right, a zipper. Let’s say, a jacket zipper. We will stand on the zipper pull and look in the direction where zipper tapes are separated. This is analogous to standing on the side of a roadway looking upstream where the vehicles merge at a bottleneck. Regardless of how fast the zipper slider is pulled, the zipper tapes become secure when meshed together because the rows of zipper teeth are the same size, move at the same speed, are evenly spaced and aligned to allow the two tapes to link together. The incoming vehicles on a freeway, on the other hand, are typically not the same size, not traveling at the speed, not evenly spaced, and not aligned. Instead, vehicles must change speed and carefully merge together to avoid crashing into one another. It is possible to achieve a zipper merge under high-speed conditions. This occurs on a motor raceway where the drivers are professionals.</p>
+<p>To realistically depict driver behavior at a freeway bottleneck, a time-varying acceleration function is used:</p>
+<p><span class="math inline">\(\alpha(t) = a - b t\)</span></p>
+<p>where <span class="math inline">\(t\)</span> denotes time. The constants <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are estimated by using boundary conditions. Knowing <span class="math inline">\(\alpha(t)\)</span>, speed $u(t) and distance <span class="math inline">\(x(t)\)</span> can be forecast as shown in the <strong>Vehicles entering a Bottleneck</strong> animation. The <strong>zipper()</strong> function calls the two <strong>R</strong> packages as shown.</p>
+<p><img src="bottleneck_files/figure-html/unnamed-chunk-2.gif" width="576" /></p>
+<p>The animation depicted here consists of three vehicles. The driver of vehicle 3 is more aggressive than the other two drivers. Driver 1, who is the least aggressive, maintains a constant speed of 25 mph. Note that <span class="math inline">\(a\)</span> = <span class="math inline">\(b\)</span> = 0 for this driver. The <span class="math inline">\(t-x\)</span> trajectory for vehicle 1 is a straight line with a constant slope of 25 * 5280/3600 = 36.7 feet per second (fps). The trajectories for vehicles 1 and 2 are non-linear. The merge is complete after 10 seconds. At the end of the merge, all vehicles are traveling at <span class="math inline">\(u\)</span> = 25 mph and have a distance headway of <span class="math inline">\(h\)</span> = 25 feet, which is assumed to be a safe distance for this speed.</p>
+<p>Vehicle alignment is important even for this simple simulation. At <span class="math inline">\(t\)</span> = 0, the <span class="math inline">\(t-x\)</span> trajectory shows the vehicles 1 and 2 are located at <span class="math inline">\(x\)</span> = 0 and vehicle 3, which is following vehicle 2, is located at <span class="math inline">\(x\)</span> = -50 feet.</p>
+<p>Initially, vehicles 1 and 2 are traveling side-by-side in separate lanes on a 24-foot freeway for <span class="math inline">\(x\)</span> = 0 to hold. Further assume these vehicles are traveling in the middle of their respective lanes. Since the lane widths are 12 feet, the centerline distance between them is 12 feet.</p>
+<p>A primary reason for showing this animation is to discuss the importance of a <span class="math inline">\(t-x\)</span> trajectory and to describe the features of the <span class="math inline">\(\alpha(t) = a - b t\)</span> velocity model. For example, the headways before and after the merge are <span class="math inline">\(h\)</span> = 50 and 25 feet, respectively. This is easily seen on the <span class="math inline">\(t-x\)</span> trajectory diagram. The traffic density at the merge is twice the value of a single lane upstream. Now, look at <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, the maximum speeds of vehicle 1, 2 and 3 are 25, 32.5 and 35 mph, respectively. These speeds are within the law. Vehicle 3, whose driver is most aggressive, reaches a maximum speed of 35 mph at 4.2 seconds and then slows down to 25 mph.</p>
+<p><em>A critical question do these drivers drive safety?</em> Since the driver of vehicle 1 maintains a constant speed of 25 mph, we will answer, “Yes.” The answer for vehicle 2 is the same, “Yes.” Driver 2 reaches a maximum speed of 32.5 mph before returning to a speed of 25 mph. The trajectory for vehicle 3 “crosses” the trajectory of vehicle 1, suggesting that a side-swipe crash or near-miss may take place at <span class="math inline">\(t = 6.5\)</span> seconds. At this point in time, the centerline distance between the two vehicles is less than 6 feet and the potential for a crash is high. Is driver 3 to blame? Let us investigate the situation further.</p>
+<p>At around <span class="math inline">\(x\)</span> = 50 feet or around <span class="math inline">\(t\)</span> = 2 seconds, driver 1 can see that vehicle 3 is passing. Driver 1 has the responsibility to decelerate his or her vehicle and has ample time to do so, thus avoid a crash. The trajectories of the two vehicles would “cross” but at a point in time where the two vehicles have much more room to manuever. In other words, “crossing trajectories” can serve a warning of potential risk. The time when trajectories “cross” dictates the outcome.</p>
+<p>Getting back to the question about driving safely. All drivers are operating within the law, then we must conclude <em>all drivers are driving safely.</em></p>
+<p>The simulation model describes and explains the <em>triggering of a traffic breakdown event</em> for three vehicles. It is used to introduce car-following modeling.</p>
+</div>
+<div id="car-following-modeling-and-breakdown" class="section level3">
+<h3>Car-Following Modeling and Breakdown</h3>
+<p><em>Car-following</em> models describe and simulate the traffic behavior by designating <em>lead</em> and <em>following</em> vehicles. After the merge described above, vehicle 2 becomes a <em>lead</em> vehicle. The actions of the <em>lead</em> vehicle affects the <em>following</em> vehicles from lanes 1 and 2. The description that follows will be similiar to the behavior described above for the ring road. The <span class="math inline">\(Q = n / l * U(t)\)</span> model is used. There are features in the following examples that we have seen before.</p>
+<p>Again, we assume a freeway narrows from two-lanes to one. The results are shown in the <strong>Breakdown: Bottleneck</strong> diagram. The number of vehicles in the simulation remains fixed, <span class="math inline">\(n\)</span> = 10. The lead vehicle, denoted as 1 in the figure, approaches the bottleneck at a speed of 63 mph and decelerates to a speed of 34 mph. See the <strong>Time-Speed Plot</strong>. The lead vehicle reaches this breakdown speed of 34 mph at <span class="math inline">\(x\)</span> = 0 as shown by the point <span class="math inline">\((t_3,0)\)</span>. All following drivers must reduce their speed to avoid colliding into the vehicle in front of them.</p>
+<p><img src="bottleneck_files/figure-html/unnamed-chunk-3-1.png" width="576" /></p>
+<p>Over the time range of 60 seconds, the speed reduction in the lead vehicle forces the following vehicles to become more closely spaced. All drivers keep a safe headway, one vehicle length for each 10 mph of speed. The <span class="math inline">\(t-x\)</span> trajectory of the ten vehicles shown in the figure give the impression that the vehicles arrive with the same speed and headway. In fact, this is not the case:</p>
+<table>
+<caption>Traffic Characteristics</caption>
+<thead>
+<tr class="header">
+<th align="center">Vehicle</th>
+<th align="center">Speed at t0</th>
+<th align="center">Speed at t3</th>
+<th align="center">Density at t1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">63</td>
+<td align="center">48</td>
+<td align="center">60</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">57</td>
+<td align="center">46</td>
+<td align="center">49</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">61</td>
+<td align="center">43</td>
+<td align="center">56</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">79</td>
+<td align="center">42</td>
+<td align="center">57</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">64</td>
+<td align="center">42</td>
+<td align="center">55</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">64</td>
+<td align="center">42</td>
+<td align="center">64</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">80</td>
+<td align="center">41</td>
+<td align="center">50</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">68</td>
+<td align="center">41</td>
+<td align="center">58</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">50</td>
+<td align="center">40</td>
+<td align="center">55</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">56</td>
+<td align="center">40</td>
+<td align="center">54</td>
+</tr>
+</tbody>
+</table>
+<p>The level-of-service estimates are:</p>
+<table>
+<colgroup>
+<col width="32%" />
+<col width="35%" />
+<col width="32%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">Mean headway <span class="math inline">\(\bar{h}\)</span></th>
+<th align="right">Headway standard deviation <span class="math inline">\(\hat{\sigma}_h\)</span></th>
+<th align="right">Estimated flow <span class="math inline">\(\bar{q}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">6.7 seconds</td>
+<td align="right">20 seconds</td>
+<td align="right">537 vehicles per hour (vph)</td>
+</tr>
+</tbody>
+</table>
+<p>Contrast the “Bottleneck” situation to where the same vehicles come a full stop at a signal. The “Full Stop” vehicles experience longer delays as can be seen in the following diagram, which is no surprise. The “Full Stop” vehicles are stacked up on the downstream side of the <span class="math inline">\(x = 0\)</span> line. It forms shockwave of stopped vehicles that move upstream. The “Bottleneck” shows the shockwave moving upstream of vehicles that are to slow down.</p>
+<p><img src="bottleneck_files/figure-html/unnamed-chunk-5-1.png" width="576" /></p>
+<p>The classical approach is to calculate shock wave speed using the <span class="math inline">\(\Delta q/ \Delta k\)</span> formula and a flow-density diagram. Our car-following <span class="math inline">\(CF\)</span> approach uses the <span class="math inline">\(\alpha(t) = a - b t\)</span> model and a function that assures the drivers drive safely. It does not use a flow-density diagram.</p>
+<p>This approach explains queue formation differently. The <span class="math inline">\(CF\)</span> approach shows the transistion from a free-flow to a congested state, the <span class="math inline">\(u_{-1}\)</span> to <span class="math inline">\(u_0\)</span> transition, to be smooth, not an abrupt change as with the classical method using a constant velocity model. The “Bottleneck” vehicles show the <span class="math inline">\(u_{-1}\)</span> to <span class="math inline">\(u_0\)</span> transition to be moving upstream. That means the delay spreads in two directions, upstream and downstream. The “Full Stop” vehicles have two shockwave speeds: one for breaking at <span class="math inline">\(t_1\)</span> and one for the vehicle when it stops at <span class="math inline">\(t_3\)</span>. Both progress in the upstream direction only. Incidentally, these shockwave speeds can be estimated with the trajectories.</p>
+<p>Input to the <strong>run</strong> function produces a collection of data frames, which we call the “cflist.” The information from these data frames can be inspected to give a detailed look at the interaction between the lead and following vehicles during a traffic breakdown.</p>
+</div>
+<div id="understanding-the-cf-breakdown-model" class="section level3">
+<h3>Understanding the CF Breakdown Model</h3>
+<p>The above figures show that the trajectories to be smooth curves. The lead vehicle use exponential <span class="math inline">\(u = exp(-\lambda * t)\)</span> and the following vehicles use non-linear <span class="math inline">\(\alpha(t) = a - b t\)</span> speed models. Depending on the situation, each driver adjusts his or her speed independently from one another. The lead vehicle shown below has a concave trajectory from <span class="math inline">\(t_0\)</span> to <span class="math inline">\(t_3\)</span>, indicating a decline in speed. Vehicle 2 and 3 have linear and convex trajectories. For vehicle 3, the driver is accelerating until reaches point <span class="math inline">\((t_1, x_2)\)</span> where it begins to decelerate.</p>
+<p><img src="bottleneck_files/figure-html/unnamed-chunk-6-1.png" width="576" /></p>
+<p>Driver reaction and driver sight lines play important roles in the <span class="math inline">\(CF\)</span> approach. The role they play is most easily explained by identifying the times when important events occur, <span class="math inline">\(t_1, t_2, t_3, t_4\)</span> and <span class="math inline">\(t_5\)</span>. The simulation ranges from <span class="math inline">\(t_0\)</span> to <span class="math inline">\(t_4\)</span>. Time <span class="math inline">\(t_3\)</span> is the time the lead vehicle reaches the bottleneck <span class="math inline">\(x_0\)</span> at <span class="math inline">\((t_0,x_0)\)</span>. Times <span class="math inline">\(t_1\)</span> are the times the following vehicle drivers react and begin to decelerate. These times depend on several factors, including lead and following vehicle speeds, vehicle spacing and driver response. For example, the driver sightline for vehicle 2, shown by the broken line connecting the points <span class="math inline">\((t_1, x_1)\)</span> and <span class="math inline">\((t_2, x_2)\)</span>, gives a sense of how this driver processes the information. The algorithm uses this information, points <span class="math inline">\((t_1, x_1)\)</span> and <span class="math inline">\((t_2, x_2)\)</span>, to calibrate the <span class="math inline">\(\alpha(t) = a - b t\)</span> speed model and estimate a <span class="math inline">\(t-x\)</span> trajectory for the vehicle. This step is repeated for next vehicle that enters the bottleneck. The trajectories for each of three vehicles shown in the graph are unique. Times <span class="math inline">\(t_5\)</span> are the times a following vehicle reach the bottleneck location <span class="math inline">\(x = 0\)</span>. They are used to estimate the time headways between vehicles, which in turn are used to estimate traffic flow <span class="math inline">\(\hat{Q}\)</span>.</p>
+</div>
+<div id="theory-explaining-breakdown-at-a-bottleneck" class="section level3">
+<h3>Theory Explaining Breakdown at a Bottleneck</h3>
+<p>Exploratory data analysis showed the traffic on I-93 in Salem to be extremely volatile and the chance of traffic breakdown is strong. Given these observations, it is natural to express the <em>fundamental relationship</em> of traffic flow as <span class="math inline">\(Q = K * U\)</span> where <span class="math inline">\(Q\)</span>, <span class="math inline">\(K\)</span> and <span class="math inline">\(U\)</span> are assumed to be random variables. However, the results of the ring-road experiment gave evidence that the variability in <span class="math inline">\(Q\)</span> depends wholly on the variability in speed, which we assumed to be a Brownian motion model <span class="math inline">\(U(t)\)</span>. The argument was simple. Since the number of vehicles on the road <span class="math inline">\(n\)</span> and road length <span class="math inline">\(l\)</span> are constants, it follows that the density must be a constant. Since <span class="math inline">\(k = n/l\)</span>, <span class="math inline">\(Q = k * U(t)\)</span>. Our conclusions were derived from watching a short video and assuming flow, density and speed are measured on a time scale in seconds.</p>
+<p>The argument for the <span class="math inline">\(Q = K * U\)</span> model is based upon <em>macroscale</em> observations or averages of flow, density and speed derived from 15-minute averages. In contrast, the argument for the <span class="math inline">\(Q = k * U(t)\)</span> model is based upon assuming variables are measured on the <em>microscale</em>. Certainly, the simpler <span class="math inline">\(Q = k * U(t)\)</span> model is the model of choice for bottleneck breakdown because we can envision why driver behavior can trigger a breakdown. The vehicles must merge at a bottleneck. In addition, many drivers, who drive this roadway on a regular basis, weave from one lane to another. Drivers in the NH and MA are known for their aggressiveness. By being so aggressive, they increase the traffic volatility by abruptly accelerating and decelerating. The <span class="math inline">\(CF\)</span> approach is a tool can be refined to study aggressive driver behavior.</p>
+<p>To justify the <span class="math inline">\(Q = k * U(t)\)</span> model for a bottleneck, consider a “thought experiment.” In addition to collecting speed <span class="math inline">\(u_i\)</span> data that we described above for the eight month I-93 study, a series of videos are simultaneously taken by a helicopter flying overhead or by a drone. The video data will be used to obtain direct measures of density <span class="math inline">\(k_i = n_i/l\)</span>. Next, take the matched <span class="math inline">\(k_i\)</span> and <span class="math inline">\(u_i\)</span> records, sort them into bins according to magnitude of traffic density, and construct a box plot. This sorting procedure treats the density data as fixed values or constants and the speed data as a random variable.</p>
+<p>The box plot will arguably resemble of the <strong>Box Plot of Density-Speed</strong> diagram of I-93 study data presented above in the <strong>Exploratory Data Analysis</strong> section. Assuming the “thought experiment” and I-93 study data sufficiently similiar, inferences can be drawn from I-93 box-plot. By visual inspection, speed decreases as the traffic density increases. Since the bottleneck geometry is unchanged throughout the experiment, the number of vehicles <span class="math inline">\(n_i\)</span> and speed <span class="math inline">\(u_i\)</span> are strongly associated. Thus, the <span class="math inline">\(Q = k * U(t)\)</span> model holds.</p>
+<p>To be absolutely clear about the meaning of the <span class="math inline">\(Q = k * U(t)\)</span> model for the Brownian motion speed model, <span class="math inline">\(U(t) = u + \sigma W(t) = u + \sigma \sqrt{\Delta t} Z\)</span>, we rewrite it in functional form to draw attention to the <em>key variables</em>:</p>
+<ul>
+<li><span class="math inline">\(Q = f(k, u, \sigma, h)\)</span></li>
+</ul>
+<p>where <span class="math inline">\(k = n/l\)</span> = traffic density, <span class="math inline">\(u\)</span> = design speed, <span class="math inline">\(\sigma\)</span> = standard deviation of <span class="math inline">\(u\)</span>, and <span class="math inline">\(h\)</span> represents a safe headway for vehicles of the same length.</p>
+</div>
+<div id="breakdown-event-forecasting" class="section level3">
+<h3>Breakdown Event Forecasting</h3>
+<p>Inspecting <span class="math inline">\(t-x\)</span> trajectories and <span class="math inline">\(h\)</span> histograms derived from the <span class="math inline">\(Q\)</span> model proves to be an effective in understanding traffic breakdown and explaining being in a congested state. Given <span class="math inline">\(k\)</span>, it is possible to predict probability of traffic breakdown <span class="math inline">\(\pi\)</span>. To gain an appreciation of the <span class="math inline">\(\hat{\pi}\)</span> forecast model, look at the <strong>Box Plot of Density-Speed</strong> diagram. We select bin of <span class="math inline">\(k\)</span> and then determine the proportion of breakdowns <span class="math inline">\(p\)</span> in the bin. <span class="math inline">\(p\)</span> is straightforwardly calculated as the ratio of the number of observations where <span class="math inline">\(u \le u^*\)</span> to the total number of observations in the bin <span class="math inline">\(k\)</span>. As previously mentioned, the HCM designates roadway capacity <span class="math inline">\(c^*\)</span> to be in the vicinity 2250 vph at <span class="math inline">\(k^*\)</span> = 45 vpm. The estimate of <span class="math inline">\(p\)</span> for this bin is quite small. However, as the <span class="math inline">\(k\)</span> values increase, the values of <span class="math inline">\(p\)</span> increase rapidly. Expressing <span class="math inline">\(\pi\)</span> by <em>time-of-day</em> we have a wortwhile tool, <em>a macroscale model</em>, that traffic operators and managers may find useful:</p>
+<p><span class="math inline">\(\hat{\pi} = P(K_t \ge k^*)\)</span></p>
+<p><span class="math inline">\(K_t\)</span> is a stochastic differential equation model of traffic density by <em>time-of-day</em> <span class="math inline">\(t\)</span> <span class="citation">[@pjo2017]</span>(<a href="https://github.com/PJOssenbruggen/Basic/blob/master/doc/IEEE_MT-ITS.pdf" class="uri">https://github.com/PJOssenbruggen/Basic/blob/master/doc/IEEE_MT-ITS.pdf</a>). Treating traffic density <span class="math inline">\(K_t\)</span> as the random variable may seem contradictory given the discussion about the <span class="math inline">\(Q = k * U(t)\)</span> model. It is not. Note that two models are different. One is a <em>macroscale</em> model predicting breakdown and the other one is a <em>microscale</em> model predicting flow.</p>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p><em>What have we learned about traffic performance using the <strong>tfuhp</strong> package?</em> The most notable lesson learned is:</p>
+<ul>
+<li>By modeling driver behavior with a simple, parsimonious Brownian motion model of speed, it is possible to explain and forecast traffic breakdown on a ring-road and at a bottleneck.</li>
+</ul>
+<p>The potential of the <strong>tfuhp</strong> package as a learning tool has been demonstrated. Hopefully, this platform can be adapted and expanded to help users identify the root cause or causes for other congestion problems. My next task is add <strong>R Markdown Shiny</strong> HTML widgets to my code. Adding this feature will allow the user to simply conduct sensitivity analyses on-line. For example, the effects of speed and density on ring-road performance can be explored. Sliders for <span class="math inline">\(u\)</span>, <span class="math inline">\(\sigma\)</span> and <span class="math inline">\(k\)</span> will be provided so a user change them at will. The <strong>tfuhp</strong> package will instantaneously produce a histogram of headways as illustrated above.</p>
+<p>This package is open to the public, <a href="https://github.com/PJOssenbruggen/Basic" class="uri">https://github.com/PJOssenbruggen/Basic</a>. In other words, I am inviting people to share their experiences with the package with me. GitHub promotes this activity, <a href="https://github.com/explore" class="uri">https://github.com/explore</a>.</p>
+<div id="car-following-and-merging-models" class="section level3">
+<h3>Car-Following and Merging Models</h3>
+<p><img src="bottleneck_files/figure-html/CF-1.png" width="576" /></p>
+<p><img src="bottleneck_files/figure-html/zipper-1.png" width="576" /></p>
+</div>
+<div id="flow-speed-plot" class="section level3">
+<h3>Flow-Speed Plot</h3>
+<pre><code>## Warning: Removed 6750 rows containing missing values (geom_point).</code></pre>
+<p><img src="bottleneck_files/figure-html/speedtsplot-1.png" width="480" /></p>
+</div>
+<div id="car-following-and-breakdown" class="section level3">
+<h3>Car-Following and Breakdown</h3>
+<p><img src="bottleneck_files/figure-html/runBottleneck-1.png" width="576" /></p>
+</div>
+<div id="stopping-at-signal" class="section level3">
+<h3>Stopping at Signal</h3>
+<p><img src="bottleneck_files/figure-html/runSignal-1.png" width="576" /></p>
+</div>
+<div id="explaining-breakdown" class="section level3">
+<h3>Explaining Breakdown</h3>
+<p><img src="bottleneck_files/figure-html/explainBreakdown-1.png" width="576" /></p>
+</div>
+<div id="brownian-motion-plots-trip-dispersion" class="section level3">
+<h3>Brownian Motion Plots (Trip Dispersion)</h3>
+<p><img src="bottleneck_files/figure-html/tripdispersion-1.png" width="384" /><img src="bottleneck_files/figure-html/tripdispersion-2.png" width="384" /></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

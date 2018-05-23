@@ -11,7 +11,7 @@
 
 
 
-<title>About</title>
+<title>Fundamentals</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -174,7 +174,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">PJO's Website</a>
+      <a class="navbar-brand" href="index.html">TFUHP Website</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -182,13 +182,13 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="about.html">About</a>
+  <a href="about.html">Fundamentals</a>
 </li>
 <li>
-  <a href="paper.html">Paper</a>
+  <a href="bottleneck.html">Bottleneck</a>
 </li>
 <li>
-  <a href="TestSite.html">TestSite</a>
+  <a href="Ring-Road.html">Ring-Road</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -202,12 +202,46 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">About</h1>
+<h1 class="title toc-ignore">Fundamentals</h1>
 
 </div>
 
 
-<p>Work in progress.</p>
+<div id="overview" class="section level2">
+<h2>1. Overview</h2>
+<p>The <strong>TFUHP</strong> package is designed for college students studying transportation engineering and for transportation professionals and researchers interested in understanding the complex relationships associated with freeway performance and traffic breakdown. Newtons Laws of dynamics, fundamentals of trafic flow theory (TFT), probabilistic modeling and statistics are used in this package. By building upon current knowledge - the “classical methods” of transportation analysis - and integrating them with the latest computer tools, the goal is to identify key factors that initiate a breakdown event. Emphasize is placed on:</p>
+<div id="traffic-noise-or-traffic-volatility." class="section level5">
+<h5>Traffic noise or <em>traffic volatility</em>.</h5>
+</div>
+<div id="driver-behavior-and-safety." class="section level5">
+<h5>Driver behavior and safety.</h5>
+</div>
+<div id="using-stochastic-models-that-explain-breakdown." class="section level5">
+<h5>Using stochastic models that explain breakdown.</h5>
+<p>The principal aim of this vignette is to explain highway performance as simply as possible. Topics are introduced in a step-by-step manner. Exploratory data analyses of a freeway bottleneck, inspecting a YouTube video of vehicles traveling on a ring road, and using the core assumptions of TFT are used for example. The principal product of this effort is the development of a traffic flow model:</p>
+<ul>
+<li><span class="math inline">\(Q = f(k, u, \sigma, h)\)</span></li>
+</ul>
+<p>where <span class="math inline">\(k\)</span> is traffic density, <span class="math inline">\(u\)</span> is speed, and <span class="math inline">\(h\)</span> is a headway. Since traffic is a noisy process, speed is treated as a random variable <span class="math inline">\(U\)</span>, a function of both <span class="math inline">\(u\)</span> and <span class="math inline">\(\sigma\)</span>. The overall volatility observed in the process is specifified by <span class="math inline">\(\sigma\)</span>, a measure of driver group dynamics and other uncerainties. The variable <span class="math inline">\(h\)</span>, <em>safe distance headway</em>, reflects the drivers’ aversion to risk and vehicle length. Since <span class="math inline">\(h\)</span> is a safe distance headway, no crashes are permitted. Thus, <span class="math inline">\(Q\)</span> is a random variable and an important measure of highway performance. The <span class="math inline">\(Q\)</span> model is a <em>parsimonius, stochastic model.</em></p>
+</div>
+</div>
+<div id="traffic-noise-or-volatility" class="section level2">
+<h2>2. Traffic Noise or Volatility</h2>
+<p>A quick read of the <strong>Overview</strong> may give the impression that the approach, a package of computer algorithms, will be difficult to understand and overwhelming to implement. Words, like complex, dynamics, theory, parsimonious, stochastic and model integration can be daunting. No question that designing and operating a transportation system are difficult problems. By disecting the problem into manageable pieces and synthesizing the results from the individual pieces brings clarity to the process.</p>
+<p>Consider a “toy” example using _sequential-demand-forecasting. It is a 4-step approach. Questions associated with (1) <em>trip generation</em>, (2) <em>trip distribution</em>, (3) <em>modal-split</em>, and <em>trip assignment</em> are asked. Our task is to improve an existing campus transporation system. This is no small task, especially when budgetary constraints are imposed. Suppose we obtained the following responses:</p>
+<p><em>Trip generation</em>, “What is the purpose of your trip?” Work, shopping, entertainment, doctor’s visit, etc. and of course, returning home after completing these activites. Since our problem, deals traveling on campus, we interview 10 students in this “toy” example. To further simplify the problem, we assume that all students are together in the same classroom. The answers range to my next class in a different building, study hall, dining hall, etc. The answers, you can see, can be anticipated. You can see that answers are dependent on the time of day and may include other factors.</p>
+<p><em>Trip distribution</em>, “Where do you want to go?” Thus, for the students, we need to know the locations of class rooms, study halls, dining halls, etc.</p>
+<p><em>Modal-split</em>, “What means of transporation will you use?” Walk, bicycle, auto, bus. For the general public, answers include taxi, Uber, train, boat and airplane.</p>
+<p><em>Trip assignment</em>, “What route will you use?” Answers include sidewalks, local streets, boulevards, freeways, waterways, and the airways.</p>
+<p>To build a system for a campus with hundreds or thousands of students, more people will be interviewed. Of course, not all students, faculty, staff and administrators on the campus need to be interviewed. While a sample of 10 students is insufficient, a <em>representative sample</em> will suffice. A most important point, even for this “toy” example, is the need for quality data. Once obtained, statistical analysis can be used to extract critical information from the data and to build predictive models.</p>
+</div>
+<div id="visualizing-the-problem" class="section level2">
+<h2>3. Visualizing the Problem</h2>
+<p>The <a href="https://github.com/PJOssenbruggen/Basic">trfhp</a> package is a collection of <a href="https://www.r-project.org">R</a> functions and libraries. This wide variety of statistical and graphical techniques are made available through the open-source <a href="https://cran.r-project.org">cran</a> network. The aim is to use these tools to better understand freeway performance and traffic breakdown. Computer simulation, enhanced graphics including animation, and sensitivity analysis are used in the <a href="https://github.com/PJOssenbruggen/Basic">trfhp</a> package. For example, <a href="http://ggplot2.org">ggplot2</a> from <a href="https://www.rstudio.com/products/rpackages/">Rstudio</a> is used to produce the animation presented below. <a href="http://shiny.rstudio.com">Shiny</a> is used to build interactive web applications for conducting sensitivity analyses.</p>
+<p>Let’s look again at trip generation. This time, we will incorporate visual imagry into the discussion. Before the interview, we don’t know if the students will travel north, south, east or west or how far they will travel. We do know that they are all located at the same place initially and when the class ends that they will disperse. A <a href="https://www.r-project.org">R</a> <em>Brownian motion model</em>, a time-dependent stochastic model, can simulate this behavior. At time <span class="math inline">\(t\)</span> = 0, the students are located at the point <span class="math inline">\((x = 0, y = 0)\)</span>. They become more dispersed as time progresses. Robert Brown, a botanist, described this chaotic motion of a grain of pollen suspended in water. This model is used by economists and physicists <span class="citation">[@sde]</span> <span class="citation">[@iacus]</span>.</p>
+<p><img src="about_files/figure-html/tripdispersion-1.png" width="384" /><img src="about_files/figure-html/tripdispersion-2.png" width="384" /></p>
+<p>The mathematics behind the animation is relatively simple. Of course, the Brownian motion model shown here can be adapted to other situtations. This will be illustrated presently. The ultimate aim of using <a href="https://github.com/PJOssenbruggen/Basic">trfhp</a> package tools is to improve our chances of mitigating congestion and improving performance using the simple mathematical and graphical tools.</p>
+</div>
 
 
 

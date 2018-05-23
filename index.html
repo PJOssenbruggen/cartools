@@ -11,7 +11,7 @@
 
 
 
-<title>Tools For UNDERSTANDING Highway Performance (TFUHP)</title>
+<title>TFUHP: Tools For UNDERSTANDING Highway Performance</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -174,7 +174,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">PJO's Website</a>
+      <a class="navbar-brand" href="index.html">TFUHP Website</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -182,13 +182,13 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="about.html">About</a>
+  <a href="about.html">Fundamentals</a>
 </li>
 <li>
-  <a href="paper.html">Paper</a>
+  <a href="bottleneck.html">Bottleneck</a>
 </li>
 <li>
-  <a href="TestSite.html">TestSite</a>
+  <a href="Ring-Road.html">Ring-Road</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -202,31 +202,43 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Tools For UNDERSTANDING Highway Performance (TFUHP)</h1>
+<h1 class="title toc-ignore">TFUHP: Tools For UNDERSTANDING Highway Performance</h1>
 
 </div>
 
 
-<p>The material presented in <strong>TFUHP</strong> is developed from various sources, including full scale testing, transportation textbooks, research classified as <em>traffic flow theory</em>, and probability models. The following is an extremely small sample of the resources used in this development:</p>
+<p>“In many industrialized nations today, highways present engineeres and governments with formidable challenges relating to saftey, sustainability, environmental impacts, congestion mitigation, and deteriorating infrastructure. As a result, highways are often viewed from a perspective of the many challenges as they present as opposed to the benefits that they provide. <span class="citation">(Mannering and Washburn 2017)</span>” This website deals mainly with safety and congestion mitigation issues.</p>
+<p>Let’s get started with investigating <em>traffic breakdown</em> or the onset of congestion. As all drivers know from experience, the highway will be is a congested depending on how many vehicles are on the highway. They may observe that a highway with seemingly the same number of the vehicles on the highway may or may not be in a congested state. Some drivers may alter their trip plan to avoid dealing with a congestion event or the possibility of being involved in a crash. What are these drivers doing? They are: (1) collecting data, (2) analyzing the data, and (3) making a decision based on their analyses. For example, a person needs grocercies. There is a strong possibility that the person may decide (3) not to travel during rush hour because (1) the traffic will be too heavy and (2) the chance being delayed or being involved in an accident is deemed unacceptable at this time of day. The extra time of travel and/or risk of being involved in a crash are <em>predicted costs</em> and measures of <em>highway performance</em>.</p>
+<p>To develop a successful transportaion operation and management plan, there is a clear need for understanding of the process being operated and managed. The decision-making framework for individual travelers described in the preceding paragraph will be used. In place of a subjective analysis, analytical tools will be used to assign values to the probability of a traffic breakdown event, <span class="math inline">\(\pi = P(U &lt; u^*)\)</span> where <span class="math inline">\(u^*\)</span> is a critical speed that separates a congested state from a free-flow (uncongested) state, and expected time of delay, <span class="math inline">\(E(D)\)</span>, measured in units of time.</p>
+<p>There are uncertainties associated with these highway performance predictions. Making a reliable prediction is not easy. There are number of issues associated with data collection and model selection that must be addressed. Take model selection. The chance of traffic breakdown <span class="math inline">\(\pi\)</span> can be estimated as <span class="math inline">\(\pi = P(Q = q)\)</span> or <span class="math inline">\(\pi = P(K = k)\)</span>. Capital letters, <span class="math inline">\(D, K, U\)</span> and <span class="math inline">\(Q\)</span> are assumed to be random numbers and lower case letters, <span class="math inline">\(d, k, u\)</span> and <span class="math inline">\(q\)</span> are constants. Which is better model or does it make any difference?</p>
+<p>To answer this question and questions like it, the root cause of traffic breakdown must be <em>identified and understood</em>. To aid in this understanding, various analytical tools are used and the simplest model structures are sought. For example, by counting <span class="math inline">\(n\)</span> vehicles over time <span class="math inline">\(t\)</span>, the traffic flow can be estimated as <span class="math inline">\(q = n/t\)</span>. Having the average speed of these vehicles <span class="math inline">\(u\)</span>, the traffic density is estimated as <span class="math inline">\(k = q/u\)</span> with the <em>fundamental relationship</em> <span class="math inline">\(q = k u\)</span>.</p>
+<p>As a way of introduction to <strong>TFUHP</strong>, the field experiment conducted by <span class="citation">Sugiyama et al. (2008)</span> will be investigated. Here a fixed number of vehicles <span class="math inline">\(n\)</span> are driven around a loop road, which is similiar to a roundabout, where no vehicles are allowed to enter or exit the road. In addition, all drivers are instructed to keep a constant speed <span class="math inline">\(u\)</span> and maintain a fixed distance between themselves and in the vehicle in front of them. This distance is called traffic headway <span class="math inline">\(h\)</span>. A YouTube video of this car-following experiment, <a href="https://www.youtube.com/watch?v=7wm-pZp_mi0" class="uri">https://www.youtube.com/watch?v=7wm-pZp_mi0</a>, shows the drivers are unable to follow instructions.</p>
+<p>Since <span class="math inline">\(n\)</span> is fixed and speed varies over time and is treated as a random variable <span class="math inline">\(U\)</span>, the fundamental relationship is written as <span class="math inline">\(Q = nU/l\)</span> where the road length is <span class="math inline">\(l = 2\pi r\)</span> with <span class="math inline">\(r\)</span> equal to the radius of the loop road. Returning to the question of the better model, <span class="math inline">\(\pi = P(Q = q)\)</span> or <span class="math inline">\(\pi = P(K = k)\)</span>, the answer is <span class="math inline">\(\pi = P(U = u)\)</span>. The <em>root causes of traffic breakdown</em> in this experiment are: (1) the inability of the drivers to maintain a constant speed, and (2) the drivers need to accelerate and decelerate to maintain a safe distance between themselves and the vehicles in front of them or safe headways. The <em>optimum driving condition</em> is defined to be time it takes an indivual driver to complete a loop at speed <span class="math inline">\(u\)</span>. The delay is estimated as the extra time for a driver to complete a loop. To explain this scenario, the stationary time-series model of <span class="math inline">\(U\)</span> is introduced and the calibration of this model is discussed.</p>
+<p>In addition to the investigation of the loop road, which is called the <strong>Ring Road Experiment</strong>, highway bottlenecks and traffic merging are discussed. Here, a combination deterministic and probabilistic models are investigated. Visual imagry including the use of computer simulation and animation are used to increase understanding of complex traffic behavior. This is an open-source project where users are encouraged to freely use this material. <a href="https://github.com/PJOssenbruggen/GP" class="uri">https://github.com/PJOssenbruggen/GP</a>. <a href="https://github.com/PJOssenbruggen/Basic" class="uri">https://github.com/PJOssenbruggen/Basic</a>.</p>
+<div id="directory" class="section level2">
+<h2>Directory</h2>
+<p>The website menu bar contains three elements:</p>
+<ol style="list-style-type: decimal">
+<li><h4 id="fundamentals-1.-overview-the-fundamental-relationship-of-q-k-u-is-rewritten-as-a-random-function-of-the-form-q-fk-u-sigma-h-where-each-term-is-defined.-2.-traffic-noise-or-volatility-sigma-is-generic-term-used-to-describe-variability-in-the-system.">Fundamentals: <strong>1. Overview </strong> The <em>fundamental relationship</em> of <span class="math inline">\(q = k u\)</span> is rewritten as a random function of the form, <span class="math inline">\(Q = f(k, u, \sigma, h)\)</span> where each term is defined. <strong>2. Traffic Noise or Volatility </strong> <span class="math inline">\(\sigma\)</span> is generic term used to describe variability in the system.</h4></li>
+<li><h4 id="ring-road">Ring-Road</h4></li>
+<li><h4 id="bottleneck">Bottleneck</h4></li>
+</ol>
+</div>
+<div id="analytical-tools" class="section level2">
+<h2>Analytical Tools</h2>
+<p>The <strong>TFUHP</strong> are derived and developed from a diverse set of resources:</p>
 <ul>
-<li><p>Full Scale Testing: <span class="citation">Sugiyama et al. (2008)</span></p></li>
-<li><p>Textbooks: <span class="citation">Banks (1998)</span>, <span class="citation">Daganzo (1997)</span>, <span class="citation">Elefteriadou (2014)</span>, <span class="citation">Trieber and Kesting (2013)</span></p></li>
-<li><p>Research: <span class="citation">Ossenbruggen (2017)</span></p></li>
-<li><p>Probability Modeling: <span class="citation">Iacus (2008)</span>, <span class="citation">Iacus (2016)</span></p></li>
+<li><p>Traffic Analysis: <span class="citation">Banks (1998)</span>, <span class="citation">Daganzo (1997)</span>, <span class="citation">Elefteriadou (2014)</span>, <span class="citation">Trieber and Kesting (2013)</span></p></li>
+<li><p>Probability and Statistics: <span class="citation">Agresti (1990)</span>, <span class="citation">Hosmer and Lemeshow (1989)</span>, <span class="citation">Iacus (2008)</span>, <span class="citation">Vandeale (1983)</span></p></li>
+<li><p>Statistical Computing and Graphics: <span class="citation">R Core Team (2014)</span>, <span class="citation">Iacus (2016)</span>, <span class="citation">Ossenbruggen (2018)</span>, <span class="citation">Wickham (2016)</span>, <span class="citation">RStudio, Inc (2014)</span></p></li>
 </ul>
-<p>The abstract given in the <span class="citation">Ossenbruggen (2017)</span> paper gives a good idea of the overall theme of <strong>TFUHP</strong>. Mathematical tools are used to <em>predict</em> the probabilty of traffic breakdown, or stated another way, the likelihood of an onset of a congestion event.</p>
-<p>To reliably predict breakdown is not an easy problem. The root cause of traffic breakdown must be <em>identified and understood</em> before reliable predictions can be made.</p>
-<p>In this paper, the number of vehicles measured as a traffic density (vehicles per unit length) is used as an explanatory variable in lieu of traffic flow (number vehicles passing a point per unit of time). Traffic is a highly volatile process, thus probability plays a vital role. Thus, both (1) traffic density and (2) traffic noise (volatily) are used to explain breakdown.</p>
-<div class="figure">
-<img src="IEEE_MT-ITS.pdf" alt="Footnote: I haven't figured out how to print the full six-page document." width="100%" />
-<p class="caption">
-Footnote: I haven’t figured out how to print the full six-page document.
-</p>
 </div>
-<p><a href="https://pjossen.shinyapps.io/headway/" class="uri">https://pjossen.shinyapps.io/headway/</a></p>
 <div id="references" class="section level2 unnumbered">
 <h2>References</h2>
 <div id="refs" class="references">
+<div id="ref-agresti:1990">
+<p>Agresti, Alan. 1990. <em>Categorical Data Analysis</em>. John Wiley &amp; Sons.</p>
+</div>
 <div id="ref-banks:1998">
 <p>Banks, James A. 1998. <em>Introduction to Transportation Engineering</em>. McGraw-Hill.</p>
 </div>
@@ -236,20 +248,38 @@ Footnote: I haven’t figured out how to print the full six-page document.
 <div id="ref-LiliBook">
 <p>Elefteriadou, Lily. 2014. <em>An Introduction to Traffic Flow Theory</em>. New York, New York: Springer.</p>
 </div>
+<div id="ref-hosmer">
+<p>Hosmer, David W., and Stanley Lemeshow. 1989. <em>Applied Logistic Regression</em>. John Wiley &amp; Sons.</p>
+</div>
 <div id="ref-iacus">
 <p>Iacus, Stefano. 2008. <em>Simulation and Inference for Stochastic Differential Equations: With R Examples</em>. Springer-Verlag.</p>
 </div>
 <div id="ref-sde">
 <p>Iacus, Stefano Maria. 2016. <em>Simulation and Inference for Stochastic Differential Equations</em>. <a href="https://CRAN.R-project.org/package=sde" class="uri">https://CRAN.R-project.org/package=sde</a>.</p>
 </div>
-<div id="ref-pjo2017">
-<p>Ossenbruggen, Paul J. 2017. “A Diffusion Model to Explain and Forecast Freeway Breakdown and Delay.” In <em>5th IEEE International Conference on Models and Technologies for Intelligent Transportation Systems</em>. Naples, Italy: IEEE.</p>
+<div id="ref-mannering">
+<p>Mannering, Fred L, and Scott S Washburn. 2017. <em>Highway Engineering and Traffic Analysis</em>. Sixth Edition. New York, New York: John Wiley &amp; Sons.</p>
+</div>
+<div id="ref-pjo2018">
+<p>Ossenbruggen, Paul J. 2018. “GP.” <em>GitHub Repository</em>. <a href="https://github.com/PJOssenbruggen/GP" class="uri">https://github.com/PJOssenbruggen/GP</a>; GitHub.</p>
+</div>
+<div id="ref-cran">
+<p>R Core Team. 2014. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="http://www.R-project.org/" class="uri">http://www.R-project.org/</a>.</p>
+</div>
+<div id="ref-shiny">
+<p>RStudio, Inc. 2014. <em>Shiny: Easy Web Applications in R</em>.</p>
 </div>
 <div id="ref-1367-2630-10-3-033001">
 <p>Sugiyama, Yuki, Minoru Fukui, Macoto Kikuchi, Katsuya Hasebe, Akihiro Nakayama, Katsuhiro Nishinari, Shin-ichi Tadaki, and Satoshi Yukawa. 2008. “Traffic Jams Without Bottlenecks—Experimental Evidence for the Physical Mechanism of the Formation of a Jam.” <em>New Journal of Physics</em> 10 (3):033001. <a href="http://stacks.iop.org/1367-2630/10/i=3/a=033001" class="uri">http://stacks.iop.org/1367-2630/10/i=3/a=033001</a>.</p>
 </div>
 <div id="ref-trieber">
 <p>Trieber, Martin, and Arne Kesting. 2013. <em>Traffic Flow Dynamics: Data, Models and Simulation</em>. Springer.</p>
+</div>
+<div id="ref-vandaele:1983">
+<p>Vandeale, Walter. 1983. <em>Applied Time Series and Box-Jenkins Models</em>. Academic Press.</p>
+</div>
+<div id="ref-wickham">
+<p>Wickham, Hadley. 2016. <em>Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="http://ggplot2.org" class="uri">http://ggplot2.org</a>.</p>
 </div>
 </div>
 </div>

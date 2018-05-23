@@ -1,5 +1,5 @@
 ---
-title: "Tools For UNDERSTANDING Highway Performance (TFUHP)"
+title: " TFUHP: Tools For UNDERSTANDING Highway Performance"
 bibliography: "CF.bibtex"
 output: html_document
 ---
@@ -11,30 +11,41 @@ library(RJSONIO)
 library(knitr)
 library(tinytex)
 ```
+"In many industrialized nations today, highways present engineeres and governments with formidable challenges relating to saftey, sustainability, environmental impacts, congestion mitigation, and deteriorating infrastructure. As a result, highways are often viewed from a perspective of the many challenges as they present as opposed to the benefits that they provide. [@mannering]" This website deals mainly with safety and congestion mitigation issues. 
 
+Let's get started with investigating _traffic breakdown_ or the onset of congestion. As  all drivers know from experience, the highway will be is a congested depending on how many vehicles are on the highway. They may observe that a highway with seemingly the same number of the vehicles on the highway may or may not be in a congested state. Some drivers may alter their trip plan to avoid dealing with a congestion event or the possibility of being involved in a crash. What are these drivers doing?  They are: (1) collecting data, (2) analyzing the data, and (3) making a decision based on their analyses. For example, a person needs grocercies. There is a strong possibility that the person may decide (3) not  to travel during rush hour because (1) the traffic will be too heavy and (2) the chance being delayed or being involved in an accident is deemed unacceptable at this time of day. The extra time of travel and/or risk of being involved in a crash are  _predicted costs_ and measures of _highway performance_.   
 
-The material presented in __TFUHP__ is developed from various sources, including full scale testing, transportation textbooks, research classified as _traffic flow theory_, and probability models. The following is an extremely small sample of the resources used in this development:
+To develop a successful transportaion operation and management plan, there is a clear need for understanding of the process being operated and  managed. The decision-making framework for individual travelers described in the preceding paragraph will be used. In place of a subjective analysis, analytical tools will be used to assign values to the probability of a traffic breakdown event, $\pi = P(U < u^*)$ where $u^*$ is a critical speed that separates a congested state from a free-flow (uncongested) state, and expected time of delay, $E(D)$, measured in units of time. 
 
-* Full Scale Testing: @1367-2630-10-3-033001
+There are uncertainties associated with these highway performance predictions. Making a reliable prediction is not easy. There are number of issues  associated with data collection and model selection that must be addressed. Take model selection. The chance of traffic breakdown $\pi$ can be estimated as $\pi = P(Q = q)$ or $\pi = P(K = k)$. Capital letters, $D, K, U$ and $Q$ are assumed to be random numbers and lower case letters, $d, k, u$ and $q$ are constants. Which is better model or does it make any difference?
 
-* Textbooks: @banks:1998, @deganzo:1997, @LiliBook, @trieber
+To answer this question and questions like it, the root cause of traffic breakdown must be _identified and understood_. To aid in this understanding, various analytical tools are used and the simplest model structures are sought. For example, by counting $n$ vehicles over time $t$, the traffic flow can be estimated as $q = n/t$. Having the average speed of these vehicles $u$, the traffic density is estimated as $k = q/u$ with the _fundamental relationship_ $q = k u$. 
 
-* Research: @pjo2017 
+As a way of introduction to __TFUHP__, the field experiment conducted by  @1367-2630-10-3-033001 will be investigated. Here a fixed number of vehicles $n$ are driven around a loop road, which is similiar to a roundabout,  where no vehicles are allowed to enter or exit the road. In addition, all drivers are instructed to keep a constant speed $u$ and maintain a fixed distance between themselves and in the vehicle in front of them. This distance is called traffic headway $h$. A YouTube video of this car-following experiment, https://www.youtube.com/watch?v=7wm-pZp_mi0, shows the drivers are unable to follow instructions. 
 
-* Probability Modeling: @iacus, @sde 
+Since $n$ is fixed and speed varies over time and is treated as a random variable $U$, the fundamental relationship is written as $Q = nU/l$ where the road length is $l = 2\pi r$ with $r$ equal to the radius of the loop road. Returning to the question of the better model, $\pi = P(Q = q)$ or $\pi = P(K = k)$, the answer is $\pi = P(U = u)$. The _root causes of traffic breakdown_ in this experiment are: (1) the inability of the drivers to maintain a constant speed, and (2) the drivers need to accelerate and decelerate to maintain a safe distance between themselves and the vehicles in front of them or safe headways. The _optimum driving condition_ is defined to be time it takes an indivual driver to complete a loop at speed $u$. The delay is estimated as the extra time for a driver to complete a loop. To explain this scenario, the stationary time-series model of $U$ is introduced and the calibration of this model is discussed. 
 
-The abstract given in the @pjo2017 paper gives a good idea of the overall theme of __TFUHP__. Mathematical tools are used to _predict_ the probabilty of traffic breakdown, or stated another way, the likelihood of an onset of a congestion event. 
+In addition to the investigation of the loop road, which is called the  __Ring Road Experiment__, highway bottlenecks and traffic merging are discussed. Here, a combination deterministic and probabilistic models are investigated. Visual imagry including the use of computer simulation and animation are used to increase understanding of complex traffic behavior. This is an open-source project where users are encouraged to freely use this material. https://github.com/PJOssenbruggen/GP. https://github.com/PJOssenbruggen/Basic.
 
-To reliably predict breakdown is not an easy problem. The root cause of traffic breakdown must be _identified and understood_ before reliable predictions can be made. 
+## Directory ##
 
-In this paper, the number of vehicles measured as a traffic density (vehicles per unit length) is used as an explanatory variable in lieu of traffic flow (number vehicles passing a point per unit of time). Traffic is a highly volatile process, thus probability plays a vital role. Thus, both (1) traffic density and (2) traffic noise (volatily) are used to explain breakdown. 
+The website menu bar contains three elements:
 
+1. #### Fundamentals:  __1. Overview __ The _fundamental relationship_ of $q = k u$ is rewritten as a random function of the form, $Q = f(k, u, \sigma, h)$ where each term is defined. __2. Traffic Noise or Volatility __ $\sigma$ is generic term used to describe variability in the system.    
 
-```{r label, out.width = "100%", fig.cap = "Footnote: I haven't figured out how to print the full six-page document.", echo = FALSE}
-knitr::include_graphics("IEEE_MT-ITS.pdf", auto_pdf = getOption("knitr.graphics.auto_pdf", TRUE))
-```
+2. #### Ring-Road ####
 
-[https://pjossen.shinyapps.io/headway/](https://pjossen.shinyapps.io/headway/)
+3. ####  Bottleneck ####
+
+## Analytical Tools ##
+
+The  __TFUHP__ are derived and developed from a diverse set of resources:
+
+* Traffic Analysis: @banks:1998, @deganzo:1997, @LiliBook, @trieber
+
+* Probability and Statistics: @agresti:1990, @hosmer, @iacus, @vandaele:1983
+
+* Statistical Computing and Graphics: @cran, @sde, @pjo2018, @wickham, @shiny
 
 ## References
 
