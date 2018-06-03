@@ -1,5 +1,5 @@
 ---
-title: "Fundamentals"
+title: "Fundamental Principles"
 ---
 
 
@@ -12,20 +12,26 @@ library(Basic)
  
 The __TFUHP__ package is designed for college students studying transportation engineering and for transportation professionals and researchers interested in understanding the complex relationships associated with freeway performance and traffic breakdown. Newtons Laws of dynamics, fundamentals of trafic flow theory (TFT), probabilistic modeling and statistics are used in this package. By building upon current knowledge - the "classical methods" of transportation analysis - and integrating them with the latest computer tools, the goal is to identify key factors that initiate a breakdown event.  Emphasize is placed on:
 
-##### Traffic noise or _traffic volatility_.
+1. Traffic noise or _traffic volatility_.
 
-##### Driver behavior and safety.
+2. Driver behavior and safety.
 
-##### Using stochastic models that explain breakdown.
+3. Development of stochastic models that explain breakdown and highway performance.
 
-The principal aim of this vignette is to explain highway performance as simply as possible. Topics are introduced in a  step-by-step manner.  Exploratory data analyses of a freeway bottleneck, inspecting a YouTube video of vehicles traveling on a ring road, and using the core assumptions of TFT are used for example.   The principal product of this effort is the development of a traffic flow model:
+The principal aim of this work is to explain highway performance as simply as possible. Topics are introduced in a  step-by-step manner.  Exploratory data analyses of a freeway bottleneck, inspection of a YouTube video of vehicles traveling around a ring road, and the core assumptions of TFT and statistics are used.   
 
-* $Q = f(k, u, \sigma, h)$
+A principal product of this effort is the development of a probabilistic traffic flow model:
 
-where $k$ is traffic density, $u$ is  speed, and $h$ is a headway.  Since traffic is a noisy process, speed  is treated as a random variable $U$, a function of both $u$ and  $\sigma$. The overall  volatility observed in the process  is specifified by $\sigma$, a measure of driver group dynamics and other uncerainties.  The variable  $h$, _safe distance headway_,  reflects the drivers' aversion to risk and vehicle length. Since $h$ is a safe distance headway,  no crashes are permitted.  Thus,  $Q$ is a random variable and an important measure of highway performance. The  $Q$ model is a _parsimonius, stochastic model._
+* $Q  = f(U; k, h)$
+
+where speed is treated as a random variable $U = g(u, \sigma)$ where speed $u$, the standard deviation of speed $\sigma$,  traffic density $k$,  and safe headway $h$ are  constant values.  The overall  volatility of the process  is specified by $\sigma$, which is assumed to be a measure of driver group dynamics and other uncertainties.  The   _safe distance headway_  $h$  reflects the drivers' aversion to risk. Additionally,  $h$ is assumed to be a _deterministic_ function of the constant speed $u$ and vehicle length. Since all drivers are assumed to maintain a safe headway, no crashes are permitted.  Thus, the model of $Q$ is an important measure of highway performance and a _parsimonius, stochastic model._ 
 
 
-## 2. Traffic Noise or Volatility 
+
+Since $n$ is fixed and speed varies over time and is treated as a random variable $U$, the fundamental relationship is written as $Q = nU/l$ where the road length is $l = 2\pi r$ with $r$ equal to the radius of the loop road. Returning to the question of the better model, $\pi = P(Q = q)$ or $\pi = P(K = k)$, the answer is $\pi = P(U = u)$. The _root causes of traffic breakdown_ in this experiment are: (1) the inability of the drivers to maintain a constant speed, and (2) the drivers need to accelerate and decelerate to maintain a safe distance between themselves and the vehicles in front of them or safe headways. The _optimum driving condition_ is defined to be time it takes an indivual driver to complete a loop at speed $u$. The delay is estimated as the extra time for a driver to complete a loop. To explain this scenario, the stationary time-series model of $U$ is introduced and the calibration of this model is discussed. 
+
+
+## 2. Traffic Noise 
 
 A quick read of the __Overview__ may give the impression that the approach, a package of computer algorithms, will be difficult to understand and overwhelming to implement. Words, like complex, dynamics, theory, parsimonious, stochastic and model integration can be daunting. No question that designing and operating a transportation system are difficult problems. By disecting the problem into manageable pieces and synthesizing the  results from the individual pieces brings clarity to the process. 
 
@@ -41,20 +47,18 @@ _Trip assignment_, "What route will you use?" Answers include sidewalks, local s
 
 To build a system for a campus with hundreds or thousands of students, more people will be interviewed. Of course, not all students, faculty, staff and administrators on the campus need to be interviewed. While a sample of 10 students is insufficient, a  _representative sample_ will suffice. A most important point, even for this "toy" example, is the need for quality data. Once obtained, statistical analysis  can be used to extract critical information from the data and to build predictive models.
 
-## 3. Visualizing the  Problem 
+## 3. Visual Imagry
 
 The [trfhp](https://github.com/PJOssenbruggen/Basic) package is  a collection of [R](https://www.r-project.org) functions and libraries. This  wide variety of statistical and graphical techniques are made available through the open-source [cran](https://cran.r-project.org) network.  The aim is to use these tools to  better understand freeway performance and traffic breakdown.  Computer simulation, enhanced graphics including animation, and sensitivity analysis are  used in the [trfhp](https://github.com/PJOssenbruggen/Basic) package.  For example, [ggplot2](http://ggplot2.org) from [Rstudio](https://www.rstudio.com/products/rpackages/)  is used to produce the animation presented below. [Shiny](http://shiny.rstudio.com) is used to build interactive web applications for conducting sensitivity analyses. 
 
 Let's look again at trip generation. This time, we will incorporate visual imagry into the discussion. Before the interview, we don't know if the students will travel north, south, east or west or how far they will travel. We do know that they are all located at the same place initially and when the class ends that they will disperse. A [R](https://www.r-project.org) _Brownian motion model_, a time-dependent stochastic model, can simulate this behavior.  At time $t$ = 0, the students are  located at the point $(x = 0, y = 0)$. They become more dispersed as time progresses. Robert Brown, a botanist, described this chaotic motion of a grain of pollen suspended in water. This model is used by economists and physicists [@sde] [@iacus]. 
 
-
-```{r tripdispersion,  message = FALSE, fig.height = 4, fig.width = 4, echo = FALSE}
-library(ggplot2)
-p1 <- tripdispersion(20, 123)
-p2 <- tripdispersion(20, 002)
-par(mfrow = c(1,2))
-p1
-p2
+```{r, out.width = "400px"}
+knitr::include_graphics("tripdispersion-1.png")
 ```
+
+![Trip Dispersion](tripdispersion-1.png)
+
+![Trip Dispersion](tripdispersion-2.png)
 
 The mathematics behind the animation is relatively simple. Of course, the Brownian motion model shown here can be adapted to other situtations. This will be  illustrated presently. The ultimate aim of using [trfhp](https://github.com/PJOssenbruggen/Basic) package tools is to improve our chances of mitigating congestion and improving performance using the simple mathematical and graphical tools.

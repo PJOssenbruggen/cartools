@@ -1,5 +1,6 @@
 ---
 title: "Bottleneck"
+bibliography: "CF.bibtex"
 ---
 
 ```{r setup, include = FALSE}
@@ -11,9 +12,11 @@ knitr::opts_chunk$set(echo = TRUE)
 library(Basic)
 ```
 
-### A Zipper Merge
+Now, we turn attention to a bottleneck where there is a lane drop from two to one-lane. To better understand to various factors that can affect a breakdown, we will investigate a "zipper merge."
 
-Now, we turn attention to a bottleneck where there is a lane drop from two to one-lane. To better understand to various factors that can affect a breakdown, we will investigate a "zipper merge." 
+
+### 1. A Zipper Merge
+
 
 Imagine that we shrink ourselves down to a size that is sufficiently small to observe a zipper close. That's right, a zipper. Let's say, a jacket zipper. We will stand on the zipper pull and look in the direction where zipper tapes are separated.  This is analogous to standing on the side of a roadway looking upstream where the vehicles merge at a bottleneck. Regardless of how fast the zipper slider is pulled, the zipper tapes become secure when meshed together because the rows of zipper teeth are the same size, move at the same speed, are evenly spaced and aligned to allow the two tapes to link together. The incoming vehicles on a freeway, on the other hand, are typically not the same size, not traveling at the speed, not evenly spaced, and not aligned. Instead, vehicles must change speed and carefully merge together to avoid crashing into one another.  It is possible to achieve a zipper merge under high-speed conditions. This occurs on a motor raceway where the drivers are professionals.
 
@@ -22,6 +25,17 @@ To realistically depict driver behavior at a freeway bottleneck, a  time-varying
 $\alpha(t) = a - b t$
 
 where $t$ denotes time. The constants $a$ and $b$ are estimated by using boundary conditions. Knowing  $\alpha(t)$, speed $u(t) and distance $x(t)$ can be forecast as shown  in the __Vehicles entering a Bottleneck__ animation. The __zipper()__ function calls the two __R__  packages as shown. 
+
+```{r zipper,  message = FALSE, fig.height = 4, fig.width = 6, echo = FALSE}
+library(gapminder)
+library(dplyr)
+library(gganimate)
+library(ggplot2)
+library(tidyverse)
+zipper(0,40,85,90,0,4000,90,99,0,4500,90,90,-500, 4200)
+```
+
+
 
 ```{r, fig.show = 'animate', ffmpeg.format ='gif', dev = 'jpeg', echo = FALSE, fig.height = 4, fig.width = 6, message=FALSE, error=FALSE, warning = FALSE}
 library(animation)
@@ -44,9 +58,20 @@ ustart3 <- 30
 uend3   <- 25
 xstart3 <- -50
 xend3   <- 275
-title <- "Zipper Merge"
-zipper(tstart,tend,ustart1,uend1,xstart1,xend1,ustart1,uend2,xstart2,xend2,ustart3,uend3,xstart3,xend3,title)
+zipper(tstart,tend,ustart1,uend1,xstart1,xend1,ustart1,uend2,xstart2,xend2,ustart3,uend3,xstart3,xend3)
 ```
+
+### 2. Car-Following
+
+```{r CF,  message = FALSE, fig.height = 4, fig.width = 6, echo = FALSE}
+library(dplyr)
+library(gganimate)
+library(gapminder)
+library(ggplot2)
+library(tidyverse)
+zipper(0,60,90,90,0,5000,90,90,-200,4500,90,90,-500, 4000)
+```
+
 
 The animation depicted here consists of three vehicles. The driver of vehicle 3 is more aggressive than the other two drivers. Driver 1, who is the least aggressive, maintains a constant speed of 25 mph. Note that $a$ = $b$ = 0 for this driver. The $t-x$ trajectory for vehicle 1 is a straight line with a constant slope of 25 * 5280/3600 = 36.7 feet per second (fps). The trajectories for vehicles 1 and 2 are non-linear. The merge is complete after 10 seconds. At the end of the merge, all vehicles are traveling at $u$ = 25 mph and have a distance headway of $h$ = 25 feet, which is assumed to be a safe distance for this speed. 
 
@@ -64,7 +89,7 @@ Getting back to the question about driving safely. All drivers are operating wit
 
 The simulation model describes and explains the _triggering of a traffic breakdown event_ for three vehicles. It is used to introduce car-following modeling.
 
-### Car-Following Modeling and Breakdown
+### 3. Breakdown
 
 _Car-following_ models  describe and simulate the traffic behavior  by designating   _lead_ and  _following_ vehicles. After the merge described above, vehicle 2 becomes a _lead_  vehicle. The actions of the _lead_ vehicle  affects the _following_ vehicles from lanes 1 and 2. The description that follows will be similiar to the behavior described above for the ring road. The $Q =  n / l * U(t)$ model is used. There are features in the following examples that we have seen before. 
 
@@ -107,7 +132,7 @@ This approach explains  queue formation differently.  The $CF$  approach  shows 
 
 Input to the __run__ function produces a collection of data frames, which we call the "cflist." The information from these data frames can be inspected to give a detailed look at the interaction between the lead and following vehicles during a traffic breakdown. 
 
-###  Understanding the CF Breakdown Model 
+### 4. Car-Following 
 
 The above figures show that the trajectories to be smooth curves.  The lead vehicle use  exponential $u = exp(-\lambda * t)$ and the following vehicles use non-linear $\alpha(t) = a - b t$ speed models. Depending on the situation, each driver  adjusts his or her speed independently from one another. The lead vehicle shown below has a concave trajectory from $t_0$ to $t_3$,  indicating a decline  in speed. Vehicle 2 and 3 have linear and convex trajectories. For vehicle 3, the driver is accelerating until reaches point $(t_1, x_2)$ where it begins to decelerate. 
 
@@ -142,7 +167,7 @@ title("Breakdown","Basic Concepts and Notation")
  
 Driver reaction and driver sight lines play  important roles in the $CF$ approach. The role they play is most easily explained by identifying the times when important events occur, $t_1, t_2, t_3, t_4$ and $t_5$. The simulation ranges from  $t_0$ to $t_4$. Time $t_3$ is the time the lead vehicle reaches the bottleneck $x_0$ at $(t_0,x_0)$. Times $t_1$ are the times the following vehicle drivers react and begin to decelerate. These times depend on several factors, including lead and  following vehicle speeds, vehicle spacing and driver response. For example, the driver sightline for  vehicle 2, shown by the broken line connecting the points $(t_1, x_1)$ and $(t_2, x_2)$, gives a sense of how this  driver processes the information. The algorithm uses this information, points $(t_1, x_1)$ and $(t_2, x_2)$,  to calibrate the $\alpha(t) = a - b t$ speed model and estimate a $t-x$ trajectory for the vehicle. This step is repeated for next vehicle that enters the bottleneck.  The trajectories for each of three vehicles shown in the graph are unique. Times $t_5$ are the times a following vehicle reach the bottleneck location $x = 0$. They are used to estimate the time headways between vehicles, which in turn are used to estimate traffic flow $\hat{Q}$.
 
-### Theory Explaining Breakdown at a Bottleneck
+### 5. Theory
 
 Exploratory data analysis showed the traffic on I-93 in Salem to be extremely volatile and the chance of traffic breakdown is strong. Given these observations, it is natural to express the _fundamental relationship_ of traffic flow as $Q = K * U$ where $Q$, $K$ and $U$ are assumed to be random variables. However, the results of the ring-road experiment gave evidence that the variability in $Q$ depends wholly on the variability in speed, which we assumed to be a Brownian motion model $U(t)$. The argument was simple. Since the number of vehicles on the road $n$ and road length $l$ are constants, it follows that the density must be a constant.  Since $k = n/l$, $Q = k * U(t)$.  Our conclusions were derived from watching a short video and assuming flow, density and speed are measured on a time scale in seconds. 
 
@@ -158,7 +183,7 @@ To be absolutely clear about the meaning of the $Q = k * U(t)$ model for the Bro
 
 where $k = n/l$ = traffic density, $u$ = design speed,  $\sigma$ = standard deviation of $u$, and  $h$ represents a safe headway for vehicles of the same length.    
 
-### Breakdown Event Forecasting
+### 6. Forecasting
 
 Inspecting $t-x$ trajectories and $h$ histograms derived from the $Q$ model  proves to be an effective in understanding traffic breakdown and explaining being in a congested state. Given $k$, it is possible to predict  probability of traffic breakdown  $\pi$. To gain an appreciation of the  $\hat{\pi}$ forecast model, look at the  __Box Plot of Density-Speed__ diagram.  We select bin of $k$ and then determine the proportion of breakdowns $p$ in the bin.  $p$ is straightforwardly calculated as the ratio of the number of observations where $u \le u^*$ to the total number of observations in the bin $k$. As previously mentioned, the HCM designates roadway capacity $c^*$ to be in the vicinity 2250 vph  at $k^*$ = 45 vpm. The estimate of $p$  for this bin is quite small. However, as  the $k$ values increase, the values of $p$ increase rapidly. Expressing $\pi$ by _time-of-day_ we have a wortwhile tool, _a macroscale model_, that traffic operators and managers may find useful:
 
@@ -166,7 +191,7 @@ $\hat{\pi} = P(K_t \ge k^*)$
 
 $K_t$ is a stochastic differential equation model of traffic density by _time-of-day_ $t$ [@pjo2017](https://github.com/PJOssenbruggen/Basic/blob/master/doc/IEEE_MT-ITS.pdf).  Treating traffic density $K_t$ as the random variable  may seem contradictory given the discussion about the $Q = k * U(t)$ model. It is not. Note that two models are different. One is a _macroscale_ model predicting breakdown and the other one is a _microscale_ model predicting flow.  
 
-## Summary
+## 7. Lessons Learned
 
 _What have we learned about traffic performance using the __tfuhp__ package?_ The most notable lesson learned is:
 
@@ -175,93 +200,4 @@ _What have we learned about traffic performance using the __tfuhp__ package?_ Th
 The potential of the __tfuhp__ package as a learning tool has been demonstrated. Hopefully, this platform can be adapted and expanded to help users  identify the root cause or causes for other congestion problems. My next task is add __R Markdown Shiny__ HTML widgets to my code. Adding this feature will allow the user to simply conduct sensitivity analyses on-line. For example, the effects of speed  and density on ring-road performance can be explored. Sliders for $u$, $\sigma$ and $k$ will be provided so a user change them at will. The __tfuhp__ package will instantaneously produce a histogram of headways as illustrated above.
 
 This package is open to the public, https://github.com/PJOssenbruggen/Basic. In other words, I am inviting people to share their experiences with the package with me. GitHub promotes this activity, https://github.com/explore.
-
-
-### Car-Following and Merging Models
-
-```{r CF,  message = FALSE, fig.height = 4, fig.width = 6, echo = FALSE}
-library(gapminder)
-library(ggplot2)
-library(tidyverse)
-zipper(0,60,90,90,0,5000,90,90,-200,4500,90,90,-500, 4000, title = "Car Following")
-```
-
-```{r zipper,  message = FALSE, fig.height = 4, fig.width = 6, echo = FALSE}
-library(gapminder)
-library(ggplot2)
-library(tidyverse)
-zipper(0,40,85,90,0,4000,90,99,0,4500,90,90,-500, 4200, title = "Zipper Merge")
-```
-
-
-
-### Flow-Speed Plot
-
-```{r speedtsplot,  message = FALSE, fig.height = 4, fig.width = 5, echo = FALSE}
-library(dplyr)
-library(ggplot2)
-speedtsplot()
-```
-
-
-### Car-Following and Breakdown
-
-```{r runBottleneck,  message = FALSE, fig.height = 5, fig.width = 6, echo = FALSE}
-set.seed(123)
-cflist <- run(10, 63, 10, 34, 0.1, 55, 5, 15, 14, c(0, 60), c(-2000, 5000))
-title("Breakdown", "Bottleneck")
-```
-
-### Stopping at Signal
-
-```{r runSignal,  message = FALSE, fig.height = 5, fig.width = 6, echo = FALSE}
-cflist <- run(10, 63, 10, 0,  0,  55, 5, 15, 14, c(0, 20),c(-1000, 200))
-title("Breakdown", "Signalized Intersection")
-```
-
-### Explaining Breakdown
-
-```{r explainBreakdown,  message = FALSE, fig.height = 5, fig.width = 6, echo = FALSE}
-set.seed(123)
-nveh <- 3
-ulead <- 63
-ulead.sd <- 10
-ubrkdown <- 34
-ubrkdown.sd <- 0.1
-k <- 55
-k.sd <- 5
-d <- 15
-leff <- 14
-xlim <- c(0,12)
-ylim <- c(-600, 600)
-cflist <- run(nveh, ulead, ulead.sd, ubrkdown, ubrkdown.sd, k, k.sd, d, leff, xlim, ylim)
-points(2.459226, -183.3195, pch = 8, cex = 0.5)
-points(7.069598, 177.2323 + hsafe(53.89641, 14), pch = 8, cex = 0.5)
-points(4.179863, -233.8204, pch = 8, cex = 0.5)
-points(9.047542, 219.6009 + hsafe(53.89641, 14), pch = 8, cex = 0.5)
-lines(c(4.179863,9.047542), c(-233.8204,219.6009  + hsafe(53.89641, 14)), lty = 5, col = gray(0.5))
-text(2.459226, -183.3195, labels = expression("("*t[1]*","*x[1]*")"),pos = 3, cex = 0.75)
-text(4.179863, -278.8204, labels = expression("("*t[1]*","*x[1]*")"),pos = 3, cex = 0.75)
-text(7.069598, 177.2323 + hsafe(53.89641, 14), labels = expression("("*t[2]*","*x[2]*")"),pos = 3, cex = 0.75)
-text(9.047542, 219.6009 + hsafe(53.89641, 14), labels = expression("("*t[2]*","*x[2]*")"),pos = 3, cex = 0.75)
-text(4.56, 0, labels = expression("("*t[5]*",0)"),pos = 3, cex = 0.75)
-text(6.7, 0, labels = expression("("*t[5]*",0)"),pos = 3, cex = 0.75)
-legend("topleft", legend = "driver sight-lines", bty = "n", lty = 5, col = gray(0.5))
-title("Breakdown","Basic Concepts and Notation")
-```
-
-
-
-
-
-### Brownian Motion Plots (Trip Dispersion)
-
-```{r tripdispersion,  message = FALSE, fig.height = 4, fig.width = 4, echo = FALSE}
-library(ggplot2)
-p1 <- tripdispersion(20, 123)
-p2 <- tripdispersion(20, 003)
-par(mfrow = c(1,2))
-p1 
-p2
-```
 

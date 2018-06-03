@@ -1,6 +1,6 @@
 ---
-title: "Ring-Road"
-
+title: "The Ring-Road Experiment"
+bibliography: "CF.bibtex"
 ---
 
 ```{r setup, include=FALSE}
@@ -11,9 +11,12 @@ knitr::opts_chunk$set(echo = FALSE)
 library(Basic)
 ```
 
-### 1. The Ring-Road Experiment
+### 1. A Controlled Experiment
 
-We will begin our model building exercise by describing a single-lane _ring_ or _loop road_ where drivers cannot pass one another. Traffic breakdown at a _bottleneck_ is more complex because it requires traffic to merge. The analysis of a _loop road_ is more straightforward. Another simplying  assumption is that no vehicles are allowed to enter or exit the loop. The number of vehicles on the loop road is fixed and equal to $n$. 
+We will begin our model building exercise by describing a single-lane _ring_ or _loop road_ where the drivers cannot pass one another or enter or exit the loop. The number of vehicles traveling around the ring road   shown in the YouTube video is fixed at $n$ = 22 vehicles [@1367-2630-10-3-033001]  The drivers were instructed to maintain a constant speed and distance headway $h$, measured as the distance between the front bumpers of the lead and following vehicles.  
+
+The drivers cannot follow instructions. After a few sections, the traffic breaks down. 
+Traffic breakdown at a _bottleneck_ is more complex because it requires traffic to merge. The analysis of a _loop road_ is more straightforward. The number of vehicles on the loop road is fixed and equal to $n$. 
 
 Drivers travelling around a loop road will attempt to optimize the situation. They select a constant speed $u$ and constant headway $h$. Under these ideal conditions, drivers will travel steadily around the road without interruption.  The reality is that the drivers are unable to do so. Their speeds will vary by a slight amount and eventually, the vehicles will begin to interact. The situation is modelled by adding traffic noise $\sigma$ to the speed $u$. Assume speed $U(t)$ to be a stationary time series motion model of the form: 
 
@@ -33,10 +36,10 @@ $Q = k * U(t) = n / l * U(t)$.
 
 The volatility in $Q$ is explained exclusively by the volatility in $U(t)$ as defined by $u$ and $\sigma$. 
 
- @1367-2630-10-3-033001 produced a YouTube video, https://www.youtube.com/watch?v=7wm-pZp_mi0. The results from the video inspired the $Q = n / l * U(t)$ model. The number of vehicles traveling around the ring road  in the video is fixed at $n$ = 22 vehicles. Most importantly, the drivers are instructed to maintain a constant speed and distance headway $h$, the distance between the front bumpers, say, of the lead and following vehicles.  They cannot follow instructions. After a few sections, the traffic breaks down.
 
 
-### 2. Exploratory Data Analysis ### 
+
+### 2. Field Data 
 
 Our next step in this discussion is to investigate the traffic data and glean as much information  from _raw, real-world data._ First, we investigate relationships among of flow $q$, density $k$ and speed $u$ on the northbound lane on I-93 in Salem, New Hampshire. Next, we will look for meaningful relationships using visual imagry, scatter plots, box plots and time-series plots. Once these relationships are revealed, the next step is to develop mathematical models that capture these relationships.  
 
@@ -52,17 +55,18 @@ Even though the data are noisy, patterns are revealed. For one,  speeds between 
 ```{r speedplot,  message = FALSE, fig.height = 4, fig.width = 4, echo = FALSE}
 library(dplyr)
 library(ggplot2)
-speedplot()
+speedplot(QUKtdayX)
 ```
 
-### 3. Density-Speed Box Plot ###
+### 3. Density-Speed 
+
 We continue to explore the relationship between $k$ and $u$ with  the __Box Plot of Density-Speed__.   To construct the diagram, the speed were sorted and placed into bins. For example, the labeled as $k^*$ = 45 vpm consists of observations ranging 42.5 to 47.5 vpm. This value of $k^*$ is taken from the Highway Capacity Manual (HCM), which defines it to be the roadway capacity for this geometric design. Visual inspection reveals that the chance of driving in a free-flow state, $u^* > 50$,  is greater when $k^* \le 45$ vpm. The interquartile range of speed is extremely tight for $k^* \le 45$ vpm. Excluding outliners, a driver can be assured that speeds of 70 mph or more can be expected. With the exception of the bin at $k$ = 50 vpm, speeds considerably less than 25 mph is expected for $k^* \ge 55$ vpm.  It is impossible to explain why so many congested speed observations are located in the $0 < k \le k^* = 50$ range. For $k \le 50$ vpm, a better case can be made that a congested state will be observed. 
 
 
 ```{r speedboxplot,  message = FALSE, fig.height = 4, fig.width = 5, echo = FALSE}
 library(dplyr)
 library(ggplot2)
-speedboxplot()
+speedboxplot(QUKtdayX)
 title("Box Plot of Density-Speed")
 ```
 
@@ -78,18 +82,19 @@ The smooth blue curve,  a generalized additive model (gam), suggests that there 
 
 The blue curve must be used with care. It does not take over one-hour ($t$ = 5/4 = 1.25) for the speed to drop from  55 to 20 mph or speed drop of 35 mph. Again, remember the $t$ values are time indices, not clock times.   The blue curve is useful for inferences regarding speed drop but totally misleading with regard to times of occurrence.  Every driver knows that breakdown events occur on a time scale of seconds not minutes. 
 
-### 4. Logistic Regression Model
+### 4. Logistic Regression 
+
 ```{r logisticmodel,  message = FALSE, fig.height = 4, fig.width = 5, echo = FALSE, warning = FALSE, error = FALSE}
 library(glm2)
 library(ggplot2)
 library(Basic)
-df <- logisticmodel()
+df <- logisticmodel(QUKtdayX)
 df <- dplyr::as_tibble(df)
 ggplot2::ggplot(df, ggplot2::aes(k, exp.failures, size = e)) +
     ggplot2::geom_smooth()
 ```
 
-### 5. Time-Distance Diagrams on a Ring Road
+### 5. Time-Distance Trajectories
 
 
 The $Q =  k * U(t)$ model exhibits the same behavior as shown in the YouTube video. Our results are shown as  time-distance $t-x$ trajectories  for $k$ = 55 vehicles per mile (vpm). See the __Congested Flow: Ring Road__ diagram. A same instructions given to the drivers of the Yuki Sugiyama experiment are assumed for the computer simulation that produced the $t-x$ trajectories. Maintain a constant speed and headway $h$.  The simulated drivers are assigned the same initial speed of $u$ = 30 miles per hour (mph) and are evenly placed along the $x$ axis at $t$ = 0.  The traffic density is fixed at $k$ = 55 vph. As in the full-scale experiment, the simulated drivers cannot maintain a constant speed or even spacing.  After a few seconds, the vehicles begin to interact and form clusters (moving queues) and the traffic breaks down. Setting $\sigma$ = 0, no clustering or breakdown can occur. _Clearly, traffic volatility plays an important role._
@@ -103,16 +108,7 @@ Level-of-service estimates for the simulation are shown in the following table. 
   |Mean headway $\bar{h}$ | Headway standard deviation $\hat{\sigma}_h$ |Predicted flow $\hat{Q}$ |
   |-----------------:|-------------------:| -----------------:|
   | 2.2 seconds | 1.6 seconds | 1650 vehicles per hour (vph)|
- 
-```{r, echo = FALSE, fig.height=4, fig.width= 6, message=FALSE, error=FALSE, warning = FALSE}
-set.seed(124)
-par(mfrow = c(1,2))
-output <- rrtrials(30, 3, 55, 120, 5, 14, 100, c(0,100), c(-1000, 2000))
-title("Congested Flow", "Ring Road")
-hist(output[[7]], xlab = "headway, seconds", col = gray(0.8), breaks = seq(0,10), main = "")
-box()
-title("Headway", "Ring Road")
-```
+
     
 The $Q = k * U(t)$ model suggests a _cause-effect relationship_ exists:  $u$ and $\sigma$ are the causal factors and  $\hat{Q} = 1/ \bar{h}$ is the response variable. As illustrated, vehicle clustering occurs only when  density $k$ sufficiently dense. When there are fewer vehicles on the ring road, $k = n / l$ decreases resulting in longer time headways of $\bar{h}$. Under less dense conditions, drivers can vary their speeds without affecting one another, thus reducing the chance of breakdown. 
 
@@ -153,7 +149,7 @@ q2 <- output2[[5]][3]
  | Congested-Flow | 1.76 | 1.46 | 2045 |
  
  
-### Stationary Time-Series Model of Speed
+### 6. Forecasting 
 
 ```{r cfanim1,  message = FALSE, fig.height = 4, fig.width = 6, echo = FALSE}
 library(gapminder)
