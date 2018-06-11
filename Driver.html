@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Drivers</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">TFUHP Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Driver.html">Drivers</a>
+</li>
+<li>
+  <a href="about.html">Noise</a>
+</li>
+<li>
+  <a href="Ring-Road.html">Ring-Road</a>
+</li>
+<li>
+  <a href="bottleneck.html">Bottleneck</a>
+</li>
+<li>
+  <a href="performance.html">Performance</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Drivers</h1>
+
+</div>
+
+
+<p><strong>Self Optimizers</strong></p>
+<p>Let’s get started by investigating the potential for traffic breakdown, an event that triggers congestion and causes delay. As all drivers know from personal experience, the risk of being delayed is the greater when the number of vehicles on the road approaches its capacity. Drivers also know that chance of delay is greater at some days of the week and at some times of the day. In fact, this information can affect their decision. For example, if traffic is excepted to be heavy, then a trip to a grocery store, say, may be postponed to a better time.</p>
+<p>What is this driver’s doing? First of all, the trip maker is acting as a decision-maker, who weighs the benefits of the trip against the costs of delay. In the grocery example, purchasing food versus being caught in traffic. The trip maker knows that being delayed in an afternoon rush hour, say, is not guananteed. It is subject to uncertainty. Why? Not all afternoon rush hour traffic is the same.</p>
+<p>This person is not only a decision-maker but a <em>self-optimizer.</em> In a sense, all drivers are self optimizers. Each persons weigh the benefits, costs and uncertainties associated with the trip before deciding his or her action. Drivers are not the same. Each driver weighs on the benefits, costs and uncertainties differently. In the case of a shipping company, the cost of delay can be measured in dollars and cents. In other words, the shipping company uses an monetary measure as opposed to the grocery store shopper, who uses his or her past experience.</p>
+<p>What are these trip makers doing? They are performing experiments. They are: (1) collecting data, (2) analyzing it, and (3) making a decision based on their individual and shared experiences. Since they do not actually make vehicle counts or record speeds, the trip makers are substituting their experience for hard data.</p>
+<p><span class="citation">Box, Hunter, and Hunter (1978)</span> call this approach <em>The Learning Process</em>. The “truth” is sought by forming a hypothesis and conducting an experiment or series of experiments where hard data are collected. Before getting into these details, consider the challenges faced by the transportation profession.</p>
+<p><strong>Planning and Policymaking</strong></p>
+<p>The Federal-Aid Highway Act of 1956 met the original intent of providing a modern efficient roadway system. The United States has become a “car culture.” <span class="citation">Lupo, Colcord, and Fowler (1971)</span> gives a historical perspective of the nature of politics in city and regional transportation planning as practiced fifty years ago. Today, critics claim the building of interstate within city limits is largely responsible for urban sprawl and the demise of the quality of life in many cities. <span class="citation">Vanderbilt (2008)</span>, who discusses road rage and looks at the dynamics and pyschology of traffic jams, attempts to explain who we are as a nation.</p>
+<p>Where are we today? Debates about relieving congestion in metropolitan areas with balanced systems, which rely more heavily on public heavy-rail, light-rail and bus systems, is now common. Public perspectives with regard to transportation have changed over time. In addition, our technological and analytical capabilities have dramatically improved. Today, intelligent transportation systems (ITS) are being developed.</p>
+<p>Imagine for the moment, the grocery shopper described above uses his or her smart phone to obtain a forecast of being in a congested state is denoted as <span class="math inline">\(\pi\)</span>. If <span class="math inline">\(\pi\)</span> = 0.9, then the driver may decide to wait for a time when <span class="math inline">\(\pi\)</span> is signficantly less. After all, the driver is a self optimizer. Think about it. If more drivers obtain this information, it could lead to fewer vehicles on the road and congestion relief. Of course, for this to happen, <span class="math inline">\(\pi\)</span> forecasts must be reliable.</p>
+<p><strong>Chance Events</strong></p>
+<p><em>The Learning Process</em> can be used to forecast <span class="math inline">\(\pi\)</span>. <span class="citation">Box, Hunter, and Hunter (1978)</span> recognize the difficulties associated designing experiments and dealing with experimental error or “noise.” As we will discover shortly, traffic data can be extremely noisy. In addition, traffic data are observational data. While hard data, the data are not obtained from a “controlled experiment.” Let’s take a look at the possibility of making “reliable” forecasts from a simple sampling experiment.</p>
+<p>First, collect <span class="math inline">\(n\)</span> speed data samples, <span class="math inline">\(u = u_1, u_2, ..., u_n\)</span> over some interval of time, say, 15 minutes. We assign a time stamp <span class="math inline">\(\tau\)</span>, which indicates a clock time when the sample was taken. Second, define the roadway location under investigation as being in one of two states: (1) free-flow and (2) congested. Define the random binomial variable <span class="math inline">\(X\)</span> where <span class="math inline">\(X = 0\)</span> when the roadway is in free-flow state and <span class="math inline">\(X = 1\)</span> when the roadway is in a congested state. Third, define <span class="math inline">\(u^*\)</span> = critical speed. Forth, define <span class="math inline">\(X_i = 1\)</span> when <span class="math inline">\(u_i &lt; u^*\)</span> and <span class="math inline">\(X_i = 0\)</span> when <span class="math inline">\(u_i \geq u^*\)</span>. Fifth, count the number of <span class="math inline">\(X_i = 1\)</span> recordings and designate the count as <span class="math inline">\(m\)</span>. Finally, estimate the proportion of congested states as:</p>
+<ul>
+<li>p(<span class="math inline">\(\tau\)</span>) = m/n</li>
+</ul>
+<p>This estimate <span class="math inline">\(p(\tau)\)</span> is a measure of <em>past</em> performance for a single set of observations. This estimate, a single number, can hardly meet the criterion for reliable forecasting. Theoretically, we can come back for next several weeks at the same clock time <span class="math inline">\(\tau\)</span> with the intention of establishing a confidence interval for <span class="math inline">\(p(\tau)\)</span>. This approach will work only if the counts of <span class="math inline">\(n\)</span> are the same value for each sample. The likelihood of this approach working is extremely small because real-world traffic data is extremely noisy.</p>
+<p>Consequently, the counts of <span class="math inline">\(n\)</span> for the individual should be treated as a random variable <span class="math inline">\(N\)</span> and a a conditional probability forecast model should be entertained:</p>
+<ul>
+<li><span class="math inline">\(\pi(n) = P(X = 1|N = n) = P(U &lt; u^*|N = n)\)</span>.</li>
+</ul>
+<p>The function of the right draws attention to the fact that the speeds <span class="math inline">\(u\)</span> for the sample of size <span class="math inline">\(n\)</span> is a random variable denoted as <span class="math inline">\(U\)</span>. Obviously, traffic noise plays a critical role in forecasting the state <span class="math inline">\(X = 1\)</span>. Another approach is used. See <strong>Noise</strong>.</p>
+<p><strong>References</strong></p>
+<div id="refs" class="references">
+<div id="ref-box">
+<p>Box, George E, William G Hunter, and J Stuart Hunter. 1978. <em>Statistics for Experimenters</em>. New York: John Wiley &amp; Sons.</p>
+</div>
+<div id="ref-lupo">
+<p>Lupo, Alan, Frank Colcord, and Edmund P Fowler. 1971. <em>Rites of Way, The Politics of Transportation in Boston and the U. S. City</em>. Boston: Little, Brown and Company.</p>
+</div>
+<div id="ref-vanderbilt">
+<p>Vanderbilt, Tom. 2008. <em>Traffic, Why We Drive the Way We Do</em>. New York: Alfred A. Knopf.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

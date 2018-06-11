@@ -1,0 +1,51 @@
+---
+title: "Drivers"
+bibliography: "CF.bibtex"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+__Self Optimizers__
+
+Let's get started by investigating the potential for traffic breakdown, an event that triggers congestion and causes delay. As all drivers know from personal experience, the risk of being delayed is the greater when the number of vehicles on the road approaches its capacity. Drivers also know that chance of delay is greater at some days of the week and at some times of the day. In fact, this information can affect their decision. For example, if traffic is excepted to be heavy, then a trip to a grocery store, say, may be postponed to a better time.
+
+What is this driver's doing? First of all, the trip maker is acting as a decision-maker, who  weighs the benefits  of the trip against the costs of delay. In the grocery example, purchasing food versus being caught in traffic. The trip maker knows that being delayed in an afternoon rush hour, say, is not guananteed. It is subject to uncertainty. Why? Not all afternoon rush hour traffic is the same.
+
+This person is not only a decision-maker but a  _self-optimizer._  In a sense, all drivers are self optimizers. Each persons  weigh the benefits, costs and uncertainties associated with the trip before deciding his or her action.  Drivers are not the same. Each driver  weighs on the benefits, costs and uncertainties differently. In the case of a shipping company, the cost of delay can be measured in dollars and cents. In other words, the shipping company uses an monetary measure as opposed to the grocery store shopper, who uses his or her past experience.
+
+What are these trip makers doing? They are performing experiments. They are: (1) collecting data, (2) analyzing it, and (3) making a decision based on their individual and shared experiences. Since they do not actually make vehicle counts or record speeds, the trip makers are substituting their experience  for hard data.  
+
+@box call this approach  _The Learning Process_. The "truth" is sought by forming a hypothesis and  conducting an experiment or series of experiments where hard data are collected. Before getting into these details, consider the challenges faced by the transportation profession.
+
+__Planning and Policymaking__
+
+The Federal-Aid Highway Act of 1956 met the original intent of providing a modern efficient roadway system. The United States has become a "car culture." @lupo gives a historical perspective of the nature of politics in city and regional transportation planning as practiced fifty years ago. Today, critics claim the building of interstate within city limits is largely responsible  for urban sprawl and the demise of the quality of life in many cities.   @vanderbilt, who discusses road rage and looks at the dynamics and pyschology of traffic jams, attempts to explain who we are as a nation. 
+
+Where are we today?  Debates about relieving congestion in metropolitan areas with balanced systems, which rely more heavily on public heavy-rail, light-rail and bus systems,  is now common. Public perspectives with regard to transportation have changed over time. In addition, our technological and analytical capabilities have dramatically improved. Today, intelligent transportation systems (ITS) are being developed. 
+
+Imagine for the moment,  the grocery shopper described above uses his or her smart phone to obtain a forecast of being in a congested state is denoted as $\pi$.  If $\pi$ = 0.9,  then the driver may decide to wait for a time when $\pi$ is signficantly less. After all, the driver is a self optimizer. Think about it. If more drivers obtain this  information, it could lead to fewer vehicles on the road and congestion relief. Of course, for this to happen, $\pi$ forecasts must be reliable.
+
+__Chance Events__
+
+_The Learning Process_ can be used to forecast $\pi$. @box recognize the difficulties associated designing experiments and dealing with experimental error or "noise." As we will discover shortly,  traffic data can be extremely noisy. In addition, traffic data are observational data. While hard data, the data are not obtained from a "controlled experiment." Let's take a look at the possibility of making "reliable" forecasts from a simple sampling experiment.
+
+First,  collect $n$ speed data samples, $u = u_1, u_2, ..., u_n$ over some interval of time, say,  15 minutes.  We assign a  time stamp  $\tau$, which indicates a clock time when the sample was taken.  Second, define the roadway location under investigation as being in one of two states: (1) free-flow and (2) congested. Define the random binomial  variable $X$ where $X = 0$ when the roadway is in free-flow state and $X = 1$ when the roadway is in a congested state. Third, define $u^*$ = critical speed. Forth, define $X_i = 1$ when $u_i < u^*$ and $X_i = 0$  when $u_i \geq u^*$. Fifth, count the number of $X_i = 1$ recordings and designate the count as $m$. Finally, estimate the proportion of congested states as:
+
+* p($\tau$) = m/n
+
+This estimate $p(\tau)$ is a measure of _past_ performance for a single set of observations. This estimate, a single number, can hardly meet the criterion for reliable forecasting. Theoretically, we can come back for next several weeks at the same clock time $\tau$ with the intention of establishing a confidence interval for $p(\tau)$. This approach will work only if the counts of $n$  are the same value for each sample. The likelihood of this approach working is extremely small because real-world traffic data is extremely noisy. 
+
+Consequently,  the counts of $n$ for the individual should be treated as a random variable $N$ and a a conditional probability forecast model should be entertained:
+
+* $\pi(n) = P(X = 1|N = n) = P(U < u^*|N = n)$.
+
+The function of the right draws attention to the fact that the speeds $u$ for the sample of size $n$ is  a random variable denoted as $U$. Obviously, traffic noise plays a critical role in forecasting the state $X = 1$. Another approach is used. See __Noise__.
+
+
+
+__References__
+
+

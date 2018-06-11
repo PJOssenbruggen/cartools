@@ -182,13 +182,19 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="about.html">Fundamentals</a>
+  <a href="Driver.html">Drivers</a>
+</li>
+<li>
+  <a href="about.html">Noise</a>
+</li>
+<li>
+  <a href="Ring-Road.html">Ring-Road</a>
 </li>
 <li>
   <a href="bottleneck.html">Bottleneck</a>
 </li>
 <li>
-  <a href="Ring-Road.html">Ring-Road</a>
+  <a href="performance.html">Performance</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -207,64 +213,35 @@ $(document).ready(function () {
 </div>
 
 
-<p><strong>An Open-Source Project</strong>: Users are encouraged to freely use the material.</p>
+<p><strong>An Open-Source Project</strong></p>
+<p>Users are encouraged to freely use any of the material used to create this package. The raw code can be accessed by clinking on the two following links:</p>
 <ol style="list-style-type: decimal">
-<li><p>The <strong>Basic</strong> repository contains the R code and data, <a href="https://github.com/PJOssenbruggen/Basic" class="uri">https://github.com/PJOssenbruggen/Basic</a>.</p></li>
-<li><p>The <strong>GP</strong> repository contains the R code for creating this website with GitHub Pages, <a href="https://github.com/PJOssenbruggen/GP" class="uri">https://github.com/PJOssenbruggen/GP</a>.</p></li>
+<li><p><a href="https://github.com/PJOssenbruggen/Basic">Basic</a>: A repository containing the <strong>R</strong> functions and data used for analysis.</p></li>
+<li><p><a href="https://github.com/PJOssenbruggen/GP">GP</a>: A repository containing the <strong>R</strong> code for creating this website with GitHub Pages.</p></li>
 </ol>
-<div id="overview" class="section level2">
-<h2>1. Overview</h2>
-<p>“In many industrialized nations today, highways present engineeres and governments with formidable challenges relating to saftey, sustainability, environmental impacts, congestion mitigation, and deteriorating infrastructure. As a result, highways are often viewed from a perspective of the many challenges as they present as opposed to the benefits that they provide. <span class="citation">(Mannering and Washburn 2017)</span>”</p>
-<p>The <strong>TFUHP</strong> package is designed for college students studying transportation engineering and for transportation professionals and researchers interested in understanding the complex relationships associated with freeway performance and traffic breakdown. Newtons Laws of dynamics, fundamentals of trafic flow theory (TFT), probabilistic modeling and statistics are used in this package. By building upon current knowledge - the “classical methods” of transportation analysis - and integrating them with the latest computer tools, the goal is to identify key factors that initiate a breakdown event and cause delay. Emphasize is placed on:</p>
+<p>People familar with <a href="https://cran.r-project.org">R</a> and <a href="https://www.rstudio.com">RStudio</a> may download, use and share this material as they see fit. Feedback is welcomed.</p>
+<p>The primary purpose of this website deals with transporation engineering, operations and management. I would remise in not drawing attention to the major advances made in computer science and statistics that enhance learning. <em>Animation</em> and <em>interactive graphics</em> bring new perspectives into understanding both old and new ideas. Take a brief look at <a href="https://www.gapminder.org/tools/#$chart-type=bubbles">gapminder</a> showing an <em>animated scatter plot</em> of life expectancy over the last 200 years and <a href="http://shiny.rstudio.com/gallery/bus-dashboard.html">shiny</a> showing an <em>interactive bus route map</em>.</p>
+<p>Some of these tools are used for this <a href="https://pjossenbruggen.github.io/GP/about.html">GP</a> site. Clicking on <strong>Bottleneck</strong> and <strong>Ring Road</strong> menu items show a variety of visual images. At the time of this writing, the animated and interactive features have not been initiated on <a href="https://pjossenbruggen.github.io/GP/about.html">GP</a>. These features have been implemented on my local computer and will be made available soon. Now lets turn attention to transportation issues.</p>
+<p>“In many industrialized nations today, highways present engineeres and governments with formidable challenges relating to safety, sustainability, environmental impacts, congestion mitigation, and deteriorating infrastructure. As a result, highways are often viewed from a perspective of the many challenges as they present as opposed to the benefits that they provide. <span class="citation">(Mannering and Washburn 2017)</span>”</p>
+<p><strong>Aims</strong></p>
+<p>The <strong>TFUHP</strong> package is designed for college students studying transportation engineering and for transportation professionals and researchers interested in understanding the complex relationships associated with freeway performance and traffic breakdown. Emphasis is placed on: (1) <em>Traffic noise or volatility</em>; (2) <em>Driver behavior and safety</em>; and (3) <em>Stochastic modeling</em>, models that explain breakdown and performance.</p>
+<p>The website contains five menu bar items:</p>
 <ol style="list-style-type: decimal">
-<li><p>Traffic noise or <em>traffic volatility</em>.</p></li>
-<li><p>Driver behavior and safety.</p></li>
-<li><p>Development of stochastic models that explain breakdown and highway performance.</p></li>
+<li><h5 id="drivers-self-optimizers.-meeting-the-challenges."><strong>Drivers:</strong> <em>Self Optimizers</em>. Meeting the challenges.</h5></li>
+<li><h5 id="noise-traffic-noise-or-volatility.-exploratory-data-analysis-of-a-congested-freeway-bottleneck."><strong>Noise:</strong> <em>Traffic noise or volatility</em>. Exploratory data analysis of a congested freeway bottleneck.</h5></li>
+<li><h5 id="ring-road-driver-behavior-and-safety.-a-controlled-car-following-experiment-on-a-single-lane-road."><strong>Ring-Road:</strong> <em>Driver behavior and safety</em>. A “controlled” car-following experiment on a single lane road.</h5></li>
+<li><h5 id="bottleneck-stochastic-modeling.-traffic-breakdown-on-a-roadway-where-two-lanes-merge-into-one."><strong>Bottleneck:</strong> <em>Stochastic modeling</em>. Traffic breakdown on a roadway where two-lanes merge into one.</h5></li>
+<li><h5 id="performance-highway-performance.-the-results-of-the-study-and-summarized-and-critiqued."><strong>Performance:</strong> <em>Highway Performance</em>. The results of the study and summarized and critiqued.</h5></li>
 </ol>
-<p>The principal aim of this work is to explain highway performance as simply as possible. Topics are introduced in a step-by-step manner.</p>
-<p><strong>Highway Performance:</strong> An important measure of highway performance is traffic flow, which we denote as <span class="math inline">\(q\)</span>. It is the number of vehicles that pass a point in unit time. Typically, it is reported in vehicles per hour (vph). A principal product of this effort is the development of a probability model that treats traffic flow <span class="math inline">\(q\)</span> as a random variable:</p>
+<p><strong>Analytical Tools</strong></p>
+<p>Newtons Laws of dynamics, fundamentals of trafic flow theory (TFT), probabilistic modeling and statistics are used in this package. The goal is to identify key factors that initiate a traffic breakdown event and cause delay by building upon current knowledge - the “classical methods” of transportation analysis - and the latest advances in computation.</p>
+<p>The principal aim of this work is to explain highway performance as simply as possible. Topics are introduced in a step-by-step manner. The <strong>TFUHP</strong> package is derived and developed from a diverse set of resources:</p>
 <ul>
-<li><span class="math inline">\(Q = f(U, k, l, h)\)</span>.</li>
+<li><p>Traffic analysis: <span class="citation">Banks (1998)</span>, <span class="citation">Daganzo (1997)</span>, <span class="citation">Elefteriadou (2014)</span>, <span class="citation">Ossenbruggen (2017)</span>, <span class="citation">Sugiyama et al. (2008)</span>, <span class="citation">Trieber and Kesting (2013)</span></p></li>
+<li><p>Probability and statistics: <span class="citation">Agresti (1990)</span>, <span class="citation">Hosmer and Lemeshow (1989)</span>, <span class="citation">Iacus (2008)</span>, <span class="citation">Vandeale (1983)</span></p></li>
+<li><p>Statistical computing and graphics: <span class="citation">R Core Team (2014)</span>, <span class="citation">Iacus (2016)</span>, <span class="citation">Wickham (2016)</span>, <span class="citation">RStudio, Inc (2014)</span></p></li>
 </ul>
-<p><span class="math inline">\(Q\)</span> is a function of the random variable <span class="math inline">\(U\)</span>, traffic density <span class="math inline">\(k\)</span>, measured in vehicles per unit length, vehicle length <span class="math inline">\(l\)</span> and distance headway <span class="math inline">\(h\)</span>. Additionally, <span class="math inline">\(h\)</span> is assumed to be a <em>safe driving distance</em> that reflects the drivers’ aversion to risk. Since all drivers are assumed to maintain a safe headway, no crashes are permitted under the assumptions of this model. As the vehicular speed increases, the safe driving distance as defined by a deterministic function of <span class="math inline">\(u\)</span> and <span class="math inline">\(l\)</span>.</p>
-<p>The <em>fundamental relationship</em>,</p>
-<ul>
-<li><span class="math inline">\(q = k * u\)</span>,</li>
-</ul>
-<p>defines <span class="math inline">\(q, k\)</span> and <span class="math inline">\(u\)</span> as deterministic variables. Field test are used in this study. A radar device was used to measure the speed of each vehicle and count the number of vehicles <span class="math inline">\(n\)</span> as they pass a point along a highway over a given time interval <span class="math inline">\(\tau\)</span>. The speed and flow for <span class="math inline">\(\tau\)</span> are recorded as an average speed <span class="math inline">\(u\)</span> and <span class="math inline">\(q\)</span> where <span class="math inline">\(q = n/\tau\)</span>. The traffic density is estimated as <span class="math inline">\(k = q/u\)</span>. All estimated values for <span class="math inline">\(\tau\)</span> are treated as constants. There were 96 recordings of <span class="math inline">\(q\)</span>, <span class="math inline">\(k\)</span> and <span class="math inline">\(u\)</span> per day. It will be shown presently that these recordings are highly volatile recordings. Since they vary over the course of a day and day-by-day, why aren’t all these variables treated as random variables? This question will be deferred and discussed presently.</p>
-<p>The random variable model <span class="math inline">\(Q\)</span> is a <em>parsimonius, stochastic model.</em></p>
-<p>The overall volatility of <span class="math inline">\(Q\)</span> is assumed to be a measure of driver group dynamics and other uncertainties.</p>
-<ul>
-<li><span class="math inline">\(U = f(u, \sigma)\)</span></li>
-</ul>
-<p>Let’s get started by investigating a <em>traffic breakdown event</em>, an event that triggers the onset of congestion event. As all drivers know from experience, the highway will be is a congested depending on how many vehicles are on the highway. The <em>triggering mechanism</em> is the vehicle count. Some drivers may observe that a highway with seemingly the same number of the vehicles on the highway may or may not be in a congested state. Knowing the vehicle count is important but insufficien evidence in predicting the onset of congestion with <em>certainty.</em>. Regardless, some drivers may alter their trip plan to avoid dealing with a congestion event or the possibility of being involved in a crash.</p>
-<p>What are these drivers doing? They are: (1) collecting data, (2) analyzing the data, and (3) making a decision based on their analyses. For example, a person needs grocercies. There is a strong possibility that the person may decide (3) not to travel during rush hour because (1) the traffic will be too heavy and (2) the chance being delayed or being involved in an accident is deemed unacceptable at this time of day. The extra time of travel and/or risk of being involved in a crash are <em>predicted costs</em> and measures of <em>highway performance</em>.</p>
-<p>To develop a successful transportaion operation and management plan, there is a clear need for understanding of the process being operated and managed. The decision-making framework for individual travelers described in the preceding paragraph will be used. In place of a subjective analysis, field data will be collected and analyzed. To simplify the discussion, we will assume the data are collected at the same site over an extended time period, say, months. With these data, the proportion of congestion events can be estimated as <span class="math inline">\(p = m/n\)</span> where <span class="math inline">\(m\)</span> is the congestion events and <span class="math inline">\(n\)</span> is the total number of days of the study. To perform this calculation, we define congestion as a critical speed <span class="math inline">\(u^*\)</span>, a speed that separates a congested state from a free-flow (uncongested) state. The proportion <span class="math inline">\(p\)</span>, a measure of performance, can be refined. Say, to estimate the performance of <span class="math inline">\(p\)</span> for rush hour traffic. For this estimate to have meaning, we must define rush hour traffic. It is defined as a time-of-day where traffic is deemed to be “heavy.” It is measured as a traffic flow <span class="math inline">\(q\)</span> in vehicles per hour (vph). <span class="math inline">\(q = n/\tau\)</span> where <span class="math inline">\(n\)</span> is a vehicle count over time period <span class="math inline">\(\tau\)</span>. The rush hour speed, in actually, is an average speed of the <span class="math inline">\(n\)</span> vehicles observed over the 15-minute time period. The rush hour speed <span class="math inline">\(u\)</span> and flow <span class="math inline">\(q\)</span> are aggreates.</p>
-<p>The estimates of <span class="math inline">\(p\)</span>, whether it is estimated with daily or hourly count data, and <span class="math inline">\(q\)</span> are measures of <em>past performance</em>. Our transportation operation and management plan deals with the <em>future.</em> By necessity, the probability of a traffic breakdown event, <span class="math inline">\(\pi = P(U &lt; u^*)\)</span> will replace <span class="math inline">\(p\)</span> and the random value <span class="math inline">\(Q\)</span> will replace <span class="math inline">\(q\)</span>. Since highway geometry or some other improvement will be made, <span class="math inline">\(\pi\)</span> and <span class="math inline">\(Q\)</span> models must be carefully selected and model parameters estimated.</p>
-<p>To make reliable predictions a reality, <em>the root cause of a traffic breakdown must be identified and understood</em>. The so-called <strong>Ring Road Experiment</strong> conducted by <span class="citation">Sugiyama et al. (2008)</span> is <em>a controlled experiment</em> that brings insight to the complex nature of identifying what triggers traffic breakdown.</p>
-<p>This experiment differs fundamentally from the field study described above. Here, <span class="math inline">\(n\)</span>, the number of vehicles over the duration of the study, was fixed. Next, these vehicles were driven around a loop road where no vehicles were allowed to enter or exit. Finally, the drivers were instructed to maintain a constant speed <span class="math inline">\(u\)</span> and constant safe headway <span class="math inline">\(h\)</span>. The YouTube video, <a href="https://www.youtube.com/watch?v=7wm-pZp_mi0" class="uri">https://www.youtube.com/watch?v=7wm-pZp_mi0</a>, shows the drivers were unable to follow these simple instructions. The volatility in speed, denoted as <span class="math inline">\(\sigma\)</span> and called <em>traffic noise</em> explains the result. An added bonus of this experiment it allows the process to be described by a simple probability model of <span class="math inline">\(U\)</span>.</p>
-<p>Finally, highway bottlenecks and traffic merging were analyzed using field data. The speed data were treated as time-series data and placed in bins according the number of speed recordings observed over a stretch of 15-minutes. There are <span class="math inline">\(i\)</span> = 1,2, …, 96 bins in a 24-hour day. The average speed for each bin is calculated and recorded as <span class="math inline">\(u_1, u_2, ..., u_{96}\)</span>; the number of speed observations by bin sample size, <span class="math inline">\(n_1, n_2, ..., n_{96}\)</span>, are recorded; and the traffic flows <span class="math inline">\(q_1, q_2, ..., q_{96}\)</span> are estimated as <span class="math inline">\(q_i = n_i/\tau\)</span> where <span class="math inline">\(\tau\)</span> equals 15-minutes. With the aid of the fundamental relationship <span class="math inline">\(q = k * u\)</span>, the traffic density <span class="math inline">\(k_i = q_i/u_i\)</span> can be determined. Visual inspection, scatter plots, etc., of the <span class="math inline">\(q_i\)</span>, <span class="math inline">\(k_i\)</span> and <span class="math inline">\(u_i\)</span> help explain traffic breakdown and highway performance. including the use of computer simulation and animation are used to increase understanding of complex traffic behavior.</p>
-</div>
-<div id="topics" class="section level2">
-<h2>Topics</h2>
-<p>The website contains three menu bar elements:</p>
-<ol style="list-style-type: decimal">
-<li><h5 id="fundamentals-1.-overview-of-a-q-fk-u-sigma-h-model.-2.-traffic-noise-and-understanding-volatility-sigma.-3.-visual-imagry-of-a-toy-example."><strong>Fundamentals:</strong> 1. Overview of a <span class="math inline">\(Q = f(k, u, \sigma, h)\)</span> model. 2. Traffic Noise and understanding volatility <span class="math inline">\(\sigma\)</span>. 3. Visual Imagry of a “toy” example.</h5></li>
-<li><h5 id="ring-road-experiment-1.-a-controlled-experiment-2.-field-data.-3.-density-speed-4.-logistic-regression.-5.-time-distance-trajectories.-6.-forecasting."><strong>Ring-Road Experiment:</strong> 1. A Controlled Experiment 2. Field Data. 3. Density Speed 4. Logistic Regression. 5. Time Distance Trajectories. 6. Forecasting.</h5></li>
-<li><h5 id="bottlenecks-1.-a-zipper-merge.-2.-car-following.-3.-breakdown.-4.-theory-5.-theory.-6.-forecasting.-7.-lessons-learned."><strong>Bottlenecks:</strong> 1. A Zipper Merge. 2. Car-Following. 3. Breakdown. 4. Theory 5. Theory. 6. Forecasting. 7. lessons Learned.</h5></li>
-</ol>
-</div>
-<div id="analytical-tools" class="section level2">
-<h2>Analytical Tools</h2>
-<p>The <strong>TFUHP</strong> are derived and developed from a diverse set of resources:</p>
-<ul>
-<li><p>Traffic Analysis: <span class="citation">Banks (1998)</span>, <span class="citation">Daganzo (1997)</span>, <span class="citation">Elefteriadou (2014)</span>, <span class="citation">Trieber and Kesting (2013)</span></p></li>
-<li><p>Probability and Statistics: <span class="citation">Agresti (1990)</span>, <span class="citation">Hosmer and Lemeshow (1989)</span>, <span class="citation">Iacus (2008)</span>, <span class="citation">Vandeale (1983)</span></p></li>
-<li><p>Statistical Computing and Graphics: <span class="citation">R Core Team (2014)</span>, <span class="citation">Iacus (2016)</span>, <span class="citation">Ossenbruggen (2018)</span>, <span class="citation">Wickham (2016)</span>, <span class="citation">RStudio, Inc (2014)</span></p></li>
-</ul>
-</div>
-<div id="references" class="section level2 unnumbered">
-<h2>References</h2>
+<p><strong>References</strong></p>
 <div id="refs" class="references">
 <div id="ref-agresti:1990">
 <p>Agresti, Alan. 1990. <em>Categorical Data Analysis</em>. John Wiley &amp; Sons.</p>
@@ -290,8 +267,8 @@ $(document).ready(function () {
 <div id="ref-mannering">
 <p>Mannering, Fred L, and Scott S Washburn. 2017. <em>Highway Engineering and Traffic Analysis</em>. Sixth Edition. New York, New York: John Wiley &amp; Sons.</p>
 </div>
-<div id="ref-pjo2018">
-<p>Ossenbruggen, Paul J. 2018. “GP.” <em>GitHub Repository</em>. <a href="https://github.com/PJOssenbruggen/GP" class="uri">https://github.com/PJOssenbruggen/GP</a>; GitHub.</p>
+<div id="ref-pjo2017">
+<p>Ossenbruggen, Paul J. 2017. “A Diffusion Model to Explain and Forecast Freeway Breakdown and Delay.” In <em>5th IEEE International Conference on Models and Technologies for Intelligent Transportation Systems</em>. Naples, Italy: IEEE.</p>
 </div>
 <div id="ref-cran">
 <p>R Core Team. 2014. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="http://www.R-project.org/" class="uri">http://www.R-project.org/</a>.</p>
@@ -310,7 +287,6 @@ $(document).ready(function () {
 </div>
 <div id="ref-wickham">
 <p>Wickham, Hadley. 2016. <em>Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="http://ggplot2.org" class="uri">http://ggplot2.org</a>.</p>
-</div>
 </div>
 </div>
 

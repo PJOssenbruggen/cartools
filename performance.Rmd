@@ -1,0 +1,72 @@
+---
+title: "Highway Performance"
+bibliography: "CF.bibtex"
+---
+
+
+
+```{r, include = FALSE, warning = FALSE, message = FALSE, error = FALSE}
+library(Basic)
+```
+
+__Highway Performance__ 
+
+An important measure of highway performance is traffic flow, which we denote as $q$. It is the number of vehicles that pass a point in unit time. Typically, it is reported in vehicles per hour (vph).  A principal product of this effort is the development of a probability model that treats traffic flow $q$ as a random variable:
+
+* $Q  = f(U, k, l, h)$.
+
+$Q$  is a function of the random variable $U$, traffic density $k$, measured in vehicles per unit length, vehicle length $l$  and distance headway $h$. Additionally, $h$ is assumed to be a _safe driving distance_  that reflects the drivers aversion to risk. Since all drivers are assumed to maintain a safe headway, no crashes are permitted under the assumptions of this model. As the vehicular speed increases, the safe driving distance as defined by a  deterministic function of $u$ and $l$.  
+
+The _fundamental relationship_,
+
+* $q = k * u$,
+
+defines  $q, k$ and $u$ as deterministic variables. Field test are used in this study. A radar device was used to measure the speed of each vehicle and count the number of vehicles $n$ as they pass a point along a highway over a given time interval $\tau$. The speed and flow for $\tau$ are recorded as an average speed $u$  and $q$  where $q = n/\tau$. The traffic density is estimated as $k = q/u$. All estimated values for $\tau$ are treated as constants. There were 96 recordings of $q$, $k$ and $u$ per day. It will be shown presently that these recordings are highly volatile recordings. Since they vary over the course of a day and day-by-day, why arenot all these variables treated as random variables? This question will be deferred and discussed presently. 
+
+ 
+
+The  random variable model $Q$ is a _parsimonius, stochastic model._ 
+
+The overall  volatility of $Q$  is assumed to be a measure of driver group dynamics and other uncertainties.  
+
+* $U = f(u, \sigma)$
+
+
+Let us get started by investigating a _traffic breakdown event_, an event that triggers the onset of congestion event. As  all drivers know from experience, the highway will be is a congested depending on how many vehicles are on the highway. The _triggering mechanism_ is the vehicle count. Some drivers may observe that a highway with seemingly the same number of the vehicles on the highway may or may not be in a congested state. Knowing the vehicle count is important but insufficien evidence in predicting the onset of congestion with _certainty._. Regardless, some drivers may alter their trip plan to avoid dealing with a congestion event or the possibility of being involved in a crash. 
+
+
+
+ In place of a subjective analysis, field data will be collected and analyzed. To simplify the discussion, we will assume the data are collected at the same site over an extended time period, say, months. With these data, the proportion of congestion events can be estimated as $p = m/n$ where $m$ is the congestion events and $n$ is the total number of days of the study. To perform this calculation, we  define congestion as a critical speed $u^*$, a speed that separates a congested state from a free-flow (uncongested) state. The proportion $p$, a measure of performance, can be refined. Say, to estimate the performance of $p$ for rush hour traffic. For this estimate to have meaning, we must define rush hour traffic. It is defined as a time-of-day where traffic is deemed to be "heavy."  It is measured  as a  traffic flow $q$ in vehicles per hour (vph). $q = n/\tau$ where $n$ is a vehicle count over time period $\tau$. The rush hour speed, in actually, is an average speed of the $n$ vehicles observed over the 15-minute time period. The rush hour speed $u$ and flow $q$ are aggreates. 
+
+The estimates of $p$, whether it is estimated with daily or hourly count data, and $q$ are measures of _past performance_. Our transportation operation and management plan deals with the _future._ By necessity, the probability of a traffic breakdown event, $\pi = P(U < u^*)$ will replace $p$ and the random value $Q$ will replace $q$. Since highway geometry or some other improvement will be made,  $\pi$ and $Q$ models must be carefully selected and model parameters estimated.
+
+To make reliable predictions a reality, _the root cause of a traffic breakdown must be identified and understood_. The so-called  __Ring Road Experiment__ conducted by  @1367-2630-10-3-033001 is _a  controlled experiment_ that brings insight to the complex nature of identifying what triggers traffic breakdown. 
+
+This experiment differs fundamentally from the field study described above. Here, $n$, the number of vehicles over the duration of the study, was fixed. Next, these vehicles were driven around a loop road  where no vehicles were allowed to enter or exit. Finally, the drivers were instructed to maintain a constant speed $u$ and constant safe headway $h$.  The YouTube video, https://www.youtube.com/watch?v=7wm-pZp_mi0, shows the drivers were unable to follow these simple  instructions. The volatility in speed, denoted as $\sigma$ and called _traffic noise_ explains the result. An added bonus of this experiment it allows the process to be described by a simple probability model of $U$.  
+
+Finally, highway bottlenecks and traffic merging were analyzed using field data. The speed data were treated as time-series data and placed in bins according the number of speed recordings observed over a stretch of 15-minutes. There are $i$ = 1,2, ..., 96 bins in a 24-hour day. The average speed for each bin is calculated and recorded as $u_1, u_2, ..., u_{96}$; the number of speed observations by bin sample size, $n_1, n_2, ..., n_{96}$, are recorded; and the traffic flows $q_1, q_2, ..., q_{96}$ are estimated as $q_i = n_i/\tau$ where $\tau$ equals 15-minutes. With the aid of the fundamental relationship $q = k * u$, the traffic density $k_i = q_i/u_i$ can be determined. Visual inspection, scatter plots, etc., of the $q_i$, $k_i$ and $u_i$ help explain traffic breakdown and highway performance.   including the use of computer simulation and animation are used to increase understanding of complex traffic behavior. 
+
+
+
+
+
+
+A principal product of this effort is the development of a probabilistic traffic flow model:
+
+* $Q  = f(U; k, h)$
+
+where speed is treated as a random variable $U = g(u, \sigma)$ where speed $u$, the standard deviation of speed $\sigma$,  traffic density $k$,  and safe headway $h$ are  constant values.  The overall  volatility of the process  is specified by $\sigma$, which is assumed to be a measure of driver group dynamics and other uncertainties.  The   _safe distance headway_  $h$  reflects the drivers aversion to risk. Additionally,  $h$ is assumed to be a _deterministic_ function of the constant speed $u$ and vehicle length. Since all drivers are assumed to maintain a safe headway, no crashes are permitted.  Thus, the model of $Q$ is an important measure of highway performance and a _parsimonius, stochastic model._ 
+
+
+
+Since $n$ is fixed and speed varies over time and is treated as a random variable $U$, the fundamental relationship is written as $Q = nU/l$ where the road length is $l = 2\pi r$ with $r$ equal to the radius of the loop road. Returning to the question of the better model, $\pi = P(Q = q)$ or $\pi = P(K = k)$, the answer is $\pi = P(U = u)$. The _root causes of traffic breakdown_ in this experiment are: (1) the inability of the drivers to maintain a constant speed, and (2) the drivers need to accelerate and decelerate to maintain a safe distance between themselves and the vehicles in front of them or safe headways. The _optimum driving condition_ is defined to be time it takes an indivual driver to complete a loop at speed $u$. The delay is estimated as the extra time for a driver to complete a loop. To explain this scenario, the stationary time-series model of $U$ is introduced and the calibration of this model is discussed. 
+
+
+No question that designing and operating a transportation system are difficult problems. By disecting the problem into manageable pieces and synthesizing the  results from the individual pieces brings clarity to the process. 
+
+__Traffic Noise__ 
+
+A quick read of the __Overview__ may give the impression that the approach, a package of computer algorithms, will be difficult to understand and overwhelming to implement. Words, like complex, dynamics, theory, parsimonious, stochastic and model integration can be daunting. No question that designing and operating a transportation system are difficult problems. By disecting the problem into manageable pieces and synthesizing the  results from the individual pieces brings clarity to the process. 
+
+
+The mathematics behind the animation is relatively simple. Of course, the Brownian motion model shown here can be adapted to other situtations. This will be  illustrated presently. The ultimate aim of using [trfhp](https://github.com/PJOssenbruggen/Basic) package tools is to improve our chances of mitigating congestion and improving performance using the simple mathematical and graphical tools.

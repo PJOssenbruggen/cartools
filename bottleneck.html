@@ -182,13 +182,19 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="about.html">Fundamentals</a>
+  <a href="Driver.html">Drivers</a>
+</li>
+<li>
+  <a href="about.html">Noise</a>
+</li>
+<li>
+  <a href="Ring-Road.html">Ring-Road</a>
 </li>
 <li>
   <a href="bottleneck.html">Bottleneck</a>
 </li>
 <li>
-  <a href="Ring-Road.html">Ring-Road</a>
+  <a href="performance.html">Performance</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -220,6 +226,10 @@ $(document).ready(function () {
 <div id="car-following" class="section level3">
 <h3>2. Car-Following</h3>
 <p><img src="bottleneck_files/figure-html/CF-1.png" width="576" /></p>
+<div class="figure">
+<img src="about_files/figure-html/ukplot.png" alt="Logistic Model for Traffic Breakdown Probability" />
+<p class="caption">Logistic Model for Traffic Breakdown Probability</p>
+</div>
 <p>The animation depicted here consists of three vehicles. The driver of vehicle 3 is more aggressive than the other two drivers. Driver 1, who is the least aggressive, maintains a constant speed of 25 mph. Note that <span class="math inline">\(a\)</span> = <span class="math inline">\(b\)</span> = 0 for this driver. The <span class="math inline">\(t-x\)</span> trajectory for vehicle 1 is a straight line with a constant slope of 25 * 5280/3600 = 36.7 feet per second (fps). The trajectories for vehicles 1 and 2 are non-linear. The merge is complete after 10 seconds. At the end of the merge, all vehicles are traveling at <span class="math inline">\(u\)</span> = 25 mph and have a distance headway of <span class="math inline">\(h\)</span> = 25 feet, which is assumed to be a safe distance for this speed.</p>
 <p>Vehicle alignment is important even for this simple simulation. At <span class="math inline">\(t\)</span> = 0, the <span class="math inline">\(t-x\)</span> trajectory shows the vehicles 1 and 2 are located at <span class="math inline">\(x\)</span> = 0 and vehicle 3, which is following vehicle 2, is located at <span class="math inline">\(x\)</span> = -50 feet.</p>
 <p>Initially, vehicles 1 and 2 are traveling side-by-side in separate lanes on a 24-foot freeway for <span class="math inline">\(x\)</span> = 0 to hold. Further assume these vehicles are traveling in the middle of their respective lanes. Since the lane widths are 12 feet, the centerline distance between them is 12 feet.</p>

@@ -72,6 +72,7 @@ library(tidyverse)
 zipper(0,60,90,90,0,5000,90,90,-200,4500,90,90,-500, 4000)
 ```
 
+![Logistic Model for Traffic Breakdown Probability](about_files/figure-html/ukplot.png)
 
 The animation depicted here consists of three vehicles. The driver of vehicle 3 is more aggressive than the other two drivers. Driver 1, who is the least aggressive, maintains a constant speed of 25 mph. Note that $a$ = $b$ = 0 for this driver. The $t-x$ trajectory for vehicle 1 is a straight line with a constant slope of 25 * 5280/3600 = 36.7 feet per second (fps). The trajectories for vehicles 1 and 2 are non-linear. The merge is complete after 10 seconds. At the end of the merge, all vehicles are traveling at $u$ = 25 mph and have a distance headway of $h$ = 25 feet, which is assumed to be a safe distance for this speed. 
 

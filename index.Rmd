@@ -4,91 +4,58 @@ bibliography: "CF.bibtex"
 output: html_document
 ---
 
-
 ```{r, include = FALSE, warning = FALSE, message = FALSE, error = FALSE}
-library(shiny)
-library(RJSONIO)
-library(knitr)
-library(tinytex)
 ```
 
-__An Open-Source Project__: Users are encouraged to freely use the material. 
+__An Open-Source Project__
 
-1. The __Basic__ repository contains the R code and data,  https://github.com/PJOssenbruggen/Basic.
+Users are encouraged to freely use any of the material used to create this package. The raw code can be accessed by clinking on the two following links: 
 
-2. The __GP__ repository contains the R code for creating this website with GitHub Pages, https://github.com/PJOssenbruggen/GP. 
+1. [Basic](https://github.com/PJOssenbruggen/Basic): A repository containing the __R__  functions and data used for analysis.
 
-## 1. Overview 
+2. [GP](https://github.com/PJOssenbruggen/GP): A repository containing the __R__ code for creating this website with GitHub Pages.
 
-"In many industrialized nations today, highways present engineeres and governments with formidable challenges relating to saftey, sustainability, environmental impacts, congestion mitigation, and deteriorating infrastructure. As a result, highways are often viewed from a perspective of the many challenges as they present as opposed to the benefits that they provide. [@mannering]" 
+People familar with [R](https://cran.r-project.org) and [RStudio](https://www.rstudio.com) may download, use and share this material as they see fit. Feedback is welcomed.
+
+The primary purpose of this website deals with transporation engineering, operations and management. I would remise in not drawing attention to the major advances made in computer science and statistics that enhance learning.  _Animation_ and _interactive graphics_ bring new perspectives into understanding both old and new ideas. Take a brief look at [gapminder](https://www.gapminder.org/tools/#$chart-type=bubbles) showing an _animated scatter plot_ of life expectancy over the last 200 years and [shiny](http://shiny.rstudio.com/gallery/bus-dashboard.html) showing an _interactive bus route map_. 
+
+Some of these tools are used  for this [GP](https://pjossenbruggen.github.io/GP/about.html) site. Clicking on __Bottleneck__ and __Ring Road__ menu items show a variety of visual images. At the time of this writing, the animated and interactive features have not been initiated on [GP](https://pjossenbruggen.github.io/GP/about.html). These features have been implemented on my local computer and will be made available soon. Now lets turn attention to transportation issues.
+
+"In many industrialized nations today, highways present engineeres and governments with formidable challenges relating to safety, sustainability, environmental impacts, congestion mitigation, and deteriorating infrastructure. As a result, highways are often viewed from a perspective of the many challenges as they present as opposed to the benefits that they provide. [@mannering]" 
+
+__Aims__
  
-The __TFUHP__ package is designed for college students studying transportation engineering and for transportation professionals and researchers interested in understanding the complex relationships associated with freeway performance and traffic breakdown. Newtons Laws of dynamics, fundamentals of trafic flow theory (TFT), probabilistic modeling and statistics are used in this package. By building upon current knowledge - the "classical methods" of transportation analysis - and integrating them with the latest computer tools, the goal is to identify key factors that initiate a breakdown event and cause delay.  Emphasize is placed on:
-
-1. Traffic noise or _traffic volatility_.
-
-2. Driver behavior and safety.
-
-3. Development of stochastic models that explain breakdown and highway performance.
-
-The principal aim of this work is to explain highway performance as simply as possible. Topics are introduced in a  step-by-step manner.  
+The __TFUHP__ package is designed for college students studying transportation engineering and for transportation professionals and researchers interested in understanding the complex relationships associated with freeway performance and traffic breakdown. Emphasis is placed on: (1) _Traffic noise or volatility_; (2) _Driver behavior and safety_; and (3) _Stochastic modeling_,  models that explain breakdown and performance.
 
 
-__Highway Performance:__ An important measure of highway performance is traffic flow, which we denote as $q$. It is the number of vehicles that pass a point in unit time. Typically, it is reported in vehicles per hour (vph).  A principal product of this effort is the development of a probability model that treats traffic flow $q$ as a random variable:
+The website contains five menu bar items:
 
-* $Q  = f(U, k, l, h)$.
+1. ##### __Drivers:__  _Self Optimizers_. Meeting the challenges.
 
-$Q$  is a function of the random variable $U$, traffic density $k$, measured in vehicles per unit length, vehicle length $l$  and distance headway $h$. Additionally, $h$ is assumed to be a _safe driving distance_  that reflects the drivers' aversion to risk. Since all drivers are assumed to maintain a safe headway, no crashes are permitted under the assumptions of this model. As the vehicular speed increases, the safe driving distance as defined by a  deterministic function of $u$ and $l$.  
+2. ##### __Noise:__  _Traffic noise or  volatility_. Exploratory data analysis of a congested freeway bottleneck.
 
-The _fundamental relationship_,
+3. ##### __Ring-Road:__ _Driver behavior and safety_. A "controlled" car-following experiment on a single lane road.
 
-* $q = k * u$,
+4. #####  __Bottleneck:__ _Stochastic modeling_. Traffic breakdown on a roadway where two-lanes  merge into one.
 
-defines  $q, k$ and $u$ as deterministic variables. Field test are used in this study. A radar device was used to measure the speed of each vehicle and count the number of vehicles $n$ as they pass a point along a highway over a given time interval $\tau$. The speed and flow for $\tau$ are recorded as an average speed $u$  and $q$  where $q = n/\tau$. The traffic density is estimated as $k = q/u$. All estimated values for $\tau$ are treated as constants. There were 96 recordings of $q$, $k$ and $u$ per day. It will be shown presently that these recordings are highly volatile recordings. Since they vary over the course of a day and day-by-day, why aren't all these variables treated as random variables? This question will be deferred and discussed presently.
+5. #####  __Performance:__ _Highway Performance_. The results of the study and summarized and critiqued.
 
- 
+__Analytical Tools__
 
-The  random variable model $Q$ is a _parsimonius, stochastic model._ 
-
-The overall  volatility of $Q$  is assumed to be a measure of driver group dynamics and other uncertainties.  
-
-* $U = f(u, \sigma)$
+Newtons Laws of dynamics, fundamentals of trafic flow theory (TFT), probabilistic modeling and statistics are used in this package.  The goal is to identify key factors that initiate a traffic breakdown event and cause delay by building upon current knowledge - the "classical methods" of transportation analysis - and the latest advances in computation.  
 
 
-Let's get started by investigating a _traffic breakdown event_, an event that triggers the onset of congestion event. As  all drivers know from experience, the highway will be is a congested depending on how many vehicles are on the highway. The _triggering mechanism_ is the vehicle count. Some drivers may observe that a highway with seemingly the same number of the vehicles on the highway may or may not be in a congested state. Knowing the vehicle count is important but insufficien evidence in predicting the onset of congestion with _certainty._. Regardless, some drivers may alter their trip plan to avoid dealing with a congestion event or the possibility of being involved in a crash. 
 
-What are these drivers doing?  They are: (1) collecting data, (2) analyzing the data, and (3) making a decision based on their analyses. For example, a person needs grocercies. There is a strong possibility that the person may decide (3) not  to travel during rush hour because (1) the traffic will be too heavy and (2) the chance being delayed or being involved in an accident is deemed unacceptable at this time of day. The extra time of travel and/or risk of being involved in a crash are  _predicted costs_ and measures of _highway performance_.   
+The principal aim of this work is to explain highway performance as simply as possible. Topics are introduced in a  step-by-step manner.  The  __TFUHP__ package is derived and developed from a diverse set of resources:
 
-To develop a successful transportaion operation and management plan, there is a clear need for understanding of the process being operated and  managed. The decision-making framework for individual travelers described in the preceding paragraph will be used. In place of a subjective analysis, field data will be collected and analyzed. To simplify the discussion, we will assume the data are collected at the same site over an extended time period, say, months. With these data, the proportion of congestion events can be estimated as $p = m/n$ where $m$ is the congestion events and $n$ is the total number of days of the study. To perform this calculation, we  define congestion as a critical speed $u^*$, a speed that separates a congested state from a free-flow (uncongested) state. The proportion $p$, a measure of performance, can be refined. Say, to estimate the performance of $p$ for rush hour traffic. For this estimate to have meaning, we must define rush hour traffic. It is defined as a time-of-day where traffic is deemed to be "heavy."  It is measured  as a  traffic flow $q$ in vehicles per hour (vph). $q = n/\tau$ where $n$ is a vehicle count over time period $\tau$. The rush hour speed, in actually, is an average speed of the $n$ vehicles observed over the 15-minute time period. The rush hour speed $u$ and flow $q$ are aggreates. 
+* Traffic analysis: @banks:1998, @deganzo:1997, @LiliBook, @pjo2017, @1367-2630-10-3-033001, @trieber
 
-The estimates of $p$, whether it is estimated with daily or hourly count data, and $q$ are measures of _past performance_. Our transportation operation and management plan deals with the _future._ By necessity, the probability of a traffic breakdown event, $\pi = P(U < u^*)$ will replace $p$ and the random value $Q$ will replace $q$. Since highway geometry or some other improvement will be made,  $\pi$ and $Q$ models must be carefully selected and model parameters estimated.
+* Probability and statistics: @agresti:1990, @hosmer, @iacus, @vandaele:1983
 
-To make reliable predictions a reality, _the root cause of a traffic breakdown must be identified and understood_. The so-called  __Ring Road Experiment__ conducted by  @1367-2630-10-3-033001 is _a  controlled experiment_ that brings insight to the complex nature of identifying what triggers traffic breakdown. 
-
-This experiment differs fundamentally from the field study described above. Here, $n$, the number of vehicles over the duration of the study, was fixed. Next, these vehicles were driven around a loop road  where no vehicles were allowed to enter or exit. Finally, the drivers were instructed to maintain a constant speed $u$ and constant safe headway $h$.  The YouTube video, https://www.youtube.com/watch?v=7wm-pZp_mi0, shows the drivers were unable to follow these simple  instructions. The volatility in speed, denoted as $\sigma$ and called _traffic noise_ explains the result. An added bonus of this experiment it allows the process to be described by a simple probability model of $U$.  
-
-Finally, highway bottlenecks and traffic merging were analyzed using field data. The speed data were treated as time-series data and placed in bins according the number of speed recordings observed over a stretch of 15-minutes. There are $i$ = 1,2, ..., 96 bins in a 24-hour day. The average speed for each bin is calculated and recorded as $u_1, u_2, ..., u_{96}$; the number of speed observations by bin sample size, $n_1, n_2, ..., n_{96}$, are recorded; and the traffic flows $q_1, q_2, ..., q_{96}$ are estimated as $q_i = n_i/\tau$ where $\tau$ equals 15-minutes. With the aid of the fundamental relationship $q = k * u$, the traffic density $k_i = q_i/u_i$ can be determined. Visual inspection, scatter plots, etc., of the $q_i$, $k_i$ and $u_i$ help explain traffic breakdown and highway performance.   including the use of computer simulation and animation are used to increase understanding of complex traffic behavior. 
+* Statistical computing and graphics: @cran, @sde,  @wickham, @shiny
 
 
-## Topics ##
 
-The website contains three menu bar elements:
-
-1. ##### __Fundamentals:__  1. Overview of a $Q = f(k, u, \sigma, h)$ model. 2. Traffic Noise     and understanding volatility $\sigma$.  3. Visual Imagry    of a "toy" example.
-
-2. ##### __Ring-Road Experiment:__ 1. A Controlled Experiment 2. Field Data.  3. Density Speed   4. Logistic Regression.  5. Time Distance Trajectories.  6. Forecasting. 
-
-3. #####  __Bottlenecks:__ 1. A Zipper Merge. 2. Car-Following. 3. Breakdown. 4. Theory 5. Theory. 6. Forecasting. 7. lessons Learned.
-
-## Analytical Tools ##
-
-The  __TFUHP__ are derived and developed from a diverse set of resources:
-
-* Traffic Analysis: @banks:1998, @deganzo:1997, @LiliBook, @trieber
-
-* Probability and Statistics: @agresti:1990, @hosmer, @iacus, @vandaele:1983
-
-* Statistical Computing and Graphics: @cran, @sde, @pjo2018, @wickham, @shiny
-
-## References
+__References__
 
 

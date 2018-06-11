@@ -182,13 +182,19 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="about.html">Fundamentals</a>
+  <a href="Driver.html">Drivers</a>
+</li>
+<li>
+  <a href="about.html">Noise</a>
+</li>
+<li>
+  <a href="Ring-Road.html">Ring-Road</a>
 </li>
 <li>
   <a href="bottleneck.html">Bottleneck</a>
 </li>
 <li>
-  <a href="Ring-Road.html">Ring-Road</a>
+  <a href="performance.html">Performance</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -207,115 +213,60 @@ $(document).ready(function () {
 </div>
 
 
-<div id="a-controlled-experiment" class="section level3">
-<h3>1. A Controlled Experiment</h3>
-<p>We will begin our model building exercise by describing a single-lane <em>ring</em> or <em>loop road</em> where the drivers cannot pass one another or enter or exit the loop. The number of vehicles traveling around the ring road shown in the YouTube video is fixed at <span class="math inline">\(n\)</span> = 22 vehicles <span class="citation">(Sugiyama et al. 2008)</span> The drivers were instructed to maintain a constant speed and distance headway <span class="math inline">\(h\)</span>, measured as the distance between the front bumpers of the lead and following vehicles.</p>
-<p>The drivers cannot follow instructions. After a few sections, the traffic breaks down. Traffic breakdown at a <em>bottleneck</em> is more complex because it requires traffic to merge. The analysis of a <em>loop road</em> is more straightforward. The number of vehicles on the loop road is fixed and equal to <span class="math inline">\(n\)</span>.</p>
-<p>Drivers travelling around a loop road will attempt to optimize the situation. They select a constant speed <span class="math inline">\(u\)</span> and constant headway <span class="math inline">\(h\)</span>. Under these ideal conditions, drivers will travel steadily around the road without interruption. The reality is that the drivers are unable to do so. Their speeds will vary by a slight amount and eventually, the vehicles will begin to interact. The situation is modelled by adding traffic noise <span class="math inline">\(\sigma\)</span> to the speed <span class="math inline">\(u\)</span>. Assume speed <span class="math inline">\(U(t)\)</span> to be a stationary time series motion model of the form:</p>
-<p><span class="math inline">\(U(t) = u + \sigma Z\)</span></p>
-<p>with a mean speed <span class="math inline">\(u\)</span> is a constant value over time, <span class="math inline">\(\sigma\)</span> is a standard deviation of speed, <span class="math inline">\(Z \sim N(0,1)\)</span> is a standard normal probability distribution and time <span class="math inline">\(t\)</span> is measured in seconds. Models using time measurements in seconds are called <em>microscale models.</em> Models using data aggregated over 15-minute time intervals are called <em>macroscale models.</em> They will be discussed presently.</p>
-<p>Now, we turn our attention to modeling vehicular interaction, better known in the literature as <em>car following</em>. The deterministic <em>flow-density-speed</em> relationship of <span class="math inline">\(q = k * u\)</span>, the fundamental relationship, is now treated as a random process of the form:</p>
-<p><span class="math inline">\(Q = K * U(t)\)</span></p>
-<p>An interesting result occurs for the <em>loop road</em>. <span class="math inline">\(K\)</span> is not a random variable but a constant. <span class="math inline">\(K = k = n /l\)</span> where the l is the circumference of the roadway or <span class="math inline">\(2 \pi r\)</span> with <span class="math inline">\(r\)</span> equal to the radius of the ring-road. Thus, the flow equation is rewritten as:</p>
-<p><span class="math inline">\(Q = k * U(t) = n / l * U(t)\)</span>.</p>
-<p>The volatility in <span class="math inline">\(Q\)</span> is explained exclusively by the volatility in <span class="math inline">\(U(t)\)</span> as defined by <span class="math inline">\(u\)</span> and <span class="math inline">\(\sigma\)</span>.</p>
-</div>
-<div id="field-data" class="section level3">
-<h3>2. Field Data</h3>
-<p>Our next step in this discussion is to investigate the traffic data and glean as much information from <em>raw, real-world data.</em> First, we investigate relationships among of flow <span class="math inline">\(q\)</span>, density <span class="math inline">\(k\)</span> and speed <span class="math inline">\(u\)</span> on the northbound lane on I-93 in Salem, New Hampshire. Next, we will look for meaningful relationships using visual imagry, scatter plots, box plots and time-series plots. Once these relationships are revealed, the next step is to develop mathematical models that capture these relationships.</p>
-<p>Unlike the “toy” example, 20,656 recordings of <span class="math inline">\(q\)</span>, <span class="math inline">\(k\)</span> and <span class="math inline">\(u\)</span> were made over a period of eight months. The speed recordings are aggregate values. The <em>space-mean speed</em> is estimated as <span class="math inline">\(u = n/(1/\sum u_i)\)</span> where <span class="math inline">\(u_i\)</span> is an individual observation made in a 15-minute interval, <span class="math inline">\(i = 1,2,..., n\)</span> is vehicle identification number, and <span class="math inline">\(n\)</span> is the total number of vehicles observed in the interval. The flow for the interval is calculated as <span class="math inline">\(q = n/t\)</span> where <span class="math inline">\(t\)</span> is 15-minutes. The density is derived from the <em>fundamental relationship</em> of traffic flow <span class="math inline">\(q = k * u\)</span>. Thus, the density is estimated as <span class="math inline">\(k = q/u\)</span>. The site is a <strong>bottleneck</strong> because the number of lanes drops from three to two. By exploring the data, we will discover that congestion at the site is severe.</p>
-<p>A <strong>Flow-Speed Plot</strong> scatter plot reveals much about the traffic at the site. For one, the data are <em>extremely noisy or volatile</em>, therefore making it difficult to reveal clear-cut patterns in the data. By using scaling and color shading of the <span class="math inline">\(k\)</span> dots, the scatter plot become enhanced, making it easier to reveal patterns in the data. The smaller/black dots indicate fewer vehicles per mile than the large/blue dots.</p>
-<p>Even though the data are noisy, patterns are revealed. For one, speeds between 60 and 80 miles per hour (mph) are observed at flows ranging from 0 to 3000 vehicles per hour (vph). The speed tends to decrease marginally with an increase in flow. The densities over this range increase but for the most part, do not exceed <span class="math inline">\(k \le 70\)</span> vehicles per mile (vpm). Given these results, <span class="math inline">\(u^* =\)</span> 50 mph is defined to be a critical speed where a <em>congested state</em> and a <em>free-flow state</em> are defined to be <span class="math inline">\(u \le u^*\)</span> and <span class="math inline">\(u &gt; u^*\)</span>, respectively. Low speeds and high densities, <span class="math inline">\(u \le u^*\)</span> and <span class="math inline">\(k &gt; 70\)</span> vpm, tend to be associated and define a congested state.</p>
-<p><img src="Ring-Road_files/figure-html/speedplot-1.png" width="384" /></p>
-</div>
-<div id="density-speed" class="section level3">
-<h3>3. Density-Speed</h3>
-<p>We continue to explore the relationship between <span class="math inline">\(k\)</span> and <span class="math inline">\(u\)</span> with the <strong>Box Plot of Density-Speed</strong>. To construct the diagram, the speed were sorted and placed into bins. For example, the labeled as <span class="math inline">\(k^*\)</span> = 45 vpm consists of observations ranging 42.5 to 47.5 vpm. This value of <span class="math inline">\(k^*\)</span> is taken from the Highway Capacity Manual (HCM), which defines it to be the roadway capacity for this geometric design. Visual inspection reveals that the chance of driving in a free-flow state, <span class="math inline">\(u^* &gt; 50\)</span>, is greater when <span class="math inline">\(k^* \le 45\)</span> vpm. The interquartile range of speed is extremely tight for <span class="math inline">\(k^* \le 45\)</span> vpm. Excluding outliners, a driver can be assured that speeds of 70 mph or more can be expected. With the exception of the bin at <span class="math inline">\(k\)</span> = 50 vpm, speeds considerably less than 25 mph is expected for <span class="math inline">\(k^* \ge 55\)</span> vpm. It is impossible to explain why so many congested speed observations are located in the <span class="math inline">\(0 &lt; k \le k^* = 50\)</span> range. For <span class="math inline">\(k \le 50\)</span> vpm, a better case can be made that a congested state will be observed.</p>
-<p><img src="Ring-Road_files/figure-html/speedboxplot-1.png" width="480" /></p>
-<p>A <strong>Time-Speed Plot</strong> draws attention to <em>traffic breakdown</em>, driving in a congested state with speeds of less than 50 mph, <span class="math inline">\(u \le\)</span> 50 mph, is a common occurence. Simple inspection of the plot also reveals that <em>long delays, congestion lasting more than one hour, are common</em>. Remember a congested state is defined by speed, <span class="math inline">\(u \le 50\)</span> mph. Also make note that each <span class="math inline">\((t,u)\)</span> point on the figure represents a point-in-time denoted by <span class="math inline">\(t\)</span>, which means the freeway is in a congested state for 15 minutes. Note that <span class="math inline">\(t\)</span> is not clock time but a time-index, each <span class="math inline">\(t\)</span> representing a time interval of 15 minutes. At the extreme right, for example, the freeway is observed to have a time index of <span class="math inline">\(t\)</span> = 36. Thus, time in a congested state in this instance is 36 / 4 = 9 hours.</p>
-<p>Statistic summaries of the data reveal interesting facts. The total number of breakdown events is counted to be 227. The total time the freeway is in a congested state is calculated to be 444 hours. The average delay time is estimated to be 444/227 or about two hours. The breakdown count includes multiple breakdown in a single day. The chance of a breakdown is estimated to be 4 in 5. Stated another way, four days in a five-day work week the freeway is congested state with speeds ranging from <span class="math inline">\(10 &lt; u &lt; 20\)</span> mph.</p>
-<p>Of course, these statistical summaries are important performance measurements. However, they do not explain why traffic breakdown is so prevelent at the site. The data used in the <strong>Time-Speed Plot</strong>, a subset of the data used in the <strong>Flow-Speed Plot</strong> and <strong>Box Plot of Density-Speed</strong> diagrams, gives a different perspective. Note that the horizontal axis is labelled with time indices <span class="math inline">\(t = -1,0,1,2, ...\)</span>. The first breakdown in a string of initial breakdown events is denoted as t = 0$. Thus, <span class="math inline">\(u_0\)</span> is called the breakdown speed and <span class="math inline">\(u_{-1}\)</span> is called the pre-breakdown speed.</p>
-<p>The pre-breakdown <span class="math inline">\(u_{-1}\)</span> and breakdown <span class="math inline">\(u_0\)</span> speeds, even after filtering the data, are <em>extremely volatile</em>. Since <span class="math inline">\(50 \le u_{-1} &lt; 72\)</span> mph is so wide a range, it cannot be used as an indicator or reliable predictor that a breakdown is likely to occur.</p>
-<p>The smooth blue curve, a generalized additive model (gam), suggests that there may be a underlining structure associated with this chaos. Like above, the blue curve draws attention to the fact that congestion, <span class="math inline">\(u \le 50\)</span> mph, can last a long time. It also draws attention to the fact that the average speed drop is around 35 mph.</p>
-<p>The blue curve must be used with care. It does not take over one-hour (<span class="math inline">\(t\)</span> = 5/4 = 1.25) for the speed to drop from 55 to 20 mph or speed drop of 35 mph. Again, remember the <span class="math inline">\(t\)</span> values are time indices, not clock times. The blue curve is useful for inferences regarding speed drop but totally misleading with regard to times of occurrence. Every driver knows that breakdown events occur on a time scale of seconds not minutes.</p>
-</div>
-<div id="logistic-regression" class="section level3">
-<h3>4. Logistic Regression</h3>
-<p><img src="Ring-Road_files/figure-html/logisticmodel-1.png" width="480" /><img src="Ring-Road_files/figure-html/logisticmodel-2.png" width="480" /></p>
-</div>
-<div id="time-distance-trajectories" class="section level3">
-<h3>5. Time-Distance Trajectories</h3>
-<p>The <span class="math inline">\(Q = k * U(t)\)</span> model exhibits the same behavior as shown in the YouTube video. Our results are shown as time-distance <span class="math inline">\(t-x\)</span> trajectories for <span class="math inline">\(k\)</span> = 55 vehicles per mile (vpm). See the <strong>Congested Flow: Ring Road</strong> diagram. A same instructions given to the drivers of the Yuki Sugiyama experiment are assumed for the computer simulation that produced the <span class="math inline">\(t-x\)</span> trajectories. Maintain a constant speed and headway <span class="math inline">\(h\)</span>. The simulated drivers are assigned the same initial speed of <span class="math inline">\(u\)</span> = 30 miles per hour (mph) and are evenly placed along the <span class="math inline">\(x\)</span> axis at <span class="math inline">\(t\)</span> = 0. The traffic density is fixed at <span class="math inline">\(k\)</span> = 55 vph. As in the full-scale experiment, the simulated drivers cannot maintain a constant speed or even spacing. After a few seconds, the vehicles begin to interact and form clusters (moving queues) and the traffic breaks down. Setting <span class="math inline">\(\sigma\)</span> = 0, no clustering or breakdown can occur. <em>Clearly, traffic volatility plays an important role.</em></p>
-<p>The <strong>rrtrials</strong> computer simulation of the <span class="math inline">\(Q = n / l * U(t)\)</span> model incorporates two important features not mentioned above: (1) <em>driver performance in a car-following situation</em> and (2) <em>safety</em>. They are most easily explained with the use of the dotted and dashed lines shown in the figure. The dotted line is the trajectory of vehicle 1, the lead vehicle, assuming that its driver could maintain a constant speed. Since <span class="math inline">\(x = u * t\)</span>, the slope of the dotted line is <span class="math inline">\(u = 10\)</span> mph. The dashed line is the trajectory of vehicle 2 when vehicle 1 maintains the trajectory shown by the dotted line. Since vehicle 1 slows, vehicle 2 must slowdown to avoid a crash. The distance headways, measured by the distance between a lead/following pair, are safe distances.</p>
-<p>Level-of-service estimates for the simulation are shown in the following table. The mean headway <span class="math inline">\(\bar{h}\)</span> is the averages of the distances between points along the <span class="math inline">\(x = 0\)</span> axis. The predicted flow for the simulation is estmated as <span class="math inline">\(\hat{Q} = 1/\bar{h}\)</span>. The standard deviation estimate of <span class="math inline">\(\hat{\sigma}_h\)</span> is an indicator that a breakdown is triggered by a volatile process associated with vehicle speed exclusively. Assuming no volatility <span class="math inline">\(\sigma\)</span> = 0, <span class="math inline">\(q = k * u\)</span> = 1650 vph and <span class="math inline">\(h\)</span> = 2.2 seconds at <span class="math inline">\(x\)</span> = 0.</p>
-<table>
-<colgroup>
-<col width="32%" />
-<col width="35%" />
-<col width="32%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="right">Mean headway <span class="math inline">\(\bar{h}\)</span></th>
-<th align="right">Headway standard deviation <span class="math inline">\(\hat{\sigma}_h\)</span></th>
-<th align="right">Predicted flow <span class="math inline">\(\hat{Q}\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">2.2 seconds</td>
-<td align="right">1.6 seconds</td>
-<td align="right">1650 vehicles per hour (vph)</td>
-</tr>
-</tbody>
-</table>
-<p>The <span class="math inline">\(Q = k * U(t)\)</span> model suggests a <em>cause-effect relationship</em> exists: <span class="math inline">\(u\)</span> and <span class="math inline">\(\sigma\)</span> are the causal factors and <span class="math inline">\(\hat{Q} = 1/ \bar{h}\)</span> is the response variable. As illustrated, vehicle clustering occurs only when density <span class="math inline">\(k\)</span> sufficiently dense. When there are fewer vehicles on the ring road, <span class="math inline">\(k = n / l\)</span> decreases resulting in longer time headways of <span class="math inline">\(\bar{h}\)</span>. Under less dense conditions, drivers can vary their speeds without affecting one another, thus reducing the chance of breakdown.</p>
-<p>Overall, the <span class="math inline">\(Q\)</span> model predicts poor performance. <span class="math inline">\(\hat{Q} \le c^*\)</span> = 2250 vph with speeds <span class="math inline">\(\bar{u} \pm \sigma_U = 29 \pm 5\)</span> mph. High volatility in speed and headway <span class="math inline">\(h\)</span>, shown in the <strong>Headway</strong> histogram, suggests driving under these conditions is unpleasant.</p>
-<p><img src="Ring-Road_files/figure-html/ringroad1-1.png" width="480" /></p>
-<p><img src="Ring-Road_files/figure-html/ringroad2-1.png" width="480" /></p>
-<table>
-<colgroup>
-<col width="24%" />
-<col width="24%" />
-<col width="27%" />
-<col width="24%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="right"><strong>Scenario</strong></th>
-<th align="right"><span class="math inline">\(\bar{h}\)</span>, seconds</th>
-<th align="right"><span class="math inline">\(\hat{\sigma}_h\)</span>, seconds</th>
-<th align="right"><span class="math inline">\(\hat{Q}\)</span>, vehicles per hour (vph)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">Free-Flow</td>
-<td align="right">1.68</td>
-<td align="right">0.59</td>
-<td align="right">2137</td>
-</tr>
-<tr class="even">
-<td align="right">Congested-Flow</td>
-<td align="right">1.76</td>
-<td align="right">1.46</td>
-<td align="right">2045</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="forecasting" class="section level3">
-<h3>6. Forecasting</h3>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   68.12   69.46   70.10   70.12   71.02   72.04</code></pre>
-<p><img src="Ring-Road_files/figure-html/cfanim1-1.png" width="576" /></p>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   32.42   37.38   40.11   41.50   45.03   54.92</code></pre>
-<p><img src="Ring-Road_files/figure-html/cfanim2-1.png" width="576" /></p>
+<p><strong>A Controlled Experiment</strong></p>
+<p>We continue our model building effort by simulating conditions observed on a <em>ring</em> or <em>loop road</em>. The <a href="https://www.youtube.com/watch?v=7wm-pZp_mi0">YouTube video</a> shows <span class="math inline">\(n\)</span> = 22 vehicles <span class="citation">(Sugiyama et al. 2008)</span>. The drivers cannot pass one another or enter or exit the loop. Each driver was instructed to maintain a same constant speed <span class="math inline">\(u\)</span>. The drivers cannot follow instructions. After a few sections, the traffic breaks down.</p>
+<p>Why? The video shows the vehicles to traveling at a reasonable speed. Initially, all vehicles are uniformly distributed around the circle. After a few seconds, the vehicles begin to interact because the drivers cannot maintain a constant speed. If we track a vehicle, we can see the speed will vary by a slight amount. Since their no room to move laterally, the drivers must follow and react to the situation directly in front of them.</p>
+<p>This behavior is a classic definition of <em>car-following.</em> The spacing between between vehicles, while it appears to be sufficient, is not. If other words, the traffic density <span class="math inline">\(k\)</span> is sufficiently large to cause the vehicles to interact, thus driving in a <em>congested state</em>. If there were fewer vehicles, i.e., driving in a <em>free-flow state</em>, then an individual driver could adjust his or her vehicle without affecting the vehicle behind it.</p>
+<p><strong>A Brownian Bridge Model of Speed</strong></p>
+<p>Can we explain this behavior mathematically? Consider the following approach:</p>
+<p>First, assume the speed of a vehicle to be the random variable <span class="math inline">\(U(t)\)</span> and assume the process is defined by a stationary time-series model of the form:</p>
+<ul>
+<li><span class="math inline">\(U(t) = u + \sigma Z\)</span></li>
+</ul>
+<p>where <span class="math inline">\(u\)</span> is the assigned speed as specified by the experiment and <span class="math inline">\(\sigma\)</span> is a standard deviation of speed, <span class="math inline">\(Z \sim N(0,1)\)</span> is a standard normal probability distribution and time <span class="math inline">\(t\)</span> is measured in seconds.</p>
+<p>The next question is how do we assign the model parameters? It is clear that <span class="math inline">\(u\)</span> is the assigned experiment speed but what is its magnitude? The box plot of speed-density from our exploratory analyses showed a connection of speed and density. The following density-speed plot is a cleaner version of the box plot.</p>
+<p><img src="Ring-Road_files/figure-html/density-speed-1.png" width="960" /></p>
+<p>The traffic density <span class="math inline">\(k\)</span> is controlled by the number of vehicles on the road <span class="math inline">\(n\)</span> and ring-road radius <span class="math inline">\(r\)</span>:</p>
+<ul>
+<li><span class="math inline">\(k = n/2\pi r\)</span></li>
+</ul>
+<p>Knowing <span class="math inline">\(k\)</span>, select <span class="math inline">\(u\)</span> and <span class="math inline">\(\sigma\)</span>.</p>
+<p>Assigning <span class="math inline">\(u\)</span> and <span class="math inline">\(\sigma\)</span> are not clear-cut as originally envisioned. For one, <span class="math inline">\(U(t)\)</span> is a <em>microscale model</em> where driver reaction takes place on a time-scale of seconds and the density-speed plot is a <em>macroscale model</em> derived from 15-minute average data or <span class="math inline">\(\tau\)</span> data. The scales are incompatable.</p>
+<p>Second, the stationary time-series <span class="math inline">\(U(t)\)</span> model does not adequately explain driver behavior. Define the time-step equal to <span class="math inline">\(\Delta t = t_i - t_{i-1}\)</span> and for purposes of illustration, let <span class="math inline">\(\Delta t\)</span> = 1 second. Given <span class="math inline">\(Z\)</span> takes on both positive and negative values, a simulation can predict vehicle speeds flip-flopping back and forth from one second to the next. Obviously, a normal driver does not drive sporatically as described by the model. This flaw is rectified by replacing the <span class="math inline">\(\sigma Z\)</span> term with a Brownian motion term or:</p>
+<ul>
+<li><span class="math inline">\(U(t) = u + \sigma \sqrt{\Delta t} Z = u + \sigma W(t)\)</span>.</li>
+</ul>
+<p><span class="math inline">\(W(t) = \sqrt{\Delta t} Z\)</span> term defines Brownian motion and is called the Wiener process. A driver will more smoothly accelerate or decelerate but without limit. Over an extended period of time, say <span class="math inline">\(\tau\)</span> = 15 minutes, speeds can reach extraordinary high or low speeds (negative traveling backwards) with this model. Of course, this is another unacceptable model.</p>
+<p>This problem is overcome by replacing <span class="math inline">\(W(t)\)</span> with a Brownian bridge model:</p>
+<ul>
+<li><span class="math inline">\(U(t) = u + \Lambda (W(t) - t/\tau * W(\tau))\)</span>,</li>
+</ul>
+<p>as the following diagram illustrates for “Congested Flow at HCM Capacity” (HCM = Highway Capacity Manual) and “Heavly Congested” simulations for two <span class="math inline">\(k\)</span> assignments. After time <span class="math inline">\(\tau\)</span> = 15 minutes, the model forces a driver to travel at speed <span class="math inline">\(u\)</span> when <span class="math inline">\(\tau\)</span> = 15 minutes.</p>
+<p><img src="Ring-Road_files/figure-html/bridge-1.png" width="960" /></p>
+<p>Finally, there is a need for <span class="math inline">\(\Lambda\)</span>, the correction factor. If <span class="math inline">\(\Lambda\)</span> is assigned the value of 1, then the model can predict more volatile traffic speeds than shown here. By volatile the speeds can fall well outside its 95% confidence interval. The assignment of <span class="math inline">\(\Lambda\)</span> used an ad hoc, subjective procedure. A series of simulations for a given <span class="math inline">\(\Lambda\)</span>. If two many simulations fell outside the 95% CI, it was adjusted until was felt to be representative of the situation being simulated.</p>
+<p>The <span class="math inline">\(U(t)\)</span> model, a mechanistic model, <em>explains</em> driver behavior. A driver will travel at a speed in the neighborhood of <span class="math inline">\(u\)</span> over the time period from 0 to <span class="math inline">\(\tau\)</span> = 15 minutes as common sense tells us.</p>
+<p><strong>Time-Distance Trajectories</strong></p>
+<p>The <span class="math inline">\(U(t)\)</span> model was subject to another test. Does the model predict driver behavior that is similar to that shown in the YouTube video? A same instructions given to the drivers of the Yuki Sugiyama experiment are assumed for the computer simulation that produced the following <span class="math inline">\(t-x\)</span> trajectories. The drivers are instructed to maintain a constant speed <span class="math inline">\(u\)</span> and headway <span class="math inline">\(h\)</span>. The vehicles are evenly placed along the <span class="math inline">\(x\)</span> axis at <span class="math inline">\(t\)</span> = 0.</p>
+<p><img src="Ring-Road_files/figure-html/ringroad1-1.png" width="960" /></p>
+<p>As in the full-scale experiment, the simulated drivers cannot maintain a constant speed or even spacing. After a few seconds, the vehicles begin to interact and form clusters (moving queues) and the traffic breaks down. <em>Clearly, traffic volatility plays an important role.</em></p>
+<p><strong>Highway Safety</strong></p>
+<p>The <span class="math inline">\(U(t)\)</span> model incorporates two important features: (1) <em>driver performance in a car-following situation</em> and (2) <em>safety</em>. All drivers are assumed to maintain a <em>safe driving distance</em> when driving in the congested or free-flow states or</p>
+<ul>
+<li><span class="math inline">\(h_{safe} = f(u)\)</span>,</li>
+</ul>
+<p>which depends on the vehicle speed <span class="math inline">\(u\)</span>. The safety effects are most easily explained with the use of the dotted lines shown in the figures above. The dotted straight line is the trajectory of the lead vehicle, assuming that its driver could maintain a constant speed. Since <span class="math inline">\(x = u * t\)</span>, the slope of the dotted straight line is <span class="math inline">\(u\)</span>. Consider a pair of vehicles, one designated as a <em>leader</em> and the other one designated as a <em>follower</em>. At each time-step, the locations and speeds of the lead and following vehicles and the headway between the two vehicles are calculated. If there is a safe headway violation, the following vehicle locations and speeds are adjusted to eliminate the violation. If the lead vehicle slows, the following vehicle must slowdown to avoid a crash if too close. Under a less dense condition, the drivers can vary their speeds without affecting one another.</p>
+<p><strong>Traffic Flow</strong></p>
+<p>Since <span class="math inline">\(n\)</span> is a constant, <span class="math inline">\(k = n/2\pi r\)</span> is a constant. The flow is a random variable, defined as:</p>
+<ul>
+<li><span class="math inline">\(Q(t) = k * U(t)\)</span></li>
+</ul>
+<p>The volatility in <span class="math inline">\(Q(t)\)</span> is explained exclusively by the volatility in <span class="math inline">\(U(t)\)</span> as defined by the Brownian bridge model of speed.</p>
+<p><strong>Summary</strong></p>
+<p>The <span class="math inline">\(Q(t) = k * U(t)\)</span> model suggests a <em>cause-effect relationship</em> exists. The speed as specified by <span class="math inline">\(u\)</span> and <span class="math inline">\(\sigma\)</span> are the causal factors and <span class="math inline">\(Q(t)\)</span> is the response variable. The probability of being in a congested state is forecast to be a function of <span class="math inline">\(k\)</span>, <span class="math inline">\(\pi(k)\)</span>.</p>
+<p><strong>Reference</strong></p>
 <div id="refs" class="references">
 <div id="ref-1367-2630-10-3-033001">
 <p>Sugiyama, Yuki, Minoru Fukui, Macoto Kikuchi, Katsuya Hasebe, Akihiro Nakayama, Katsuhiro Nishinari, Shin-ichi Tadaki, and Satoshi Yukawa. 2008. “Traffic Jams Without Bottlenecks—Experimental Evidence for the Physical Mechanism of the Formation of a Jam.” <em>New Journal of Physics</em> 10 (3):033001. <a href="http://stacks.iop.org/1367-2630/10/i=3/a=033001" class="uri">http://stacks.iop.org/1367-2630/10/i=3/a=033001</a>.</p>
-</div>
 </div>
 </div>
 

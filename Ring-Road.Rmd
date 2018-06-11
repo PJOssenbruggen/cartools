@@ -11,167 +11,128 @@ knitr::opts_chunk$set(echo = FALSE)
 library(Basic)
 ```
 
-### 1. A Controlled Experiment
+__A Controlled Experiment__
 
-We will begin our model building exercise by describing a single-lane _ring_ or _loop road_ where the drivers cannot pass one another or enter or exit the loop. The number of vehicles traveling around the ring road   shown in the YouTube video is fixed at $n$ = 22 vehicles [@1367-2630-10-3-033001]  The drivers were instructed to maintain a constant speed and distance headway $h$, measured as the distance between the front bumpers of the lead and following vehicles.  
+We continue our model building effort by simulating conditions observed on a  _ring_ or _loop road_. The [YouTube video](https://www.youtube.com/watch?v=7wm-pZp_mi0) shows $n$ = 22 vehicles [@1367-2630-10-3-033001].  The drivers cannot pass one another or enter or exit the loop.  Each driver was instructed to maintain a same constant speed $u$. The drivers cannot follow instructions. After a few sections, the traffic breaks down. 
 
-The drivers cannot follow instructions. After a few sections, the traffic breaks down. 
-Traffic breakdown at a _bottleneck_ is more complex because it requires traffic to merge. The analysis of a _loop road_ is more straightforward. The number of vehicles on the loop road is fixed and equal to $n$. 
+Why? The video shows the vehicles to traveling at a reasonable speed. Initially, all vehicles are uniformly distributed around the circle. After a few seconds,  the vehicles begin to interact because the drivers cannot maintain a constant speed. If we track a vehicle, we can see the speed will vary by a slight amount. Since their no room to move laterally, the drivers must follow and react to the situation directly in front of them. 
 
-Drivers travelling around a loop road will attempt to optimize the situation. They select a constant speed $u$ and constant headway $h$. Under these ideal conditions, drivers will travel steadily around the road without interruption.  The reality is that the drivers are unable to do so. Their speeds will vary by a slight amount and eventually, the vehicles will begin to interact. The situation is modelled by adding traffic noise $\sigma$ to the speed $u$. Assume speed $U(t)$ to be a stationary time series motion model of the form: 
+This behavior is a classic definition of  _car-following._ The spacing between between vehicles, while it appears to be sufficient, is not. If other words, the traffic density $k$ is sufficiently large to cause the vehicles to interact, thus driving in a _congested state_. If there were fewer vehicles, i.e., driving in a _free-flow state_, then an individual driver could adjust his or her vehicle without affecting the vehicle behind it.  
 
-$U(t) =  u + \sigma Z$ 
+__A Brownian Bridge Model of Speed__
 
-with a mean speed $u$ is a constant value over time, $\sigma$ is a standard deviation of speed, $Z  \sim N(0,1)$ is a standard normal probability distribution and time $t$ is measured in seconds. Models using time measurements in seconds are called _microscale models._ Models using data aggregated over 15-minute time intervals are called _macroscale models._ They will be discussed presently.   
+Can we explain this behavior mathematically? Consider the following approach:
 
+First, assume  the speed of a vehicle to be the random variable $U(t)$ and assume the process is defined by a stationary time-series model of the  form: 
 
-Now, we turn our attention to modeling vehicular interaction, better known in the literature as _car following_. The deterministic _flow-density-speed_ relationship of $q = k * u$, the fundamental relationship, is now treated as a random process of the form:
+* $U(t) =  u + \sigma Z$ 
 
-$Q = K * U(t)$
+where $u$ is the assigned speed as specified by the experiment and $\sigma$ is a standard deviation of speed, $Z  \sim N(0,1)$ is a standard normal probability distribution and time $t$ is measured in seconds.  
 
+The next question is how do we assign the model parameters? It is clear that $u$ is the assigned experiment speed but what is its magnitude?  The box plot of speed-density  from our exploratory analyses  showed a connection of speed and density.  The following density-speed plot is a cleaner version of the box plot. 
 
-An interesting result occurs for the _loop road_. $K$ is not a random variable but a constant. $K = k = n /l$ where the l is the circumference of the roadway or $2 \pi r$ with $r$ equal to the radius of the ring-road. Thus, the flow equation is rewritten as:
-
-$Q = k * U(t) = n / l * U(t)$.
-
-The volatility in $Q$ is explained exclusively by the volatility in $U(t)$ as defined by $u$ and $\sigma$. 
-
-
-
-
-### 2. Field Data 
-
-Our next step in this discussion is to investigate the traffic data and glean as much information  from _raw, real-world data._ First, we investigate relationships among of flow $q$, density $k$ and speed $u$ on the northbound lane on I-93 in Salem, New Hampshire. Next, we will look for meaningful relationships using visual imagry, scatter plots, box plots and time-series plots. Once these relationships are revealed, the next step is to develop mathematical models that capture these relationships.  
-
-Unlike the "toy" example, 20,656 recordings of $q$, $k$ and $u$ were made over a period of eight months. The speed recordings are aggregate values.  The _space-mean speed_ is estimated as $u = n/(1/\sum u_i)$ where $u_i$ is an individual observation made in a 15-minute interval, $i = 1,2,..., n$ is vehicle identification number, and $n$ is the total number of vehicles observed in the interval. The flow for the interval is calculated as $q = n/t$ where $t$ is 15-minutes. The density is derived from the _fundamental relationship_ of traffic flow $q = k * u$. Thus, the density is estimated as $k = q/u$. The site is a __bottleneck__ because the number of lanes drops from three to two. By exploring the data, we will discover that congestion at the site is severe. 
-
-A __Flow-Speed Plot__  scatter plot  reveals much about the traffic at the site.  For one, the data are  _extremely noisy or volatile_, therefore making it difficult to reveal clear-cut patterns in the data. By using scaling and color shading of the $k$ dots, the scatter plot become enhanced, making it easier to reveal patterns in the data. The smaller/black dots indicate fewer vehicles per mile than  the  large/blue dots. 
-
-Even though the data are noisy, patterns are revealed. For one,  speeds between 60 and 80 miles per hour (mph) are observed at  flows ranging from 0 to 3000 vehicles per hour (vph). The speed tends to decrease marginally with an increase in flow. The densities  over this range increase but for the most part, do not exceed $k \le 70$ vehicles per mile (vpm). Given these results, $u^* =$ 50 mph is defined to be a critical speed where a _congested state_ and  a _free-flow state_ are defined to be $u \le u^*$ and  $u > u^*$, respectively.  Low speeds and high densities, $u \le u^*$ and $k > 70$ vpm, tend to be associated and define a congested state. 
-
-
-
-
-```{r speedplot,  message = FALSE, fig.height = 4, fig.width = 4, echo = FALSE}
-library(dplyr)
-library(ggplot2)
-speedplot(QUKtdayX)
+```{r density-speed,  message = FALSE, fig.height = 5, fig.width = 10, echo = FALSE}
+output <- uk_sdk(QUKtdayX)
 ```
 
-### 3. Density-Speed 
+The traffic density $k$ is controlled by the number of vehicles on the road $n$ and ring-road radius $r$:
 
-We continue to explore the relationship between $k$ and $u$ with  the __Box Plot of Density-Speed__.   To construct the diagram, the speed were sorted and placed into bins. For example, the labeled as $k^*$ = 45 vpm consists of observations ranging 42.5 to 47.5 vpm. This value of $k^*$ is taken from the Highway Capacity Manual (HCM), which defines it to be the roadway capacity for this geometric design. Visual inspection reveals that the chance of driving in a free-flow state, $u^* > 50$,  is greater when $k^* \le 45$ vpm. The interquartile range of speed is extremely tight for $k^* \le 45$ vpm. Excluding outliners, a driver can be assured that speeds of 70 mph or more can be expected. With the exception of the bin at $k$ = 50 vpm, speeds considerably less than 25 mph is expected for $k^* \ge 55$ vpm.  It is impossible to explain why so many congested speed observations are located in the $0 < k \le k^* = 50$ range. For $k \le 50$ vpm, a better case can be made that a congested state will be observed. 
+* $k = n/2\pi r$
 
-
-```{r speedboxplot,  message = FALSE, fig.height = 4, fig.width = 5, echo = FALSE}
-library(dplyr)
-library(ggplot2)
-speedboxplot(QUKtdayX)
-title("Box Plot of Density-Speed")
-```
-
-A __Time-Speed Plot__ draws attention to _traffic breakdown_, driving in a congested state with speeds of less than 50 mph, $u \le$  50 mph, is a common occurence. Simple inspection of the plot also reveals that _long delays, congestion lasting more than one hour, are common_. Remember a congested state is defined by speed,  $u \le 50$ mph. Also make note that each $(t,u)$ point on the figure represents a point-in-time denoted by $t$, which means the freeway is in a congested state for 15 minutes. Note that $t$ is not clock time but a time-index, each $t$ representing a time interval of 15 minutes. At the extreme right, for example, the freeway is observed to have a time index of $t$ = 36.  Thus,  time in a congested state in this instance is 36 / 4 = 9 hours.  
-
-Statistic summaries of the data reveal interesting facts. The total number of breakdown events is counted to be 227. The total time the freeway is in a congested state is calculated to be 444 hours.  The average delay time is estimated to be 444/227 or about two hours. The breakdown count includes multiple breakdown in a single day. The chance of  a breakdown is estimated to be 4 in 5. Stated another way, four days in a five-day work week the freeway is congested state with speeds ranging from $10 < u < 20$ mph.
-
-Of course, these statistical summaries are important performance measurements. However, they do not explain why traffic breakdown is so prevelent at the site. The data used in the __Time-Speed Plot__,  a subset of the data used in the __Flow-Speed Plot__ and  __Box Plot of Density-Speed__ diagrams, gives a different perspective. Note that the horizontal axis is labelled with time indices $t = -1,0,1,2, ...$. The first breakdown in a string of initial breakdown events is denoted as  t = 0$. Thus, $u_0$ is called the breakdown speed and $u_{-1}$ is called the pre-breakdown speed. 
-
-The pre-breakdown $u_{-1}$ and breakdown $u_0$ speeds, even after filtering the data, are _extremely volatile_. Since $50 \le u_{-1} < 72$ mph is so wide a range, it cannot be used as an indicator or reliable predictor that a breakdown is likely to occur. 
-
-The smooth blue curve,  a generalized additive model (gam), suggests that there may be a underlining structure associated with this chaos. Like above, the blue curve draws attention to the fact that congestion, $u \le 50$ mph,  can last a long time. It also draws attention to the fact that the average  speed drop is around 35 mph.
-
-The blue curve must be used with care. It does not take over one-hour ($t$ = 5/4 = 1.25) for the speed to drop from  55 to 20 mph or speed drop of 35 mph. Again, remember the $t$ values are time indices, not clock times.   The blue curve is useful for inferences regarding speed drop but totally misleading with regard to times of occurrence.  Every driver knows that breakdown events occur on a time scale of seconds not minutes. 
-
-### 4. Logistic Regression 
-
-```{r logisticmodel,  message = FALSE, fig.height = 4, fig.width = 5, echo = FALSE, warning = FALSE, error = FALSE}
-library(glm2)
-library(ggplot2)
-library(Basic)
-df <- logisticmodel(QUKtdayX)
-df <- dplyr::as_tibble(df)
-ggplot2::ggplot(df, ggplot2::aes(k, exp.failures, size = e)) +
-    ggplot2::geom_smooth()
-```
-
-### 5. Time-Distance Trajectories
+Knowing $k$, select $u$ and $\sigma$.
 
 
-The $Q =  k * U(t)$ model exhibits the same behavior as shown in the YouTube video. Our results are shown as  time-distance $t-x$ trajectories  for $k$ = 55 vehicles per mile (vpm). See the __Congested Flow: Ring Road__ diagram. A same instructions given to the drivers of the Yuki Sugiyama experiment are assumed for the computer simulation that produced the $t-x$ trajectories. Maintain a constant speed and headway $h$.  The simulated drivers are assigned the same initial speed of $u$ = 30 miles per hour (mph) and are evenly placed along the $x$ axis at $t$ = 0.  The traffic density is fixed at $k$ = 55 vph. As in the full-scale experiment, the simulated drivers cannot maintain a constant speed or even spacing.  After a few seconds, the vehicles begin to interact and form clusters (moving queues) and the traffic breaks down. Setting $\sigma$ = 0, no clustering or breakdown can occur. _Clearly, traffic volatility plays an important role._
+Assigning $u$ and $\sigma$ are not clear-cut as originally envisioned. For one, $U(t)$ is a _microscale model_ where driver reaction takes place on a time-scale of seconds and  the density-speed plot is a _macroscale model_ derived from 15-minute average data or $\tau$ data.  The scales are incompatable.
 
-The __rrtrials__ computer simulation of the $Q =  n / l * U(t)$ model incorporates two important features not mentioned above: (1) _driver performance in a car-following situation_ and (2) _safety_. They are most easily explained with the use of the dotted and dashed lines shown in the figure. The dotted line is the trajectory of vehicle 1, the lead vehicle, assuming that its driver could maintain a constant speed. Since $x = u * t$, the slope of the dotted line is $u = 10$ mph. The dashed line is the trajectory of  vehicle 2  when vehicle 1  maintains the trajectory shown by the dotted line. Since vehicle 1 slows, vehicle 2 must slowdown to avoid a crash. The distance headways, measured by the distance between a lead/following pair, are safe distances. 
+Second, the stationary time-series $U(t)$ model does not adequately explain driver behavior. Define the time-step equal to $\Delta t = t_i - t_{i-1}$ and for purposes of illustration, let $\Delta t$ = 1 second.  Given $Z$ takes on both positive and negative values, a simulation can predict vehicle speeds  flip-flopping back and forth from one second to the next. Obviously, a normal driver does not drive sporatically as described by the model. This flaw is rectified by replacing the $\sigma Z$ term with a Brownian motion term or:
 
+* $U(t) = u + \sigma \sqrt{\Delta t} Z = u + \sigma W(t)$.
 
+$W(t) = \sqrt{\Delta t} Z$ term defines Brownian motion and is called the Wiener process. A driver will more smoothly accelerate or decelerate but without limit. Over an extended period of time, say $\tau$ = 15 minutes, speeds can reach extraordinary high or low speeds (negative traveling backwards) with this model. Of course, this is another unacceptable model. 
 
-Level-of-service estimates for the simulation are shown in the following table. The mean headway $\bar{h}$ is the averages of the distances between points along the $x = 0$ axis. The predicted flow  for the simulation is estmated as $\hat{Q}  = 1/\bar{h}$. The standard deviation estimate of $\hat{\sigma}_h$  is an indicator that a breakdown is triggered by a volatile process associated with vehicle speed exclusively. Assuming no volatility $\sigma$ = 0, $q = k * u$  = 1650 vph and $h$ = 2.2 seconds at $x$ = 0. 
-    
-  |Mean headway $\bar{h}$ | Headway standard deviation $\hat{\sigma}_h$ |Predicted flow $\hat{Q}$ |
-  |-----------------:|-------------------:| -----------------:|
-  | 2.2 seconds | 1.6 seconds | 1650 vehicles per hour (vph)|
+This problem is overcome by replacing $W(t)$ with a Brownian bridge model:
 
-    
-The $Q = k * U(t)$ model suggests a _cause-effect relationship_ exists:  $u$ and $\sigma$ are the causal factors and  $\hat{Q} = 1/ \bar{h}$ is the response variable. As illustrated, vehicle clustering occurs only when  density $k$ sufficiently dense. When there are fewer vehicles on the ring road, $k = n / l$ decreases resulting in longer time headways of $\bar{h}$. Under less dense conditions, drivers can vary their speeds without affecting one another, thus reducing the chance of breakdown. 
+* $U(t) = u + \Lambda (W(t) - t/\tau * W(\tau))$,
 
-Overall, the $Q$ model predicts poor performance.  $\hat{Q} \le c^*$ = 2250 vph with speeds $\bar{u} \pm \sigma_U = 29 \pm 5$ mph. High volatility in speed and headway $h$, shown in the __Headway__ histogram, suggests driving under these conditions is unpleasant.
+as the following diagram illustrates for "Congested Flow at HCM Capacity" (HCM = Highway Capacity Manual) and "Heavly Congested" simulations for two $k$ assignments. After time $\tau$ = 15 minutes, the model forces a driver to travel at speed $u$ when $\tau$ = 15 minutes. 
 
-
-
-```{r ringroad1,  message = FALSE, fig.height = 4, fig.width = 5, echo = FALSE}
+```{r bridge,  message = FALSE, fig.height = 5, fig.width = 10, echo = FALSE}
+par(mfrow = c(1,2))
 set.seed(124)
-k <- 30
-d <- 22/(pi*k)
+u0 = 41
+usd = 11
+k0 = 50
+output1 <- usdBBridge(41, 11, 900, 15, 0.75)
+title("","Congested Flow at HCM Capacity")
+mtext(bquote(u == .(u0)), side = 3, line = 1)
+mtext(bquote(hat(sigma) == .(usd)), side = 3)
+mtext(bquote(k == .(k0)), side = 4)
+set.seed(124)
+output2 <- usdBBridge(18.8, 3.9, 900, 15, 0.5)
+u0 = 18
+usd = 4
+k0 = 100
+title("","Heavily Congested Flow")
+mtext(bquote(u == .(u0)), side = 3, line = 1)
+mtext(bquote(hat(sigma) == .(usd)), side = 3)
+mtext(bquote(k == .(k0)), side = 4)
+```
+
+Finally, there is a  need for  $\Lambda$, the correction factor. If $\Lambda$ is assigned the value of 1, then the model can predict more volatile traffic speeds than shown here. By volatile the speeds can fall well outside its 95% confidence interval. The assignment of $\Lambda$ used an ad hoc, subjective procedure. A series of simulations for a given  $\Lambda$. If two many simulations fell outside the 95% CI, it was adjusted until was felt to be representative of the situation being simulated.
+
+The $U(t)$ model, a mechanistic model, _explains_ driver behavior. A driver will travel at a speed in the neighborhood of $u$ over the time period from 0 to $\tau$ = 15 minutes as common sense tells us. 
+
+__Time-Distance Trajectories__
+
+The $U(t)$ model was subject to another test. Does the model predict driver behavior that is similar to that shown in the YouTube video?  A same instructions given to the drivers of the Yuki Sugiyama experiment are assumed for the computer simulation that produced the following $t-x$ trajectories. The drivers are instructed to maintain a constant speed $u$ and headway $h$.  The vehicles are evenly placed along the $x$ axis at $t$ = 0.  
+
+```{r ringroad1,  message = FALSE, fig.height = 5, fig.width = 10, echo = FALSE}
+set.seed(124)
+par(mfrow = c(1,2))
+k0 <- 50
+d <- 22/(pi*k0)
 d <- round(d,1)
-output1 <- rrtrials(70, 1, k, 120, 5, 14, 100, c(0,120), c(-1000, 2000))
-title("n = 22 vehicles","Free-Flow")
-mtext(bquote(k == .(k)), side = 3)
+output1 <- rrtrials(41, 11, 50, 120, 120, 14, 0.75, 10, c(0,120), c(-1000, 7500))
+title("","Congested Flow at HCM Capacity")
+mtext(bquote(k == .(k0)), side = 4)
+
 h1 <- output1[[5]][1]
 hsd1 <- output1[[5]][2]
 q1 <- output1[[5]][3]
-```
-
-
-```{r ringroad2,  message = FALSE, fig.height = 4, fig.width = 5, echo = FALSE}
 set.seed(124)
-k <- 50
-d <- 22/(pi*k)
+k0 <- 100
+d <- 22/(pi*k0)
 d <- round(d,1)
-output2 <- rrtrials(40, 5, 55, 120, 5, 14, 100, c(0,120), c(-1000, 2000))
-title("n = 22 vehicles","Congested-Flow")
-mtext(bquote(k == .(k)), side = 3)
+output2 <- rrtrials(18.8, 3.9, 100, 120, 120, 14, 0.5, 10, c(0,120), c(-500, 3500))
+title("","Heavily Congested Flow")
+mtext(bquote(k == .(k0)), side = 4)
 h2 <- output2[[5]][1]
 hsd2 <- output2[[5]][2]
 q2 <- output2[[5]][3]
 ```
 
- | __Scenario__ |$\bar{h}$, seconds | $\hat{\sigma}_h$, seconds | $\hat{Q}$,  vehicles per hour (vph) |
- |-----------------:  |-----------------:|-------------------:| -----------------:|
- | Free-Flow | 1.68 | 0.59 | 2137 |
- | Congested-Flow | 1.76 | 1.46 | 2045 |
+As in the full-scale experiment, the simulated drivers cannot maintain a constant speed or even spacing. After a few seconds, the vehicles begin to interact and form clusters (moving queues) and the traffic breaks down.  _Clearly, traffic volatility plays an important role._
  
- 
-### 6. Forecasting 
+__Highway Safety__
 
-```{r cfanim1,  message = FALSE, fig.height = 4, fig.width = 6, echo = FALSE}
-library(gapminder)
-library(ggplot2)
-library(tidyverse)
-set.seed(767)
-d1 <- cfanim(70, 1, 120, 3)
-summary(d1[,2])
-df <- dplyr::as_tibble(d1)
-ggplot2::ggplot(df, ggplot2::aes(t, u)) +
-    ggplot2::geom_smooth()
-```
+The $U(t)$ model incorporates two important features: (1) _driver performance in a car-following situation_ and (2) _safety_. All drivers are assumed to maintain a _safe driving distance_ when driving in the congested or free-flow states or
+
+* $h_{safe} = f(u)$, 
+
+which depends on the vehicle speed $u$. The safety effects are most easily explained with the use of the dotted  lines shown in the figures above. The dotted straight line is the trajectory of  the lead vehicle, assuming that its driver could maintain a constant speed. Since $x = u * t$, the slope of the dotted straight line is $u$. Consider a pair of vehicles, one designated as a _leader_ and the other one designated as a  _follower_. At each time-step, the locations and speeds of the lead and following vehicles and the headway between the two vehicles are calculated. If there is a safe headway violation, the following vehicle locations and speeds are adjusted to eliminate the violation. If the lead vehicle slows, the following vehicle  must slowdown to avoid a crash if too close. Under a less dense condition, the drivers can vary their speeds without affecting one another. 
+
+__Traffic Flow__
+
+Since $n$ is a constant, $k = n/2\pi r$ is a constant. The flow is a random variable, defined as:
+
+* $Q(t) = k * U(t)$
+
+The volatility in $Q(t)$ is explained exclusively by the volatility in $U(t)$ as defined by the Brownian bridge model of speed.  
+
+__Summary__
+    
+The $Q(t) = k * U(t)$ model suggests a _cause-effect relationship_ exists. The speed as specified by  $u$ and $\sigma$ are the causal factors and  $Q(t)$ is the response variable. The probability of being in a congested state is forecast to be a function of $k$, $\pi(k)$. 
 
 
-```{r cfanim2,  message = FALSE, fig.height = 4, fig.width = 6, echo = FALSE}
-library(gapminder)
-library(ggplot2)
-library(tidyverse)
-set.seed(267)
-d1 <- cfanim(40, 5, 120, 3)
-summary(d1[,2])
-df <- dplyr::as_tibble(d1)
-ggplot2::ggplot(df, ggplot2::aes(t, u)) +
-    ggplot2::geom_smooth()
-```
+
+__Reference__

@@ -1,5 +1,7 @@
 ---
-title: "Fundamental Principles"
+title: "Traffic Noise"
+bibliography: "CF.bibtex"
+output: html_document
 ---
 
 
@@ -8,57 +10,77 @@ library(Basic)
 ```
 
 
-## 1. Overview 
- 
-The __TFUHP__ package is designed for college students studying transportation engineering and for transportation professionals and researchers interested in understanding the complex relationships associated with freeway performance and traffic breakdown. Newtons Laws of dynamics, fundamentals of trafic flow theory (TFT), probabilistic modeling and statistics are used in this package. By building upon current knowledge - the "classical methods" of transportation analysis - and integrating them with the latest computer tools, the goal is to identify key factors that initiate a breakdown event.  Emphasize is placed on:
+To develop a successful transportaion operation and management plan, there is a clear need for understanding of the process being operated and  managed.  The decision-making framework presented in the __Drivers__ section, _The Learning Process_, will be used here and in subsequent analyses. It is worth repeating that our principal aim   is to explain highway performance realisticly using simple, easy-to-understand models. This is not easy task because traffic data are noisy. A conceptual model derived from a simple sampling experiment was propoed: 
 
-1. Traffic noise or _traffic volatility_.
+$\pi(n) = P(X = 1|N = n) = P(U < u^*|N = n)$,
 
-2. Driver behavior and safety.
+The model has limitations: 
 
-3. Development of stochastic models that explain breakdown and highway performance.
+1. It is impossible tool to use from a traffic engineering point of view.
+2. It is difficult to calibrate.
+3. It contains no provision for the assumption that drivers are self optimizers. 
+4. It contains no provision to measure delay and other highway performance measures. 
 
-The principal aim of this work is to explain highway performance as simply as possible. Topics are introduced in a  step-by-step manner.  Exploratory data analyses of a freeway bottleneck, inspection of a YouTube video of vehicles traveling around a ring road, and the core assumptions of TFT and statistics are used.   
+These shortcomings must be addressed and overcome. The overall approach consists of the following steps: 
 
-A principal product of this effort is the development of a probabilistic traffic flow model:
+1. The _fundational relationship_, $q = k * u$, is introduced into the analysis where $u$, $k$ and $q$ are defined to be traffic speed, measured in miles per hour (mph),  traffic density, measured in vehicles per mile per lane (vpm) and traffic flow, measured in vehicles per hour per lane (vph), respectively.
+2. The findings from a  __ring-road__ experiment, a controlled experiment, is introduced into the analysis. A critical feature of the experiment is number of vehicles in the investigation is that $n$ is fixed number, a constant.
+3. Concepts of derived from elementary car following models are introduced into the analysis to account for driver reactions due to changes of traffic behavior over time. Vehicle length $l$, measured in feet, and safe driving headway $h = h(u)$, measured in feet and function of speed $u$ are also introduced.
 
-* $Q  = f(U; k, h)$
+It is worth noting that an exploratory data analysis is primary focus used in this section. A logistic regression model, denoted as $\pi(k)$, will replace $\pi(n)$ where traffic density $k$ is an explanatory variable.
 
-where speed is treated as a random variable $U = g(u, \sigma)$ where speed $u$, the standard deviation of speed $\sigma$,  traffic density $k$,  and safe headway $h$ are  constant values.  The overall  volatility of the process  is specified by $\sigma$, which is assumed to be a measure of driver group dynamics and other uncertainties.  The   _safe distance headway_  $h$  reflects the drivers' aversion to risk. Additionally,  $h$ is assumed to be a _deterministic_ function of the constant speed $u$ and vehicle length. Since all drivers are assumed to maintain a safe headway, no crashes are permitted.  Thus, the model of $Q$ is an important measure of highway performance and a _parsimonius, stochastic model._ 
-
-
-
-Since $n$ is fixed and speed varies over time and is treated as a random variable $U$, the fundamental relationship is written as $Q = nU/l$ where the road length is $l = 2\pi r$ with $r$ equal to the radius of the loop road. Returning to the question of the better model, $\pi = P(Q = q)$ or $\pi = P(K = k)$, the answer is $\pi = P(U = u)$. The _root causes of traffic breakdown_ in this experiment are: (1) the inability of the drivers to maintain a constant speed, and (2) the drivers need to accelerate and decelerate to maintain a safe distance between themselves and the vehicles in front of them or safe headways. The _optimum driving condition_ is defined to be time it takes an indivual driver to complete a loop at speed $u$. The delay is estimated as the extra time for a driver to complete a loop. To explain this scenario, the stationary time-series model of $U$ is introduced and the calibration of this model is discussed. 
+__Exploratory Data Analysis__
 
 
-## 2. Traffic Noise 
+Our first step  is to  glean as much information as possible from an exploratory data analysis.  _Raw, real-world data_, data collected on the northbound lane on interstate I-93 in Salem, New Hampshire contains 20,656 recordings of $q$, $k$ and $u$ that were made over a period of eight months. The speed recordings are aggregate values, estimated as space-mean speeds $u = n/(1/\sum u_i)$ where $u_i$ is an individual observation made in a 15-minute interval, $i = 1,2,..., n$ is vehicle identification number, and $n$ is the total number of vehicles observed in the interval. The flow for the interval is calculated as $q = n/\tau$ where $\tau$ is 15-minutes. The density is derived from the _fundamental relationship_ of traffic flow $q = k * u$. Thus, the density is estimated as $k = q/u$. 
 
-A quick read of the __Overview__ may give the impression that the approach, a package of computer algorithms, will be difficult to understand and overwhelming to implement. Words, like complex, dynamics, theory, parsimonious, stochastic and model integration can be daunting. No question that designing and operating a transportation system are difficult problems. By disecting the problem into manageable pieces and synthesizing the  results from the individual pieces brings clarity to the process. 
 
-Consider a "toy" example using  _sequential-demand-forecasting. It is a 4-step approach. Questions associated with (1) _trip generation_, (2) _trip distribution_, (3) _modal-split_, and _trip assignment_ are asked.  Our task is to  improve an existing campus transporation system. This is no small task, especially when budgetary constraints are imposed. Suppose we obtained the following responses:
+Next, we  look for meaningful relationships using scatter plots and box plots. We also keep in the back of our minds that the  __ring-road__ experiment that $n$ is fixed and can be easily transformed to a density measurement as $k = n/l$ because the road length $l$ is also a fixed number. Once these relationships are revealed, the next steps is to develop mathematical models that capture these relationships. Since the _Learning Process_ is used, models are critically analyzed. The aim is to justify the replacement of the $\pi(n)$ model with a logistic model of traffic density $\pi(k)$.
 
-_Trip generation_, "What is the purpose of your trip?" Work, shopping, entertainment, doctor's visit, etc. and of course, returning home after completing these activites. Since our problem, deals traveling on campus, we  interview 10 students in this "toy" example. To further simplify the problem,  we assume that all students are together in the same classroom. The answers range to my next class in a different building, study hall, dining hall, etc. The answers, you can see, can be anticipated. You can see that answers are dependent on the time of day and may include  other factors. 
-
-_Trip distribution_, "Where do you want to go?" Thus, for the students, we need to know the locations of class rooms, study halls, dining halls, etc. 
-
-_Modal-split_, "What means of transporation will you use?" Walk, bicycle, auto, bus. For the general public, answers  include taxi, Uber, train, boat and airplane.
-
-_Trip assignment_, "What route will you use?" Answers include sidewalks, local streets, boulevards, freeways, waterways, and the airways. 
-
-To build a system for a campus with hundreds or thousands of students, more people will be interviewed. Of course, not all students, faculty, staff and administrators on the campus need to be interviewed. While a sample of 10 students is insufficient, a  _representative sample_ will suffice. A most important point, even for this "toy" example, is the need for quality data. Once obtained, statistical analysis  can be used to extract critical information from the data and to build predictive models.
-
-## 3. Visual Imagry
-
-The [trfhp](https://github.com/PJOssenbruggen/Basic) package is  a collection of [R](https://www.r-project.org) functions and libraries. This  wide variety of statistical and graphical techniques are made available through the open-source [cran](https://cran.r-project.org) network.  The aim is to use these tools to  better understand freeway performance and traffic breakdown.  Computer simulation, enhanced graphics including animation, and sensitivity analysis are  used in the [trfhp](https://github.com/PJOssenbruggen/Basic) package.  For example, [ggplot2](http://ggplot2.org) from [Rstudio](https://www.rstudio.com/products/rpackages/)  is used to produce the animation presented below. [Shiny](http://shiny.rstudio.com) is used to build interactive web applications for conducting sensitivity analyses. 
-
-Let's look again at trip generation. This time, we will incorporate visual imagry into the discussion. Before the interview, we don't know if the students will travel north, south, east or west or how far they will travel. We do know that they are all located at the same place initially and when the class ends that they will disperse. A [R](https://www.r-project.org) _Brownian motion model_, a time-dependent stochastic model, can simulate this behavior.  At time $t$ = 0, the students are  located at the point $(x = 0, y = 0)$. They become more dispersed as time progresses. Robert Brown, a botanist, described this chaotic motion of a grain of pollen suspended in water. This model is used by economists and physicists [@sde] [@iacus]. 
-
-```{r, out.width = "400px"}
-knitr::include_graphics("tripdispersion-1.png")
+```{r speedplot, echo=FALSE, message = FALSE, fig.height=4, fig.width=4}
+library(dplyr)
+library(ggplot2)
+speedplot(QUKtdayX)
 ```
 
-![Trip Dispersion](tripdispersion-1.png)
 
-![Trip Dispersion](tripdispersion-2.png)
 
-The mathematics behind the animation is relatively simple. Of course, the Brownian motion model shown here can be adapted to other situtations. This will be  illustrated presently. The ultimate aim of using [trfhp](https://github.com/PJOssenbruggen/Basic) package tools is to improve our chances of mitigating congestion and improving performance using the simple mathematical and graphical tools.
+The __Flow-Speed Plot__  reveals much about the traffic at the site. As mentioned many times previously, the data are  _extremely noisy_, making it difficult to reveal clear-cut patterns in the data. By using scaling and color shading of the $k$ dots, the scatter plot become enhanced, making it easier to reveal patterns in the data. The smaller/black dots indicate fewer vehicles per mile than  the  large/blue dots. 
+
+Even though the data are noisy, patterns are revealed. For one,  speeds between 60 and 80  an increase in flow. The densities  over this range increase but for the most part, do not exceed $k \le 70$ vpm. Given these results, the critical speed  was chosen to be $u^* =$ 50 mph.  Low speeds and high densities, $u \le u^*$ and $k > 70$ vpm, tend to be associated with congested state $X = 1$ or $U < u^*$. 
+
+Since the "controlled" ring-road experiment used a fixed value of $k$, the relationship between $k$ and $u$ was explored  with  the __Box Plot of Density-Speed__.   To construct this diagram, the speeds were sorted and placed into bins. For example, the labeled as $k^*$ = 45 vpm consists of observations ranging 42.5 to 47.5 vpm. This value of $k^*$ is taken from the Highway Capacity Manual (HCM), which defines it to be the roadway capacity for this geometric design. 
+
+Visual inspection reveals that the chance of driving in a free-flow state, $u^* > 50$,  is greater when $k^* \le 45$ vpm. The interquartile range of speed is extremely tight for $k^* \le 45$ vpm. Excluding outliners, a driver can be assured that speeds of 70 mph or more can be expected. With the exception of the bin at $k$ = 50 vpm, speeds considerably less than 25 mph is expected for $k^* \ge 55$ vpm.  It is impossible to explain why so many congested speed observations are located in the $0 < k \le   50$ range. For $k > 50$ vpm, a good case can be made that a congested state will be observed. 
+
+
+```{r speedboxplot,  message = FALSE, fig.height = 4, fig.width = 5, echo = FALSE}
+library(dplyr)
+library(ggplot2)
+speedboxplot(QUKtdayX)
+title("Box Plot of Density-Speed")
+```
+
+
+ 
+
+__A Logistic Regression Model__
+
+The data set that was used to create the __Box Plot of Density-Speed__ was also used to fit a $\pi(k)$ model, a logistic model of the form, 
+
+$\pi(k) = \frac{exp(\alpha + \beta * k)}{1 + exp(\alpha + \beta * k)}$
+
+where $\alpha$ = -12.3 and $\beta$ = 0.265. This model replaces the $\pi(n)$ model above. The data set consists of $i$ = 1,2,...,24 observations of $k_i$ and proportion estimates of $p_i$ where  $p_i =  m_i/n_i$.  $m_i$ and  $n_i$ are equal to the number of speed observations satisfying the equality $u < u^*$ and to the number of $k_i$ observations in bin $i$. The $p_i$ values are shown in the following plot as  solid circles and the forecasts of $\pi[k_i]$ are shown as open circles. There is a good model fit. $\pi(k = 45)$ and $\pi(k = 50)$ = 0.41 and 0.8, respectively. 
+
+
+```{r logisticmodel,  message = FALSE, fig.height = 4, fig.width = 5, echo = FALSE, warning = FALSE, error = FALSE}
+library(glm2)
+library(ggplot2)
+library(Basic)
+df <- logisticmodel(QUKtdayX)
+df <- dplyr::as_tibble(df)
+
+```
+
+
+The logistic regression model of $\pi(k)$ uses _macroscale data_, data averaged over 15-minute intervals. Driver reaction  takes place in time measured in seconds. To fully understand an explain driver behavior, a _microscale model_, a  time series model of speed $U(t)$ where is measured in second, is  introduced.
