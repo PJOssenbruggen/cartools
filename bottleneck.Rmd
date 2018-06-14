@@ -51,7 +51,6 @@ Consider the low-speed merge on the left. The drivers of vehicles 2 and 3 are mo
 The high-speed merge has similar characterics, but the likelihood of a merge at these speeds is unlikely. All vehicles are operating at 90 mph at times $t$ = 0 and 40 seconds. A traffic breakdown is a more likely event  where one or more three vehicles decelerate and operate at speed less than 90 mph at $t$ = 40 to avoid a crash. This kind of merge occurs on a motor raceway where the drivers are professionals and trust the judgement of their competitors.
 
 
-
 __Car-Following__
 
 ```{r CF,  message = FALSE, fig.height = 4, fig.width = 6, echo = FALSE}

@@ -174,7 +174,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">TFUHP Website</a>
+      <a class="navbar-brand" href="index.html">Cartools</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -245,6 +245,14 @@ $(document).ready(function () {
 <p><strong>Traffic Noise</strong></p>
 <p>A quick read of the <strong>Overview</strong> may give the impression that the approach, a package of computer algorithms, will be difficult to understand and overwhelming to implement. Words, like complex, dynamics, theory, parsimonious, stochastic and model integration can be daunting. No question that designing and operating a transportation system are difficult problems. By disecting the problem into manageable pieces and synthesizing the results from the individual pieces brings clarity to the process.</p>
 <p>The mathematics behind the animation is relatively simple. Of course, the Brownian motion model shown here can be adapted to other situtations. This will be illustrated presently. The ultimate aim of using <a href="https://github.com/PJOssenbruggen/Basic">trfhp</a> package tools is to improve our chances of mitigating congestion and improving performance using the simple mathematical and graphical tools.</p>
+<p><strong>Traffic Flow</strong></p>
+<p>Since <span class="math inline">\(n\)</span> is a constant, <span class="math inline">\(k = n/2\pi r\)</span> is a constant. The flow is a random variable, defined as:</p>
+<ul>
+<li><span class="math inline">\(Q(t) = k * U(t)\)</span></li>
+</ul>
+<p>The volatility in <span class="math inline">\(Q(t)\)</span> is explained exclusively by the volatility in <span class="math inline">\(U(t)\)</span> as defined by the Brownian bridge model of speed.</p>
+<p><strong>Summary</strong></p>
+<p>The <span class="math inline">\(Q(t) = k * U(t)\)</span> model suggests a <em>cause-effect relationship</em> exists. The speed as specified by <span class="math inline">\(u\)</span> and <span class="math inline">\(\sigma\)</span> are the causal factors and <span class="math inline">\(Q(t)\)</span> is the response variable. The probability of being in a congested state is forecast to be a function of <span class="math inline">\(k\)</span>, <span class="math inline">\(\pi(k)\)</span>.</p>
 <div id="refs" class="references">
 <div id="ref-1367-2630-10-3-033001">
 <p>Sugiyama, Yuki, Minoru Fukui, Macoto Kikuchi, Katsuya Hasebe, Akihiro Nakayama, Katsuhiro Nishinari, Shin-ichi Tadaki, and Satoshi Yukawa. 2008. “Traffic Jams Without Bottlenecks—Experimental Evidence for the Physical Mechanism of the Formation of a Jam.” <em>New Journal of Physics</em> 10 (3):033001. <a href="http://stacks.iop.org/1367-2630/10/i=3/a=033001" class="uri">http://stacks.iop.org/1367-2630/10/i=3/a=033001</a>.</p>

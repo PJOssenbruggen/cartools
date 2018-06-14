@@ -70,3 +70,19 @@ A quick read of the __Overview__ may give the impression that the approach, a pa
 
 
 The mathematics behind the animation is relatively simple. Of course, the Brownian motion model shown here can be adapted to other situtations. This will be  illustrated presently. The ultimate aim of using [trfhp](https://github.com/PJOssenbruggen/Basic) package tools is to improve our chances of mitigating congestion and improving performance using the simple mathematical and graphical tools.
+
+
+
+
+__Traffic Flow__
+
+Since $n$ is a constant, $k = n/2\pi r$ is a constant. The flow is a random variable, defined as:
+
+* $Q(t) = k * U(t)$
+
+The volatility in $Q(t)$ is explained exclusively by the volatility in $U(t)$ as defined by the Brownian bridge model of speed.  
+
+__Summary__
+    
+The $Q(t) = k * U(t)$ model suggests a _cause-effect relationship_ exists. The speed as specified by  $u$ and $\sigma$ are the causal factors and  $Q(t)$ is the response variable. The probability of being in a congested state is forecast to be a function of $k$, $\pi(k)$. 
+

@@ -1,7 +1,7 @@
 name: GP
 output_dir: '.'
 navbar:
-  title: TFUHP Website
+  title: Cartools
   left:
   - text: Home
     href: index.html

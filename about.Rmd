@@ -10,7 +10,7 @@ library(Basic)
 ```
 
 
-To develop a successful transportaion operation and management plan, there is a clear need for understanding of the process being operated and  managed.  The decision-making framework presented in the __Drivers__ section, _The Learning Process_, will be used here and in subsequent analyses. It is worth repeating that our principal aim   is to explain highway performance realisticly using simple, easy-to-understand models. This is not easy task because traffic data are noisy. A conceptual model derived from a simple sampling experiment was propoed: 
+To develop a successful transportaion operation and management plan, there is a clear need for understanding of the process being operated and  managed.  The decision-making framework presented in the __Drivers__ section, _The Learning Process_, will be used here and in subsequent analyses. It is worth repeating that our principal aim   is to explain highway performance realisticly using simple, easy-to-understand models. This is not easy task because traffic data are noisy. A conceptual model derived from a simple sampling experiment is proposed: 
 
 $\pi(n) = P(X = 1|N = n) = P(U < u^*|N = n)$,
 
@@ -25,17 +25,19 @@ These shortcomings must be addressed and overcome. The overall approach consists
 
 1. The _fundational relationship_, $q = k * u$, is introduced into the analysis where $u$, $k$ and $q$ are defined to be traffic speed, measured in miles per hour (mph),  traffic density, measured in vehicles per mile per lane (vpm) and traffic flow, measured in vehicles per hour per lane (vph), respectively.
 2. The findings from a  __ring-road__ experiment, a controlled experiment, is introduced into the analysis. A critical feature of the experiment is number of vehicles in the investigation is that $n$ is fixed number, a constant.
-3. Concepts of derived from elementary car following models are introduced into the analysis to account for driver reactions due to changes of traffic behavior over time. Vehicle length $l$, measured in feet, and safe driving headway $h = h(u)$, measured in feet and function of speed $u$ are also introduced.
+3. Concepts of derived from elementary car following models are introduced into the analysis to account for driver reactions due to changes of traffic behavior over time. Vehicle length or effective length $l_{eff}$, measured in feet, and safe driving headway $h_{safe} = f(u)$, measured in feet and function of speed $u$ are also introduced.
 
-It is worth noting that an exploratory data analysis is primary focus used in this section. A logistic regression model, denoted as $\pi(k)$, will replace $\pi(n)$ where traffic density $k$ is an explanatory variable.
+It is worth noting that an exploratory data analysis is primary focus used in this section. A logistic regression model, denoted as $\pi(k)$, will replace $\pi(n)$ where traffic density $k$ is an explanatory variable. Traffic density is defined as the number of vehicles per unit length $l$ or $k = n/l$. 
 
 __Exploratory Data Analysis__
 
 
-Our first step  is to  glean as much information as possible from an exploratory data analysis.  _Raw, real-world data_, data collected on the northbound lane on interstate I-93 in Salem, New Hampshire contains 20,656 recordings of $q$, $k$ and $u$ that were made over a period of eight months. The speed recordings are aggregate values, estimated as space-mean speeds $u = n/(1/\sum u_i)$ where $u_i$ is an individual observation made in a 15-minute interval, $i = 1,2,..., n$ is vehicle identification number, and $n$ is the total number of vehicles observed in the interval. The flow for the interval is calculated as $q = n/\tau$ where $\tau$ is 15-minutes. The density is derived from the _fundamental relationship_ of traffic flow $q = k * u$. Thus, the density is estimated as $k = q/u$. 
+Our first step  is to  glean as much information as possible from an exploratory data analysis.  _Raw, real-world data_, data collected on the northbound lane on interstate I-93 in Salem, New Hampshire contains 20,656 recordings of $q$, $k$ and $u$. The recording were made over a contiguous period of eight months. The individual observations of $q$, $k$ and $u$  are estimated  as follows: (1) A flow  is estimated as $q = m/\tau$ where $m$ is a vehicle count, the total number of vehicles observed over a 15-minute time interval or $\tau$ = 15-minutes. (2) Speed is estimated as space-mean speed where $u = m/(1/\sum u_j)$ where $u_j$ is a radar speed recording for vehicle $j = 1,2,..., m$. (3) Density is derived from the _fundamental relationship_ of traffic flow $q = k * u$ or $k = q/u$. 
 
 
-Next, we  look for meaningful relationships using scatter plots and box plots. We also keep in the back of our minds that the  __ring-road__ experiment that $n$ is fixed and can be easily transformed to a density measurement as $k = n/l$ because the road length $l$ is also a fixed number. Once these relationships are revealed, the next steps is to develop mathematical models that capture these relationships. Since the _Learning Process_ is used, models are critically analyzed. The aim is to justify the replacement of the $\pi(n)$ model with a logistic model of traffic density $\pi(k)$.
+Next, we  look for meaningful relationships using scatter plots and box plots. We also keep in the back of our minds that the  __ring-road__ experiment that $n$ is fixed and can be easily transformed to a density measurement as $k = n/l$ because the road length $l$ is also a fixed number.  
+
+Once these relationships are revealed, the next steps is to develop mathematical models that capture these relationships. Since the _Learning Process_ is used, models are critically analyzed. The aim is to justify the replacement of the $\pi(n)$ model with a logistic model of traffic density $\pi(k)$.
 
 ```{r speedplot, echo=FALSE, message = FALSE, fig.height=4, fig.width=4}
 library(dplyr)
@@ -45,13 +47,13 @@ speedplot(QUKtdayX)
 
 
 
-The __Flow-Speed Plot__  reveals much about the traffic at the site. As mentioned many times previously, the data are  _extremely noisy_, making it difficult to reveal clear-cut patterns in the data. By using scaling and color shading of the $k$ dots, the scatter plot become enhanced, making it easier to reveal patterns in the data. The smaller/black dots indicate fewer vehicles per mile than  the  large/blue dots. 
+The __Flow-Speed Plot__  reveals much about the traffic at the site. As mentioned many times previously, the data are  _extremely noisy_, making it difficult to reveal clear-cut patterns in the data. By using scaling and color shading of the $k$ dots, the scatter plot becomes enhanced, making it somewhat easier but still difficult  to reveal patterns or associations in the data. 
 
-Even though the data are noisy, patterns are revealed. For one,  speeds between 60 and 80  an increase in flow. The densities  over this range increase but for the most part, do not exceed $k \le 70$ vpm. Given these results, the critical speed  was chosen to be $u^* =$ 50 mph.  Low speeds and high densities, $u \le u^*$ and $k > 70$ vpm, tend to be associated with congested state $X = 1$ or $U < u^*$. 
+The scatter plot is most helpful in defining the free-flow and congested states. A critical speed  is chosen to be $u^* = $ 50 mph. A _free-flow_ state, $X = 0$, satisfies the inequality $u > u^*$ and a congested state, $X = 1$, satisfies the inequality  $u \leq u^*$. The smaller/black dots indicate fewer vehicles per mile than  the  large/blue dots.  Low speeds and high densities, $u \le u^*$ and $k > 70$ vpm, tend to be associated with congested state $X = 1$. 
 
-Since the "controlled" ring-road experiment used a fixed value of $k$, the relationship between $k$ and $u$ was explored  with  the __Box Plot of Density-Speed__.   To construct this diagram, the speeds were sorted and placed into bins. For example, the labeled as $k^*$ = 45 vpm consists of observations ranging 42.5 to 47.5 vpm. This value of $k^*$ is taken from the Highway Capacity Manual (HCM), which defines it to be the roadway capacity for this geometric design. 
+Since the "controlled" ring-road experiment used a fixed value of $k$, the relationship between $k$ and $u$ was explored  with  the __Box Plot of Density-Speed__.   To construct this diagram, the speeds were sorted and placed into bins. For example, the labeled as $k^*$ = 45 vpm consists of observations ranging 42.5 to 47.5 vpm. The Highway Capacity Manual (HCM) defines capacity of a interstate freeway lane to be $k^*$ = 45 vpm.  
 
-Visual inspection reveals that the chance of driving in a free-flow state, $u^* > 50$,  is greater when $k^* \le 45$ vpm. The interquartile range of speed is extremely tight for $k^* \le 45$ vpm. Excluding outliners, a driver can be assured that speeds of 70 mph or more can be expected. With the exception of the bin at $k$ = 50 vpm, speeds considerably less than 25 mph is expected for $k^* \ge 55$ vpm.  It is impossible to explain why so many congested speed observations are located in the $0 < k \le   50$ range. For $k > 50$ vpm, a good case can be made that a congested state will be observed. 
+Visual inspection reveals that the chance of driving in a free-flow state, $X = 0$,  is greater when $k^* \le 45$ vpm. $X = 1$ speeds are considerably less than 25 mph when $k^* \ge 50$ vpm.  It is impossible to explain why so many congested speed observations are located in the $0 < k \le   50$ range. For $k > 50$ vpm, a good case can be made that a congested state will be observed. 
 
 
 ```{r speedboxplot,  message = FALSE, fig.height = 4, fig.width = 5, echo = FALSE}
@@ -70,7 +72,7 @@ The data set that was used to create the __Box Plot of Density-Speed__ was also 
 
 $\pi(k) = \frac{exp(\alpha + \beta * k)}{1 + exp(\alpha + \beta * k)}$
 
-where $\alpha$ = -12.3 and $\beta$ = 0.265. This model replaces the $\pi(n)$ model above. The data set consists of $i$ = 1,2,...,24 observations of $k_i$ and proportion estimates of $p_i$ where  $p_i =  m_i/n_i$.  $m_i$ and  $n_i$ are equal to the number of speed observations satisfying the equality $u < u^*$ and to the number of $k_i$ observations in bin $i$. The $p_i$ values are shown in the following plot as  solid circles and the forecasts of $\pi[k_i]$ are shown as open circles. There is a good model fit. $\pi(k = 45)$ and $\pi(k = 50)$ = 0.41 and 0.8, respectively. 
+where $\alpha$ = -12.3 and $\beta$ = 0.265. This model replaces the $\pi(n)$ model above. The data set consists of $i$ = 1,2,...,24  density bins, denoted as $k_i$, and $p_i$ proportions where  $p_i =  m_i/n_i$   $m_i$ and  $n_i$ are equal to the number of speed observations satisfying the equality $u < u^*$ and to the number of $k_i$ observations in bin $i$. The $p_i$ values are shown in the following plot as  solid circles and the forecasts of $\pi(k_i)$ are shown as open circles. The model fits the data well. 
 
 
 ```{r logisticmodel,  message = FALSE, fig.height = 4, fig.width = 5, echo = FALSE, warning = FALSE, error = FALSE}
@@ -82,5 +84,6 @@ df <- dplyr::as_tibble(df)
 
 ```
 
+The model forecasts that a freeway will be in a congested state $X = 1$ with a probability of $\pi(k^* = 45)$ = 0.41 at the HCM $k^*$ = 45 vpm. A slight increase in traffic density to 50 shows a significant increase in the forecast, $\pi(k = 50)$ = 0.8. This analysis shows the importance of traffic density in explaining the risk of operating in a congested state.
 
-The logistic regression model of $\pi(k)$ uses _macroscale data_, data averaged over 15-minute intervals. Driver reaction  takes place in time measured in seconds. To fully understand an explain driver behavior, a _microscale model_, a  time series model of speed $U(t)$ where is measured in second, is  introduced.
+The logistic regression model of $\pi(k)$ uses _macroscale data_, data averaged over 15-minute intervals. Driver reaction to various traffic stimuli takes place in time measured in seconds. To more fully  explain and understand the traffic behavior, a _microscale model_, a  time series model of speed $U(t)$ where is measured in second, is  introduced.

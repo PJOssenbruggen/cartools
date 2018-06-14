@@ -1,5 +1,5 @@
 ---
-title: " TFUHP: Tools For UNDERSTANDING Highway Performance"
+title: "cartools: Tools For Uunderstanding Highway Performance"
 bibliography: "CF.bibtex"
 output: html_document
 ---
@@ -25,7 +25,7 @@ Some of these tools are used  for this [GP](https://pjossenbruggen.github.io/GP/
 
 __Aims__
  
-The __TFUHP__ package is designed for college students studying transportation engineering and for transportation professionals and researchers interested in understanding the complex relationships associated with freeway performance and traffic breakdown. Emphasis is placed on: (1) _Traffic noise or volatility_; (2) _Driver behavior and safety_; and (3) _Stochastic modeling_,  models that explain breakdown and performance.
+The __cartools__ package is designed for college students studying transportation engineering and for transportation professionals and researchers interested in understanding the complex relationships associated with freeway performance and traffic breakdown. Emphasis is placed on: (1) _Traffic noise or volatility_; (2) _Driver behavior and safety_; and (3) _Stochastic modeling_,  models that explain breakdown and performance.
 
 
 The website contains five menu bar items:
@@ -46,7 +46,7 @@ Newtons Laws of dynamics, fundamentals of trafic flow theory (TFT), probabilisti
 
 
 
-The principal aim of this work is to explain highway performance as simply as possible. Topics are introduced in a  step-by-step manner.  The  __TFUHP__ package is derived and developed from a diverse set of resources:
+The principal aim of this work is to explain highway performance as simply as possible. Topics are introduced in a  step-by-step manner.  The  __cartools__ package is derived and developed from a diverse set of resources:
 
 * Traffic analysis: @banks:1998, @deganzo:1997, @LiliBook, @pjo2017, @1367-2630-10-3-033001, @trieber
 
