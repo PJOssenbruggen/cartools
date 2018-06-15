@@ -99,12 +99,14 @@ where  $u(k)$ is the vehicle speed at density $k$ and $l_{eff}$ is the effective
 
 If there is a safe headway violation, the following vehicle locations and speeds are adjusted to eliminate the violation. If the lead vehicle slows, the following vehicle  must slowdown to avoid a crash if too close. Under a less dense condition, the drivers can vary their speeds without affecting one another. 
 
-The Brownian bridge computer simulation model, __rrtrials__, a mechanistic model,  is a function of $k, u, \sigma$ and  $l_{eff}$.
+The Brownian bridge computer simulation model, __rrtrials__ is a mechanistic model and  a function of $k, u, \sigma$ and the safe headway function $h_{safe}$. We denote as: 
+
+* $U(t) =U(k, u, \sigma, h_{safe}, t)$.
 
 
 __Time-Distance Trajectories__
 
-The __rrtrials__ was subject to another test. The critical question is: Does __rrtrials__ predict driver behavior that is similar to that shown in the YouTube video? __rrtrials__  produced the following $t-x$ trajectories. The vehicles are evenly placed along the $x$ axis at $t$ = 0 and the drivers are given the same instructions as the drivers in the Yuki Sugiyama experiment. They are instructed to maintain a constant speed $u$ and headway $h$.   
+The __rrtrials__ was subject to another test. The critical question is: Does __rrtrials__ predict driver behavior that is similar to that shown in the controlled experiment? __rrtrials__  produced the following $t-x$ trajectories. The vehicles are evenly placed along the $x$ axis at $t$ = 0 and the drivers are given the same instructions as the drivers in the Yuki Sugiyama experiment. They are instructed to maintain a constant speed $u$ and headway $h$.   
 
 ```{r ringroad1,  message = FALSE, fig.height = 5, fig.width = 10, echo = FALSE}
 set.seed(124)

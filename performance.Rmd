@@ -3,23 +3,39 @@ title: "Highway Performance"
 bibliography: "CF.bibtex"
 ---
 
+__Model Comparison__
 
+We have developed two modeling types to simulate traffic behavior.  Each type realisticly simulates conditions found in the field, i.e., using $t-x$ trajectories as the principle means of comparison. Both help explain traffic behavior. The following  table gives a brief summary of their features. 
 
 ```{r, include = FALSE, warning = FALSE, message = FALSE, error = FALSE}
 library(Basic)
 ```
 
+
+``` {r table 1, echo = FALSE, message=FALSE, error=FALSE, warning = FALSE}
+
+df1  <- data.frame(c("Microscale time-series", "No", "Sight lines","Safe headway", "No"))
+df2  <- data.frame(c("Microscale time-series", "Yes", "Noise","Safe headway", "Yes"))
+df   <- cbind(df1,df2)
+colnames(df) <- c("Acceleration Model", "Brownian Bridge Model")
+rownames(df)  <- c("Type", "Stochastic", "Driver Response", "Driver Risk Aversion", "Empirical Data Link")
+knitr::kable(df,  align = "c")
+```
+
+The major strength of the  __acceleration model__ is its ability to explain how a driver will vary his or her vehicle speed over time owing to traffic conditions. It features a non-linear $\ddot{x}(t)$ model. 
+
+The major strength of the __Brownian bridge model of speed__, a stochastic model $U(k,t)$, is its ability to explain the role of traffic noise and role that traffic density $k$ plays in forecasting the probability of being in a congested state, $\pi(k).$ Since the $U(k,t)$ model is derived from controlled experiment where $k$ is a fixed value, traffic flow, a most important measure of highway performance, is simply defined as a _parsimonius, stochastic model_:
+
+* $Q(t)  = k * U(k, u, \sigma, h_{safe}, t)$.
+
+To draw attention to the significance of the model in explaining traffic flow with $k$, we rewrite as:
+
+* $Q(t)  = k * U(t)$
+
+where $U(t) = U(k, u, \sigma, h_{safe}, t)$.
+
 __Highway Performance__ 
 
-An important measure of highway performance is traffic flow, which we denote as $q$. It is the number of vehicles that pass a point in unit time. Typically, it is reported in vehicles per hour (vph).  A principal product of this effort is the development of a probability model that treats traffic flow $q$ as a random variable:
-
-* $Q  = f(U, k, l, h)$.
-
-$Q$  is a function of the random variable $U$, traffic density $k$, measured in vehicles per unit length, vehicle length $l$  and distance headway $h$. Additionally, $h$ is assumed to be a _safe driving distance_  that reflects the drivers aversion to risk. Since all drivers are assumed to maintain a safe headway, no crashes are permitted under the assumptions of this model. As the vehicular speed increases, the safe driving distance as defined by a  deterministic function of $u$ and $l$.  
-
-The _fundamental relationship_,
-
-* $q = k * u$,
 
 defines  $q, k$ and $u$ as deterministic variables. Field test are used in this study. A radar device was used to measure the speed of each vehicle and count the number of vehicles $n$ as they pass a point along a highway over a given time interval $\tau$. The speed and flow for $\tau$ are recorded as an average speed $u$  and $q$  where $q = n/\tau$. The traffic density is estimated as $k = q/u$. All estimated values for $\tau$ are treated as constants. There were 96 recordings of $q$, $k$ and $u$ per day. It will be shown presently that these recordings are highly volatile recordings. Since they vary over the course of a day and day-by-day, why arenot all these variables treated as random variables? This question will be deferred and discussed presently. 
 

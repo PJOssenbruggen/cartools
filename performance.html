@@ -213,16 +213,55 @@ $(document).ready(function () {
 </div>
 
 
+<p><strong>Model Comparison</strong></p>
+<p>We have developed two modeling types to simulate traffic behavior. Each type realisticly simulates conditions found in the field, i.e., using <span class="math inline">\(t-x\)</span> trajectories as the principle means of comparison. Both help explain traffic behavior. The following table gives a brief summary of their features.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="center">Acceleration Model</th>
+<th align="center">Brownian Bridge Model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Type</td>
+<td align="center">Microscale time-series</td>
+<td align="center">Microscale time-series</td>
+</tr>
+<tr class="even">
+<td>Stochastic</td>
+<td align="center">No</td>
+<td align="center">Yes</td>
+</tr>
+<tr class="odd">
+<td>Driver Response</td>
+<td align="center">Sight lines</td>
+<td align="center">Noise</td>
+</tr>
+<tr class="even">
+<td>Driver Risk Aversion</td>
+<td align="center">Safe headway</td>
+<td align="center">Safe headway</td>
+</tr>
+<tr class="odd">
+<td>Empirical Data Link</td>
+<td align="center">No</td>
+<td align="center">Yes</td>
+</tr>
+</tbody>
+</table>
+<p>The major strength of the <strong>acceleration model</strong> is its ability to explain how a driver will vary his or her vehicle speed over time owing to traffic conditions. It features a non-linear <span class="math inline">\(\ddot{x}(t)\)</span> model.</p>
+<p>The major strength of the <strong>Brownian bridge model of speed</strong>, a stochastic model <span class="math inline">\(U(k,t)\)</span>, is its ability to explain the role of traffic noise and role that traffic density <span class="math inline">\(k\)</span> plays in forecasting the probability of being in a congested state, <span class="math inline">\(\pi(k).\)</span> Since the <span class="math inline">\(U(k,t)\)</span> model is derived from controlled experiment where <span class="math inline">\(k\)</span> is a fixed value, traffic flow, a most important measure of highway performance, is simply defined as a <em>parsimonius, stochastic model</em>:</p>
+<ul>
+<li><span class="math inline">\(Q(t) = k * U(k, u, \sigma, h_{safe}, t)\)</span>.</li>
+</ul>
+<p>To draw attention to the significance of the model in explaining traffic flow with <span class="math inline">\(k\)</span>, we rewrite as:</p>
+<ul>
+<li><span class="math inline">\(Q(t) = k * U(t)\)</span></li>
+</ul>
+<p>where <span class="math inline">\(U(t) = U(k, u, \sigma, h_{safe}, t)\)</span>.</p>
 <p><strong>Highway Performance</strong></p>
-<p>An important measure of highway performance is traffic flow, which we denote as <span class="math inline">\(q\)</span>. It is the number of vehicles that pass a point in unit time. Typically, it is reported in vehicles per hour (vph). A principal product of this effort is the development of a probability model that treats traffic flow <span class="math inline">\(q\)</span> as a random variable:</p>
-<ul>
-<li><span class="math inline">\(Q = f(U, k, l, h)\)</span>.</li>
-</ul>
-<p><span class="math inline">\(Q\)</span> is a function of the random variable <span class="math inline">\(U\)</span>, traffic density <span class="math inline">\(k\)</span>, measured in vehicles per unit length, vehicle length <span class="math inline">\(l\)</span> and distance headway <span class="math inline">\(h\)</span>. Additionally, <span class="math inline">\(h\)</span> is assumed to be a <em>safe driving distance</em> that reflects the drivers aversion to risk. Since all drivers are assumed to maintain a safe headway, no crashes are permitted under the assumptions of this model. As the vehicular speed increases, the safe driving distance as defined by a deterministic function of <span class="math inline">\(u\)</span> and <span class="math inline">\(l\)</span>.</p>
-<p>The <em>fundamental relationship</em>,</p>
-<ul>
-<li><span class="math inline">\(q = k * u\)</span>,</li>
-</ul>
 <p>defines <span class="math inline">\(q, k\)</span> and <span class="math inline">\(u\)</span> as deterministic variables. Field test are used in this study. A radar device was used to measure the speed of each vehicle and count the number of vehicles <span class="math inline">\(n\)</span> as they pass a point along a highway over a given time interval <span class="math inline">\(\tau\)</span>. The speed and flow for <span class="math inline">\(\tau\)</span> are recorded as an average speed <span class="math inline">\(u\)</span> and <span class="math inline">\(q\)</span> where <span class="math inline">\(q = n/\tau\)</span>. The traffic density is estimated as <span class="math inline">\(k = q/u\)</span>. All estimated values for <span class="math inline">\(\tau\)</span> are treated as constants. There were 96 recordings of <span class="math inline">\(q\)</span>, <span class="math inline">\(k\)</span> and <span class="math inline">\(u\)</span> per day. It will be shown presently that these recordings are highly volatile recordings. Since they vary over the course of a day and day-by-day, why arenot all these variables treated as random variables? This question will be deferred and discussed presently.</p>
 <p>The random variable model <span class="math inline">\(Q\)</span> is a <em>parsimonius, stochastic model.</em></p>
 <p>The overall volatility of <span class="math inline">\(Q\)</span> is assumed to be a measure of driver group dynamics and other uncertainties.</p>
