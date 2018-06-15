@@ -213,172 +213,71 @@ $(document).ready(function () {
 </div>
 
 
-<p><strong>Highway Performance</strong></p>
-<p>An important measure of highway performance is traffic flow, which we denote as <span class="math inline">\(q\)</span>. It is the number of vehicles that pass a point in unit time. Typically, it is reported in vehicles per hour (vph). A principal product of this effort is the development of a probability model that treats traffic flow <span class="math inline">\(q\)</span> as a random variable:</p>
+<p><strong>Model Comparison</strong></p>
+<p>We have developed two modeling types to simulate traffic behavior. Each type realisticly simulates conditions found in the field, i.e., using <span class="math inline">\(t-x\)</span> trajectories as the principle means of comparison. Both help explain traffic behavior. The following table gives a brief summary of their features.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="center">Acceleration Model</th>
+<th align="center">Brownian Bridge Model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Type</td>
+<td align="center">Microscale time-series</td>
+<td align="center">Microscale time-series</td>
+</tr>
+<tr class="even">
+<td>Stochastic</td>
+<td align="center">No</td>
+<td align="center">Yes</td>
+</tr>
+<tr class="odd">
+<td>Driver Response</td>
+<td align="center">Sight lines</td>
+<td align="center">Noise</td>
+</tr>
+<tr class="even">
+<td>Driver Risk Aversion</td>
+<td align="center">Safe headway</td>
+<td align="center">Safe headway</td>
+</tr>
+<tr class="odd">
+<td>Empirical Data Link</td>
+<td align="center">No</td>
+<td align="center">Yes</td>
+</tr>
+</tbody>
+</table>
+<p>The major strength of the <strong>acceleration model</strong> is its ability to explain how a driver will vary his or her vehicle speed over time owing to traffic conditions. It features a non-linear <span class="math inline">\(\ddot{x}(t)\)</span> model.</p>
+<p>The major strength of the <strong>Brownian bridge model of speed</strong>, a stochastic model <span class="math inline">\(U(k,t)\)</span>, is its ability to explain the roles that traffic noise and traffic density <span class="math inline">\(k\)</span> play in forecasting the probability of being in a congested state, <span class="math inline">\(\pi(k).\)</span> Since the <span class="math inline">\(U(k,t)\)</span> model is derived from controlled experiment where <span class="math inline">\(k\)</span> is a fixed value, traffic flow, a most important measure of highway performance, is simply defined as a <em>parsimonius, stochastic model</em>:</p>
 <ul>
-<li><span class="math inline">\(Q = f(U, k, l, h)\)</span>.</li>
+<li><span class="math inline">\(Q(t) = k * U(k, u, \sigma, h_{safe}, t)\)</span>.</li>
 </ul>
-<p><span class="math inline">\(Q\)</span> is a function of the random variable <span class="math inline">\(U\)</span>, traffic density <span class="math inline">\(k\)</span>, measured in vehicles per unit length, vehicle length <span class="math inline">\(l\)</span> and distance headway <span class="math inline">\(h\)</span>. Additionally, <span class="math inline">\(h\)</span> is assumed to be a <em>safe driving distance</em> that reflects the drivers aversion to risk. Since all drivers are assumed to maintain a safe headway, no crashes are permitted under the assumptions of this model. As the vehicular speed increases, the safe driving distance as defined by a deterministic function of <span class="math inline">\(u\)</span> and <span class="math inline">\(l\)</span>.</p>
-<p>The <em>fundamental relationship</em>,</p>
-<ul>
-<li><span class="math inline">\(q = k * u\)</span>,</li>
-</ul>
-<p>defines <span class="math inline">\(q, k\)</span> and <span class="math inline">\(u\)</span> as deterministic variables. Field test are used in this study. A radar device was used to measure the speed of each vehicle and count the number of vehicles <span class="math inline">\(n\)</span> as they pass a point along a highway over a given time interval <span class="math inline">\(\tau\)</span>. The speed and flow for <span class="math inline">\(\tau\)</span> are recorded as an average speed <span class="math inline">\(u\)</span> and <span class="math inline">\(q\)</span> where <span class="math inline">\(q = n/\tau\)</span>. The traffic density is estimated as <span class="math inline">\(k = q/u\)</span>. All estimated values for <span class="math inline">\(\tau\)</span> are treated as constants. There were 96 recordings of <span class="math inline">\(q\)</span>, <span class="math inline">\(k\)</span> and <span class="math inline">\(u\)</span> per day. It will be shown presently that these recordings are highly volatile recordings. Since they vary over the course of a day and day-by-day, why arenot all these variables treated as random variables? This question will be deferred and discussed presently.</p>
-<p>The random variable model <span class="math inline">\(Q\)</span> is a <em>parsimonius, stochastic model.</em></p>
-<p>The overall volatility of <span class="math inline">\(Q\)</span> is assumed to be a measure of driver group dynamics and other uncertainties.</p>
-<ul>
-<li><span class="math inline">\(U = f(u, \sigma)\)</span></li>
-</ul>
-<p>Let us get started by investigating a <em>traffic breakdown event</em>, an event that triggers the onset of congestion event. As all drivers know from experience, the highway will be is a congested depending on how many vehicles are on the highway. The <em>triggering mechanism</em> is the vehicle count. Some drivers may observe that a highway with seemingly the same number of the vehicles on the highway may or may not be in a congested state. Knowing the vehicle count is important but insufficien evidence in predicting the onset of congestion with <em>certainty.</em>. Regardless, some drivers may alter their trip plan to avoid dealing with a congestion event or the possibility of being involved in a crash.</p>
-<p>In place of a subjective analysis, field data will be collected and analyzed. To simplify the discussion, we will assume the data are collected at the same site over an extended time period, say, months. With these data, the proportion of congestion events can be estimated as <span class="math inline">\(p = m/n\)</span> where <span class="math inline">\(m\)</span> is the congestion events and <span class="math inline">\(n\)</span> is the total number of days of the study. To perform this calculation, we define congestion as a critical speed <span class="math inline">\(u^*\)</span>, a speed that separates a congested state from a free-flow (uncongested) state. The proportion <span class="math inline">\(p\)</span>, a measure of performance, can be refined. Say, to estimate the performance of <span class="math inline">\(p\)</span> for rush hour traffic. For this estimate to have meaning, we must define rush hour traffic. It is defined as a time-of-day where traffic is deemed to be “heavy.” It is measured as a traffic flow <span class="math inline">\(q\)</span> in vehicles per hour (vph). <span class="math inline">\(q = n/\tau\)</span> where <span class="math inline">\(n\)</span> is a vehicle count over time period <span class="math inline">\(\tau\)</span>. The rush hour speed, in actually, is an average speed of the <span class="math inline">\(n\)</span> vehicles observed over the 15-minute time period. The rush hour speed <span class="math inline">\(u\)</span> and flow <span class="math inline">\(q\)</span> are aggreates.</p>
-<p>The estimates of <span class="math inline">\(p\)</span>, whether it is estimated with daily or hourly count data, and <span class="math inline">\(q\)</span> are measures of <em>past performance</em>. Our transportation operation and management plan deals with the <em>future.</em> By necessity, the probability of a traffic breakdown event, <span class="math inline">\(\pi = P(U &lt; u^*)\)</span> will replace <span class="math inline">\(p\)</span> and the random value <span class="math inline">\(Q\)</span> will replace <span class="math inline">\(q\)</span>. Since highway geometry or some other improvement will be made, <span class="math inline">\(\pi\)</span> and <span class="math inline">\(Q\)</span> models must be carefully selected and model parameters estimated.</p>
-<p>To make reliable predictions a reality, <em>the root cause of a traffic breakdown must be identified and understood</em>. The so-called <strong>Ring Road Experiment</strong> conducted by <span class="citation">Sugiyama et al. (2008)</span> is <em>a controlled experiment</em> that brings insight to the complex nature of identifying what triggers traffic breakdown.</p>
-<p>This experiment differs fundamentally from the field study described above. Here, <span class="math inline">\(n\)</span>, the number of vehicles over the duration of the study, was fixed. Next, these vehicles were driven around a loop road where no vehicles were allowed to enter or exit. Finally, the drivers were instructed to maintain a constant speed <span class="math inline">\(u\)</span> and constant safe headway <span class="math inline">\(h\)</span>. The YouTube video, <a href="https://www.youtube.com/watch?v=7wm-pZp_mi0" class="uri">https://www.youtube.com/watch?v=7wm-pZp_mi0</a>, shows the drivers were unable to follow these simple instructions. The volatility in speed, denoted as <span class="math inline">\(\sigma\)</span> and called <em>traffic noise</em> explains the result. An added bonus of this experiment it allows the process to be described by a simple probability model of <span class="math inline">\(U\)</span>.</p>
-<p>Finally, highway bottlenecks and traffic merging were analyzed using field data. The speed data were treated as time-series data and placed in bins according the number of speed recordings observed over a stretch of 15-minutes. There are <span class="math inline">\(i\)</span> = 1,2, …, 96 bins in a 24-hour day. The average speed for each bin is calculated and recorded as <span class="math inline">\(u_1, u_2, ..., u_{96}\)</span>; the number of speed observations by bin sample size, <span class="math inline">\(n_1, n_2, ..., n_{96}\)</span>, are recorded; and the traffic flows <span class="math inline">\(q_1, q_2, ..., q_{96}\)</span> are estimated as <span class="math inline">\(q_i = n_i/\tau\)</span> where <span class="math inline">\(\tau\)</span> equals 15-minutes. With the aid of the fundamental relationship <span class="math inline">\(q = k * u\)</span>, the traffic density <span class="math inline">\(k_i = q_i/u_i\)</span> can be determined. Visual inspection, scatter plots, etc., of the <span class="math inline">\(q_i\)</span>, <span class="math inline">\(k_i\)</span> and <span class="math inline">\(u_i\)</span> help explain traffic breakdown and highway performance. including the use of computer simulation and animation are used to increase understanding of complex traffic behavior.</p>
-<p>A principal product of this effort is the development of a probabilistic traffic flow model:</p>
-<ul>
-<li><span class="math inline">\(Q = f(U; k, h)\)</span></li>
-</ul>
-<p>where speed is treated as a random variable <span class="math inline">\(U = g(u, \sigma)\)</span> where speed <span class="math inline">\(u\)</span>, the standard deviation of speed <span class="math inline">\(\sigma\)</span>, traffic density <span class="math inline">\(k\)</span>, and safe headway <span class="math inline">\(h\)</span> are constant values. The overall volatility of the process is specified by <span class="math inline">\(\sigma\)</span>, which is assumed to be a measure of driver group dynamics and other uncertainties. The <em>safe distance headway</em> <span class="math inline">\(h\)</span> reflects the drivers aversion to risk. Additionally, <span class="math inline">\(h\)</span> is assumed to be a <em>deterministic</em> function of the constant speed <span class="math inline">\(u\)</span> and vehicle length. Since all drivers are assumed to maintain a safe headway, no crashes are permitted. Thus, the model of <span class="math inline">\(Q\)</span> is an important measure of highway performance and a <em>parsimonius, stochastic model.</em></p>
-<p>Since <span class="math inline">\(n\)</span> is fixed and speed varies over time and is treated as a random variable <span class="math inline">\(U\)</span>, the fundamental relationship is written as <span class="math inline">\(Q = nU/l\)</span> where the road length is <span class="math inline">\(l = 2\pi r\)</span> with <span class="math inline">\(r\)</span> equal to the radius of the loop road. Returning to the question of the better model, <span class="math inline">\(\pi = P(Q = q)\)</span> or <span class="math inline">\(\pi = P(K = k)\)</span>, the answer is <span class="math inline">\(\pi = P(U = u)\)</span>. The <em>root causes of traffic breakdown</em> in this experiment are: (1) the inability of the drivers to maintain a constant speed, and (2) the drivers need to accelerate and decelerate to maintain a safe distance between themselves and the vehicles in front of them or safe headways. The <em>optimum driving condition</em> is defined to be time it takes an indivual driver to complete a loop at speed <span class="math inline">\(u\)</span>. The delay is estimated as the extra time for a driver to complete a loop. To explain this scenario, the stationary time-series model of <span class="math inline">\(U\)</span> is introduced and the calibration of this model is discussed.</p>
-<p>No question that designing and operating a transportation system are difficult problems. By disecting the problem into manageable pieces and synthesizing the results from the individual pieces brings clarity to the process.</p>
-<p><strong>Traffic Noise</strong></p>
-<p>A quick read of the <strong>Overview</strong> may give the impression that the approach, a package of computer algorithms, will be difficult to understand and overwhelming to implement. Words, like complex, dynamics, theory, parsimonious, stochastic and model integration can be daunting. No question that designing and operating a transportation system are difficult problems. By disecting the problem into manageable pieces and synthesizing the results from the individual pieces brings clarity to the process.</p>
-<p>The mathematics behind the animation is relatively simple. Of course, the Brownian motion model shown here can be adapted to other situtations. This will be illustrated presently. The ultimate aim of using <a href="https://github.com/PJOssenbruggen/Basic">trfhp</a> package tools is to improve our chances of mitigating congestion and improving performance using the simple mathematical and graphical tools.</p>
-<p><strong>Traffic Flow</strong></p>
-<p>Since <span class="math inline">\(n\)</span> is a constant, <span class="math inline">\(k = n/2\pi r\)</span> is a constant. The flow is a random variable, defined as:</p>
+<p>To draw attention to the significance of the model in explaining traffic flow with <span class="math inline">\(k\)</span>, we rewrite as:</p>
 <ul>
 <li><span class="math inline">\(Q(t) = k * U(t)\)</span></li>
 </ul>
-<p>The volatility in <span class="math inline">\(Q(t)\)</span> is explained exclusively by the volatility in <span class="math inline">\(U(t)\)</span> as defined by the Brownian bridge model of speed.</p>
-<p><strong>Summary</strong></p>
+<p>where <span class="math inline">\(U(t) = U(k, u, \sigma, h_{safe}, t)\)</span>.</p>
+<p><strong>Highway Performance</strong></p>
+<p>Traffic delay is estimated as the extra time for a driver to complete a loop.</p>
+<p><strong>Some Discussion</strong></p>
 <p>The <span class="math inline">\(Q(t) = k * U(t)\)</span> model suggests a <em>cause-effect relationship</em> exists. The speed as specified by <span class="math inline">\(u\)</span> and <span class="math inline">\(\sigma\)</span> are the causal factors and <span class="math inline">\(Q(t)\)</span> is the response variable. The probability of being in a congested state is forecast to be a function of <span class="math inline">\(k\)</span>, <span class="math inline">\(\pi(k)\)</span>.</p>
-<p><strong>Theory</strong></p>
-<p>Exploratory data analysis showed the traffic on I-93 in Salem to be extremely volatile and the chance of traffic breakdown is strong. Given these observations, it is natural to express the <em>fundamental relationship</em> of traffic flow as <span class="math inline">\(Q = K * U\)</span> where <span class="math inline">\(Q\)</span>, <span class="math inline">\(K\)</span> and <span class="math inline">\(U\)</span> are assumed to be random variables. However, the results of the ring-road experiment gave evidence that the variability in <span class="math inline">\(Q\)</span> depends wholly on the variability in speed, which we assumed to be a Brownian motion model <span class="math inline">\(U(t)\)</span>. The argument was simple. Since the number of vehicles on the road <span class="math inline">\(n\)</span> and road length <span class="math inline">\(l\)</span> are constants, it follows that the density must be a constant. Since <span class="math inline">\(k = n/l\)</span>, <span class="math inline">\(Q = k * U(t)\)</span>. Our conclusions were derived from watching a short video and assuming flow, density and speed are measured on a time scale in seconds.</p>
 <p>The argument for the <span class="math inline">\(Q = K * U\)</span> model is based upon <em>macroscale</em> observations or averages of flow, density and speed derived from 15-minute averages. In contrast, the argument for the <span class="math inline">\(Q = k * U(t)\)</span> model is based upon assuming variables are measured on the <em>microscale</em>. Certainly, the simpler <span class="math inline">\(Q = k * U(t)\)</span> model is the model of choice for bottleneck breakdown because we can envision why driver behavior can trigger a breakdown. The vehicles must merge at a bottleneck. In addition, many drivers, who drive this roadway on a regular basis, weave from one lane to another. Drivers in the NH and MA are known for their aggressiveness. By being so aggressive, they increase the traffic volatility by abruptly accelerating and decelerating. The <span class="math inline">\(CF\)</span> approach is a tool can be refined to study aggressive driver behavior.</p>
 <p>To justify the <span class="math inline">\(Q = k * U(t)\)</span> model for a bottleneck, consider a “thought experiment.” In addition to collecting speed <span class="math inline">\(u_i\)</span> data that we described above for the eight month I-93 study, a series of videos are simultaneously taken by a helicopter flying overhead or by a drone. The video data will be used to obtain direct measures of density <span class="math inline">\(k_i = n_i/l\)</span>. Next, take the matched <span class="math inline">\(k_i\)</span> and <span class="math inline">\(u_i\)</span> records, sort them into bins according to magnitude of traffic density, and construct a box plot. This sorting procedure treats the density data as fixed values or constants and the speed data as a random variable.</p>
-<p>The box plot will arguably resemble of the <strong>Box Plot of Density-Speed</strong> diagram of I-93 study data presented above in the <strong>Exploratory Data Analysis</strong> section. Assuming the “thought experiment” and I-93 study data sufficiently similiar, inferences can be drawn from I-93 box-plot. By visual inspection, speed decreases as the traffic density increases. Since the bottleneck geometry is unchanged throughout the experiment, the number of vehicles <span class="math inline">\(n_i\)</span> and speed <span class="math inline">\(u_i\)</span> are strongly associated. Thus, the <span class="math inline">\(Q = k * U(t)\)</span> model holds.</p>
-<p>To be absolutely clear about the meaning of the <span class="math inline">\(Q = k * U(t)\)</span> model for the Brownian motion speed model, <span class="math inline">\(U(t) = u + \sigma W(t) = u + \sigma \sqrt{\Delta t} Z\)</span>, we rewrite it in functional form to draw attention to the <em>key variables</em>:</p>
-<ul>
-<li><span class="math inline">\(Q = f(k, u, \sigma, h)\)</span></li>
-</ul>
-<p>where <span class="math inline">\(k = n/l\)</span> = traffic density, <span class="math inline">\(u\)</span> = design speed, <span class="math inline">\(\sigma\)</span> = standard deviation of <span class="math inline">\(u\)</span>, and <span class="math inline">\(h\)</span> represents a safe headway for vehicles of the same length.</p>
-<p><strong>Forecasting</strong></p>
-<p>Inspecting <span class="math inline">\(t-x\)</span> trajectories and <span class="math inline">\(h\)</span> histograms derived from the <span class="math inline">\(Q\)</span> model proves to be an effective in understanding traffic breakdown and explaining being in a congested state. Given <span class="math inline">\(k\)</span>, it is possible to predict probability of traffic breakdown <span class="math inline">\(\pi\)</span>. To gain an appreciation of the <span class="math inline">\(\hat{\pi}\)</span> forecast model, look at the <strong>Box Plot of Density-Speed</strong> diagram. We select bin of <span class="math inline">\(k\)</span> and then determine the proportion of breakdowns <span class="math inline">\(p\)</span> in the bin. <span class="math inline">\(p\)</span> is straightforwardly calculated as the ratio of the number of observations where <span class="math inline">\(u \le u^*\)</span> to the total number of observations in the bin <span class="math inline">\(k\)</span>. As previously mentioned, the HCM designates roadway capacity <span class="math inline">\(c^*\)</span> to be in the vicinity 2250 vph at <span class="math inline">\(k^*\)</span> = 45 vpm. The estimate of <span class="math inline">\(p\)</span> for this bin is quite small. However, as the <span class="math inline">\(k\)</span> values increase, the values of <span class="math inline">\(p\)</span> increase rapidly. Expressing <span class="math inline">\(\pi\)</span> by <em>time-of-day</em> we have a wortwhile tool, <em>a macroscale model</em>, that traffic operators and managers may find useful:</p>
-<p><span class="math inline">\(\hat{\pi} = P(K_t \ge k^*)\)</span></p>
-<p><span class="math inline">\(K_t\)</span> is a stochastic differential equation model of traffic density by <em>time-of-day</em> <span class="math inline">\(t\)</span> <span class="citation">(Ossenbruggen 2017)</span>(<a href="https://github.com/PJOssenbruggen/Basic/blob/master/doc/IEEE_MT-ITS.pdf" class="uri">https://github.com/PJOssenbruggen/Basic/blob/master/doc/IEEE_MT-ITS.pdf</a>). Treating traffic density <span class="math inline">\(K_t\)</span> as the random variable may seem contradictory given the discussion about the <span class="math inline">\(Q = k * U(t)\)</span> model. It is not. Note that two models are different. One is a <em>macroscale</em> model predicting breakdown and the other one is a <em>microscale</em> model predicting flow.</p>
+<p>The box plot will arguably resemble of the <strong>Box Plot of Density-Speed</strong> diagram of I-93 study data presented in the <strong>Exploratory Data Analysis</strong> section. Assuming the “thought experiment” and I-93 study data sufficiently similiar, inferences can be drawn from I-93 box-plot. By visual inspection, speed decreases as the traffic density increases. Since the bottleneck geometry is unchanged throughout the experiment, the number of vehicles <span class="math inline">\(n_i\)</span> and speed <span class="math inline">\(u_i\)</span> are strongly associated. Thus, the <span class="math inline">\(Q = k * U(t)\)</span> model holds.</p>
+<p><strong>Package Summary</strong></p>
+<p>A quick read of the <strong>Overview</strong> may give the impression that the approach, a package of computer algorithms, will be difficult to understand and overwhelming to implement. Words, like complex, dynamics, theory, parsimonious, stochastic and model integration can be daunting. No question that designing and operating a transportation system are difficult problems. By disecting the problem into manageable pieces and synthesizing the results from the individual pieces brings clarity to the process.</p>
+<p>The mathematics behind the animation is relatively simple. Of course, the Brownian motion model shown here can be adapted to other situtations. This will be illustrated presently. The ultimate aim of using <a href="https://github.com/PJOssenbruggen/Basic">trfhp</a> package tools is to improve our chances of mitigating congestion and improving performance using the simple mathematical and graphical tools.</p>
 <p><strong>Lessons Learned</strong></p>
-<p><em>What have we learned about traffic performance using the <strong>tfuhp</strong> package?</em> The most notable lesson learned is:</p>
+<p><em>What have we learned about traffic performance using the <strong>cartools</strong> package?</em> The most notable lesson learned is:</p>
 <ul>
 <li>By modeling driver behavior with a simple, parsimonious Brownian motion model of speed, it is possible to explain and forecast traffic breakdown on a ring-road and at a bottleneck.</li>
 </ul>
-<p>The potential of the <strong>tfuhp</strong> package as a learning tool has been demonstrated. Hopefully, this platform can be adapted and expanded to help users identify the root cause or causes for other congestion problems. My next task is add <strong>R Markdown Shiny</strong> HTML widgets to my code. Adding this feature will allow the user to simply conduct sensitivity analyses on-line. For example, the effects of speed and density on ring-road performance can be explored. Sliders for <span class="math inline">\(u\)</span>, <span class="math inline">\(\sigma\)</span> and <span class="math inline">\(k\)</span> will be provided so a user change them at will. The <strong>tfuhp</strong> package will instantaneously produce a histogram of headways as illustrated above.</p>
+<p>The potential of the <strong>cartools</strong> package as a learning tool has been demonstrated. Hopefully, this platform can be adapted and expanded to help users identify the root cause or causes for other congestion problems. My next task is add <strong>R Markdown Shiny</strong> HTML widgets to my code. Adding this feature will allow the user to simply conduct sensitivity analyses on-line. For example, the effects of speed and density on ring-road performance can be explored. Sliders for <span class="math inline">\(u\)</span>, <span class="math inline">\(\sigma\)</span> and <span class="math inline">\(k\)</span> will be provided so a user change them at will. The <strong>cartools</strong> package will instantaneously produce a histogram of headways as illustrated above.</p>
 <p>This package is open to the public, <a href="https://github.com/PJOssenbruggen/Basic" class="uri">https://github.com/PJOssenbruggen/Basic</a>. In other words, I am inviting people to share their experiences with the package with me. GitHub promotes this activity, <a href="https://github.com/explore" class="uri">https://github.com/explore</a>.</p>
-<p><img src="performance_files/figure-html/unnamed-chunk-2-1.png" width="576" /></p>
-<p>Over the time range of 60 seconds, the speed reduction in the lead vehicle forces the following vehicles to become more closely spaced. All drivers keep a safe headway, one vehicle length for each 10 mph of speed. The <span class="math inline">\(t-x\)</span> trajectory of the ten vehicles shown in the figure give the impression that the vehicles arrive with the same speed and headway. In fact, this is not the case:</p>
-<table>
-<caption>Traffic Characteristics</caption>
-<thead>
-<tr class="header">
-<th align="center">Vehicle</th>
-<th align="center">Speed at t0</th>
-<th align="center">Speed at t3</th>
-<th align="center">Density at t1</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">1</td>
-<td align="center">63</td>
-<td align="center">48</td>
-<td align="center">60</td>
-</tr>
-<tr class="even">
-<td align="center">2</td>
-<td align="center">57</td>
-<td align="center">46</td>
-<td align="center">49</td>
-</tr>
-<tr class="odd">
-<td align="center">3</td>
-<td align="center">61</td>
-<td align="center">43</td>
-<td align="center">56</td>
-</tr>
-<tr class="even">
-<td align="center">4</td>
-<td align="center">79</td>
-<td align="center">42</td>
-<td align="center">57</td>
-</tr>
-<tr class="odd">
-<td align="center">5</td>
-<td align="center">64</td>
-<td align="center">42</td>
-<td align="center">55</td>
-</tr>
-<tr class="even">
-<td align="center">6</td>
-<td align="center">64</td>
-<td align="center">42</td>
-<td align="center">64</td>
-</tr>
-<tr class="odd">
-<td align="center">7</td>
-<td align="center">80</td>
-<td align="center">41</td>
-<td align="center">50</td>
-</tr>
-<tr class="even">
-<td align="center">8</td>
-<td align="center">68</td>
-<td align="center">41</td>
-<td align="center">58</td>
-</tr>
-<tr class="odd">
-<td align="center">9</td>
-<td align="center">50</td>
-<td align="center">40</td>
-<td align="center">55</td>
-</tr>
-<tr class="even">
-<td align="center">10</td>
-<td align="center">56</td>
-<td align="center">40</td>
-<td align="center">54</td>
-</tr>
-</tbody>
-</table>
-<p>The level-of-service estimates are:</p>
-<table>
-<colgroup>
-<col width="32%" />
-<col width="35%" />
-<col width="32%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="right">Mean headway <span class="math inline">\(\bar{h}\)</span></th>
-<th align="right">Headway standard deviation <span class="math inline">\(\hat{\sigma}_h\)</span></th>
-<th align="right">Estimated flow <span class="math inline">\(\bar{q}\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">6.7 seconds</td>
-<td align="right">20 seconds</td>
-<td align="right">537 vehicles per hour (vph)</td>
-</tr>
-</tbody>
-</table>
-<div id="refs" class="references">
-<div id="ref-pjo2017">
-<p>Ossenbruggen, Paul J. 2017. “A Diffusion Model to Explain and Forecast Freeway Breakdown and Delay.” In <em>5th IEEE International Conference on Models and Technologies for Intelligent Transportation Systems</em>. Naples, Italy: IEEE.</p>
-</div>
-<div id="ref-1367-2630-10-3-033001">
-<p>Sugiyama, Yuki, Minoru Fukui, Macoto Kikuchi, Katsuya Hasebe, Akihiro Nakayama, Katsuhiro Nishinari, Shin-ichi Tadaki, and Satoshi Yukawa. 2008. “Traffic Jams Without Bottlenecks—Experimental Evidence for the Physical Mechanism of the Formation of a Jam.” <em>New Journal of Physics</em> 10 (3):033001. <a href="http://stacks.iop.org/1367-2630/10/i=3/a=033001" class="uri">http://stacks.iop.org/1367-2630/10/i=3/a=033001</a>.</p>
-</div>
-</div>
 
 
 
