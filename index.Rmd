@@ -1,5 +1,5 @@
 ---
-title: "cartools: Tools For Uunderstanding Highway Performance"
+title: "cartools: Tools for understanding highway performance"
 bibliography: "CF.bibtex"
 output: html_document
 ---
