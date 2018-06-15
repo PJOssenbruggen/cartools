@@ -7,20 +7,17 @@ bibliography: "CF.bibtex"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
 ```{r, include = FALSE, warning = FALSE, message = FALSE, error = FALSE}
 library(Basic)
 ```
 
-Now, we turn attention to a bottleneck where there is a lane drop from two to one-lane. To better understand to various factors that can affect a breakdown, we will investigate a "zipper merge."
+Now, we turn attention to a bottleneck where there is a lane drop from two to one-lane. To better understand to various factors that can affect a breakdown, we will investigate a "zipper merge." Visual inspection of a $t-x$ trajectory reveals much about the process. While we assume that all drivers are self optimizers in the attempting to minimize delay,  drivers have unique styles. Some are more aggressive than others taking on risks. We will identify drivers by aggressive behavior by inspecting their individual $t-x$ trajectories.
 
 __A Zipper Merge__
 
+Imagine that we shrink ourselves down to a size that is sufficiently small to observe a zipper close up. That's right, a zipper. Let's say, a jacket zipper. We will stand on the zipper slider and look in the direction where the zipper tapes are separated. The zipper teeth on the two tapes link together or merge at the slider. This mechancism is analogous to standing on the side of a freeway looking upstream where the vehicles merge at a bottleneck. Regardless of how fast the zipper slider is pulled, the zipper tapes become secure when the teeth link together at the slider. The zipper works flawlessly because the rows of zipper teeth are the same size, move at the same speed, are evenly spaced and perfectly aligned to allow the two tapes to link together without jamming. 
 
-Imagine that we shrink ourselves down to a size that is sufficiently small to observe a zipper close up. That's right, a zipper. Let's say, a jacket zipper. We will stand on the zipper pull and look in the direction where zipper tapes are separated.  This is analogous to standing on the side of a roadway looking upstream where the vehicles merge at a bottleneck. Regardless of how fast the zipper slider is pulled, the zipper tapes become secure when meshed together because the rows of zipper teeth are the same size, move at the same speed, are evenly spaced and aligned to allow the two tapes to link together. 
-
-The incoming vehicles on a freeway, on the other hand, are typically neither the same size,  traveling at the speed,  evenly spaced, nor aligned. Instead, vehicles must change speed and carefully merge together to avoid crashing into one another.  Theoretically, it is possible to achieve a zipper merge under both low-speed and high-speed conditions as shown in the left and right panels. 
-
+The incoming vehicles on a freeway, on the other hand, are typically neither the same size,  traveling at the speed,  evenly spaced, nor aligned. Instead, vehicles must change speed and carefully merge together to avoid crashing into one another.  Theoretically, it is possible to achieve a zipper merge under both low-speed and high-speed conditions as shown below in the left and right panels. 
 
 ```{r zipper,  message = FALSE, fig.height = 4.5, fig.width = 4.5, echo = FALSE}
 library(gapminder)
@@ -30,28 +27,41 @@ library(ggplot2)
 library(tidyverse)
 par(mfrow = c(1,2), pty = "s")
 
-p2 <- zipper(0,10,25,25,0,250,25,25,0,300,30,25,-50,275)
+p2 <- zipper(0,10,25,25,0,250,25,25,0,320,30,25,-50,285)
 p2
 
 
-p1 <- zipper(0,40,90,90,0,4000,90,90,0,4500,90,90,-500, 4200)
+p1 <- zipper(0,40,90,90,0,4000,90,90,0,4500,90,90,-500, 4250)
 p1
 
 ```
 
-Here, vehicles labelled as 1 and 2 are traveling side-by-side when they enter a bottleneck where two lanes merge into one lane. Vehicle 3 is trailing behind them. All three vehicles are initially and finally traveling at the same speeds at the beginning and end of the merge.  At the end of merge vehicle 2 leads followed by vehicles 3 and 1 respectively. To  depict these individual behaviors, a  time-varying acceleration  function is used for each:
+Interestly and despite the differences in speed, the two $t-x$ trajectories have similar shapes.  Vehicles labelled as 1 and 2 are traveling side-by-side in separate lanes when they enter a bottleneck. Vehicle 3 is trailing behind them.   At the end of merge vehicle 1 tails vehicles 2 and 3. All three vehicles are traveling at the same speeds at the beginning and end of the merge. To  depict these individual behaviors, the same time-varying acceleration  function is used for each vehicle trajectory:
 
-$\alpha(t) = a - b t$
+* $\ddot{x}(t) = a - b * t$
 
-where $t$ denotes time in seconds. The constants $a$ and $b$ are estimated by using boundary conditions. Model calibration is discussed presently. At this point, it is important to understand that the drivers have the ability accelerate and decelerate over the time period of the merge.
+where $t$ denotes time in seconds. The constants $a$ and $b$ are estimated by using the boundary conditions. Model calibration is discussed presently. At this point, it is important to understand that each driver has the ability to accelerate and decelerate, change speed, to safely merge and maintain a safe headway distances of $h_{safe}$ at the bottleneck at times $t$ = 10 and 40 seconds shown on their respective panels.
 
+Consider the low-speed merge on the left that is completed after 10 seconds where all vehicles have the same initial and final speeds of $u$ = 25 mph at $t$ = 0 and 10 seconds, respectively. The drivers of vehicles 2 and 3 are more aggressive than driver 1. Driver 1, who is the least aggressive, decelerates to allow driver 3 to pass. Their trajectories cross and appear to do so with minimum risk of a crash. Both vehicles have slowed to speeds less than 25 mph when their paths cross. At the end of the low-speed merge, all vehicles are traveling at $u$ = 25 mph and have a safe distance headway of $h_{safe}$ = 35 feet, the safe headway distance for this speed. 
 
-Consider the low-speed merge on the left. The drivers of vehicles 2 and 3 are more aggressive than driver one. Driver 1, who is the least aggressive, maintains a constant speed of 25 mph. The $t-x$ trajectory for vehicle 1 is a straight line with a constant slope of 25 * 5280/3600 = 36.7 feet per second (fps). The trajectories for vehicles 1 and 2 are non-linear. The merge is complete after 10 seconds. At the end of the low-speed merge, all vehicles are traveling at $u$ = 25 mph and have a distance headway of $h$ = 25 feet, the safe headway distance for this speed. 
+The high-speed merge has similar characterics, but the likelihood of a merge at these speeds is unlikely. All vehicles are operating at 90 mph at times $t$ = 0 and 40 seconds. Vehicles 1 and 3 are crossing at speeds in the vicinity of 90 mph.  A merge where two vehicles cross paths at these speeds may occur on a motor raceway where the drivers are professionals and trust the judgement of their competitors.
 
-The high-speed merge has similar characterics, but the likelihood of a merge at these speeds is unlikely. All vehicles are operating at 90 mph at times $t$ = 0 and 40 seconds. A traffic breakdown is a more likely event  where one or more three vehicles decelerate and operate at speed less than 90 mph at $t$ = 40 to avoid a crash. This kind of merge occurs on a motor raceway where the drivers are professionals and trust the judgement of their competitors.
+__A Non-linear Model of Acceleration__
 
+What is the mathematical model that describes the merge computer simulations depicted above? It is the $\ddot{x}(t)$ model described above. The model is incorported in the __zipper__ function that was used to create the plots. Given the complexity of a merge, the __zipper__ algorithm at this time is limited to three vehicles only. The $\ddot{x}(t)$ model is calibrated for each vehicle.
 
-__Car-Following__
+Let's begin by looking at calibrateing a model for a single vehicle. Integrating the function leads to the following speed $u(t) and distance $x(t)$ functions:
+
+* $u(t) =  u(0) +  a * t - \frac{b}{2} * t^2$
+* $x(t) =  x(0) +  u(0) * t +  \frac{a}{2} * t^2 - \frac{b}{6} * t^3$
+
+where the initial speed and distance are denoted as $u(0)$ and $x(0)$. There are two unknowns $a$ and $b$ that can be solved by considering the end conditions where the merge ends at $t = t_{end}$ where $u(t_{end})$ and $x(t_{end})$ are specified values. Given that we have two equations and two unknowns, $a$ and $b$ can be calculated. For vehicle 1, the lead vehicle, $u^1(0), u^1(t_{end}), x^1(0)$ and $x^1(t_{end})$ must be specified.  
+
+While the same model calibration procedure is used for following vehicles, the safe driving function, $h_{safe}$ function described in the __Ring-Road__ section is used for each lead-follower vehicle pair. For above, vehicles 1 and 2 and vehicles 2 and 3. For example, take the following vehicle 2. The speeds $u^2(0)$ and  $u^2(t_{end})$ must be specified. The distances $x^2(0)$ and  $x^2(t_{end})$ must be specified. These distances are $x^2(0) = x^1(0) - h_{safe}(u^2(0),l_{eff})$ and $x^2(t_{end}) = x^1(t_{end}) - h_{safe}(u^2(t_{end}),l_{eff})$. This step is conducted for the vehicle 3. To get a better understanding of the model calibration approach, consider a car-following scenario.
+
+__A Car-Following Scenario__
+
+The   $t-x$ trajectories below is for the same three drivers described above. In this simulation the vehicles 2 and 3 are following vehicle 1  on a single traffic lane. The driver of vehicle 1 decelerates from 60 to 20 mph and at time $t$ = 5 seconds, the vehicle has travelled a distance of 500 feet. Vehicle 2, who is 100 feet behind vehicle 1, has a speed of 65 mph at $t$ = 0. At $t$ = 5 seconds, it has a speed and location of 20 mph and a location of 467 feet, thus maintains a safe headway distance of 33 feet at speed 20 mph. The driver of vehicle 3 having a speed of 80 mph is the most aggressive driver and well behind vehicle 2 at $t$ = 0. At $t$ = 5 seconds, vehicle 3 to avoid rear-ending vehicle 2 must maintain a speed of 20 mph and safe headway distance of 33 feet.
 
 ```{r CF,  message = FALSE, fig.height = 4, fig.width = 6, echo = FALSE}
 library(dplyr)
@@ -59,73 +69,14 @@ library(gganimate)
 library(gapminder)
 library(ggplot2)
 library(tidyverse)
-zipper(0,60,90,90,0,5000,90,90,-200,4500,90,90,-500, 4000)
+zipper(0,5,60,20,0,500,65,20,-100,467,80,20,-350,433)
 ```
 
+Another reason for showing this simulation is to reaffirm the importance of a $t-x$ trajectory and to highlight the features of the   $\alpha(t) = a - b t$ acceleration model. For example, the headways of vehicles 2 and 3 before  the merge are $h$ = 100 and 250 feet, respectively.  After the merge, they are 33 feet each. The traffic density after the merge has increased exponentially The maximum speeds of vehicle 1, 2 and 3 are 60, 65 and 80 mph, respectively. With the exception of vehicle 3, these speeds are within the law. 
 
+__Car-Following and Traffic Breakdown__
 
-The  depicted here consists of three vehicles. The driver of vehicle 3 is more aggressive than the other two drivers. Driver 1, who is the least aggressive, maintains a constant speed of 25 mph. Note that $a$ = $b$ = 0 for this driver. The $t-x$ trajectory for vehicle 1 is a straight line with a constant slope of 25 * 5280/3600 = 36.7 feet per second (fps). The trajectories for vehicles 1 and 2 are non-linear. The merge is complete after 10 seconds. At the end of the merge, all vehicles are traveling at $u$ = 25 mph and have a distance headway of $h$ = 25 feet, which is assumed to be a safe distance for this speed. 
-
-Vehicle alignment is important even for this simple simulation. At $t$ = 0, the $t-x$ trajectory shows the vehicles 1 and 2 are located at $x$ = 0 and vehicle 3, which is following vehicle 2, is   located at $x$ = -50 feet.
-
-Initially, vehicles 1 and 2 are traveling side-by-side in separate lanes on a 24-foot freeway for $x$ = 0 to hold. Further assume these vehicles are traveling in the middle of their respective lanes. Since the lane widths are 12 feet, the centerline distance between them is 12 feet.
-
-A primary reason for showing this animation is to discuss the importance of a $t-x$ trajectory and to describe the features of the   $\alpha(t) = a - b t$ velocity model. For example, the headways before and after the merge are $h$ = 50 and 25 feet, respectively. This is easily seen on the $t-x$ trajectory diagram.  The traffic density at the merge is twice  the value of a single lane upstream. Now, look at $a$, $b$, the maximum speeds of vehicle 1, 2 and 3 are 25, 32.5 and 35 mph, respectively. These speeds are within the law. Vehicle 3, whose driver is most aggressive, reaches a maximum speed of 35 mph at 4.2 seconds and then slows down to 25 mph. 
-
-_A critical question do these drivers drive safety?_ Since the driver of vehicle 1 maintains a constant speed of 25 mph, we will answer, "Yes." The answer for vehicle 2 is the same, "Yes." Driver 2 reaches a maximum speed of 32.5 mph before returning to a speed of 25 mph. The trajectory for vehicle 3 "crosses" the trajectory of vehicle 1, suggesting that a side-swipe crash or near-miss may take place at $t = 6.5$ seconds.  At this point in time, the centerline distance between the two vehicles is less than 6 feet and the potential for a crash is high. Is driver 3 to blame? Let us investigate the situation further.
-
-At around $x$ = 50 feet or around $t$ = 2 seconds, driver 1 can see that  vehicle 3 is passing. Driver 1 has the responsibility to decelerate his or her vehicle and has ample time to do so, thus avoid a crash. The trajectories of the two vehicles would "cross" but at a point in time where the two vehicles have much more room to manuever. In other words, "crossing trajectories" can serve a warning of potential risk. The time when trajectories "cross" dictates the outcome.
-
-Getting back to the question about driving safely. All drivers are operating within the law, then we must conclude _all drivers are driving safely._
-
-The simulation model describes and explains the _triggering of a traffic breakdown event_ for three vehicles. It is used to introduce car-following modeling.
-
-__Breakdown__
-
-_Car-following_ models  describe and simulate the traffic behavior  by designating   _lead_ and  _following_ vehicles. After the merge described above, vehicle 2 becomes a _lead_  vehicle. The actions of the _lead_ vehicle  affects the _following_ vehicles from lanes 1 and 2. The description that follows will be similiar to the behavior described above for the ring road. The $Q =  n / l * U(t)$ model is used. There are features in the following examples that we have seen before. 
-
-Again, we assume a freeway narrows from two-lanes to one. The results are shown in the __Breakdown: Bottleneck__ diagram.  The number of vehicles in the simulation remains fixed, $n$ = 10. The lead vehicle, denoted as 1 in the figure, approaches the bottleneck at a speed of 63 mph and decelerates to a speed of 34 mph. See the __Time-Speed Plot__. The lead vehicle reaches this breakdown speed of 34 mph at $x$ = 0 as shown by the point $(t_3,0)$. All following drivers must reduce their speed to avoid colliding into the vehicle in front of them. 
-
- ```{r, echo = FALSE, fig.height = 4, fig.width = 6, message=FALSE, error=FALSE, warning = FALSE}
-set.seed(123)
-cflist <- run(10, 63, 10, 34, 0.1, 55, 5, 15, 14, c(0, 60), c(-2000, 5000))
-title("Breakdown", "Bottleneck")
-```
-
-Over the time range of 60 seconds, the speed reduction in the lead vehicle forces the following vehicles to become more closely spaced. All drivers keep a safe headway, one vehicle length for each 10 mph of speed. The $t-x$ trajectory of the ten vehicles shown in the figure give the impression that the vehicles arrive with the same speed and headway. In fact, this is not the case:
-
-``` {r, echo = FALSE, message=FALSE, error=FALSE, warning = FALSE}
-mat <- cflist[[2]]
-mat <- round(mat,0)
-df  <- data.frame(mat)
-colnames(df) <- c("Vehicle", "Speed at t0", "Speed at t3",   "Density at t1")
-knitr::kable(df, caption = "Traffic Characteristics", align = "c")
-```
-    
-The level-of-service estimates are:
-
-  |Mean headway $\bar{h}$ | Headway standard deviation $\hat{\sigma}_h$ |Estimated flow $\bar{q}$ |
-  |-----------------:|-------------------:| -----------------:|
-  | 6.7 seconds | 20 seconds | 537 vehicles per hour (vph)|
-  
-Contrast the "Bottleneck" situation  to  where the same vehicles come a full stop at a signal.  The "Full Stop" vehicles experience longer delays as can be seen in the following diagram, which is no surprise. The "Full Stop" vehicles are stacked up on the downstream side of the $x = 0$ line. It forms shockwave of stopped vehicles that move upstream. The "Bottleneck"  shows the shockwave moving upstream of vehicles that are to slow down. 
-
-```{r, as.is = TRUE, echo = FALSE, fig.height = 4, fig.width = 6, message=FALSE, error=FALSE, warning = FALSE}
-library(knitr)
-cflist <- run(10, 63, 10, 0,  0,  55, 5, 15, 14, c(0, 20),c(-1000, 200))
-title("Breakdown", "Signalized Intersection")
-```
-
-The classical approach is to calculate shock wave speed using the $\Delta q/ \Delta k$ formula and a flow-density diagram. Our car-following $CF$ approach uses the $\alpha(t) = a - b t$ model and a function that assures the drivers drive safely. It does not use a flow-density diagram. 
-
-This approach explains  queue formation differently.  The $CF$  approach  shows the transistion from a free-flow to a congested state, the $u_{-1}$ to $u_0$ transition, to be smooth, not an abrupt change as with the classical method using a constant velocity model. The "Bottleneck" vehicles  show the $u_{-1}$ to $u_0$ transition to be moving upstream. That means the delay spreads in two directions, upstream and downstream.  The "Full Stop" vehicles have two shockwave speeds: one for breaking at $t_1$ and one for the vehicle when it stops at $t_3$.  Both progress in the upstream direction only. Incidentally, these shockwave speeds can be estimated with the trajectories.
-
-
-Input to the __run__ function produces a collection of data frames, which we call the "cflist." The information from these data frames can be inspected to give a detailed look at the interaction between the lead and following vehicles during a traffic breakdown. 
-
-__Car-Following__
-
-The above figures show that the trajectories to be smooth curves.  The lead vehicle use  exponential $u = exp(-\lambda * t)$ and the following vehicles use non-linear $\alpha(t) = a - b t$ speed models. Depending on the situation, each driver  adjusts his or her speed independently from one another. The lead vehicle shown below has a concave trajectory from $t_0$ to $t_3$,  indicating a decline  in speed. Vehicle 2 and 3 have linear and convex trajectories. For vehicle 3, the driver is accelerating until reaches point $(t_1, x_2)$ where it begins to decelerate. 
+The preceding example describes _traffic breakdown_. The traffic transistions from a free-flow, $X = 0$, to a congested state, $X = 1$. The example below is another example of traffic breakdown using the __run__ function. The __run__ allows the user to specify any number of vehicles, whereas the __zipper__ is limited to three vehicles. There is one minor difference. The lead vehicle use  exponential $u = exp(-\lambda * t)$ and the following vehicles use non-linear $\alpha(t) = a - b t$ acceleration models. The lead vehicle shown below has a concave trajectory from $t_0$ to $t_3$,  indicating a decline  in speed. Vehicle 2 and 3 have linear and convex trajectories. For vehicle 3, the driver is accelerating until reaches point $(t_1, x_2)$ where it begins to decelerate. As mentioned many time before, each driver of a lead-follower pair adjusts his or her speed independently from another pairs.
 
 ```{r, echo = FALSE, fig.height = 4, fig.width = 6, message=FALSE, error=FALSE, warning = FALSE}
 set.seed(123)
@@ -156,39 +107,38 @@ legend("topleft", legend = "driver sight-lines", bty = "n", lty = 5, col = gray(
 title("Breakdown","Basic Concepts and Notation")
 ```
  
-Driver reaction and driver sight lines play  important roles in the $CF$ approach. The role they play is most easily explained by identifying the times when important events occur, $t_1, t_2, t_3, t_4$ and $t_5$. The simulation ranges from  $t_0$ to $t_4$. Time $t_3$ is the time the lead vehicle reaches the bottleneck $x_0$ at $(t_0,x_0)$. Times $t_1$ are the times the following vehicle drivers react and begin to decelerate. These times depend on several factors, including lead and  following vehicle speeds, vehicle spacing and driver response. For example, the driver sightline for  vehicle 2, shown by the broken line connecting the points $(t_1, x_1)$ and $(t_2, x_2)$, gives a sense of how this  driver processes the information. The algorithm uses this information, points $(t_1, x_1)$ and $(t_2, x_2)$,  to calibrate the $\alpha(t) = a - b t$ speed model and estimate a $t-x$ trajectory for the vehicle. This step is repeated for next vehicle that enters the bottleneck.  The trajectories for each of three vehicles shown in the graph are unique. Times $t_5$ are the times a following vehicle reach the bottleneck location $x = 0$. They are used to estimate the time headways between vehicles, which in turn are used to estimate traffic flow $\hat{Q}$.
+Driver reaction and driver sight lines play  important roles in the $CF$ approach. 
 
-__Theory__
+The role they play is most easily explained by identifying the times when important events occur, $t_1, t_2, t_3, t_4$ and $t_5$. The simulation ranges from  $t_0$ to $t_4$. Time $t_3$ is the time the lead vehicle reaches the bottleneck $x_0$ at $(t_0,x_0)$. Times $t_1$ are the times the following vehicle drivers react and begin to decelerate. These times depend on several factors, including lead and  following vehicle speeds, vehicle spacing and driver response. For example, the driver sightline for  vehicle 2, shown by the broken line connecting the points $(t_1, x_1)$ and $(t_2, x_2)$, gives a sense of how this  driver processes the information. The algorithm uses this information, points $(t_1, x_1)$ and $(t_2, x_2)$,  to calibrate the $\alpha(t) = a - b t$ speed model and estimate a $t-x$ trajectory for the vehicle. This step is repeated for next vehicle that enters the bottleneck.  The trajectories for each of three vehicles shown in the graph are unique. Times $t_5$ are the times a following vehicle reach the bottleneck location $x = 0$. They are used to estimate the time headways between vehicles, which in turn can be used to estimate traffic flow $\hat{Q}$ after the road becomes congested.
 
-Exploratory data analysis showed the traffic on I-93 in Salem to be extremely volatile and the chance of traffic breakdown is strong. Given these observations, it is natural to express the _fundamental relationship_ of traffic flow as $Q = K * U$ where $Q$, $K$ and $U$ are assumed to be random variables. However, the results of the ring-road experiment gave evidence that the variability in $Q$ depends wholly on the variability in speed, which we assumed to be a Brownian motion model $U(t)$. The argument was simple. Since the number of vehicles on the road $n$ and road length $l$ are constants, it follows that the density must be a constant.  Since $k = n/l$, $Q = k * U(t)$.  Our conclusions were derived from watching a short video and assuming flow, density and speed are measured on a time scale in seconds. 
+__Queue Formation__
 
-The argument for the  $Q = K * U$ model is based upon _macroscale_ observations or averages of flow, density and speed derived from 15-minute averages. In contrast, the argument for the  $Q = k * U(t)$ model is based upon assuming variables are measured on the _microscale_. Certainly, the simpler  $Q = k * U(t)$ model is the model of choice for  bottleneck breakdown because we can envision why driver behavior can trigger a breakdown. The vehicles must merge at a bottleneck. In addition, many drivers, who drive this roadway on a regular basis, weave from one lane to another. Drivers in the NH and MA are known for their aggressiveness. By being so aggressive, they increase the traffic volatility by abruptly accelerating and decelerating. The $CF$ approach is a tool can be refined to study aggressive driver behavior. 
+The following two __run__ simulations compare queuing at a signalized intersection against a situation where there is a traffic breakdown with a temporary queue. The classical approach is to calculate shock wave speed using the $\Delta q/ \Delta k$ formula and a flow-density $q-k$ diagram. Our car-following approach uses the $t-x$ trajectory to investigate queuing.
 
-To justify the  $Q = k * U(t)$ model for a bottleneck, consider a "thought experiment." In addition to collecting speed $u_i$ data that we described above for the eight  month I-93 study, a series of videos are simultaneously taken by a helicopter flying overhead or by a drone. The video data will be used to obtain direct measures of density  $k_i = n_i/l$.  Next, take the matched $k_i$ and $u_i$ records, sort them into bins according to magnitude of traffic density, and construct a box plot. This sorting procedure treats the density data as fixed values or constants and the speed data as a random variable.
+The "Bottleneck" vehicles  show the transition from a free-flow speed of 65 mph to congested speed of 32 mph to be moving upstream. That means the delay spreads upstream causing drivers to drive at 32 mph before they reach the bottleneck at $x$ = 0.  
 
-The box plot will arguably resemble of  the __Box Plot of Density-Speed__ diagram of I-93 study data presented above in the __Exploratory Data Analysis__ section. Assuming the "thought experiment" and I-93 study data sufficiently similiar, inferences can be drawn from I-93 box-plot. By visual inspection, speed decreases as the traffic density increases. Since the bottleneck geometry is unchanged throughout the experiment, the number of vehicles $n_i$ and speed $u_i$ are strongly associated. Thus, the $Q = k * U(t)$ model holds. 
+ ```{r, echo = FALSE, fig.height = 4, fig.width = 6, message=FALSE, error=FALSE, warning = FALSE}
+set.seed(123)
+cflist <- run(10, 63, 10, 34, 0.1, 55, 5, 15, 14, c(0, 60), c(-2000, 5000))
+title("Breakdown", "Bottleneck")
+```
 
-To be absolutely clear about the meaning of the $Q = k * U(t)$ model for the Brownian motion speed model, $U(t) = u + \sigma W(t) = u + \sigma \sqrt{\Delta t} Z$, we rewrite it in functional form to draw attention to the _key variables_:
+The "Signalized Intersection" vehicles have two shockwave speeds: one for breaking at $t_1$ and one for the lead vehicle when it stops at $t_3$.  Both progress in the upstream direction. A back-of-an-envelope estimation suggests the shockwave speeds for the "Signalized Intersection" and "Bottleneck" are about the same speed of 100 fps.
 
-* $Q = f(k, u, \sigma, h)$
+```{r, as.is = TRUE, echo = FALSE, fig.height = 4, fig.width = 6, message=FALSE, error=FALSE, warning = FALSE}
+library(knitr)
+cflist <- run(10, 63, 10, 0,  0,  55, 5, 15, 14, c(0, 20),c(-1000, 200))
+title("Breakdown", "Signalized Intersection")
+```
 
-where $k = n/l$ = traffic density, $u$ = design speed,  $\sigma$ = standard deviation of $u$, and  $h$ represents a safe headway for vehicles of the same length.    
+ 
 
-__Forecasting__
 
-Inspecting $t-x$ trajectories and $h$ histograms derived from the $Q$ model  proves to be an effective in understanding traffic breakdown and explaining being in a congested state. Given $k$, it is possible to predict  probability of traffic breakdown  $\pi$. To gain an appreciation of the  $\hat{\pi}$ forecast model, look at the  __Box Plot of Density-Speed__ diagram.  We select bin of $k$ and then determine the proportion of breakdowns $p$ in the bin.  $p$ is straightforwardly calculated as the ratio of the number of observations where $u \le u^*$ to the total number of observations in the bin $k$. As previously mentioned, the HCM designates roadway capacity $c^*$ to be in the vicinity 2250 vph  at $k^*$ = 45 vpm. The estimate of $p$  for this bin is quite small. However, as  the $k$ values increase, the values of $p$ increase rapidly. Expressing $\pi$ by _time-of-day_ we have a wortwhile tool, _a macroscale model_, that traffic operators and managers may find useful:
 
-$\hat{\pi} = P(K_t \ge k^*)$ 
 
-$K_t$ is a stochastic differential equation model of traffic density by _time-of-day_ $t$ [@pjo2017](https://github.com/PJOssenbruggen/Basic/blob/master/doc/IEEE_MT-ITS.pdf).  Treating traffic density $K_t$ as the random variable  may seem contradictory given the discussion about the $Q = k * U(t)$ model. It is not. Note that two models are different. One is a _macroscale_ model predicting breakdown and the other one is a _microscale_ model predicting flow.  
 
-__Lessons Learned__
 
-_What have we learned about traffic performance using the __tfuhp__ package?_ The most notable lesson learned is:
 
-* By modeling driver behavior with a simple, parsimonious  Brownian motion model of speed, it is possible to explain and forecast  traffic  breakdown on a ring-road and at a bottleneck.  
 
-The potential of the __tfuhp__ package as a learning tool has been demonstrated. Hopefully, this platform can be adapted and expanded to help users  identify the root cause or causes for other congestion problems. My next task is add __R Markdown Shiny__ HTML widgets to my code. Adding this feature will allow the user to simply conduct sensitivity analyses on-line. For example, the effects of speed  and density on ring-road performance can be explored. Sliders for $u$, $\sigma$ and $k$ will be provided so a user change them at will. The __tfuhp__ package will instantaneously produce a histogram of headways as illustrated above.
 
-This package is open to the public, https://github.com/PJOssenbruggen/Basic. In other words, I am inviting people to share their experiences with the package with me. GitHub promotes this activity, https://github.com/explore.
 
