@@ -113,7 +113,7 @@ The role they play is most easily explained by identifying the times when import
 
 __Queue Formation__
 
-The following two __run__ simulations compare queuing at a signalized intersection against a situation where there is a traffic breakdown with a temporary queue. The classical approach is to calculate shock wave speed using the $\Delta q/ \Delta k$ formula and a flow-density $q-k$ diagram. Our car-following approach uses the $t-x$ trajectory to investigate queuing.
+The following two __run__ simulations compare queuing at a signalized intersection against a situation where there is a traffic breakdown but the congestion speed is non-zero. The classical approach is to calculate shock wave speed using the $\Delta q/ \Delta k$ formula and a flow-density $q-k$ diagram. Our car-following approach uses the $t-x$ trajectory to investigate queuing.
 
 The "Bottleneck" vehicles  show the transition from a free-flow speed of 65 mph to congested speed of 32 mph to be moving upstream. That means the delay spreads upstream causing drivers to drive at 32 mph before they reach the bottleneck at $x$ = 0.  
 
