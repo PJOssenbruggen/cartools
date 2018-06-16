@@ -13,7 +13,7 @@ Users are encouraged to freely use any of the material used to create this packa
 
 1. [Basic](https://github.com/PJOssenbruggen/Basic): A repository containing the __R__  functions and data used for analysis.
 
-2. [GP](https://github.com/PJOssenbruggen/GP): A repository containing the __R__ code for creating this website with GitHub Pages.
+2. [cartools](https://github.com/PJOssenbruggen/cartools): A repository containing the __R__ code for creating this website with GitHub Pages.
 
 People familar with [R](https://cran.r-project.org) and [RStudio](https://www.rstudio.com) may download, use and share this material as they see fit. Feedback is welcomed.
 
