@@ -1,6 +1,6 @@
 ---
 title: "Highway Performance"
-bibliography: "CF.bibtex"
+bibliography: CF.bibtex
 ---
 
 __Model Types__
