@@ -3,13 +3,14 @@ title: "Highway Performance"
 bibliography: "CF.bibtex"
 ---
 
-__Model Comparison__
+__Model Types__
 
-We have developed two modeling types to simulate traffic behavior.  Each type realisticly simulates conditions found in the field, i.e., using $t-x$ trajectories as the principle means of comparison. Both help explain traffic behavior. The following  table gives a brief summary of their features. 
+We have developed two modeling types to simulate traffic behavior.  Each type realisticly simulates conditions found in the field  using $t-x$ trajectories as the principle means of comparison. The two approaches are fundamentally different. One is a deterministic model and the other is a stochastic model. The forecasts from the two models compliment one another. Both satisfy the principal aim of developing the __cartools__ package: to explain highway performance as simply as possible.  
 
 ```{r, include = FALSE, warning = FALSE, message = FALSE, error = FALSE}
 library(Basic)
 ```
+
 
 
 ``` {r table 1, echo = FALSE, message=FALSE, error=FALSE, warning = FALSE}
@@ -18,13 +19,13 @@ df1  <- data.frame(c("Microscale time-series", "No", "Sight lines","Safe headway
 df2  <- data.frame(c("Microscale time-series", "Yes", "Noise","Safe headway", "Yes"))
 df   <- cbind(df1,df2)
 colnames(df) <- c("Acceleration Model", "Brownian Bridge Model")
-rownames(df)  <- c("Type", "Stochastic", "Driver Response", "Driver Risk Aversion", "Empirical Data Link")
+rownames(df)  <- c("Description", "Stochastic", "Driver Response", "Driver Risk Aversion", "Empirical Data Link")
 knitr::kable(df,  align = "c")
 ```
 
-The major strength of the  __acceleration model__ is its ability to explain how a driver will vary his or her vehicle speed over time owing to traffic conditions. It features a non-linear $\ddot{x}(t)$ model. 
+The major strength of the  __acceleration model__ is its ability to explain how a driver will vary his or her vehicle speed over time owing to traffic conditions. It features a $\ddot{x}(t)$ model, a _non-linear, deterministic model_. 
 
-The major strength of the __Brownian bridge model of speed__, a stochastic model $U(k,t)$, is its ability to explain the roles that traffic noise and traffic density $k$ play in forecasting the probability of being in a congested state, $\pi(k).$ Since the $U(k,t)$ model is derived from controlled experiment where $k$ is a fixed value, traffic flow, a most important measure of highway performance, is simply defined as a _parsimonius, stochastic model_:
+The major strength of the __Brownian bridge model of speed__, a stochastic model $U(k,t)$, is its ability to explain the role of traffic noise and role that traffic density $k$ plays in forecasting the probability of being in a congested state, $\pi(k).$ Since the $U(k,t)$ model is derived from a controlled experiment where $k$ is a fixed value, traffic flow, a most important measure of highway performance, is simply defined as a _parsimonius, stochastic model_:
 
 * $Q(t)  = k * U(k, u, \sigma, h_{safe}, t)$.
 
@@ -34,39 +35,31 @@ To draw attention to the significance of the model in explaining traffic flow wi
 
 where $U(t) = U(k, u, \sigma, h_{safe}, t)$.
 
-__Highway Performance__ 
-
-Traffic delay is estimated as the extra time for a driver to complete a loop. 
 
 
+__Brownian Bridge and Bottleneck Problem__ 
 
-__Some Discussion__
-    
-The $Q(t) = k * U(t)$ model suggests a _cause-effect relationship_ exists. The speed as specified by  $u$ and $\sigma$ are the causal factors and  $Q(t)$ is the response variable. The probability of being in a congested state is forecast to be a function of $k$, $\pi(k)$. 
+_I am working of a Brownian bridge computer algorithm that explains traffic breakdown (the freeway lane drop problem)._
 
-The argument for the  $Q = K * U$ model is based upon _macroscale_ observations or averages of flow, density and speed derived from 15-minute averages. In contrast, the argument for the  $Q = k * U(t)$ model is based upon assuming variables are measured on the _microscale_. Certainly, the simpler  $Q = k * U(t)$ model is the model of choice for  bottleneck breakdown because we can envision why driver behavior can trigger a breakdown. The vehicles must merge at a bottleneck. In addition, many drivers, who drive this roadway on a regular basis, weave from one lane to another. Drivers in the NH and MA are known for their aggressiveness. By being so aggressive, they increase the traffic volatility by abruptly accelerating and decelerating. The $CF$ approach is a tool can be refined to study aggressive driver behavior. 
-
-To justify the  $Q = k * U(t)$ model for a bottleneck, consider a "thought experiment." In addition to collecting speed $u_i$ data that we described above for the eight  month I-93 study, a series of videos are simultaneously taken by a helicopter flying overhead or by a drone. The video data will be used to obtain direct measures of density  $k_i = n_i/l$.  Next, take the matched $k_i$ and $u_i$ records, sort them into bins according to magnitude of traffic density, and construct a box plot. This sorting procedure treats the density data as fixed values or constants and the speed data as a random variable.
-
-The box plot will arguably resemble of  the __Box Plot of Density-Speed__ diagram of I-93 study data presented in the __Exploratory Data Analysis__ section. Assuming the "thought experiment" and I-93 study data sufficiently similiar, inferences can be drawn from I-93 box-plot. By visual inspection, speed decreases as the traffic density increases. Since the bottleneck geometry is unchanged throughout the experiment, the number of vehicles $n_i$ and speed $u_i$ are strongly associated. Thus, the $Q = k * U(t)$ model holds. 
 
 
 
 __Package Summary__ 
 
-A quick read of the __Overview__ may give the impression that the approach, a package of computer algorithms, will be difficult to understand and overwhelming to implement. Words, like complex, dynamics, theory, parsimonious, stochastic and model integration can be daunting. No question that designing and operating a transportation system are difficult problems. By disecting the problem into manageable pieces and synthesizing the  results from the individual pieces brings clarity to the process. 
-
-
-The mathematics behind the animation is relatively simple. Of course, the Brownian motion model shown here can be adapted to other situtations. This will be  illustrated presently. The ultimate aim of using [trfhp](https://github.com/PJOssenbruggen/Basic) package tools is to improve our chances of mitigating congestion and improving performance using the simple mathematical and graphical tools.
+A quick read of the __Home Analytical Tools Section__ may have given the impression that the goal to create the __cartools__ package, a collection of __R__ computer algorithms, will be overwhelming difficult to understand and implement. Words, like complex, dynamics, theory, parsimonious, stochastic and model integration can be daunting. No question that designing and operating a transportation system are difficult problems. Hopefully, by disecting the problem into manageable pieces and synthesizing the  results from the individual pieces brings clarity to the process. The ultimate aim of using __cartools__ package tools is to improve our chances of mitigating congestion and improving performance using the simple mathematical and graphical tools.
 
 
 __Lessons Learned__
 
 _What have we learned about traffic performance using the __cartools__ package?_ The most notable lesson learned is:
 
-* By modeling driver behavior with a simple, parsimonious  Brownian motion model of speed, it is possible to explain and forecast  traffic  breakdown on a ring-road and at a bottleneck.  
+* By modeling driver behavior with a simple, parsimonious  Brownian Bridge model of speed, it is possible to explain and forecast  traffic  breakdown on a ring-road and at a bottleneck.  
 
-The potential of the __cartools__ package as a learning tool has been demonstrated. Hopefully, this platform can be adapted and expanded to help users  identify the root cause or causes for other congestion problems. My next task is add __R Markdown Shiny__ HTML widgets to my code. Adding this feature will allow the user to simply conduct sensitivity analyses on-line. For example, the effects of speed  and density on ring-road performance can be explored. Sliders for $u$, $\sigma$ and $k$ will be provided so a user change them at will. The __cartools__ package will instantaneously produce a histogram of headways as illustrated above.
+The potential of the __cartools__ package as a learning tool has been demonstrated. Hopefully, this platform can be adapted and expanded to help users  identify the root cause or causes for other congestion problems. 
 
-This package is open to the public, https://github.com/PJOssenbruggen/Basic. In other words, I am inviting people to share their experiences with the package with me. GitHub promotes this activity, https://github.com/explore.
+My next task is add _HTML widgets and animation  to the package. Adding these features will allow the user to simply conduct sensitivity analyses on-line. For example, the effects of speed  and density on ring-road performance can be explored. Sliders for $u$, $\sigma$ and $k$ will be provided so a user change them at will. The __cartools__ package will instantaneously produce a histogram of headways as illustrated above.
+
+This package is open to the public, https://github.com/PJOssenbruggen/Basic. In other words, I am inviting people to share their experiences with the package with me. See https://guides.github.com/activities/forking/. 
+
+GitHub promotes this activity. See https://github.com/explore. 
 
