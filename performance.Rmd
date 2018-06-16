@@ -5,7 +5,7 @@ bibliography: CF.bibtex
 
 __Model Types__
 
-We have developed two modeling types to simulate traffic behavior.  Each type realisticly simulates conditions found in the field  using $t-x$ trajectories as the principle means of comparison. The two approaches are fundamentally different. One is a deterministic model and the other is a stochastic model. The forecasts from the two models compliment one another. Both satisfy the principal aim of developing the __cartools__ package: to explain highway performance as simply as possible.  
+We have developed two modeling types to simulate traffic behavior.  Each type realisticly simulates conditions found in the field  using $t-x$ trajectories as the principle means of comparison. The models  are fundamentally different. One is a deterministic model and the other is a stochastic model. The forecasts from the two models compliment one another. Both satisfy the principal aim of developing the __cartools__ package: to explain highway performance as simply as possible.  
 
 ```{r, include = FALSE, warning = FALSE, message = FALSE, error = FALSE}
 library(Basic)
@@ -57,7 +57,7 @@ _What have we learned about traffic performance using the __cartools__ package?_
 
 The potential of the __cartools__ package as a learning tool has been demonstrated. Hopefully, this platform can be adapted and expanded to help users  identify the root cause or causes for other congestion problems. 
 
-My next task is add _HTML widgets and animation  to the package. Adding these features will allow the user to simply conduct sensitivity analyses on-line. For example, the effects of speed  and density on ring-road performance can be explored. Sliders for $u$, $\sigma$ and $k$ will be provided so a user change them at will. The __cartools__ package will instantaneously produce a histogram of headways as illustrated above.
+My next task is add HTML widgets and animation  to the package. Adding these features will allow the user to simply conduct sensitivity analyses on-line. For example, the effects of speed  and density on ring-road performance can be explored. Sliders for $u$, $\sigma$ and $k$ will be provided so a user change them at will. The __cartools__ package will instantaneously produce a histogram of headways as illustrated above.
 
 This package is open to the public, https://github.com/PJOssenbruggen/Basic. In other words, I am inviting people to share their experiences with the package with me. See https://guides.github.com/activities/forking/. 
 
