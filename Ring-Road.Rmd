@@ -82,11 +82,16 @@ mtext(bquote(hat(sigma) == .(usd)), side = 3)
 mtext(bquote(k == .(k0)), side = 4)
 ```
 
-After time $\tau$ = 15 minutes, the Brownian Bridge model forces a driver in a mathematical sense to return to his or her initial speed $u(k)$, the speed at time $t$ = 0. Between the start and finish times of $t$ = 0 and 15 minutes, the drivers are free to decelerate and accelerate as they wish. The transitions over time are more-or-less smooth as expected. The effect of volatility is in clear evidence. According to the model, a driver can maintain a speed outside the 95% C.I. (confidence interval) for an extended time period as shown by the "Heavily Congested" simulation. It is emphasized that the Brownian Bridge model is for a single vehicle. Our next step is to consider driver interaction, which have not done as yet.
+After time $\tau$ = 15 minutes, the Brownian Bridge model forces a driver in a mathematical sense to return to his or her initial speed $u(k)$, the speed at time $t$ = 0. Between the start and finish times of $t$ = 0 and 15 minutes, a driver is free to decelerate and accelerate as he or she wishes. The transitions over time are more-or-less smooth as expected. The effect of volatility is in clear evidence. According to the model, a driver can maintain a speed outside the 95% C.I. (confidence interval) for an extended time period as shown by the "Heavily Congested" simulation. It is emphasized that the Brownian Bridge model is for a single vehicle. Our next step is to consider driver interaction, which have not done as yet.
+
 
 __Car-Following and Highway Safety__
 
+
 We now consider: (1) _driver performance in a car-following situation_ and (2) _highway safety_.  Car-following and safety are strongly associated because drivers are typically risk averse. Drivers avoid crashes.  
+
+The Brownian Bridge model described thus far is for a single vehicle. It must be further adapted to simulate: (1) _driver performance in a car-following situation_ and (2) _safety_. These two features are incorporated into the __R cartools__ algorithms. Car-following and safety are strongly associated because drivers are typically risk averse. Drivers avoid crashes.  
+
 
 Consider a pair of vehicles, one is designated as a _leader_ and the other one designated as a  _follower_. At each time-step in the simulation algorithm, the locations and speeds of the lead and following vehicles and the headway between the two vehicles are calculated. A _safe driving distance_, a distance headway, is defined by the following function:
 
