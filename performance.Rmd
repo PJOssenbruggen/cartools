@@ -37,10 +37,53 @@ where $U(t) = U(k, u, \sigma, h_{safe}, t)$.
 
 
 
-__Brownian Bridge and Bottleneck Problem__ 
+__Traffic Breakdown__ 
 
-_I am working of a Brownian bridge computer algorithm that explains traffic breakdown (the freeway lane drop problem)._
+What is a traffic breakdown?  It is as the transition from a free-flow state to a congested state, $X = 1 \rightarrow X = 0$. The state space notation is simple enough but explaining in words and with a mathematical model are challenging. A stochastic speed model was established and used to investigate random effects on car following. 
 
+* $U(k, a, b, h_{safe}, t) =  u(0) +  a * t - \frac{b}{2} * t^2 + W(\Delta t)$
+
+where $W(\Delta t) \sim N(0, \sigma \Delta t)$ and  $\sigma = \sigma(k)$. Thus, $U(k, a, b, h_{safe}, t)$ is now a stochastic model with an external data link.  
+
+A traffic breakdown event is complicated because there is a myriad of ways a breakdown can be initiated. Weaving, merging, aggressive driving, are poor design are most often blamed. To simplify the discussion, we assume that traffic breakdown will occur at a bottleneck. A  two-lane freeway with uni-directional flow merges into a single lane, the so-called "lane drop" problem. Vehicles are forced to merge. For the present, we concentrate on the first two vehicles that decelerate in traffic described to be highly volatile with high density.  
+
+The following $t-u$ and $t-x$ plots are derived from  a simulation consisting of two vehicles, a lead vehicle and a following vehicle, identified as  1 and 2. It is assumed that the drivers of these vehicles will not change lanes. They are car-following exclusively. There are no drivers outside their driving lane. Thus, conditions that describe a zipper merge do not apply here.  Even with these simplifying assumptions, there is quite a bit going on during a traffic breakdown. Thus, we will initially focus  how this simulation was derived and then discuss the results.
+
+
+```{r usdzipper,  message = FALSE, fig.height = 5, fig.width = 10, echo = FALSE}
+par(mfrow = c(1,1))
+set.seed(124)
+output1 <- usdzipper(0, 5, 41, 11.6, 0, 500)
+
+```
+
+Since the traffic highly volatile event, the first step is to simulate the field conditions. It is assumed that the traffic density is $k$ = 50 vpm, thus $\bar{u} \pm \hat{\sigma} = 41 \pm 11.6$ mph. Since $X = 1 \rightarrow X = 0$, the speeds of the two vehicles before and after breakdown must satisfy the constraints $u(t_{start}) > u^*$ and $u(t_{end}) \le u^*$ where the time at the start and end of the simulation are $t_{start}$ = 0 and $t_{end}$ = 5 seconds. These values were estimated by drawing samples from a simulated data set consisting of one hundred draws from the normal distribution of $N(\bar{u} = 41, \hat{\sigma}^2 = 11.6^2)$. Four draws were made from the simulated data. They are shown in the following table. 
+
+``` {r table 2, echo = FALSE, message=FALSE, error=FALSE, warning = FALSE}
+
+df1  <- data.frame(c("0", "55 mph (81 fps)", "0 feet", "57 mph (83 fps)", "-68 feet"))
+df2  <- data.frame(c("5 seconds", "41 mph (60 fps)", "500 feet", "32 mph (47 fps)", "455 feet"))
+df   <- cbind(df1,df2)
+colnames(df) <- c("Start", "End")
+rownames(df)  <- c("Time t", "Vehicle 1:  u", "Vehicle 1:  x",  "Vehicle 2:  u", "Vehicle 2:  x")
+knitr::kable(df,  align = "c")
+```
+
+It is of interest to note that at the start of the simulation that vehicle 2 is traveling at a speed slightly greater than vehicle 1. At the end of the simulation the opposite is true. It is impossible to predict the condition when the speed volatility is so large as in this case. 
+
+The second step is to estimate model parameters $a$ and $b$ for each of the two vehicles. Other assumptions must be must made. The bottleneck is assumed tapper down from two to one lane in 500 feet and the total time for the breakdown is 5 seconds. The drivers are assumed to be risk averse so driver of vehicle 2 maintains a safe headway. All this information is summarized in the table. The $t-x$ trajectory shows vehicle 2 maintains a safe headway for entire 5 seconds. 
+
+The same numerical integration described earlier for determining $x_t$ for the ring-road is used here. The $t-x$ trajectories are smooth. Driver 2 travels at higher speed for the first three seconds and then decelerates to maintain a safe headway. 
+
+The importance of maintaining a safe headway cannot be overemphasized. Without this assumption, the $t-x$ trajectory of vehicle 2 could cross the trajectory for vehicle 1. It would be a rear-end crash caused by tailgating. It is also possible that the speed of the following vehicle, even when there is a safe headway at $t$ = 0 and 5, is so large that a rear-end crash can occur. This can be seen in the following simulation where visual inspection shows a safe headway violation between three and four seconds. The safe sightline rule for times $0 < t < t_{end}$, discussed in the __Bottleneck__ section,  is not imposed here. 
+
+
+```{r usdzipper2,  message = FALSE, fig.height = 5, fig.width = 10, echo = FALSE}
+par(mfrow = c(1,1))
+set.seed(129)
+output1 <- usdzipper(0, 5, 41, 11.6, 0, 500)
+
+```
 
 
 

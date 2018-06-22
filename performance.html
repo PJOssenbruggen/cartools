@@ -261,8 +261,57 @@ $(document).ready(function () {
 <li><span class="math inline">\(Q(t) = k * U(t)\)</span></li>
 </ul>
 <p>where <span class="math inline">\(U(t) = U(k, u, \sigma, h_{safe}, t)\)</span>.</p>
-<p><strong>Brownian Bridge and Bottleneck Problem</strong></p>
-<p><em>I am working of a Brownian bridge computer algorithm that explains traffic breakdown (the freeway lane drop problem).</em></p>
+<p><strong>Traffic Breakdown</strong></p>
+<p>What is a traffic breakdown? It is as the transition from a free-flow state to a congested state, <span class="math inline">\(X = 1 \rightarrow X = 0\)</span>. The state space notation is simple enough but explaining in words and with a mathematical model are challenging. A stochastic speed model was established and used to investigate random effects on car following.</p>
+<ul>
+<li><span class="math inline">\(U(k, a, b, h_{safe}, t) = u(0) + a * t - \frac{b}{2} * t^2 + W(\Delta t)\)</span></li>
+</ul>
+<p>where <span class="math inline">\(W(\Delta t) \sim N(0, \sigma \Delta t)\)</span> and <span class="math inline">\(\sigma = \sigma(k)\)</span>. Thus, <span class="math inline">\(U(k, a, b, h_{safe}, t)\)</span> is now a stochastic model with an external data link.</p>
+<p>A traffic breakdown event is complicated because there is a myriad of ways a breakdown can be initiated. Weaving, merging, aggressive driving, are poor design are most often blamed. To simplify the discussion, we assume that traffic breakdown will occur at a bottleneck. A two-lane freeway with uni-directional flow merges into a single lane, the so-called “lane drop” problem. Vehicles are forced to merge. For the present, we concentrate on the first two vehicles that decelerate in traffic described to be highly volatile with high density.</p>
+<p>The following <span class="math inline">\(t-u\)</span> and <span class="math inline">\(t-x\)</span> plots are derived from a simulation consisting of two vehicles, a lead vehicle and a following vehicle, identified as 1 and 2. It is assumed that the drivers of these vehicles will not change lanes. They are car-following exclusively. There are no drivers outside their driving lane. Thus, conditions that describe a zipper merge do not apply here. Even with these simplifying assumptions, there is quite a bit going on during a traffic breakdown. Thus, we will initially focus how this simulation was derived and then discuss the results.</p>
+<p><img src="performance_files/figure-html/usdzipper-1.png" width="960" /></p>
+<p>Since the traffic highly volatile event, the first step is to simulate the field conditions. It is assumed that the traffic density is <span class="math inline">\(k\)</span> = 50 vpm, thus <span class="math inline">\(\bar{u} \pm \hat{\sigma} = 41 \pm 11.6\)</span> mph. Since <span class="math inline">\(X = 1 \rightarrow X = 0\)</span>, the speeds of the two vehicles before and after breakdown must satisfy the constraints <span class="math inline">\(u(t_{start}) &gt; u^*\)</span> and <span class="math inline">\(u(t_{end}) \le u^*\)</span> where the time at the start and end of the simulation are <span class="math inline">\(t_{start}\)</span> = 0 and <span class="math inline">\(t_{end}\)</span> = 5 seconds. These values were estimated by drawing samples from a simulated data set consisting of one hundred draws from the normal distribution of <span class="math inline">\(N(\bar{u} = 41, \hat{\sigma}^2 = 11.6^2)\)</span>. Four draws were made from the simulated data. They are shown in the following table.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="center">Start</th>
+<th align="center">End</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Time t</td>
+<td align="center">0</td>
+<td align="center">5 seconds</td>
+</tr>
+<tr class="even">
+<td>Vehicle 1: u</td>
+<td align="center">55 mph (81 fps)</td>
+<td align="center">41 mph (60 fps)</td>
+</tr>
+<tr class="odd">
+<td>Vehicle 1: x</td>
+<td align="center">0 feet</td>
+<td align="center">500 feet</td>
+</tr>
+<tr class="even">
+<td>Vehicle 2: u</td>
+<td align="center">57 mph (83 fps)</td>
+<td align="center">32 mph (47 fps)</td>
+</tr>
+<tr class="odd">
+<td>Vehicle 2: x</td>
+<td align="center">-68 feet</td>
+<td align="center">455 feet</td>
+</tr>
+</tbody>
+</table>
+<p>It is of interest to note that at the start of the simulation that vehicle 2 is traveling at a speed slightly greater than vehicle 1. At the end of the simulation the opposite is true. It is impossible to predict the condition when the speed volatility is so large as in this case.</p>
+<p>The second step is to estimate model parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> for each of the two vehicles. Other assumptions must be must made. The bottleneck is assumed tapper down from two to one lane in 500 feet and the total time for the breakdown is 5 seconds. The drivers are assumed to be risk averse so driver of vehicle 2 maintains a safe headway. All this information is summarized in the table. The <span class="math inline">\(t-x\)</span> trajectory shows vehicle 2 maintains a safe headway for entire 5 seconds.</p>
+<p>The same numerical integration described earlier for determining <span class="math inline">\(x_t\)</span> for the ring-road is used here. The <span class="math inline">\(t-x\)</span> trajectories are smooth. Driver 2 travels at higher speed for the first three seconds and then decelerates to maintain a safe headway.</p>
+<p>The importance of maintaining a safe headway cannot be overemphasized. Without this assumption, the <span class="math inline">\(t-x\)</span> trajectory of vehicle 2 could cross the trajectory for vehicle 1. It would be a rear-end crash caused by tailgating. It is also possible that the speed of the following vehicle, even when there is a safe headway at <span class="math inline">\(t\)</span> = 0 and 5, is so large that a rear-end crash can occur. This can be seen in the following simulation where visual inspection shows a safe headway violation between three and four seconds. The safe sightline rule for times <span class="math inline">\(0 &lt; t &lt; t_{end}\)</span>, discussed in the <strong>Bottleneck</strong> section, is not imposed here.</p>
+<p><img src="performance_files/figure-html/usdzipper2-1.png" width="960" /></p>
 <p><strong>Package Summary</strong></p>
 <p>A quick read of the <strong>Home Analytical Tools Section</strong> may have given the impression that the goal to create the <strong>cartools</strong> package, a collection of <strong>R</strong> computer algorithms, will be overwhelming difficult to understand and implement. Words, like complex, dynamics, theory, parsimonious, stochastic and model integration can be daunting. No question that designing and operating a transportation system are difficult problems. Hopefully, by disecting the problem into manageable pieces and synthesizing the results from the individual pieces brings clarity to the process. The ultimate aim of using <strong>cartools</strong> package tools is to improve our chances of mitigating congestion and improving performance using the simple mathematical and graphical tools.</p>
 <p><strong>Lessons Learned</strong></p>
