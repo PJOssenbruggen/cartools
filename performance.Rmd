@@ -80,6 +80,7 @@ The importance of maintaining a safe headway cannot be overemphasized. Without t
 Even if  safe headway distances at times $t$ = 0 and 5 are maintained,  a rear-end collision or near-miss would occur if the following vehicle speed is  too large.  Visual inspection of the following simulation shows a safe headway violation between three and four seconds. The safe sight line rule for times $0 < t < t_{end}$, discussed in the __Bottleneck__ section,  is not imposed here. 
 
 
+
 ```{r usdzipper2,  message = FALSE, fig.height = 5, fig.width = 10, echo = FALSE}
 par(mfrow = c(1,1))
 set.seed(129)
