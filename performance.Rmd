@@ -98,6 +98,13 @@ output1 <- usdzipper(0, 5, 41, 11.6, 0, 500)
 ```
 
 
+```{r formqueue,  message = FALSE, fig.height = 5, fig.width = 10, echo = FALSE}
+par(mfrow = c(1,1))
+set.seed(129)
+output1 <- formqueue(0, 10, 41, 11.6, -1000, -500, 14)
+
+```
+
 
 __Package Summary__ 
 
