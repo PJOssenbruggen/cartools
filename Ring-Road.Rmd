@@ -113,7 +113,7 @@ par(mfrow = c(1,2))
 k0 <- 50
 d <- 22/(pi*k0)
 d <- round(d,1)
-output1 <- rrtrials(41, 11, 50, 120, 120, 14, 0.75, 10, c(0,120), c(-1000, 7500))
+output1 <- rrtrials(41, 11, 50, 120, 120, 14, 10, c(0,120), c(-1000, 7500))
 title("","Congested Flow at HCM Capacity")
 mtext(bquote(k == .(k0)), side = 4)
 
@@ -124,7 +124,7 @@ set.seed(120)
 k0 <- 100
 d <- 22/(pi*k0)
 d <- round(d,1)
-output2 <- rrtrials(18.8, 3.9, 100, 120, 120, 14, 0.5, 10, c(0,120), c(-500, 3500))
+output2 <- rrtrials(18.8, 3.9, 100, 120, 120, 14, 10, c(0,120), c(-500, 3500))
 title("","Heavily Congested Flow")
 mtext(bquote(k == .(k0)), side = 4)
 h2 <- output2[[5]][1]
@@ -137,7 +137,6 @@ As in the full-scale experiment, the simulated drivers cannot maintain a constan
 The volatity effects of $\sigma(k)$ are easily evaluated with visual inspection of the dotted  lines shown in the figures above. The dotted straight line is the trajectory of  the lead vehicle, assuming that its driver could maintain a constant speed $u$ with $\sigma(k)$ = 0. Since $x = u * t$, the slope of the dotted straight line is $u$. Most vehicles in the __rrtrials__ simulation tend to lose speed.
 
 Given these results, __rrtrials__ simulator matches the results observed in the controlled experiment. While there are many variables that are needed to define the results, speed volatility $\sigma$ and the Brownian Bridge $U(k,t)$ are most important.
-
 
 
 

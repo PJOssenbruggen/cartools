@@ -91,6 +91,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -239,7 +242,7 @@ $(document).ready(function () {
 <ul>
 <li><span class="math inline">\(U(k,t) = u(k) + \sigma(k) * \sqrt{\Delta t} * Z\)</span>.</li>
 </ul>
-<p>Brownian motion or a Wiener process is defined as <span class="math inline">\(W(\Delta t) = W(\Delta t) - W(0) \sim \sqrt{\Delta t} * Z\)</span> where <span class="math inline">\(\Delta t\)</span> is a time-step. For our application a general formula is needed, <span class="math inline">\(W(\Delta t) \sim N(0,\sigma^2 \Delta t) \sim \sigma * \sqrt{\Delta t} * N(0,1) \sim \sigma * \sqrt{\Delta t} * Z\)</span> where <span class="math inline">\(\sigma(k) = \sigma\)</span> to simplify the notation.</p>
+<p>Brownian motion or a Wiener process is defined as <span class="math inline">\(W(\Delta t) = W(\Delta t) - W(0) \sim \sqrt{\Delta t} * Z\)</span> where <span class="math inline">\(\Delta t\)</span> is a time-step. For our application a general formula is needed, <span class="math inline">\(W(\Delta t) \sim N(0,\sigma^2 \Delta t) \sim \sigma * \sqrt{\Delta t} * N(0,1) \sim \sigma * \sqrt{\Delta t} * Z\)</span> where <span class="math inline">\(\sigma = \sigma(k)\)</span> to simplify the notation.</p>
 <p>The Brownian motion <span class="math inline">\(U(k,t)\)</span> model eliminates the sporatic flip-flopping described above but it suffers from being a non-stationaey time-series. A driver will now more smoothly accelerate or decelerate. The model is still unacceptable over extended time periods. For examples, say <span class="math inline">\(\tau\)</span> = 15 minutes, speeds can reach extraordinary high or low speeds. Negative speeds indicate vehicles are driving backward, which of course does not represent reality.</p>
 <p>This problem is overcome by replacing the Brownian motion <span class="math inline">\(U(k,t)\)</span> model of driver behavior with a <strong>Brownian Bridge model</strong>:</p>
 <ul>

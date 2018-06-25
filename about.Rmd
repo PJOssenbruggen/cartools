@@ -9,7 +9,6 @@ output: html_document
 library(Basic)
 ```
 
-
 To develop a successful transportaion operation and management plan, there is a clear need for understanding of the process being operated and  managed.  The decision-making framework presented in the __Drivers__ section, _The Learning Process_, will be used here and in subsequent analyses. It is worth repeating that our principal aim   is to explain highway performance realisticly using simple, easy-to-understand models. This is not easy task because traffic data are noisy. 
 
 __A Congested State__
@@ -68,7 +67,6 @@ title("Box Plot of Density-Speed")
 ```
 
 
- 
 
 __A Logistic Regression Model__
 

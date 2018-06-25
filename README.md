@@ -1,2 +1,2 @@
 # GP
-GitHub website for cartools 
+GitHub website for package cartools. 

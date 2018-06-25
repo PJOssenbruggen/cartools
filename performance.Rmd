@@ -69,6 +69,7 @@ rownames(df)  <- c("Time t", "Vehicle 1:  u", "Vehicle 1:  x",  "Vehicle 2:  u",
 knitr::kable(df,  align = "c")
 ```
 
+
 Note that at the start of the simulation, $t = 0$, that vehicle 2 is traveling at a speed slightly greater than vehicle 1. At the end of the simulation, $t_{end}$ = 5 seconds, the opposite is true.  The simulation also shows driver 2 is traveling at higher speed than driver 1 for the first three seconds. Driver 2 begins to  decelerate around three seconds to maintain a safe headway at $t_{end}$. Speed volatility explains these findings. Another simulation will be different.
 
 The second step is to estimate model parameters $a$ and $b$ for each of the two vehicles. Other assumptions must be must made. The bottleneck is assumed tapper down from two to one lane in 500 feet and the total time for the breakdown is 5 seconds. The drivers are assumed to be risk averse so driver of vehicle 2 maintains a safe headway. All this information is summarized in the table. The $t-x$ trajectory shows vehicle 2 maintains a safe headway for the entire 5 seconds of the simulation. 
@@ -79,6 +80,14 @@ The importance of maintaining a safe headway cannot be overemphasized. Without t
 
 Even if  safe headway distances at times $t$ = 0 and 5 are maintained,  a rear-end collision or near-miss would occur if the following vehicle speed is  too large.  Visual inspection of the following simulation shows a safe headway violation between three and four seconds. The safe sight line rule for times $0 < t < t_{end}$, discussed in the __Bottleneck__ section,  is not imposed here. 
 
+
+It is of interest to note that at the start of the simulation that vehicle 2 is traveling at a speed slightly greater than vehicle 1. At the end of the simulation the opposite is true. It is impossible to predict the condition when the speed volatility is so large as in this case. 
+
+The second step is to estimate model parameters $a$ and $b$ for each of the two vehicles. Other assumptions must be must made. The bottleneck is assumed tapper down from two to one lane in 500 feet and the total time for the breakdown is 5 seconds. The drivers are assumed to be risk averse so driver of vehicle 2 maintains a safe headway. All this information is summarized in the table. The $t-x$ trajectory shows vehicle 2 maintains a safe headway for entire 5 seconds. 
+
+The same numerical integration described earlier for determining $x_t$ for the ring-road is used here. The $t-x$ trajectories are smooth. Driver 2 travels at higher speed for the first three seconds and then decelerates to maintain a safe headway. 
+
+The importance of maintaining a safe headway cannot be overemphasized. Without this assumption, the $t-x$ trajectory of vehicle 2 could cross the trajectory for vehicle 1. It would be a rear-end crash caused by tailgating. It is also possible that the speed of the following vehicle, even when there is a safe headway at $t$ = 0 and 5, is so large that a rear-end crash can occur. This can be seen in the following simulation where visual inspection shows a safe headway violation between three and four seconds. The safe sightline rule for times $0 < t < t_{end}$, discussed in the __Bottleneck__ section,  is not imposed here. 
 
 
 ```{r usdzipper2,  message = FALSE, fig.height = 5, fig.width = 10, echo = FALSE}
