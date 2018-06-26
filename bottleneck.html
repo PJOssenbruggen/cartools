@@ -230,7 +230,7 @@ $(document).ready(function () {
 <p>The high-speed merge has similar characterics, but the likelihood of a merge at these speeds is unlikely. All vehicles are operating at 90 mph at times <span class="math inline">\(t\)</span> = 0 and 40 seconds. Vehicles 1 and 3 are crossing at speeds in the vicinity of 90 mph. A merge where two vehicles cross paths at these speeds may occur on a motor raceway where the drivers are professionals and trust the judgement of their competitors.</p>
 <p><strong>A Non-linear Model of Acceleration</strong></p>
 <p>What is the mathematical model that describes the merge computer simulations depicted above? It is the <span class="math inline">\(\ddot{x}(t)\)</span> model described above. The model is incorported in the <strong>zipper</strong> function that was used to create the plots. Given the complexity of a merge, the <strong>zipper</strong> algorithm at this time is limited to three vehicles only. The <span class="math inline">\(\ddot{x}(t)\)</span> model is calibrated for each vehicle.</p>
-<p>Let’s begin by looking at calibrateing a model for a single vehicle. Integrating the function leads to the following speed $u(t) and distance <span class="math inline">\(x(t)\)</span> functions:</p>
+<p>Let’s begin by looking at calibrateing a model for a single vehicle. Integrating the function leads to the following speed <span class="math inline">\(u(t)\)</span> and distance <span class="math inline">\(x(t)\)</span> functions:</p>
 <ul>
 <li><span class="math inline">\(u(t) = u(0) + a * t - \frac{b}{2} * t^2\)</span></li>
 <li><span class="math inline">\(x(t) = x(0) + u(0) * t + \frac{a}{2} * t^2 - \frac{b}{6} * t^3\)</span></li>

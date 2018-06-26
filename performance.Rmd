@@ -36,19 +36,19 @@ To draw attention to the significance of the model in explaining traffic flow wi
 where $U(t) = U(k, u, \sigma, h_{safe}, t)$.
 
 
+__Traffic Breakdown Part 1__ 
 
-__Traffic Breakdown__ 
+What is a traffic breakdown?  It is as the transition from a free-flow state to a congested state, $X = 1 \rightarrow X = 0$. The state space notation is simple enough. The groundwork for explaining traffic breakdown was established in the __Car-Following and Traffic Breakdown__ section of  __Bottleneck__. This approach uses a deterministic model.  Explaining traffic breakdown with a stochastic  model is most challenging.
 
-What is a traffic breakdown?  It is as the transition from a free-flow state to a congested state, $X = 1 \rightarrow X = 0$. The state space notation is simple enough but explaining in words and with a mathematical model are challenging. A stochastic speed model was established and used to investigate random effects on car following. 
+A traffic breakdown event is complicated because there is a myriad of ways a breakdown can be initiated. Weaving, merging, aggressive driving, and poor roadway design are often blamed. To simplify the discussion, we assume that traffic breakdown will occur at a bottleneck. A  two-lane freeway with uni-directional flow merges into a single lane, the so-called "lane drop" problem. Vehicles are forced to merge. For the present, we concentrate on the first two vehicles that decelerate in traffic described to be highly volatile with high density. 
+
+There is uncertainty associated  specifying a  stochastic speed model. Since the __acceleration__ or deterministic $u(t)$ model explains breakdown, we will add random effects component to it. We obtain:
 
 * $U(k, a, b, h_{safe}, t) =  u(0) +  a * t - \frac{b}{2} * t^2 + W(\Delta t)$
 
-where $W(\Delta t) \sim N(0, \sigma \Delta t)$ and  $\sigma = \sigma(k)$. Thus, $U(k, a, b, h_{safe}, t)$ is now a stochastic model with an external data link.  
+where $W(\Delta t) \sim N(0, \sigma \Delta t)$ and  $\sigma = \sigma(k)$. Thus, $U(k, a, b, h_{safe}, t)$ is now a stochastic model with an external data link.  Does it explain breakdown?
 
-A traffic breakdown event is complicated because there is a myriad of ways a breakdown can be initiated. Weaving, merging, aggressive driving, are poor design are most often blamed. To simplify the discussion, we assume that traffic breakdown will occur at a bottleneck. A  two-lane freeway with uni-directional flow merges into a single lane, the so-called "lane drop" problem. Vehicles are forced to merge. For the present, we concentrate on the first two vehicles that decelerate in traffic described to be highly volatile with high density.  
-
-The following $t-u$ and $t-x$ plots are derived from  a simulation consisting of two vehicles, a lead vehicle and a following vehicle, identified as  1 and 2. It is assumed that the drivers of these vehicles will not change lanes. They are car-following exclusively. There are no drivers outside their driving lane. Thus, conditions that describe a zipper merge do not apply here.  Even with these simplifying assumptions, there is quite a bit going on during a traffic breakdown. Thus, we will initially focus  how this simulation was derived and then discuss the results.
-
+Here is the scenario. The following $t-u$ and $t-x$ plots are derived from  a simulation using the $U(k, a, b, h_{safe}, t)$ model. The simulation is limited to an investigation  of two vehicles, a lead vehicle and a following vehicle, identified as  1 and 2. It is assumed that the drivers of these vehicles will not change lanes. They car-follow exclusively. There are no drivers outside their driving lane. Thus, conditions that describe a zipper merge do not apply here.  Even with these simplifying assumptions, there is quite a bit going on during a traffic breakdown. 
 
 ```{r usdzipper,  message = FALSE, fig.height = 5, fig.width = 10, echo = FALSE}
 par(mfrow = c(1,1))
@@ -57,7 +57,7 @@ output1 <- usdzipper(0, 5, 41, 11.6, 0, 500)
 
 ```
 
-Since the traffic highly volatile event, the first step is to simulate the field conditions. It is assumed that the traffic density is $k$ = 50 vpm, thus $\bar{u} \pm \hat{\sigma} = 41 \pm 11.6$ mph. Since $X = 1 \rightarrow X = 0$, the speeds of the two vehicles before and after breakdown must satisfy the constraints $u(t_{start}) > u^*$ and $u(t_{end}) \le u^*$ where the time at the start and end of the simulation are $t_{start}$ = 0 and $t_{end}$ = 5 seconds. These values were estimated by drawing samples from a simulated data set consisting of one hundred draws from the normal distribution of $N(\bar{u} = 41, \hat{\sigma}^2 = 11.6^2)$. Four draws were made from the simulated data. They are shown in the following table. 
+Since  traffic is highly volatile, the first step is to simulate field conditions. We assume the traffic density is fixed, $k$ = 50 vpm. Thus $\bar{u} \pm \hat{\sigma} = 41 \pm 11.6$ mph. Since $X = 1 \rightarrow X = 0$, the speeds of the two vehicles before and after breakdown must satisfy the constraints $u(t_{start}) > u^*$ and $u(t_{end}) \le u^*$ where the time at the start and end of the simulation are $t_{start}$ = 0 and $t_{end}$ = 5 seconds. These values were estimated by drawing samples from a simulated data set consisting of one hundred draws from the normal distribution of $N(\bar{u} = 41, \hat{\sigma}^2 = 11.6^2)$. Four draws were made from the simulated data. They are shown in the following table. 
 
 ``` {r table 2, echo = FALSE, message=FALSE, error=FALSE, warning = FALSE}
 
@@ -69,25 +69,17 @@ rownames(df)  <- c("Time t", "Vehicle 1:  u", "Vehicle 1:  x",  "Vehicle 2:  u",
 knitr::kable(df,  align = "c")
 ```
 
-
-Note that at the start of the simulation, $t = 0$, that vehicle 2 is traveling at a speed slightly greater than vehicle 1. At the end of the simulation, $t_{end}$ = 5 seconds, the opposite is true.  The simulation also shows driver 2 is traveling at higher speed than driver 1 for the first three seconds. Driver 2 begins to  decelerate around three seconds to maintain a safe headway at $t_{end}$. Speed volatility explains these findings. Another simulation will be different.
+Note that at the start of the simulation, $t_{start} = 0$, that vehicle 2 is traveling at a speed slightly greater than vehicle 1. At the end of the simulation, $t_{end}$ = 5 seconds, the opposite is true.  The simulation also shows driver 2 is traveling at higher speed than driver 1 for the first three seconds. Driver 2 begins to  decelerate around three seconds to maintain a safe headway at $t_{end}$. Speed volatility explains these findings. Another simulation will be different.
 
 The second step is to estimate model parameters $a$ and $b$ for each of the two vehicles. Other assumptions must be must made. The bottleneck is assumed tapper down from two to one lane in 500 feet and the total time for the breakdown is 5 seconds. The drivers are assumed to be risk averse so driver of vehicle 2 maintains a safe headway. All this information is summarized in the table. The $t-x$ trajectory shows vehicle 2 maintains a safe headway for the entire 5 seconds of the simulation. 
 
-The same numerical integration scheme described earlier for determining $x_t$ trajectories for the ring-road is used here. Like the ring-road, the $t-x$ trajectories are smooth, suggesting the speeds at times $t_0$ and $t_{end}$ are more critical than the speed changes caused by Brownian motion $W(t)$ ranging over the interval $t_0 < t < t_{end}$. 
+The same numerical integration scheme described earlier for determining $x_t$ trajectories for the ring-road is used here. Like the ring-road, the $t-x$ trajectories are smooth, suggesting the speeds at times $t_0$ and $t_{end}$ are more critical than the speed changes caused by Brownian motion $W(t)$ ranging over the interval $t_{start} < t < t_{end}$. 
 
-The importance of maintaining a safe headway cannot be overemphasized. Without this assumption, the $t-x$ trajectory of vehicle 2 could cross the trajectory for vehicle 1. A rear-end collision caused by tailgating would occur.  
+__Traffic Breakdown Part 2__ 
 
-Even if  safe headway distances at times $t$ = 0 and 5 are maintained,  a rear-end collision or near-miss would occur if the following vehicle speed is  too large.  Visual inspection of the following simulation shows a safe headway violation between three and four seconds. The safe sight line rule for times $0 < t < t_{end}$, discussed in the __Bottleneck__ section,  is not imposed here. 
+The importance of maintaining a safe headway cannot be overemphasized. Without this assumption, the $t-x$ trajectory of vehicle 2 could cross the trajectory for vehicle 1. The result is a rear-end crash caused by _tailgating._ This possiblity of  a rear-end crash can occur even when there is a safe headway at $t_{start}$ = 0 and $t_{end}$ = 5. Let's see.
 
-
-It is of interest to note that at the start of the simulation that vehicle 2 is traveling at a speed slightly greater than vehicle 1. At the end of the simulation the opposite is true. It is impossible to predict the condition when the speed volatility is so large as in this case. 
-
-The second step is to estimate model parameters $a$ and $b$ for each of the two vehicles. Other assumptions must be must made. The bottleneck is assumed tapper down from two to one lane in 500 feet and the total time for the breakdown is 5 seconds. The drivers are assumed to be risk averse so driver of vehicle 2 maintains a safe headway. All this information is summarized in the table. The $t-x$ trajectory shows vehicle 2 maintains a safe headway for entire 5 seconds. 
-
-The same numerical integration described earlier for determining $x_t$ for the ring-road is used here. The $t-x$ trajectories are smooth. Driver 2 travels at higher speed for the first three seconds and then decelerates to maintain a safe headway. 
-
-The importance of maintaining a safe headway cannot be overemphasized. Without this assumption, the $t-x$ trajectory of vehicle 2 could cross the trajectory for vehicle 1. It would be a rear-end crash caused by tailgating. It is also possible that the speed of the following vehicle, even when there is a safe headway at $t$ = 0 and 5, is so large that a rear-end crash can occur. This can be seen in the following simulation where visual inspection shows a safe headway violation between three and four seconds. The safe sightline rule for times $0 < t < t_{end}$, discussed in the __Bottleneck__ section,  is not imposed here. 
+The following simulation shows a near-miss caused by _tailgating._ While the trajectories do not cross, the $t-x$ trajectories shows a safe headway violation between three and four seconds. Since drivers are assumed to risk averse, it is not unreasable to assume the driver of the following vehicle will decelerate. In other words, not violate the safe headway assumption. To keep the discussion as simple as possible, the safe sightline assumption for times $0 < t < t_{end}$, discussed in the __Bottleneck__ section,  is not imposed here. 
 
 
 ```{r usdzipper2,  message = FALSE, fig.height = 5, fig.width = 10, echo = FALSE}
@@ -97,13 +89,26 @@ output1 <- usdzipper(0, 5, 41, 11.6, 0, 500)
 
 ```
 
+__Traffic Breakdown Part 3__ 
 
-```{r formqueue,  message = FALSE, fig.height = 5, fig.width = 10, echo = FALSE}
-par(mfrow = c(1,1))
+How is a traffic breakdown initiated in the first place? So far, we have tacitly assumed the lead vehicle decelerates from $u_{start} > u^*$ and $u_{end} < u^*$. Now we tackle a most challenging question. Instead of assuming to watch vehicles pass us from the road side, we will position ourselves overhead by analyzing photographs taken from a helicopter or drone flying overhead. 
+
+```{r formqueue,  message = FALSE, fig.height = 5, fig.width = 4, echo = FALSE}
+par(mfrow = c(1,2))
 set.seed(129)
 output1 <- formqueue(0, 10, 41, 11.6, -1000, -500, 14)
 
 ```
+
+Here, the following graph shows two lanes of traffic merging into one lane. There is no  traffic breakdown in this simulation. No queue forms. All drivers maintain free-flow speeds,  $u > u^*$. As above, we simulate speed using the $U(k, a, b, h_{safe}, t)$ model. To maintain a $X = 0$ state, all drivers of following vehicles keep a safe headway. This result is most vividly seen downstream where $x > 0$ where the vehicles travel in one lane. 
+
+Since is controversy associated with the proper positioning of roadside equipment, it is interesting to note the following:
+
+* $Q = Q(x > 0) = Q(x \le 0)$
+
+because $k$ = 50 vpm is a constant and $\bar{u}$ is the same value both downstream and upstream  of $x = 0$. Thus, $Q = k * \bar{u}$ where $k = \frac{n}{l}$ and $n$ is the total vehicle count obtained from the photo. A roadside collection of data taken any position on the photo downstream or upstream of $x = 0$ gives the same result. We look at the controversy again after we answer the question: How is a traffic breakdown initiated in the first place?
+
+
 
 
 __Package Summary__ 
