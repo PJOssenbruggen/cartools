@@ -50,7 +50,7 @@ __A Non-linear Model of Acceleration__
 
 What is the mathematical model that describes the merge computer simulations depicted above? It is the $\ddot{x}(t)$ model described above. The model is incorported in the __zipper__ function that was used to create the plots. Given the complexity of a merge, the __zipper__ algorithm at this time is limited to three vehicles only. The $\ddot{x}(t)$ model is calibrated for each vehicle.
 
-Let's begin by looking at calibrateing a model for a single vehicle. Integrating the function leads to the following speed $u(t) and distance $x(t)$ functions:
+Let's begin by looking at calibrateing a model for a single vehicle. Integrating the function leads to the following speed $u(t)$ and distance $x(t)$ functions:
 
 * $u(t) =  u(0) +  a * t - \frac{b}{2} * t^2$
 * $x(t) =  x(0) +  u(0) * t +  \frac{a}{2} * t^2 - \frac{b}{6} * t^3$
