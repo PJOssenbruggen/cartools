@@ -93,11 +93,10 @@ __Traffic Breakdown Part 3__
 
 How is a traffic breakdown initiated in the first place? So far, we have tacitly assumed the lead vehicle decelerates from $u_{start} > u^*$ and $u_{end} < u^*$. Now we tackle a most challenging question. Instead of assuming to watch vehicles pass us from the road side, we will position ourselves overhead by analyzing photographs taken from a helicopter or drone flying overhead. 
 
-```{r formqueue,  message = FALSE, fig.height = 5, fig.width = 4, echo = FALSE}
+```{r formqueue,  message = FALSE, fig.height = 5, fig.width = 8, echo = FALSE}
 par(mfrow = c(1,2))
 set.seed(129)
 output1 <- formqueue(0, 10, 41, 11.6, -1000, -500, 14)
-
 ```
 
 Here, the following graph shows two lanes of traffic merging into one lane. There is no  traffic breakdown in this simulation. No queue forms. All drivers maintain free-flow speeds,  $u > u^*$. As above, we simulate speed using the $U(k, a, b, h_{safe}, t)$ model. To maintain a $X = 0$ state, all drivers of following vehicles keep a safe headway. This result is most vividly seen downstream where $x > 0$ where the vehicles travel in one lane. 
@@ -108,7 +107,14 @@ Since is controversy associated with the proper positioning of roadside equipmen
 
 because $k$ = 50 vpm is a constant and $\bar{u}$ is the same value both downstream and upstream  of $x = 0$. Thus, $Q = k * \bar{u}$ where $k = \frac{n}{l}$ and $n$ is the total vehicle count obtained from the photo. A roadside collection of data taken any position on the photo downstream or upstream of $x = 0$ gives the same result. We look at the controversy again after we answer the question: How is a traffic breakdown initiated in the first place?
 
+__Traffic Breakdown Part 4__ 
 
+```{r freeflowpass,  message = FALSE, fig.height = 5, fig.width = 8, echo = FALSE}
+par(mfrow = c(1,2))
+set.seed(129)
+output2 <- freeflowpass(0, 10, 41, 0, -1000, -500, 14)
+
+```
 
 
 __Package Summary__ 

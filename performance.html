@@ -320,13 +320,15 @@ $(document).ready(function () {
 <p><img src="performance_files/figure-html/usdzipper2-1.png" width="960" /></p>
 <p><strong>Traffic Breakdown Part 3</strong></p>
 <p>How is a traffic breakdown initiated in the first place? So far, we have tacitly assumed the lead vehicle decelerates from <span class="math inline">\(u_{start} &gt; u^*\)</span> and <span class="math inline">\(u_{end} &lt; u^*\)</span>. Now we tackle a most challenging question. Instead of assuming to watch vehicles pass us from the road side, we will position ourselves overhead by analyzing photographs taken from a helicopter or drone flying overhead.</p>
-<p><img src="performance_files/figure-html/formqueue-1.png" width="384" /></p>
+<p><img src="performance_files/figure-html/formqueue-1.png" width="768" /></p>
 <p>Here, the following graph shows two lanes of traffic merging into one lane. There is no traffic breakdown in this simulation. No queue forms. All drivers maintain free-flow speeds, <span class="math inline">\(u &gt; u^*\)</span>. As above, we simulate speed using the <span class="math inline">\(U(k, a, b, h_{safe}, t)\)</span> model. To maintain a <span class="math inline">\(X = 0\)</span> state, all drivers of following vehicles keep a safe headway. This result is most vividly seen downstream where <span class="math inline">\(x &gt; 0\)</span> where the vehicles travel in one lane.</p>
 <p>Since is controversy associated with the proper positioning of roadside equipment, it is interesting to note the following:</p>
 <ul>
 <li><span class="math inline">\(Q = Q(x &gt; 0) = Q(x \le 0)\)</span></li>
 </ul>
 <p>because <span class="math inline">\(k\)</span> = 50 vpm is a constant and <span class="math inline">\(\bar{u}\)</span> is the same value both downstream and upstream of <span class="math inline">\(x = 0\)</span>. Thus, <span class="math inline">\(Q = k * \bar{u}\)</span> where <span class="math inline">\(k = \frac{n}{l}\)</span> and <span class="math inline">\(n\)</span> is the total vehicle count obtained from the photo. A roadside collection of data taken any position on the photo downstream or upstream of <span class="math inline">\(x = 0\)</span> gives the same result. We look at the controversy again after we answer the question: How is a traffic breakdown initiated in the first place?</p>
+<p><strong>Traffic Breakdown Part 4</strong></p>
+<p><img src="performance_files/figure-html/freeflowpass-1.png" width="768" /></p>
 <p><strong>Package Summary</strong></p>
 <p>A quick read of the <strong>Home Analytical Tools Section</strong> may have given the impression that the goal to create the <strong>cartools</strong> package, a collection of <strong>R</strong> computer algorithms, will be overwhelming difficult to understand and implement. Words, like complex, dynamics, theory, parsimonious, stochastic and model integration can be daunting. No question that designing and operating a transportation system are difficult problems. Hopefully, by disecting the problem into manageable pieces and synthesizing the results from the individual pieces brings clarity to the process. The ultimate aim of using <strong>cartools</strong> package tools is to improve our chances of mitigating congestion and improving performance using the simple mathematical and graphical tools.</p>
 <p><strong>Lessons Learned</strong></p>
