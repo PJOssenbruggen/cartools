@@ -135,11 +135,14 @@ passplot(df1, title = "Accelerate and Merge")
 df2 <- decelmerge(0, 10, 55, 0, -1000, -500, 14)
 passplot(df2, title = "Decelerate and Merge")
 
+
 ```
 
 Regardless of the action taken, the aim of the decision-maker is achieved. The driver does not disturb the other drivers. No queue is formed. The __accelerate and merge__ driver reaches a maximum speed of 50 mph (103 fps) and the _decelerate and merge__ driver reaches a minimum speed of 40 mph (58 fps). The acceleration and deceleration rates are approximately equal to 7  and -7 ft/sec$^2$, respectively. A maximum comfortable decelerate is considered to be 15 ft/sec$^2$. Since all drivers are maintaining safe headways,  no crash or near miss incidents are predicted. 
 
+
 __Traffic Breakdown Part 5__ 
+
 
 Ignoring traffic noise is an ideal scenario and totally unrealistic. There is no doubt that the root cause traffic breakdown must consider traffic noise. 
 
