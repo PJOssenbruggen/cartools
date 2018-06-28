@@ -54,7 +54,6 @@ Here is the scenario. The following $t-u$ and $t-x$ plots are derived from  a si
 par(mfrow = c(1,1))
 set.seed(124)
 output1 <- usdzipper(0, 5, 41, 11.6, 0, 500)
-
 ```
 
 Since  traffic is highly volatile, the first step is to simulate field conditions. We assume the traffic density is fixed, $k$ = 50 vpm. Thus $\bar{u} \pm \hat{\sigma} = 41 \pm 11.6$ mph. Since $X = 1 \rightarrow X = 0$, the speeds of the two vehicles before and after breakdown must satisfy the constraints $u(t_{start}) > u^*$ and $u(t_{end}) \le u^*$ where the time at the start and end of the simulation are $t_{start}$ = 0 and $t_{end}$ = 5 seconds. These values were estimated by drawing samples from a simulated data set consisting of one hundred draws from the normal distribution of $N(\bar{u} = 41, \hat{\sigma}^2 = 11.6^2)$. Four draws were made from the simulated data. They are shown in the following table. 
@@ -96,10 +95,10 @@ How is a traffic breakdown initiated in the first place? So far, we have tacitly
 ```{r formqueue,  message = FALSE, fig.height = 5, fig.width = 8, echo = FALSE}
 par(mfrow = c(1,2))
 set.seed(129)
-output1 <- formqueue(0, 10, 41, 11.6, -1000, -500, 14)
+output1 <- formqueue(0, 10, 55, 11.6, -1000, -500, 14)
 ```
 
-Here, the following graph shows two lanes of traffic merging into one lane. There is no  traffic breakdown in this simulation. No queue forms. All drivers maintain free-flow speeds,  $u > u^*$. As above, we simulate speed using the $U(k, a, b, h_{safe}, t)$ model. To maintain a $X = 0$ state, all drivers of following vehicles keep a safe headway. This result is most vividly seen downstream where $x > 0$ where the vehicles travel in one lane. 
+Here, the following graph shows two lanes of traffic merging into one lane. There is no  traffic breakdown in this simulation. No queue forms. All drivers maintain free-flow speeds,  $u > u^*$ where $u = \bar{u}$ = 55 mph. As above, we simulated speed using the $U(k, a, b, h_{safe}, t)$ model. To maintain a $X = 0$ state, all drivers of following vehicles keep a safe headway. This result is most vividly seen downstream where $x > 0$ where the vehicles travel in one lane. 
 
 Since is controversy associated with the proper positioning of roadside equipment, it is interesting to note the following:
 
@@ -109,17 +108,48 @@ because $k$ = 50 vpm is a constant and $\bar{u}$ is the same value both downstre
 
 __Traffic Breakdown Part 4__ 
 
-```{r freeflowpass,  message = FALSE, fig.height = 5, fig.width = 8, echo = FALSE}
+The __Zipper Merge__ graph  demonstrates the importance of upstream vehicle alignment  and the effects of noise of  merging vehicle at a bottleneck over time. The spacing between  vehicles is nonuniform and vehicle grouping is virtually impossible to predict. 
+
+A zipper merge is a special case because the upstream vehicles are aligned in a manner that it is unnecessary for vehicles to change speed. Now, we eliminate this assumption and put drivers under the stress by requiring a speed change of only one vehicle. Since our analysis takes place where the chance of a traffic breakdown is signficant, $k = 50$ vpm, the action of this driver may trigger a breakdown event causing a queue to form that moves upstream from $x$ = 0.    
+
+To simplify the discussion, the effect of noise will be temporarily removed from the following  "thought experiment." This step may seem odd given the emphasis placed on stochastic modeling. After we complete the analysis, we will be in a better position to understand breakdown. More specifically, explainning and coming closer to reliably predicting  the role that traffic noise plays in triggering breakdown. In other words, determine if traffic noise is a major or minor factor in explaining and predicting breakdown.
+
+We will continue to observe vehicles from overhead. But this time, we will follow the actions of only two drivers, who are traveling side-by-side in lanes 1 and 2 at  $x = -500$   feet, the beginning of the merge section where freeway tappers down from two to one lane. The side-by-side vehicles, like the rest of the vehicles traveling in the direction of the bottleneck, are traveling at speed $u$ = 55 mph. The driving scenario is similar to one described above before being transformed from a free-flow to congested state, $X = 0 \rightarrow X = 0$. 
+
+Since the two drivers are side-by-side, one must make the decision to be the leader or follower. The choices are: (1)  __accelerate and merge__ and become a leader, or (2) __decelerate and merge__ and become a follower. In either case, the drivers will do so safely. They will  maintain a safe headway of at least $h_{safe} = 53$ feet for speed of $u$ = 41 mph. 
+Most importantly and regardless of choice, the decision-maker does not want to disrupt the speeds of the other drivers, which are assumed to be traveling at $u$ = 41 mph. The aim is to cause no further disruption or delay. In essence, the decision-maker wants to perform a zipper merge.
+
+A series of photographs are taken  for the two drivers in the two cases.  Speed and location recordings are made  every second over a period of 50 seconds. The data are analyzed and summarized as shown below in the $y-x$ plots. Since the location $x$ is measured in feet, speed $u$ is shown in feet per second (fps).
+
+
+```{r freeflowpass,  message = FALSE, fig.height = 4.5, fig.width = 4, echo = FALSE}
 par(mfrow = c(1,2))
-set.seed(129)
-output2 <- freeflowpass(0, 10, 41, 0, -1000, -500, 14)
+library(glm2)
+library(ggplot2)
+library(Basic)
+df1 <- freeflowpass(0, 10, 55, 0, -1000, -500, 14)
+passplot(df1, title = "Accelerate and Merge")
+
+
+df2 <- decelmerge(0, 10, 55, 0, -1000, -500, 14)
+passplot(df2, title = "Decelerate and Merge")
+hd = hsafe(55,14)
 
 ```
 
+Regardless of the action taken, the aim of the decision-maker is achieved. The driver does not disturb the other drivers. No queue is formed. The __accelerate and merge__ driver reaches a maximum speed of 50 mph (103 fps) and the _decelerate and merge__ driver reaches a minimum speed of 40 mph (58 fps). The acceleration and deceleration rates are approximately equal to 7  and -7 ft/sec$^2$, respectively. A maximum comfortable decelerate is considered to be 15 ft/sec$^2$. Since all drivers are maintaining safe headways,  no crash or near miss incidents are predicted. 
+
+Ignoring traffic noise is an ideal scenario and totally unrealistic. There is no doubt that the root cause traffic breakdown must consider traffic noise. 
+
+There are other factors that must be considered. Take for example, the safe headway $h_{safe}(u, l_{eff})$ assumption. Drivers are not only self optimizers and risk averse, they seek comfort. We are hard pressed to find a real world situation where two drivers will maintain a safe headway of $h_{safe}$ = 67 feet as shown in the $y-x$ plots $x > 0$, downstream of the bottleneck. Tailgaters may not abide by this rule of keeping three cars lengths between themselves and the vehicle in front of them. Drivers of the lead vehicle will feel more comfortable with $h_{safe}$ = 106 feet, more than six car lengths between the lead and following vehicles, as shown for $x \leq -500$  feet. 
+
+This critique of the deterministic model and subsequent model developments brings into question what are the conditions are necessary for a decision-making driver to take action. For $-500 \le x \le 0$ feet, it was assumed that the safe headway $h_{safe}(u, l_{eff})$ assumption was always sufficient. A decision-making driver, who is not comfortable with the rule, has the option to stop and trigger a breakdown event. The challenge is to develop a stochastic model of the form:
+
+* $U(k, a, b, h_{safe}, h_{comfortable}, t)$.
 
 __Package Summary__ 
 
-A quick read of the __Home Analytical Tools Section__ may have given the impression that the goal to create the __cartools__ package, a collection of __R__ computer algorithms, will be overwhelming difficult to understand and implement. Words, like complex, dynamics, theory, parsimonious, stochastic and model integration can be daunting. No question that designing and operating a transportation system are difficult problems. Hopefully, by disecting the problem into manageable pieces and synthesizing the  results from the individual pieces brings clarity to the process. The ultimate aim of using __cartools__ package tools is to improve our chances of mitigating congestion and improving performance using the simple mathematical and graphical tools.
+A quick read of the __Home Analytical Tools Section__ may have given the impression that the goal to create the __cartools__ package, a collection of __R__ computer algorithms, will be overwhelming difficult to understand and implement. Words, like complex, dynamics, theory, parsimonious, stochastic and model integration can be daunting. No question that designing and operating a transportation system are difficult problems. Hopefully, by disecting the problem into manageable pieces and synthesizing the  results from the individual pieces brings clarity to the process. The ultimate aim of using __cartools__ package tools is to improve our chances of mitigating congestion and improving performance using the simple mathematical and graphical tools. 
 
 
 __Lessons Learned__
