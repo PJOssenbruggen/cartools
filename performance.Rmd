@@ -119,6 +119,7 @@ We will continue to observe vehicles from overhead. But this time, we will follo
 Since the two drivers are side-by-side, one must make the decision to be the leader or follower. The choices are: (1)  __accelerate and merge__ and become a leader, or (2) __decelerate and merge__ and become a follower. In either case, the drivers will do so safely. They will  maintain a safe headway of at least $h_{safe} = 53$ feet for speed of $u$ = 41 mph. 
 Most importantly and regardless of choice, the decision-maker does not want to disrupt the speeds of the other drivers, which are assumed to be traveling at $u$ = 41 mph. The aim is to cause no further disruption or delay. In essence, the decision-maker wants to perform a zipper merge.
 
+
 A series of photographs are taken  for the two drivers in the two cases.  Speed and location recordings are made  every second over a period of 50 seconds. The data are analyzed and summarized as shown below in the $y-x$ plots. Since the location $x$ is measured in feet, speed $u$ is shown in feet per second (fps).
 
 
@@ -133,11 +134,12 @@ passplot(df1, title = "Accelerate and Merge")
 
 df2 <- decelmerge(0, 10, 55, 0, -1000, -500, 14)
 passplot(df2, title = "Decelerate and Merge")
-hd = hsafe(55,14)
 
 ```
 
 Regardless of the action taken, the aim of the decision-maker is achieved. The driver does not disturb the other drivers. No queue is formed. The __accelerate and merge__ driver reaches a maximum speed of 50 mph (103 fps) and the _decelerate and merge__ driver reaches a minimum speed of 40 mph (58 fps). The acceleration and deceleration rates are approximately equal to 7  and -7 ft/sec$^2$, respectively. A maximum comfortable decelerate is considered to be 15 ft/sec$^2$. Since all drivers are maintaining safe headways,  no crash or near miss incidents are predicted. 
+
+__Traffic Breakdown Part 5__ 
 
 Ignoring traffic noise is an ideal scenario and totally unrealistic. There is no doubt that the root cause traffic breakdown must consider traffic noise. 
 
@@ -146,6 +148,7 @@ There are other factors that must be considered. Take for example, the safe head
 This critique of the deterministic model and subsequent model developments brings into question what are the conditions are necessary for a decision-making driver to take action. For $-500 \le x \le 0$ feet, it was assumed that the safe headway $h_{safe}(u, l_{eff})$ assumption was always sufficient. A decision-making driver, who is not comfortable with the rule, has the option to stop and trigger a breakdown event. The challenge is to develop a stochastic model of the form:
 
 * $U(k, a, b, h_{safe}, h_{comfortable}, t)$.
+
 
 __Package Summary__ 
 
