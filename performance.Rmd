@@ -151,23 +151,63 @@ This critique of the deterministic model and subsequent model developments bring
 
 * $U(k, a, b, h_{safe}, h_{comfortable}, t)$.
 
-```{r brksummary,  message = FALSE, fig.height = 4.5, fig.width = 4, echo = FALSE}
-par(mfrow = c(1,2))
+__Traffic Breakdown Part 6__ 
+
+Since most travelers take traffic congestion for granted and give it little thought, it may seem implausibe that describing the unitiating of a simple __traffic breakdown__ event involving only three vehicles requires two figures and a table of critical times, speeds and locations.  Let's take a look. First, we will limit the discussion to vehicles entering a bottleneck, two traffic lanes merging into one lane.  
+
+ The roadway system is under stress because (1) vehicles are forced to merge, (2) traffic volatility is high, (3) drivers have limited room to manuever because the assumed traffic density of $k$ = 50 vpm is high,  (4) the traffic volatity, $\sigma$ = 11 mph = 16 fps, is high and (5) local clustering of vehicles as they move downstream plays a role. In the following simulation, two  of the three vehicles are traveling side-by-side before they enter the merge zone of the bottleneck, They become clustered. To avoid a crash, one driver must yield and decelerate. Given this combination of factors, traffic breakdown is expected to be triggered. The chance of a breakdown, $\pi(k = 50)$ = 0.8. As will be shown, a queue forms. It does not form abruptly but grows over time.    
+ 
+
+Let us look at the simulation details. At time $t_0$ = 0 seconds, the distance between vehicles 0 and 1, which is directly behind, is $h_0$ = 105 feet, a space headway estimated as $h_0 = 1/k$. $h_0$ is almost twice the safe headway $h_{safe}$ for an average speed of $u$ = 41 mph = 60 fps at this density. The positions of the three vehicles at $t_0$ = 0 seconds is shown under the table column heading $x_0$. The table shows there is no conflict between vehicles 0 and 1 and indicates that vehicle 0 can move freely downstream through the merge zone, $-500 < x \le 0$. Since the driver has no conflicts, we call a _zipper merge_.
+
+
+``` {r table 3, echo = FALSE, message=FALSE, error=FALSE, warning = FALSE}
+df7  <- data.frame(c("0", "1", "2", "2"))
+df9  <- data.frame(c(-895, -1000, -1000, -1000))
+df0  <- data.frame(c("No","Yes","Yes","Yield"))
+df8  <- data.frame(c("_Zipper_","Leader","","Follower"))
+df1  <- data.frame(c("6", "8.5", "8", "8"))
+df2  <- data.frame(c("14.5", "16", "16.5", "16"))
+df3  <- data.frame(c("64.7", "62.2", "81.9", "81.9"))
+df4  <- data.frame(c("74.4", "53.0", "56.9", "53.0"))
+df5  <- data.frame(c("-515", "-501", "-508", "-508"))
+df6  <- data.frame(c("-27.3", "-26.4", "-28.9", "-91.0"))
+df16   <- cbind(df7,df9,df0,df8,df1,df2,df3,df4,df5,df6)
+colnames(df16) <- c("Vehicle","$x_{0}$", "Conflict","Resolution", "$t_{start}$", "$t_{end}$","$u_{start}$", "$u_{end}$","$x_{start}$", "$x_{end}$")
+knitr::kable(df16,  align = "c")
+```
+
+ Since 
+
+
+```{r brksummary,  message = FALSE, fig.height = 4.5, fig.width = 6, echo = FALSE}
+par(mfrow = c(1,1))
 library(glm2)
 library(ggplot2)
 library(Basic)
-lst <- brksummary(50, 30, 41, 11, -1000, -500,  14, 0, 2)
-df  <- lst[[2]]
-#passplot(df, title = "Accelerate and Merge")
+set.seed(123)
+lst <- brksummary(50, 30, 41, 11, -1000, -500,  14, 0, 0.5)
+title(main = "Breakdown")
 
 ```
 
-
+```{r passplot,  message = FALSE, fig.height = 4.5, fig.width = 5, echo = FALSE}
+par(mfrow = c(1,1))
+library(glm2)
+library(ggplot2)
+library(Basic)
+set.seed(123)
+df  <- lst[[2]]
+passplot(df, title = "Breakdown")
+#print(lst[[2]])
+```
 
 
 __Package Summary__ 
 
 A quick read of the __Home Analytical Tools Section__ may have given the impression that the goal to create the __cartools__ package, a collection of __R__ computer algorithms, will be overwhelming difficult to understand and implement. Words, like complex, dynamics, theory, parsimonious, stochastic and model integration can be daunting. No question that designing and operating a transportation system are difficult problems. Hopefully, by disecting the problem into manageable pieces and synthesizing the  results from the individual pieces brings clarity to the process. The ultimate aim of using __cartools__ package tools is to improve our chances of mitigating congestion and improving performance using the simple mathematical and graphical tools. 
+
+
 
 
 __Lessons Learned__
