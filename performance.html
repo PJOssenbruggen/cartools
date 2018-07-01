@@ -337,12 +337,83 @@ $(document).ready(function () {
 <p><img src="performance_files/figure-html/freeflowpass-1.png" width="384" /><img src="performance_files/figure-html/freeflowpass-2.png" width="384" /></p>
 <p>Regardless of the action taken, the aim of the decision-maker is achieved. The driver does not disturb the other drivers. No queue is formed. The <strong>accelerate and merge</strong> driver reaches a maximum speed of 50 mph (103 fps) and the _decelerate and merge__ driver reaches a minimum speed of 40 mph (58 fps). The acceleration and deceleration rates are approximately equal to 7 and -7 ft/sec<span class="math inline">\(^2\)</span>, respectively. A maximum comfortable decelerate is considered to be 15 ft/sec<span class="math inline">\(^2\)</span>. Since all drivers are maintaining safe headways, no crash or near miss incidents are predicted.</p>
 <p><strong>Traffic Breakdown Part 5</strong></p>
-<p>Ignoring traffic noise is an ideal scenario and totally unrealistic. There is no doubt that the root cause traffic breakdown must consider traffic noise.</p>
+<p>Ignoring traffic noise is an ideal scenario and totally unrealistic. There is little doubt that the root cause traffic breakdown must consider traffic noise.</p>
 <p>There are other factors that must be considered. Take for example, the safe headway <span class="math inline">\(h_{safe}(u, l_{eff})\)</span> assumption. Drivers are not only self optimizers and risk averse, they seek comfort. We are hard pressed to find a real world situation where two drivers will maintain a safe headway of <span class="math inline">\(h_{safe}\)</span> = 67 feet as shown in the <span class="math inline">\(y-x\)</span> plots <span class="math inline">\(x &gt; 0\)</span>, downstream of the bottleneck. Tailgaters may not abide by this rule of keeping three cars lengths between themselves and the vehicle in front of them. Drivers of the lead vehicle will feel more comfortable with <span class="math inline">\(h_{safe}\)</span> = 106 feet, more than six car lengths between the lead and following vehicles, as shown for <span class="math inline">\(x \leq -500\)</span> feet.</p>
 <p>This critique of the deterministic model and subsequent model developments brings into question what are the conditions are necessary for a decision-making driver to take action. For <span class="math inline">\(-500 \le x \le 0\)</span> feet, it was assumed that the safe headway <span class="math inline">\(h_{safe}(u, l_{eff})\)</span> assumption was always sufficient. A decision-making driver, who is not comfortable with the rule, has the option to stop and trigger a breakdown event. The challenge is to develop a stochastic model of the form:</p>
 <ul>
 <li><span class="math inline">\(U(k, a, b, h_{safe}, h_{comfortable}, t)\)</span>.</li>
 </ul>
+<p><strong>Traffic Breakdown Part 6</strong></p>
+<p>Since most travelers take traffic congestion for granted and give it little thought, it may seem implausibe that describing the unititation of a simple <strong>traffic breakdown</strong> event requires two figures and a table of critical times, speeds and locations. Let’s take in turn. First, we will limit the discussion to three vehicles entering a bottleneck, two traffic lanes merge into one lane.</p>
+<p>The chance of breakdown is high, <span class="math inline">\(\pi(k = 50)\)</span> = 0.8 because the traffic density is heavy, <span class="math inline">\(k\)</span> = 50 vpm. At time <span class="math inline">\(t_0\)</span> = 0 seconds, the distance between vehicles 0 and 1, which is directly behind, is <span class="math inline">\(h_0\)</span> = 105 feet, a space headway estimated as <span class="math inline">\(h_0 = 1/k\)</span>. <span class="math inline">\(h_0\)</span> is almost twice the safe headway <span class="math inline">\(h_{safe}\)</span> for an average speed of <span class="math inline">\(u\)</span> = 41 mph = 60 fps at this density. The positions of the three vehicles at <span class="math inline">\(t_0\)</span> = 0 seconds is shown under the table column heading <span class="math inline">\(x_0\)</span>. The table shows there is no conflict between vehicles 0 and 1 and indicates that vehicle 0 can move freely downstream through the merge zone, <span class="math inline">\(-500 &lt; x \le 0\)</span>. Since the driver has no conflicts, we call a <em>zipper merge</em>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Vehicle</th>
+<th align="center"><span class="math inline">\(x_{0}\)</span></th>
+<th align="center">Conflict</th>
+<th align="center">Resolution</th>
+<th align="center"><span class="math inline">\(t_{start}\)</span></th>
+<th align="center"><span class="math inline">\(t_{end}\)</span></th>
+<th align="center"><span class="math inline">\(u_{start}\)</span></th>
+<th align="center"><span class="math inline">\(u_{end}\)</span></th>
+<th align="center"><span class="math inline">\(x_{start}\)</span></th>
+<th align="center"><span class="math inline">\(x_{end}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">-895</td>
+<td align="center">No</td>
+<td align="center"><em>Zipper</em></td>
+<td align="center">6</td>
+<td align="center">14.5</td>
+<td align="center">64.7</td>
+<td align="center">74.4</td>
+<td align="center">-515</td>
+<td align="center">-27.3</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">-1000</td>
+<td align="center">Yes</td>
+<td align="center">Leader</td>
+<td align="center">8.5</td>
+<td align="center">16</td>
+<td align="center">62.2</td>
+<td align="center">53.0</td>
+<td align="center">-501</td>
+<td align="center">-26.4</td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">-1000</td>
+<td align="center">Yes</td>
+<td align="center"></td>
+<td align="center">8</td>
+<td align="center">16.5</td>
+<td align="center">81.9</td>
+<td align="center">56.9</td>
+<td align="center">-508</td>
+<td align="center">-28.9</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">-1000</td>
+<td align="center">Yield</td>
+<td align="center">Follower</td>
+<td align="center">8</td>
+<td align="center">16</td>
+<td align="center">81.9</td>
+<td align="center">53.0</td>
+<td align="center">-508</td>
+<td align="center">-91.0</td>
+</tr>
+</tbody>
+</table>
+<p><img src="performance_files/figure-html/brksummary-1.png" width="576" /></p>
+<p><img src="performance_files/figure-html/passplot-1.png" width="480" /></p>
 <p><strong>Package Summary</strong></p>
 <p>A quick read of the <strong>Home Analytical Tools Section</strong> may have given the impression that the goal to create the <strong>cartools</strong> package, a collection of <strong>R</strong> computer algorithms, will be overwhelming difficult to understand and implement. Words, like complex, dynamics, theory, parsimonious, stochastic and model integration can be daunting. No question that designing and operating a transportation system are difficult problems. Hopefully, by disecting the problem into manageable pieces and synthesizing the results from the individual pieces brings clarity to the process. The ultimate aim of using <strong>cartools</strong> package tools is to improve our chances of mitigating congestion and improving performance using the simple mathematical and graphical tools.</p>
 <p><strong>Lessons Learned</strong></p>
