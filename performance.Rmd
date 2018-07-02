@@ -177,7 +177,7 @@ colnames(df16) <- c("Vehicle","$x_{0}$", "Conflict","Resolution", "$t_{start}$",
 knitr::kable(df16,  align = "c")
 ```
 
- Since I am
+ Since I am here
 
 
 ```{r brksummary,  message = FALSE, fig.height = 4.5, fig.width = 6, echo = FALSE}

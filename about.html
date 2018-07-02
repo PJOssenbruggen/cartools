@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Traffic Noise</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Cartools</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Driver.html">Drivers</a>
+</li>
+<li>
+  <a href="about.html">Noise</a>
+</li>
+<li>
+  <a href="Ring-Road.html">Ring-Road</a>
+</li>
+<li>
+  <a href="bottleneck.html">Bottleneck</a>
+</li>
+<li>
+  <a href="performance.html">Performance</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Traffic Noise</h1>
+
+</div>
+
+
+<p>To develop a successful transportaion operation and management plan, there is a clear need for understanding of the process being operated and managed. The decision-making framework presented in the <strong>Drivers</strong> section, <em>The Learning Process</em>, will be used here and in subsequent analyses. It is worth repeating that our principal aim is to explain highway performance realisticly using simple, easy-to-understand models. This is not easy task because traffic data are noisy.</p>
+<p><strong>A Congested State</strong></p>
+<p>A conceptual model derived from a simple sampling experiment is proposed:</p>
+<p><span class="math inline">\(\pi(n) = P(X = 1|N = n) = P(U &lt; u^*|N = n)\)</span>,</p>
+<p>The model has limitations:</p>
+<ol style="list-style-type: decimal">
+<li>It is impossible tool to use from a traffic engineering point of view.</li>
+<li>It is difficult to calibrate.</li>
+<li>It contains no provision for the assumption that drivers are self optimizers.</li>
+<li>It contains no provision to measure delay and other highway performance measures.</li>
+</ol>
+<p>These shortcomings must be addressed and overcome. The overall approach consists of the following steps:</p>
+<ol style="list-style-type: decimal">
+<li>The <em>fundational relationship</em>, <span class="math inline">\(q = k * u\)</span>, is introduced into the analysis where <span class="math inline">\(u\)</span>, <span class="math inline">\(k\)</span> and <span class="math inline">\(q\)</span> are defined to be traffic speed, measured in miles per hour (mph), traffic density, measured in vehicles per mile per lane (vpm) and traffic flow, measured in vehicles per hour per lane (vph), respectively.</li>
+<li>The findings from a <strong>ring-road</strong> experiment, a controlled experiment, is introduced into the analysis. A critical feature of the experiment is number of vehicles in the investigation is that <span class="math inline">\(n\)</span> is fixed number, a constant.</li>
+<li>Concepts of derived from elementary car following models are introduced into the analysis to account for driver reactions due to changes of traffic behavior over time. Vehicle length or effective length <span class="math inline">\(l_{eff}\)</span>, measured in feet, and safe driving headway <span class="math inline">\(h_{safe} = f(u)\)</span>, measured in feet and function of speed <span class="math inline">\(u\)</span> are also introduced.</li>
+</ol>
+<p>It is worth noting that an exploratory data analysis is primary focus used in this section. A logistic regression model, denoted as <span class="math inline">\(\pi(k)\)</span>, will replace <span class="math inline">\(\pi(n)\)</span> where traffic density <span class="math inline">\(k\)</span> is an explanatory variable. Traffic density is defined as the number of vehicles per unit length <span class="math inline">\(l\)</span> or <span class="math inline">\(k = n/l\)</span>.</p>
+<p><strong>Exploratory Data Analysis</strong></p>
+<p>Our first step is to glean as much information as possible from an exploratory data analysis. <em>Raw, real-world data</em>, data collected on the northbound lane on interstate I-93 in Salem, New Hampshire contains 20,656 recordings of <span class="math inline">\(q\)</span>, <span class="math inline">\(k\)</span> and <span class="math inline">\(u\)</span>. The recording were made over a contiguous period of eight months. The individual observations of <span class="math inline">\(q\)</span>, <span class="math inline">\(k\)</span> and <span class="math inline">\(u\)</span> are estimated as follows: (1) A flow is estimated as <span class="math inline">\(q = m/\tau\)</span> where <span class="math inline">\(m\)</span> is a vehicle count, the total number of vehicles observed over a 15-minute time interval or <span class="math inline">\(\tau\)</span> = 15-minutes. (2) Speed is estimated as space-mean speed where <span class="math inline">\(u = m/(1/\sum u_j)\)</span> where <span class="math inline">\(u_j\)</span> is a radar speed recording for vehicle <span class="math inline">\(j = 1,2,..., m\)</span>. (3) Density is derived from the <em>fundamental relationship</em> of traffic flow <span class="math inline">\(q = k * u\)</span> or <span class="math inline">\(k = q/u\)</span>.</p>
+<p>Next, we look for meaningful relationships using scatter plots and box plots. We also keep in the back of our minds that the <strong>ring-road</strong> experiment that <span class="math inline">\(n\)</span> is fixed and can be easily transformed to a density measurement as <span class="math inline">\(k = n/l\)</span> because the road length <span class="math inline">\(l\)</span> is also a fixed number.</p>
+<p>Once these relationships are revealed, the next steps is to develop mathematical models that capture these relationships. Since the <em>Learning Process</em> is used, models are critically analyzed. The aim is to justify the replacement of the <span class="math inline">\(\pi(n)\)</span> model with a logistic model of traffic density <span class="math inline">\(\pi(k)\)</span>.</p>
+<p><img src="about_files/figure-html/speedplot-1.png" width="384" /></p>
+<p>The <strong>Flow-Speed Plot</strong> reveals much about the traffic at the site. As mentioned many times previously, the data are <em>extremely noisy</em>, making it difficult to reveal clear-cut patterns in the data. By using scaling and color shading of the <span class="math inline">\(k\)</span> dots, the scatter plot becomes enhanced, making it somewhat easier but still difficult to reveal patterns or associations in the data.</p>
+<p>The scatter plot is most helpful in defining the free-flow and congested states. A critical speed is chosen to be <span class="math inline">\(u^*\)</span> = 50 mph. A <em>free-flow</em> state, <span class="math inline">\(X = 0\)</span>, satisfies the inequality <span class="math inline">\(u &gt; u^*\)</span> and a congested state, <span class="math inline">\(X = 1\)</span>, satisfies the inequality <span class="math inline">\(u \leq u^*\)</span>. The smaller/black dots indicate fewer vehicles per mile than the large/blue dots. Low speeds and high densities, <span class="math inline">\(u \le u^*\)</span> and <span class="math inline">\(k &gt; 70\)</span> vpm, tend to be associated with congested state <span class="math inline">\(X = 1\)</span>.</p>
+<p>Since the “controlled” ring-road experiment used a fixed value of <span class="math inline">\(k\)</span>, the relationship between <span class="math inline">\(k\)</span> and <span class="math inline">\(u\)</span> was explored with the <strong>Box Plot of Density-Speed</strong>. To construct this diagram, the speeds were sorted and placed into bins. For example, the labeled as <span class="math inline">\(k^*\)</span> = 45 vpm consists of observations ranging 42.5 to 47.5 vpm. The Highway Capacity Manual (HCM) defines capacity of a interstate freeway lane to be <span class="math inline">\(k^*\)</span> = 45 vpm.</p>
+<p>Visual inspection reveals that the chance of driving in a free-flow state, <span class="math inline">\(X = 0\)</span>, is greater when <span class="math inline">\(k^* \le 45\)</span> vpm. <span class="math inline">\(X = 1\)</span> speeds are considerably less than 25 mph when <span class="math inline">\(k^* \ge 50\)</span> vpm. It is impossible to explain why so many congested speed observations are located in the <span class="math inline">\(0 &lt; k \le 50\)</span> range. For <span class="math inline">\(k &gt; 50\)</span> vpm, a good case can be made that a congested state will be observed.</p>
+<p><img src="about_files/figure-html/speedboxplot-1.png" width="480" /></p>
+<p><strong>A Logistic Regression Model</strong></p>
+<p>The data set that was used to create the <strong>Box Plot of Density-Speed</strong> was also used to fit a <span class="math inline">\(\pi(k)\)</span> model, a logistic model of the form,</p>
+<p><span class="math inline">\(\pi(k) = \frac{exp(\alpha + \beta * k)}{1 + exp(\alpha + \beta * k)}\)</span></p>
+<p>where <span class="math inline">\(\alpha\)</span> = -12.3 and <span class="math inline">\(\beta\)</span> = 0.265. This model replaces the <span class="math inline">\(\pi(n)\)</span> model above. The data set consists of <span class="math inline">\(i\)</span> = 1,2,…,24 density bins, denoted as <span class="math inline">\(k_i\)</span>, and <span class="math inline">\(p_i\)</span> proportions where <span class="math inline">\(p_i = m_i/n_i\)</span> <span class="math inline">\(m_i\)</span> and <span class="math inline">\(n_i\)</span> are equal to the number of speed observations satisfying the equality <span class="math inline">\(u &lt; u^*\)</span> and to the number of <span class="math inline">\(k_i\)</span> observations in bin <span class="math inline">\(i\)</span>. The <span class="math inline">\(p_i\)</span> values are shown in the following plot as solid circles and the forecasts of <span class="math inline">\(\pi(k_i)\)</span> are shown as open circles. The model fits the data well.</p>
+<p><img src="about_files/figure-html/logisticmodel-1.png" width="480" /></p>
+<p>The model forecasts that a freeway will be in a congested state <span class="math inline">\(X = 1\)</span> with a probability of <span class="math inline">\(\pi(k^* = 45)\)</span> = 0.41 at the HCM <span class="math inline">\(k^*\)</span> = 45 vpm. A slight increase in traffic density to 50 shows a significant increase in the forecast, <span class="math inline">\(\pi(k = 50)\)</span> = 0.8. This analysis shows the importance of traffic density in explaining the risk of operating in a congested state.</p>
+<p>The logistic regression model of <span class="math inline">\(\pi(k)\)</span> uses <em>macroscale data</em>, data averaged over 15-minute intervals. Driver reaction to various traffic stimuli takes place in time measured in seconds. To more fully explain and understand the traffic behavior, a <em>microscale model</em>, a time series model of speed <span class="math inline">\(U(t)\)</span> where is measured in second, is introduced.</p>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

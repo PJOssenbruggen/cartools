@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Ring-Road Experiment</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Cartools</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Driver.html">Drivers</a>
+</li>
+<li>
+  <a href="about.html">Noise</a>
+</li>
+<li>
+  <a href="Ring-Road.html">Ring-Road</a>
+</li>
+<li>
+  <a href="bottleneck.html">Bottleneck</a>
+</li>
+<li>
+  <a href="performance.html">Performance</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Ring-Road Experiment</h1>
+
+</div>
+
+
+<p><strong>A Controlled Experiment</strong></p>
+<p>We continue our model building effort by simulating conditions observed on a <em>ring</em> or <em>loop road</em>. The <a href="https://www.youtube.com/watch?v=7wm-pZp_mi0">YouTube video</a> shows <span class="math inline">\(n\)</span> = 22 vehicles <span class="citation">(Sugiyama et al. 2008)</span>. The drivers cannot pass one another or enter or exit the loop. Each driver was instructed to maintain a same constant speed <span class="math inline">\(u\)</span>. The drivers cannot follow instructions. After a few sections, the traffic breaks down, i.e., drivers cannot maintain speed <span class="math inline">\(u.\)</span></p>
+<p>Why? The video shows the vehicles to be traveling at a reasonable speed. Initially, all vehicles are uniformly distributed around the circle. After a few seconds, the vehicles begin to interact because the one or more drivers cannot maintain speed <span class="math inline">\(u\)</span>. If we track a vehicle, we can see the speed will vary by a slight amount. Since their no room to move laterally, the drivers must follow and react to the situation directly in front of them. This behavior is a classicly called <em>car-following.</em></p>
+<p>It is hypothesized that the vehicles described in the preceding paragragh are operating in a <em>congested state</em>. The spacing between vehicles, while it appears to be sufficient, is not. The number of vehicles on the road <span class="math inline">\(n\)</span> is sufficiently large to cause the vehicles to interact. Look at a pair of vehicles. If a <em>lead vehicle</em> decelerates to a slower speed than its <em>following vehicle</em> must slow down to avoid a crash. The following driver is risk averse. This interaction moves upstream causing other <em>leader-follower vehicle pairs</em> to slow down as well. If there are fewer vehicles, the space between vehicles, the <em>distance headway</em> then an individual driver can decelerate without affecting the vehicle behind it. The vehicles are operating in a <em>free-flow state</em>.</p>
+<p><strong>A Brownian Bridge Model of Speed</strong></p>
+<p>Can we explain this behavior mathematically? Consider the following approach:</p>
+<p>First, assume the speed of a vehicle to be the random variable <span class="math inline">\(U(t)\)</span> and assume the process is defined by a stationary time-series model of the form:</p>
+<ul>
+<li><span class="math inline">\(U(t) = u + \sigma Z\)</span></li>
+</ul>
+<p>where <span class="math inline">\(u\)</span> is the assigned speed as specified by the experiment and <span class="math inline">\(\sigma\)</span> is a standard deviation of speed, <span class="math inline">\(Z \sim N(0,1)\)</span> is a standard normal probability distribution and time <span class="math inline">\(t\)</span> is measured in seconds.</p>
+<p>The next question is how do we assign the model parameters? It is clear that <span class="math inline">\(u\)</span> is the assigned experiment speed but what is its magnitude? The box plot of speed-density from our exploratory analyses showed a connection of speed and density. The following density-speed plot is a cleaner version of the box plot.</p>
+<p><img src="Ring-Road_files/figure-html/density-speed-1.png" width="960" /></p>
+<p>The traffic density <span class="math inline">\(k\)</span> is controlled by the number of vehicles on the road <span class="math inline">\(n\)</span> and ring-road radius <span class="math inline">\(r\)</span>:</p>
+<ul>
+<li><span class="math inline">\(k = n/2\pi r\)</span></li>
+</ul>
+<p>Knowing <span class="math inline">\(k\)</span>, select <span class="math inline">\(u\)</span> and <span class="math inline">\(\sigma\)</span>. Rewrite <span class="math inline">\(U(t)\)</span> as a function of <span class="math inline">\(k\)</span>:</p>
+<ul>
+<li><span class="math inline">\(U(k,t) = u(k) + \sigma(k) * Z\)</span></li>
+</ul>
+<p>Assigning <span class="math inline">\(u\)</span> and <span class="math inline">\(\sigma\)</span> are not clear-cut as originally envisioned. In addition to treating speed and speed volatity as functions of density, <span class="math inline">\(U(k, t)\)</span> is a <em>microscale model</em> where driver reaction takes place on a time-scale of seconds and the density-speed plot is a <em>macroscale model</em> derived from 15-minute average data or <span class="math inline">\(\tau\)</span> data. The scales are incompatable.</p>
+<p>Second, the stationary time-series <span class="math inline">\(U(k,t)\)</span> model does not adequately explain driver behavior in a rational manner. Define the time-step equal to <span class="math inline">\(\Delta t = t_i - t_{i-1}\)</span>. Given <span class="math inline">\(Z\)</span> takes on both positive and negative values, a simulation can predict vehicle speeds flip-flopping back and forth from one second to the next. Obviously, a normal driver does not drive sporatically as described by the model. This flaw is rectified by replacing the <span class="math inline">\(\sigma(k) * Z\)</span> term with a Brownian motion term:</p>
+<ul>
+<li><span class="math inline">\(U(k,t) = u(k) + \sigma(k) * \sqrt{\Delta t} * Z\)</span>.</li>
+</ul>
+<p>Brownian motion or a Wiener process is defined as <span class="math inline">\(W(\Delta t) = W(\Delta t) - W(0) \sim \sqrt{\Delta t} * Z\)</span> where <span class="math inline">\(\Delta t\)</span> is a time-step. For our application a general formula is needed, <span class="math inline">\(W(\Delta t) \sim N(0,\sigma^2 \Delta t) \sim \sigma * \sqrt{\Delta t} * N(0,1) \sim \sigma * \sqrt{\Delta t} * Z\)</span> where <span class="math inline">\(\sigma = \sigma(k)\)</span> to simplify the notation.</p>
+<p>The Brownian motion <span class="math inline">\(U(k,t)\)</span> model eliminates the sporatic flip-flopping described above but it suffers from being a non-stationaey time-series. A driver will now more smoothly accelerate or decelerate. The model is still unacceptable over extended time periods. For examples, say <span class="math inline">\(\tau\)</span> = 15 minutes, speeds can reach extraordinary high or low speeds. Negative speeds indicate vehicles are driving backward, which of course does not represent reality.</p>
+<p>This problem is overcome by replacing the Brownian motion <span class="math inline">\(U(k,t)\)</span> model of driver behavior with a <strong>Brownian Bridge model</strong>:</p>
+<ul>
+<li><span class="math inline">\(U(k,t) = u(k) + \sigma(k) * (W(t) - t/\tau * W(\tau))\)</span>.</li>
+</ul>
+<p>The following two diagrams compare two randomly chosen simulations for <span class="math inline">\(k\)</span> = 50 and 100 vpm, respectively. They are labelled “Congested Flow at HCM Capacity” (HCM = Highway Capacity Manual) for <span class="math inline">\(k = 50\)</span> vpm and “Heavily Congested” simulations for <span class="math inline">\(k\)</span> = 100 vpm. The values of <span class="math inline">\(u(k)\)</span> and <span class="math inline">\(\sigma(k)\)</span> are obtained from the density-speed plot. First, we inspect the two simulations.</p>
+<p><img src="Ring-Road_files/figure-html/bridge-1.png" width="960" /></p>
+<p>After time <span class="math inline">\(\tau\)</span> = 15 minutes, the Brownian Bridge model forces a driver in a mathematical sense to return to his or her initial speed <span class="math inline">\(u(k)\)</span>, the speed at time <span class="math inline">\(t\)</span> = 0. Between the start and finish times of <span class="math inline">\(t\)</span> = 0 and 15 minutes, a driver is free to decelerate and accelerate as he or she wishes. The transitions over time are more-or-less smooth as expected. The effect of volatility is in clear evidence. According to the model, a driver can maintain a speed outside the 95% C.I. (confidence interval) for an extended time period as shown by the “Heavily Congested” simulation. It is emphasized that the Brownian Bridge model is for a single vehicle. Our next step is to consider driver interaction, which have not done as yet.</p>
+<p><strong>Car-Following and Highway Safety</strong></p>
+<p>We now consider: (1) <em>driver performance in a car-following situation</em> and (2) <em>highway safety</em>. Car-following and safety are strongly associated because drivers are typically risk averse. Drivers avoid crashes.</p>
+<p>The Brownian Bridge model described thus far is for a single vehicle. It must be further adapted to simulate: (1) <em>driver performance in a car-following situation</em> and (2) <em>safety</em>. These two features are incorporated into the <strong>R cartools</strong> algorithms. Car-following and safety are strongly associated because drivers are typically risk averse. Drivers avoid crashes.</p>
+<p>Consider a pair of vehicles, one is designated as a <em>leader</em> and the other one designated as a <em>follower</em>. At each time-step in the simulation algorithm, the locations and speeds of the lead and following vehicles and the headway between the two vehicles are calculated. A <em>safe driving distance</em>, a distance headway, is defined by the following function:</p>
+<ul>
+<li><span class="math inline">\(h_{safe} = f(u(k), l_{eff})\)</span>,</li>
+</ul>
+<p>where <span class="math inline">\(u(k)\)</span> is the vehicle speed at density <span class="math inline">\(k\)</span> and <span class="math inline">\(l_{eff}\)</span> is the effective vehicle length. A driver is assumed to keep one vehicle length for each ten mph. At slow speeds, <span class="math inline">\(h_{safe}\)</span> = two-vehicle lengths or twenty-eight feet headway.</p>
+<p>If there is a safe headway violation, the following vehicle locations and speeds are adjusted to eliminate the violation. If the lead vehicle slows, the following vehicle must slowdown to avoid a crash if too close. Under a less dense condition, the drivers can vary their speeds without affecting one another. These features are incorporated in <strong>rrtrials</strong> function, which we denote as:</p>
+<ul>
+<li><span class="math inline">\(U(t) = U(k, u, \sigma, h_{safe}, t)\)</span>.</li>
+</ul>
+<p><strong>Time-Distance Trajectories</strong></p>
+<p>Does <strong>rrtrials</strong> predict driver behavior that is similar to that shown in the controlled experiment? <strong>rrtrials</strong> produced the following <span class="math inline">\(t-x\)</span> trajectories. The vehicles are evenly placed along the <span class="math inline">\(x\)</span> axis at <span class="math inline">\(t\)</span> = 0 and the drivers are given the same instructions as the drivers in the Yuki Sugiyama experiment. They are instructed to maintain a constant speed <span class="math inline">\(u\)</span> and headway <span class="math inline">\(h\)</span>.</p>
+<p><img src="Ring-Road_files/figure-html/ringroad1-1.png" width="960" /></p>
+<p>As in the full-scale experiment, the simulated drivers cannot maintain a constant speed or even spacing. After a few seconds, the vehicles begin to interact and form clusters (moving queues) and cannot maintain the constant speeds <span class="math inline">\(u\)</span> is either simulation.</p>
+<p>The volatity effects of <span class="math inline">\(\sigma(k)\)</span> are easily evaluated with visual inspection of the dotted lines shown in the figures above. The dotted straight line is the trajectory of the lead vehicle, assuming that its driver could maintain a constant speed <span class="math inline">\(u\)</span> with <span class="math inline">\(\sigma(k)\)</span> = 0. Since <span class="math inline">\(x = u * t\)</span>, the slope of the dotted straight line is <span class="math inline">\(u\)</span>. Most vehicles in the <strong>rrtrials</strong> simulation tend to lose speed.</p>
+<p>Given these results, <strong>rrtrials</strong> simulator matches the results observed in the controlled experiment. While there are many variables that are needed to define the results, speed volatility <span class="math inline">\(\sigma\)</span> and the Brownian Bridge <span class="math inline">\(U(k,t)\)</span> are most important.</p>
+<p><strong>Reference</strong></p>
+<div id="refs" class="references">
+<div id="ref-1367-2630-10-3-033001">
+<p>Sugiyama, Yuki, Minoru Fukui, Macoto Kikuchi, Katsuya Hasebe, Akihiro Nakayama, Katsuhiro Nishinari, Shin-ichi Tadaki, and Satoshi Yukawa. 2008. “Traffic Jams Without Bottlenecks—Experimental Evidence for the Physical Mechanism of the Formation of a Jam.” <em>New Journal of Physics</em> 10 (3):033001. <a href="http://stacks.iop.org/1367-2630/10/i=3/a=033001" class="uri">http://stacks.iop.org/1367-2630/10/i=3/a=033001</a>.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
