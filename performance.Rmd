@@ -153,19 +153,16 @@ This critique of the deterministic model and subsequent model developments bring
 
 __Traffic Breakdown Part 6__ 
 
-Since most travelers take traffic congestion for granted and give it little thought, it may seem implausibe that describing the unitiating of a simple __traffic breakdown__ event involving only three vehicles requires two figures and a table of critical times, speeds and locations.  Let's take a look. First, we will limit the discussion to vehicles entering a bottleneck, two traffic lanes merging into one lane.  
-
- The roadway system is under stress because (1) vehicles are forced to merge, (2) traffic volatility is high, (3) drivers have limited room to manuever because the assumed traffic density of $k$ = 50 vpm is high,  (4) the traffic volatity, $\sigma$ = 11 mph = 16 fps, is high and (5) local clustering of vehicles as they move downstream plays a role. In the following simulation, two  of the three vehicles are traveling side-by-side before they enter the merge zone of the bottleneck, They become clustered. To avoid a crash, one driver must yield and decelerate. Given this combination of factors, traffic breakdown is expected to be triggered. The chance of a breakdown, $\pi(k = 50)$ = 0.8. As will be shown, a queue forms. It does not form abruptly but grows over time.    
+To trigger a traffic breakdown and to initiate queue formation, a roadway system must be under stress. Even though we are investigating a simple roadway geometry, the system is under stress: (1) the traffic density is high, $k$ = 50 vpm, (2) vehicles are forced to merge because of a lane drop, (2) traffic volatility is high, $\sigma$ = 11 mph = 16 fps, for an average speed $u$ = 41 mph = 60 fps, (3) vehicles are closely spaced thus limiting  drivers' options to maneuver and finally, (4) drivers desire to self optimize work against them putting the system under added stress. In the following simulation, two  of  three vehicles are traveling side-by-side before they enter the merge zone of a bottleneck. To avoid a crash, one driver must yield and decelerate. Given this combination of factors, traffic breakdown is expected. The chance of a breakdown is $\pi(k = 50)$ = 0.8. Once breakdown is triggered, a queue forms and grows steadily over time.    
  
-
-Let us look at the simulation details. At time $t_0$ = 0 seconds, the distance between vehicles 0 and 1, which is directly behind, is $h_0$ = 105 feet, a space headway estimated as $h_0 = 1/k$. $h_0$ is almost twice the safe headway $h_{safe}$ for an average speed of $u$ = 41 mph = 60 fps at this density. The positions of the three vehicles at $t_0$ = 0 seconds is shown under the table column heading $x_0$. The table shows there is no conflict between vehicles 0 and 1 and indicates that vehicle 0 can move freely downstream through the merge zone, $-500 < x \le 0$. Since the driver has no conflicts, we call a _zipper merge_.
+Let us look at the action of the three drivers, who we identify by vehicle number. Their individual action  over time is important. Initially at time $t_0$ = 0 seconds, the distance between vehicles 0 and 1, which is directly behind, is $h_0$ = 105 feet, a space headway estimated as $h_0 = 1/k$. $h_0$ is almost twice the safe headway $h_{safe}$ for an average speed of $u$ = 41 mph = 60 fps at this density. The positions of the three vehicles at $t_0$ = 0 seconds is shown under the table column heading $x_0$. The table shows there is no conflict between vehicles 0 and 1 and indicates that vehicle 0 can move freely downstream through the merge zone, $-500 < x \le 0$. Since the driver has no conflicts, we call it a _zipper merge_. The slope of the $t-x$ trajectory appears to be steady. However, the table shows the driver to be increasing his or her speed. At times $t_{start}$ = 6 seconds and $t_{end}$ = 14.5 seconds, the vehicle has accelerated from $u_{start}$ = 64.7 fps and $u_{end}$ = 74.4 fps.  Times $t_{start}$ and $t_{end}$ are the times when the vehicle enters and exits the merge zone. 
 
 
 ``` {r table 3, echo = FALSE, message=FALSE, error=FALSE, warning = FALSE}
 df7  <- data.frame(c("0", "1", "2", "2"))
 df9  <- data.frame(c(-895, -1000, -1000, -1000))
 df0  <- data.frame(c("No","Yes","Yes","Yield"))
-df8  <- data.frame(c("_Zipper_","Leader","","Follower"))
+df8  <- data.frame(c("_Zipper_","_Leader_","","_Follower_"))
 df1  <- data.frame(c("6", "8.5", "8", "8"))
 df2  <- data.frame(c("14.5", "16", "16.5", "16"))
 df3  <- data.frame(c("64.7", "62.2", "81.9", "81.9"))
@@ -177,8 +174,8 @@ colnames(df16) <- c("Vehicle","$x_{0}$", "Conflict","Resolution", "$t_{start}$",
 knitr::kable(df16,  align = "c")
 ```
 
- Since I am here I am not there. Certainly. 
-
+The situation for drivers of vehicle 1 and 2 is different. There is no conflict upstream of the bottlenect for $-1000 < x < -500$ feet. The trajectories over this range overlap but there is no conflict because the vehicles are traveling in separate lanes. After $x$ = -500 feet, a conflict exists. Vehicle 1 becomes the _leader_ of this pair of vehicles. Its trajectory is similar to vehicle 0 in the sense that the driver travels forward unimpeded. Note its speeds through the merge zone are $u_{start}$ = 62.2 fps and $u_{end}$ = 53.0 fps, respectively.
+ 
 
 ```{r brksummary,  message = FALSE, fig.height = 4.5, fig.width = 6, echo = FALSE}
 par(mfrow = c(1,1))
@@ -191,6 +188,10 @@ title(main = "Breakdown")
 
 ```
 
+Vehicle 2, the _follower_, decelerates from a speed of $u_{start}$ = 81.9 fps to $u_{end}$ = 53.0 fps. The latter speed of 53.0 fps is exactly the same speed as vehicle 1 at $t_{end}$ = 16 seconds. The distance between the two vehicles at   this time is the safe headway distance $h_{safe}$ = 64.6 feet. The red and blue solid circles draw attention to this fact. The red $t-x$ trajectory shows the curve to cross the blue trajectory for vehicle 1 at two places. At the first crossing at around $x$ = -250 feet, the following $y-x$ shows the centerline of the two vehicles to be separated by 6 feet. The slopes of the $t-x$ trajectories for vehicles 1 and 2 suggest that vehicle 1 is accelerating and vehicle 2 is decelerating at this point in time.
+
+The red trajectory  shows vehicle 2 to cross the trajectories of vehicles 0 and 1. This does not mean the vehicle is crashing into these vehicles. Its meaning is quite the opposite. It shows that once a vehicle passes the bottleneck $x$ = 0 that drivers tend to accelerate and seek higher speeds. In this instance, the driver of vehicle 2 is passing vehicles 0 and 1 in the opposing lane that is free of traffic.
+
 ```{r passplot,  message = FALSE, fig.height = 4.5, fig.width = 5, echo = FALSE}
 par(mfrow = c(1,1))
 library(glm2)
@@ -202,6 +203,10 @@ passplot(df, title = "Breakdown")
 #print(lst[[2]])
 ```
 
+To keep the discussion as simple as possible, we investigated three vehicles. Since their trajectories satisfy the safe headway conditions, all three drivers are driving safely. Now, imagine that vehicle 3 and 4 enter the simulation. Given that these two drivers are self optimizers, they will maintain a safe headways between themselves and the vehicles in front them as we described for car-following. These drivers also have the option to maintain a $1/k$ headway described above. In either case, vehicles 3 and 4 are suspected to driving side-by-side especially as they approach $x = -500$ feet. Using the $1/k$ headway estimation method, they will be located at $x = -1105$ feet at $t = 0$ and the two drivers of vehicles 3 and 4 will be in a position to decide which one take on the role of leader or follower. In other words, we can repeat the analyses as above for vehicles 1 and 2. The net result is the system will remained in a stress condition. The queue will grow and speeds will continue to decline in magnitude. Eventually, the speeds will decline to values to values that we define as congested. We experience the transition, $X = 0 \rightarrow X = 1$.
+
+
+__Smart Cities and Intelligent Transportion Systems__ 
 
 __Package Summary__ 
 
