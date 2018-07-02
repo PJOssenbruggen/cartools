@@ -134,7 +134,7 @@ passplot(df1, title = "Accelerate and Merge")
 
 df2 <- decelmerge(0, 10, 55, 0, -1000, -500, 14)
 passplot(df2, title = "Decelerate and Merge")
-
+  
 
 ```
 
