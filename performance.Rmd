@@ -206,26 +206,3 @@ passplot(df, title = "Breakdown")
 To keep the discussion as simple as possible, we investigated three vehicles. Since their trajectories satisfy the safe headway conditions, all three drivers are driving safely. Now, imagine that vehicle 3 and 4 enter the simulation. Given that these two drivers are self optimizers, they will maintain a safe headways between themselves and the vehicles in front them as we described for car-following. These drivers also have the option to maintain a $1/k$ headway described above. In either case, vehicles 3 and 4 are suspected to driving side-by-side especially as they approach $x = -500$ feet. Using the $1/k$ headway estimation method, they will be located at $x = -1105$ feet at $t = 0$ and the two drivers of vehicles 3 and 4 will be in a position to decide which one take on the role of leader or follower. In other words, we can repeat the analyses as above for vehicles 1 and 2. The net result is the system will remained in a stress condition. The queue will grow and speeds will continue to decline in magnitude. Eventually, the speeds will decline to values to values that we define as congested. We experience the transition, $X = 0 \rightarrow X = 1$.
 
 
-__Smart Cities and Intelligent Transportion Systems__ 
-
-__Package Summary__ 
-
-A quick read of the __Home Analytical Tools Section__ may have given the impression that the goal to create the __cartools__ package, a collection of __R__ computer algorithms, will be overwhelming difficult to understand and implement. Words, like complex, dynamics, theory, parsimonious, stochastic and model integration can be daunting. No question that designing and operating a transportation system are difficult problems. Hopefully, by disecting the problem into manageable pieces and synthesizing the  results from the individual pieces brings clarity to the process. The ultimate aim of using __cartools__ package tools is to improve our chances of mitigating congestion and improving performance using the simple mathematical and graphical tools. 
-
-
-
-
-__Lessons Learned__
-
-_What have we learned about traffic performance using the __cartools__ package?_ The most notable lesson learned is:
-
-* By modeling driver behavior with a simple, parsimonious  Brownian Bridge model of speed, it is possible to explain and forecast  traffic  breakdown on a ring-road and at a bottleneck.  
-
-The potential of the __cartools__ package as a learning tool has been demonstrated. Hopefully, this platform can be adapted and expanded to help users  identify the root cause or causes for other congestion problems. 
-
-My next task is add HTML widgets and animation  to the package. Adding these features will allow the user to simply conduct sensitivity analyses on-line. For example, the effects of speed  and density on ring-road performance can be explored. Sliders for $u$, $\sigma$ and $k$ will be provided so a user change them at will. The __cartools__ package will instantaneously produce a histogram of headways as illustrated above.
-
-This package is open to the public, https://github.com/PJOssenbruggen/Basic. In other words, I am inviting people to share their experiences with the package with me. See https://guides.github.com/activities/forking/. 
-
-GitHub promotes this activity. See https://github.com/explore. 
-

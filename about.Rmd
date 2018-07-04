@@ -35,7 +35,7 @@ It is worth noting that an exploratory data analysis is primary focus used in th
 __Exploratory Data Analysis__
 
 
-Our first step  is to  glean as much information as possible from an exploratory data analysis.  _Raw, real-world data_, data collected on the northbound lane on interstate I-93 in Salem, New Hampshire contains 20,656 recordings of $q$, $k$ and $u$. The recording were made over a contiguous period of eight months. The individual observations of $q$, $k$ and $u$  are estimated  as follows: (1) A flow  is estimated as $q = m/\tau$ where $m$ is a vehicle count, the total number of vehicles observed over a 15-minute time interval or $\tau$ = 15-minutes. (2) Speed is estimated as space-mean speed where $u = m/(1/\sum u_j)$ where $u_j$ is a radar speed recording for vehicle $j = 1,2,..., m$. (3) Density is derived from the _fundamental relationship_ of traffic flow $q = k * u$ or $k = q/u$. 
+Our first step  is to  glean as much information as possible from an exploratory data analysis.  _Raw, real-world data_, data collected on the northbound lane on interstate I-93 in Salem, New Hampshire contains 20,656 recordings of $q$, $k$ and $u$ @Laflamme2017. The recording were made over a contiguous period of eight months. The individual observations of $q$, $k$ and $u$  are estimated  as follows: (1) A flow  is estimated as $q = m/\tau$ where $m$ is a vehicle count, the total number of vehicles observed over a 15-minute time interval or $\tau$ = 15-minutes. (2) Speed is estimated as space-mean speed where $u = m/(1/\sum u_j)$ where $u_j$ is a radar speed recording for vehicle $j = 1,2,..., m$. (3) Density is derived from the _fundamental relationship_ of traffic flow $q = k * u$ or $k = q/u$. 
 
 
 Next, we  look for meaningful relationships using scatter plots and box plots. We also keep in the back of our minds that the  __ring-road__ experiment that $n$ is fixed and can be easily transformed to a density measurement as $k = n/l$ because the road length $l$ is also a fixed number.  
@@ -54,7 +54,7 @@ The __Flow-Speed Plot__  reveals much about the traffic at the site. As mentione
 
 The scatter plot is most helpful in defining the free-flow and congested states. A critical speed  is chosen to be $u^*$ = 50 mph. A _free-flow_ state, $X = 0$, satisfies the inequality $u > u^*$ and a congested state, $X = 1$, satisfies the inequality  $u \leq u^*$. The smaller/black dots indicate fewer vehicles per mile than  the  large/blue dots.  Low speeds and high densities, $u \le u^*$ and $k > 70$ vpm, tend to be associated with congested state $X = 1$. 
 
-Since the "controlled" ring-road experiment used a fixed value of $k$, the relationship between $k$ and $u$ was explored  with  the __Box Plot of Density-Speed__.   To construct this diagram, the speeds were sorted and placed into bins. For example, the labeled as $k^*$ = 45 vpm consists of observations ranging 42.5 to 47.5 vpm. The Highway Capacity Manual (HCM) defines capacity of a interstate freeway lane to be $k^*$ = 45 vpm.  
+Since the "controlled" ring-road experiment used a fixed value of $k$, the relationship between $k$ and $u$ was explored  with  the __Box Plot of Density-Speed__.   To construct this diagram, the speeds were sorted and placed into bins. For example, the labeled as $k^*$ = 45 vpm consists of observations ranging 42.5 to 47.5 vpm. The _Highway Capacity Manual (HCM)_ defines capacity of a interstate freeway lane to be $k^*$ = 45 vpm.  
 
 Visual inspection reveals that the chance of driving in a free-flow state, $X = 0$,  is greater when $k^* \le 45$ vpm. $X = 1$ speeds are considerably less than 25 mph when $k^* \ge 50$ vpm.  It is impossible to explain why so many congested speed observations are located in the $0 < k \le   50$ range. For $k > 50$ vpm, a good case can be made that a congested state will be observed. 
 
@@ -86,6 +86,8 @@ df <- dplyr::as_tibble(df)
 
 ```
 
-The model forecasts that a freeway will be in a congested state $X = 1$ with a probability of $\pi(k^* = 45)$ = 0.41 at the HCM $k^*$ = 45 vpm. A slight increase in traffic density to 50 shows a significant increase in the forecast, $\pi(k = 50)$ = 0.8. This analysis shows the importance of traffic density in explaining the risk of operating in a congested state.
+The model forecasts that a freeway will be in a congested state $X = 1$ with a probability of $\pi(k^* = 45)$ = 0.41 at the  $k^*$ = 45 vpm. A slight increase in traffic density to 50 shows a significant increase in the forecast, $\pi(k = 50)$ = 0.8. This analysis shows the importance of traffic density in explaining the risk of operating in a congested state.
 
 The logistic regression model of $\pi(k)$ uses _macroscale data_, data averaged over 15-minute intervals. Driver reaction to various traffic stimuli takes place in time measured in seconds. To more fully  explain and understand the traffic behavior, a _microscale model_, a  time series model of speed $U(t)$ where is measured in second, is  introduced.
+
+__Reference__
