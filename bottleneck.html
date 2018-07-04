@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Bottleneck</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Cartools</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Driver.html">Drivers</a>
+</li>
+<li>
+  <a href="about.html">Noise</a>
+</li>
+<li>
+  <a href="Ring-Road.html">Ring-Road</a>
+</li>
+<li>
+  <a href="bottleneck.html">Bottleneck</a>
+</li>
+<li>
+  <a href="performance.html">Performance</a>
+</li>
+<li>
+  <a href="lessons.html">Future</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Bottleneck</h1>
+
+</div>
+
+
+<p>Now, we turn attention to a bottleneck where there is a lane drop from two to one-lane. To better understand to various factors that can affect a breakdown, we will investigate a “zipper merge.” Visual inspection of a <span class="math inline">\(t-x\)</span> trajectory reveals much about the process. While we assume that all drivers are self optimizers in the attempting to minimize delay, drivers have unique styles. Some are more aggressive than others taking on risks. We will identify drivers by aggressive behavior by inspecting their individual <span class="math inline">\(t-x\)</span> trajectories.</p>
+<p><strong>A Zipper Merge</strong></p>
+<p>Imagine that we shrink ourselves down to a size that is sufficiently small to observe a zipper close up. That’s right, a zipper. Let’s say, a jacket zipper. We will stand on the zipper slider and look in the direction where the zipper tapes are separated. The zipper teeth on the two tapes link together or merge at the slider. This mechancism is analogous to standing on the side of a freeway looking upstream where the vehicles merge at a bottleneck. Regardless of how fast the zipper slider is pulled, the zipper tapes become secure when the teeth link together at the slider. The zipper works flawlessly because the rows of zipper teeth are the same size, move at the same speed, are evenly spaced and perfectly aligned to allow the two tapes to link together without jamming.</p>
+<p>The incoming vehicles on a freeway, on the other hand, are typically neither the same size, traveling at the speed, evenly spaced, nor aligned. Instead, vehicles must change speed and carefully merge together to avoid crashing into one another. Theoretically, it is possible to achieve a zipper merge under both low-speed and high-speed conditions as shown below in the left and right panels.</p>
+<p><img src="bottleneck_files/figure-html/zipper-1.png" width="432" /><img src="bottleneck_files/figure-html/zipper-2.png" width="432" /></p>
+<p>Interestly and despite the differences in speed, the two <span class="math inline">\(t-x\)</span> trajectories have similar shapes. Vehicles labelled as 1 and 2 are traveling side-by-side in separate lanes when they enter a bottleneck. Vehicle 3 is trailing behind them. At the end of merge vehicle 1 tails vehicles 2 and 3. All three vehicles are traveling at the same speeds at the beginning and end of the merge. To depict these individual behaviors, the same time-varying acceleration function is used for each vehicle trajectory:</p>
+<ul>
+<li><span class="math inline">\(\ddot{x}(t) = a - b * t\)</span></li>
+</ul>
+<p>where <span class="math inline">\(t\)</span> denotes time in seconds. The constants <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are estimated by using the boundary conditions. Model calibration is discussed presently. At this point, it is important to understand that each driver has the ability to accelerate and decelerate, change speed, to safely merge and maintain a safe headway distances of <span class="math inline">\(h_{safe}\)</span> at the bottleneck at times <span class="math inline">\(t\)</span> = 10 and 40 seconds shown on their respective panels.</p>
+<p>Consider the low-speed merge on the left that is completed after 10 seconds where all vehicles have the same initial and final speeds of <span class="math inline">\(u\)</span> = 25 mph at <span class="math inline">\(t\)</span> = 0 and 10 seconds, respectively. The drivers of vehicles 2 and 3 are more aggressive than driver 1. Driver 1, who is the least aggressive, decelerates to allow driver 3 to pass. Their trajectories cross and appear to do so with minimum risk of a crash. Both vehicles have slowed to speeds less than 25 mph when their paths cross. At the end of the low-speed merge, all vehicles are traveling at <span class="math inline">\(u\)</span> = 25 mph and have a safe distance headway of <span class="math inline">\(h_{safe}\)</span> = 35 feet, the safe headway distance for this speed.</p>
+<p>The high-speed merge has similar characterics, but the likelihood of a merge at these speeds is unlikely. All vehicles are operating at 90 mph at times <span class="math inline">\(t\)</span> = 0 and 40 seconds. Vehicles 1 and 3 are crossing at speeds in the vicinity of 90 mph. A merge where two vehicles cross paths at these speeds may occur on a motor raceway where the drivers are professionals and trust the judgement of their competitors.</p>
+<p><strong>A Non-linear Model of Acceleration</strong></p>
+<p>What is the mathematical model that describes the merge computer simulations depicted above? It is the <span class="math inline">\(\ddot{x}(t)\)</span> model described above. The model is incorported in the <strong>zipper</strong> function that was used to create the plots. Given the complexity of a merge, the <strong>zipper</strong> algorithm at this time is limited to three vehicles only. The <span class="math inline">\(\ddot{x}(t)\)</span> model is calibrated for each vehicle.</p>
+<p>Let’s begin by looking at calibrateing a model for a single vehicle. Integrating the function leads to the following speed <span class="math inline">\(u(t)\)</span> and distance <span class="math inline">\(x(t)\)</span> functions:</p>
+<ul>
+<li><span class="math inline">\(u(t) = u(0) + a * t - \frac{b}{2} * t^2\)</span></li>
+<li><span class="math inline">\(x(t) = x(0) + u(0) * t + \frac{a}{2} * t^2 - \frac{b}{6} * t^3\)</span></li>
+</ul>
+<p>where the initial speed and distance are denoted as <span class="math inline">\(u(0)\)</span> and <span class="math inline">\(x(0)\)</span>. There are two unknowns <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> that can be solved by considering the end conditions where the merge ends at <span class="math inline">\(t = t_{end}\)</span> where <span class="math inline">\(u(t_{end})\)</span> and <span class="math inline">\(x(t_{end})\)</span> are specified values. Given that we have two equations and two unknowns, <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> can be calculated. For vehicle 1, the lead vehicle, <span class="math inline">\(u^1(0), u^1(t_{end}), x^1(0)\)</span> and <span class="math inline">\(x^1(t_{end})\)</span> must be specified.</p>
+<p>While the same model calibration procedure is used for following vehicles, the safe driving function, <span class="math inline">\(h_{safe}\)</span> function described in the <strong>Ring-Road</strong> section is used for each lead-follower vehicle pair. For above, vehicles 1 and 2 and vehicles 2 and 3. For example, take the following vehicle 2. The speeds <span class="math inline">\(u^2(0)\)</span> and <span class="math inline">\(u^2(t_{end})\)</span> must be specified. The distances <span class="math inline">\(x^2(0)\)</span> and <span class="math inline">\(x^2(t_{end})\)</span> must be specified. These distances are <span class="math inline">\(x^2(0) = x^1(0) - h_{safe}(u^2(0),l_{eff})\)</span> and <span class="math inline">\(x^2(t_{end}) = x^1(t_{end}) - h_{safe}(u^2(t_{end}),l_{eff})\)</span>. This step is conducted for the vehicle 3. To get a better understanding of the model calibration approach, consider a car-following scenario.</p>
+<p><strong>A Car-Following Scenario</strong></p>
+<p>The <span class="math inline">\(t-x\)</span> trajectories below is for the same three drivers described above. In this simulation the vehicles 2 and 3 are following vehicle 1 on a single traffic lane. The driver of vehicle 1 decelerates from 60 to 20 mph and at time <span class="math inline">\(t\)</span> = 5 seconds, the vehicle has travelled a distance of 500 feet. Vehicle 2, who is 100 feet behind vehicle 1, has a speed of 65 mph at <span class="math inline">\(t\)</span> = 0. At <span class="math inline">\(t\)</span> = 5 seconds, it has a speed and location of 20 mph and a location of 467 feet, thus maintains a safe headway distance of 33 feet at speed 20 mph. The driver of vehicle 3 having a speed of 80 mph is the most aggressive driver and well behind vehicle 2 at <span class="math inline">\(t\)</span> = 0. At <span class="math inline">\(t\)</span> = 5 seconds, vehicle 3 to avoid rear-ending vehicle 2 must maintain a speed of 20 mph and safe headway distance of 33 feet.</p>
+<p><img src="bottleneck_files/figure-html/CF-1.png" width="576" /></p>
+<p>Another reason for showing this simulation is to reaffirm the importance of a <span class="math inline">\(t-x\)</span> trajectory and to highlight the features of the <span class="math inline">\(\alpha(t) = a - b t\)</span> acceleration model. For example, the headways of vehicles 2 and 3 before the merge are <span class="math inline">\(h\)</span> = 100 and 250 feet, respectively. After the merge, they are 33 feet each. The traffic density after the merge has increased exponentially The maximum speeds of vehicle 1, 2 and 3 are 60, 65 and 80 mph, respectively. With the exception of vehicle 3, these speeds are within the law.</p>
+<p><strong>Car-Following and Traffic Breakdown</strong></p>
+<p>The preceding example describes <em>traffic breakdown</em>. The traffic transistions from a free-flow, <span class="math inline">\(X = 0\)</span>, to a congested state, <span class="math inline">\(X = 1\)</span>. The example below is another example of traffic breakdown using the <strong>run</strong> function. The <strong>run</strong> allows the user to specify any number of vehicles, whereas the <strong>zipper</strong> is limited to three vehicles. There is one minor difference. The lead vehicle use exponential <span class="math inline">\(u = exp(-\lambda * t)\)</span> and the following vehicles use non-linear <span class="math inline">\(\alpha(t) = a - b t\)</span> acceleration models. The lead vehicle shown below has a concave trajectory from <span class="math inline">\(t_0\)</span> to <span class="math inline">\(t_3\)</span>, indicating a decline in speed. Vehicle 2 and 3 have linear and convex trajectories. For vehicle 3, the driver is accelerating until reaches point <span class="math inline">\((t_1, x_2)\)</span> where it begins to decelerate. As mentioned many time before, each driver of a lead-follower pair adjusts his or her speed independently from another pairs.</p>
+<p><img src="bottleneck_files/figure-html/unnamed-chunk-2-1.png" width="576" /></p>
+<p>Driver reaction and driver sight lines play important roles in the <span class="math inline">\(CF\)</span> approach.</p>
+<p>The role they play is most easily explained by identifying the times when important events occur, <span class="math inline">\(t_1, t_2, t_3, t_4\)</span> and <span class="math inline">\(t_5\)</span>. The simulation ranges from <span class="math inline">\(t_0\)</span> to <span class="math inline">\(t_4\)</span>. Time <span class="math inline">\(t_3\)</span> is the time the lead vehicle reaches the bottleneck <span class="math inline">\(x_0\)</span> at <span class="math inline">\((t_0,x_0)\)</span>. Times <span class="math inline">\(t_1\)</span> are the times the following vehicle drivers react and begin to decelerate. These times depend on several factors, including lead and following vehicle speeds, vehicle spacing and driver response. For example, the driver sightline for vehicle 2, shown by the broken line connecting the points <span class="math inline">\((t_1, x_1)\)</span> and <span class="math inline">\((t_2, x_2)\)</span>, gives a sense of how this driver processes the information. The algorithm uses this information, points <span class="math inline">\((t_1, x_1)\)</span> and <span class="math inline">\((t_2, x_2)\)</span>, to calibrate the <span class="math inline">\(\alpha(t) = a - b t\)</span> speed model and estimate a <span class="math inline">\(t-x\)</span> trajectory for the vehicle. This step is repeated for next vehicle that enters the bottleneck. The trajectories for each of three vehicles shown in the graph are unique. Times <span class="math inline">\(t_5\)</span> are the times a following vehicle reach the bottleneck location <span class="math inline">\(x = 0\)</span>. They are used to estimate the time headways between vehicles, which in turn can be used to estimate traffic flow <span class="math inline">\(\hat{Q}\)</span> after the road becomes congested.</p>
+<p><strong>Queue Formation</strong></p>
+<p>The following two <strong>run</strong> simulations compare queuing at a signalized intersection against a situation where there is a traffic breakdown but the congestion speed is non-zero. The classical approach is to calculate shock wave speed using the <span class="math inline">\(\Delta q/ \Delta k\)</span> formula and a flow-density <span class="math inline">\(q-k\)</span> diagram. Our car-following approach uses the <span class="math inline">\(t-x\)</span> trajectory to investigate queuing.</p>
+<p>The “Bottleneck” vehicles show the transition from a free-flow speed of 65 mph to congested speed of 32 mph to be moving upstream. That means the delay spreads upstream causing drivers to drive at 32 mph before they reach the bottleneck at <span class="math inline">\(x\)</span> = 0.</p>
+<p><img src="bottleneck_files/figure-html/unnamed-chunk-3-1.png" width="576" /></p>
+<p>The “Signalized Intersection” vehicles have two shockwave speeds: one for breaking at <span class="math inline">\(t_1\)</span> and one for the lead vehicle when it stops at <span class="math inline">\(t_3\)</span>. Both progress in the upstream direction. A back-of-an-envelope estimation suggests the shockwave speeds for the “Signalized Intersection” and “Bottleneck” are about the same speed of 100 fps.</p>
+<p><img src="bottleneck_files/figure-html/unnamed-chunk-4-1.png" width="576" /></p>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

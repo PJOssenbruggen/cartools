@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Highway Performance</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Cartools</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Driver.html">Drivers</a>
+</li>
+<li>
+  <a href="about.html">Noise</a>
+</li>
+<li>
+  <a href="Ring-Road.html">Ring-Road</a>
+</li>
+<li>
+  <a href="bottleneck.html">Bottleneck</a>
+</li>
+<li>
+  <a href="performance.html">Performance</a>
+</li>
+<li>
+  <a href="lessons.html">Future</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Highway Performance</h1>
+
+</div>
+
+
+<p><strong>Model Types</strong></p>
+<p>We have developed two modeling types to simulate traffic behavior. Each type realisticly simulates conditions found in the field using <span class="math inline">\(t-x\)</span> trajectories as the principle means of comparison. The models are fundamentally different. One is a deterministic model and the other is a stochastic model. The forecasts from the two models compliment one another. Both satisfy the principal aim of developing the <strong>cartools</strong> package: <strong>To explain highway performance as simply as possible.</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="center">Acceleration Model</th>
+<th align="center">Brownian Bridge Model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Description</td>
+<td align="center">Microscale time-series</td>
+<td align="center">Microscale time-series</td>
+</tr>
+<tr class="even">
+<td>Stochastic</td>
+<td align="center">No</td>
+<td align="center">Yes</td>
+</tr>
+<tr class="odd">
+<td>Driver Response</td>
+<td align="center">Sight lines</td>
+<td align="center">Noise</td>
+</tr>
+<tr class="even">
+<td>Driver Risk Aversion</td>
+<td align="center">Safe headway</td>
+<td align="center">Safe headway</td>
+</tr>
+<tr class="odd">
+<td>Empirical Data Link</td>
+<td align="center">No</td>
+<td align="center">Yes</td>
+</tr>
+</tbody>
+</table>
+<p>The major strength of the <strong>acceleration model</strong> is its ability to explain how a driver will vary his or her vehicle speed over time owing to traffic conditions. It features a <span class="math inline">\(\ddot{x}(t)\)</span> model, a <em>non-linear, deterministic model</em>.</p>
+<p>The major strength of the <strong>Brownian bridge model of speed</strong>, a stochastic model <span class="math inline">\(U(k,t)\)</span>, is its ability to explain the role of traffic noise and role that traffic density <span class="math inline">\(k\)</span> plays in forecasting the probability of being in a congested state, <span class="math inline">\(\pi(k).\)</span> Since the <span class="math inline">\(U(k,t)\)</span> model is derived from a controlled experiment where <span class="math inline">\(k\)</span> is a fixed value, traffic flow, a most important measure of highway performance, is simply defined as a <em>parsimonius, stochastic model</em>:</p>
+<ul>
+<li><span class="math inline">\(Q(t) = k * U(k, u, \sigma, h_{safe}, t)\)</span>.</li>
+</ul>
+<p>To draw attention to the significance of the model in explaining traffic flow with <span class="math inline">\(k\)</span>, we rewrite as:</p>
+<ul>
+<li><span class="math inline">\(Q(t) = k * U(t)\)</span></li>
+</ul>
+<p>where <span class="math inline">\(U(t) = U(k, u, \sigma, h_{safe}, t)\)</span>.</p>
+<p><strong>Traffic Breakdown Part 1</strong></p>
+<p>What is a traffic breakdown? It is as the transition from a free-flow state to a congested state, <span class="math inline">\(X = 1 \rightarrow X = 0\)</span>. The state space notation is simple enough. The groundwork for explaining traffic breakdown was established in the <strong>Car-Following and Traffic Breakdown</strong> section of <strong>Bottleneck</strong>. This approach uses a deterministic model. Explaining traffic breakdown with a stochastic model is most challenging.</p>
+<p>A traffic breakdown event is complicated because there is a myriad of ways a breakdown can be initiated. Weaving, merging, aggressive driving, and poor roadway design are often blamed. To simplify the discussion, we assume that traffic breakdown will occur at a bottleneck. A two-lane freeway with uni-directional flow merges into a single lane, the so-called “lane drop” problem. Vehicles are forced to merge. For the present, we concentrate on the first two vehicles that decelerate in traffic described to be highly volatile with high density.</p>
+<p>There is uncertainty associated specifying a stochastic speed model. Since the <strong>acceleration</strong> or deterministic <span class="math inline">\(u(t)\)</span> model explains breakdown, we will add random effects component to it. We obtain:</p>
+<ul>
+<li><span class="math inline">\(U(k, a, b, h_{safe}, t) = u(0) + a * t - \frac{b}{2} * t^2 + W(\Delta t)\)</span></li>
+</ul>
+<p>where <span class="math inline">\(W(\Delta t) \sim N(0, \sigma \Delta t)\)</span> and <span class="math inline">\(\sigma = \sigma(k)\)</span>. Thus, <span class="math inline">\(U(k, a, b, h_{safe}, t)\)</span> is now a stochastic model with an external data link. Does it explain breakdown?</p>
+<p>Here is the scenario. The following <span class="math inline">\(t-u\)</span> and <span class="math inline">\(t-x\)</span> plots are derived from a simulation using the <span class="math inline">\(U(k, a, b, h_{safe}, t)\)</span> model. The simulation is limited to an investigation of two vehicles, a lead vehicle and a following vehicle, identified as 1 and 2. It is assumed that the drivers of these vehicles will not change lanes. They car-follow exclusively. There are no drivers outside their driving lane. Thus, conditions that describe a zipper merge do not apply here. Even with these simplifying assumptions, there is quite a bit going on during a traffic breakdown.</p>
+<p><img src="performance_files/figure-html/usdzipper-1.png" width="960" /></p>
+<p>Since traffic is highly volatile, the first step is to simulate field conditions. We assume the traffic density is fixed, <span class="math inline">\(k\)</span> = 50 vpm. Thus <span class="math inline">\(\bar{u} \pm \hat{\sigma} = 41 \pm 11.6\)</span> mph. Since <span class="math inline">\(X = 1 \rightarrow X = 0\)</span>, the speeds of the two vehicles before and after breakdown must satisfy the constraints <span class="math inline">\(u(t_{start}) &gt; u^*\)</span> and <span class="math inline">\(u(t_{end}) \le u^*\)</span> where the time at the start and end of the simulation are <span class="math inline">\(t_{start}\)</span> = 0 and <span class="math inline">\(t_{end}\)</span> = 5 seconds. These values were estimated by drawing samples from a simulated data set consisting of one hundred draws from the normal distribution of <span class="math inline">\(N(\bar{u} = 41, \hat{\sigma}^2 = 11.6^2)\)</span>. Four draws were made from the simulated data. They are shown in the following table.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="center">Start</th>
+<th align="center">End</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Time t</td>
+<td align="center">0</td>
+<td align="center">5 seconds</td>
+</tr>
+<tr class="even">
+<td>Vehicle 1: u</td>
+<td align="center">55 mph (81 fps)</td>
+<td align="center">41 mph (60 fps)</td>
+</tr>
+<tr class="odd">
+<td>Vehicle 1: x</td>
+<td align="center">0 feet</td>
+<td align="center">500 feet</td>
+</tr>
+<tr class="even">
+<td>Vehicle 2: u</td>
+<td align="center">57 mph (83 fps)</td>
+<td align="center">32 mph (47 fps)</td>
+</tr>
+<tr class="odd">
+<td>Vehicle 2: x</td>
+<td align="center">-68 feet</td>
+<td align="center">455 feet</td>
+</tr>
+</tbody>
+</table>
+<p>Note that at the start of the simulation, <span class="math inline">\(t_{start} = 0\)</span>, that vehicle 2 is traveling at a speed slightly greater than vehicle 1. At the end of the simulation, <span class="math inline">\(t_{end}\)</span> = 5 seconds, the opposite is true. The simulation also shows driver 2 is traveling at higher speed than driver 1 for the first three seconds. Driver 2 begins to decelerate around three seconds to maintain a safe headway at <span class="math inline">\(t_{end}\)</span>. Speed volatility explains these findings. Another simulation will be different.</p>
+<p>The second step is to estimate model parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> for each of the two vehicles. Other assumptions must be must made. The bottleneck is assumed tapper down from two to one lane in 500 feet and the total time for the breakdown is 5 seconds. The drivers are assumed to be risk averse so driver of vehicle 2 maintains a safe headway. All this information is summarized in the table. The <span class="math inline">\(t-x\)</span> trajectory shows vehicle 2 maintains a safe headway for the entire 5 seconds of the simulation.</p>
+<p>The same numerical integration scheme described earlier for determining <span class="math inline">\(x_t\)</span> trajectories for the ring-road is used here. Like the ring-road, the <span class="math inline">\(t-x\)</span> trajectories are smooth, suggesting the speeds at times <span class="math inline">\(t_0\)</span> and <span class="math inline">\(t_{end}\)</span> are more critical than the speed changes caused by Brownian motion <span class="math inline">\(W(t)\)</span> ranging over the interval <span class="math inline">\(t_{start} &lt; t &lt; t_{end}\)</span>.</p>
+<p><strong>Traffic Breakdown Part 2</strong></p>
+<p>The importance of maintaining a safe headway cannot be overemphasized. Without this assumption, the <span class="math inline">\(t-x\)</span> trajectory of vehicle 2 could cross the trajectory for vehicle 1. The result is a rear-end crash caused by <em>tailgating.</em> This possiblity of a rear-end crash can occur even when there is a safe headway at <span class="math inline">\(t_{start}\)</span> = 0 and <span class="math inline">\(t_{end}\)</span> = 5. Let’s see.</p>
+<p>The following simulation shows a near-miss caused by <em>tailgating.</em> While the trajectories do not cross, the <span class="math inline">\(t-x\)</span> trajectories shows a safe headway violation between three and four seconds. Since drivers are assumed to risk averse, it is not unreasable to assume the driver of the following vehicle will decelerate. In other words, not violate the safe headway assumption. To keep the discussion as simple as possible, the safe sightline assumption for times <span class="math inline">\(0 &lt; t &lt; t_{end}\)</span>, discussed in the <strong>Bottleneck</strong> section, is not imposed here.</p>
+<p><img src="performance_files/figure-html/usdzipper2-1.png" width="960" /></p>
+<p><strong>Traffic Breakdown Part 3</strong></p>
+<p>How is a traffic breakdown initiated in the first place? So far, we have tacitly assumed the lead vehicle decelerates from <span class="math inline">\(u_{start} &gt; u^*\)</span> and <span class="math inline">\(u_{end} &lt; u^*\)</span>. Now we tackle a most challenging question. Instead of assuming to watch vehicles pass us from the road side, we will position ourselves overhead by analyzing photographs taken from a helicopter or drone flying overhead.</p>
+<p><img src="performance_files/figure-html/formqueue-1.png" width="768" /></p>
+<p>Here, the following graph shows two lanes of traffic merging into one lane. There is no traffic breakdown in this simulation. No queue forms. All drivers maintain free-flow speeds, <span class="math inline">\(u &gt; u^*\)</span> where <span class="math inline">\(u = \bar{u}\)</span> = 55 mph. As above, we simulated speed using the <span class="math inline">\(U(k, a, b, h_{safe}, t)\)</span> model. To maintain a <span class="math inline">\(X = 0\)</span> state, all drivers of following vehicles keep a safe headway. This result is most vividly seen downstream where <span class="math inline">\(x &gt; 0\)</span> where the vehicles travel in one lane.</p>
+<p>Since is controversy associated with the proper positioning of roadside equipment, it is interesting to note the following:</p>
+<ul>
+<li><span class="math inline">\(Q = Q(x &gt; 0) = Q(x \le 0)\)</span></li>
+</ul>
+<p>because <span class="math inline">\(k\)</span> = 50 vpm is a constant and <span class="math inline">\(\bar{u}\)</span> is the same value both downstream and upstream of <span class="math inline">\(x = 0\)</span>. Thus, <span class="math inline">\(Q = k * \bar{u}\)</span> where <span class="math inline">\(k = \frac{n}{l}\)</span> and <span class="math inline">\(n\)</span> is the total vehicle count obtained from the photo. A roadside collection of data taken any position on the photo downstream or upstream of <span class="math inline">\(x = 0\)</span> gives the same result. We look at the controversy again after we answer the question: How is a traffic breakdown initiated in the first place?</p>
+<p><strong>Traffic Breakdown Part 4</strong></p>
+<p>The <strong>Zipper Merge</strong> graph demonstrates the importance of upstream vehicle alignment and the effects of noise of merging vehicle at a bottleneck over time. The spacing between vehicles is nonuniform and vehicle grouping is virtually impossible to predict.</p>
+<p>A zipper merge is a special case because the upstream vehicles are aligned in a manner that it is unnecessary for vehicles to change speed. Now, we eliminate this assumption and put drivers under the stress by requiring a speed change of only one vehicle. Since our analysis takes place where the chance of a traffic breakdown is signficant, <span class="math inline">\(k = 50\)</span> vpm, the action of this driver may trigger a breakdown event causing a queue to form that moves upstream from <span class="math inline">\(x\)</span> = 0.</p>
+<p>To simplify the discussion, the effect of noise will be temporarily removed from the following “thought experiment.” This step may seem odd given the emphasis placed on stochastic modeling. After we complete the analysis, we will be in a better position to understand breakdown. More specifically, explainning and coming closer to reliably predicting the role that traffic noise plays in triggering breakdown. In other words, determine if traffic noise is a major or minor factor in explaining and predicting breakdown.</p>
+<p>We will continue to observe vehicles from overhead. But this time, we will follow the actions of only two drivers, who are traveling side-by-side in lanes 1 and 2 at <span class="math inline">\(x = -500\)</span> feet, the beginning of the merge section where freeway tappers down from two to one lane. The side-by-side vehicles, like the rest of the vehicles traveling in the direction of the bottleneck, are traveling at speed <span class="math inline">\(u\)</span> = 55 mph. The driving scenario is similar to one described above before being transformed from a free-flow to congested state, <span class="math inline">\(X = 0 \rightarrow X = 0\)</span>.</p>
+<p>Since the two drivers are side-by-side, one must make the decision to be the leader or follower. The choices are: (1) <strong>accelerate and merge</strong> and become a leader, or (2) <strong>decelerate and merge</strong> and become a follower. In either case, the drivers will do so safely. They will maintain a safe headway of at least <span class="math inline">\(h_{safe} = 53\)</span> feet for speed of <span class="math inline">\(u\)</span> = 41 mph. Most importantly and regardless of choice, the decision-maker does not want to disrupt the speeds of the other drivers, which are assumed to be traveling at <span class="math inline">\(u\)</span> = 41 mph. The aim is to cause no further disruption or delay. In essence, the decision-maker wants to perform a zipper merge.</p>
+<p>A series of photographs are taken for the two drivers in the two cases. Speed and location recordings are made every second over a period of 50 seconds. The data are analyzed and summarized as shown below in the <span class="math inline">\(y-x\)</span> plots. Since the location <span class="math inline">\(x\)</span> is measured in feet, speed <span class="math inline">\(u\)</span> is shown in feet per second (fps).</p>
+<p><img src="performance_files/figure-html/freeflowpass-1.png" width="384" /><img src="performance_files/figure-html/freeflowpass-2.png" width="384" /></p>
+<p>Regardless of the action taken, the aim of the decision-maker is achieved. The driver does not disturb the other drivers. No queue is formed. The <strong>accelerate and merge</strong> driver reaches a maximum speed of 50 mph (103 fps) and the _decelerate and merge__ driver reaches a minimum speed of 40 mph (58 fps). The acceleration and deceleration rates are approximately equal to 7 and -7 ft/sec<span class="math inline">\(^2\)</span>, respectively. A maximum comfortable decelerate is considered to be 15 ft/sec<span class="math inline">\(^2\)</span>. Since all drivers are maintaining safe headways, no crash or near miss incidents are predicted.</p>
+<p><strong>Traffic Breakdown Part 5</strong></p>
+<p>Ignoring traffic noise is an ideal scenario and totally unrealistic. There is little doubt that the root cause traffic breakdown must consider traffic noise.</p>
+<p>There are other factors that must be considered. Take for example, the safe headway <span class="math inline">\(h_{safe}(u, l_{eff})\)</span> assumption. Drivers are not only self optimizers and risk averse, they seek comfort. We are hard pressed to find a real world situation where two drivers will maintain a safe headway of <span class="math inline">\(h_{safe}\)</span> = 67 feet as shown in the <span class="math inline">\(y-x\)</span> plots <span class="math inline">\(x &gt; 0\)</span>, downstream of the bottleneck. Tailgaters may not abide by this rule of keeping three cars lengths between themselves and the vehicle in front of them. Drivers of the lead vehicle will feel more comfortable with <span class="math inline">\(h_{safe}\)</span> = 106 feet, more than six car lengths between the lead and following vehicles, as shown for <span class="math inline">\(x \leq -500\)</span> feet.</p>
+<p>This critique of the deterministic model and subsequent model developments brings into question what are the conditions are necessary for a decision-making driver to take action. For <span class="math inline">\(-500 \le x \le 0\)</span> feet, it was assumed that the safe headway <span class="math inline">\(h_{safe}(u, l_{eff})\)</span> assumption was always sufficient. A decision-making driver, who is not comfortable with the rule, has the option to stop and trigger a breakdown event. The challenge is to develop a stochastic model of the form:</p>
+<ul>
+<li><span class="math inline">\(U(k, a, b, h_{safe}, h_{comfortable}, t)\)</span>.</li>
+</ul>
+<p><strong>Traffic Breakdown Part 6</strong></p>
+<p>To trigger a traffic breakdown and to initiate queue formation, a roadway system must be under stress. Even though we are investigating a simple roadway geometry, the system is under stress: (1) the traffic density is high, <span class="math inline">\(k\)</span> = 50 vpm, (2) vehicles are forced to merge because of a lane drop, (2) traffic volatility is high, <span class="math inline">\(\sigma\)</span> = 11 mph = 16 fps, for an average speed <span class="math inline">\(u\)</span> = 41 mph = 60 fps, (3) vehicles are closely spaced thus limiting drivers’ options to maneuver and finally, (4) drivers desire to self optimize work against them putting the system under added stress. In the following simulation, two of three vehicles are traveling side-by-side before they enter the merge zone of a bottleneck. To avoid a crash, one driver must yield and decelerate. Given this combination of factors, traffic breakdown is expected. The chance of a breakdown is <span class="math inline">\(\pi(k = 50)\)</span> = 0.8. Once breakdown is triggered, a queue forms and grows steadily over time.</p>
+<p>Let us look at the action of the three drivers, who we identify by vehicle number. Their individual action over time is important. Initially at time <span class="math inline">\(t_0\)</span> = 0 seconds, the distance between vehicles 0 and 1, which is directly behind, is <span class="math inline">\(h_0\)</span> = 105 feet, a space headway estimated as <span class="math inline">\(h_0 = 1/k\)</span>. <span class="math inline">\(h_0\)</span> is almost twice the safe headway <span class="math inline">\(h_{safe}\)</span> for an average speed of <span class="math inline">\(u\)</span> = 41 mph = 60 fps at this density. The positions of the three vehicles at <span class="math inline">\(t_0\)</span> = 0 seconds is shown under the table column heading <span class="math inline">\(x_0\)</span>. The table shows there is no conflict between vehicles 0 and 1 and indicates that vehicle 0 can move freely downstream through the merge zone, <span class="math inline">\(-500 &lt; x \le 0\)</span>. Since the driver has no conflicts, we call it a <em>zipper merge</em>. The slope of the <span class="math inline">\(t-x\)</span> trajectory appears to be steady. However, the table shows the driver to be increasing his or her speed. At times <span class="math inline">\(t_{start}\)</span> = 6 seconds and <span class="math inline">\(t_{end}\)</span> = 14.5 seconds, the vehicle has accelerated from <span class="math inline">\(u_{start}\)</span> = 64.7 fps and <span class="math inline">\(u_{end}\)</span> = 74.4 fps. Times <span class="math inline">\(t_{start}\)</span> and <span class="math inline">\(t_{end}\)</span> are the times when the vehicle enters and exits the merge zone.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Vehicle</th>
+<th align="center"><span class="math inline">\(x_{0}\)</span></th>
+<th align="center">Conflict</th>
+<th align="center">Resolution</th>
+<th align="center"><span class="math inline">\(t_{start}\)</span></th>
+<th align="center"><span class="math inline">\(t_{end}\)</span></th>
+<th align="center"><span class="math inline">\(u_{start}\)</span></th>
+<th align="center"><span class="math inline">\(u_{end}\)</span></th>
+<th align="center"><span class="math inline">\(x_{start}\)</span></th>
+<th align="center"><span class="math inline">\(x_{end}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">-895</td>
+<td align="center">No</td>
+<td align="center"><em>Zipper</em></td>
+<td align="center">6</td>
+<td align="center">14.5</td>
+<td align="center">64.7</td>
+<td align="center">74.4</td>
+<td align="center">-515</td>
+<td align="center">-27.3</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">-1000</td>
+<td align="center">Yes</td>
+<td align="center"><em>Leader</em></td>
+<td align="center">8.5</td>
+<td align="center">16</td>
+<td align="center">62.2</td>
+<td align="center">53.0</td>
+<td align="center">-501</td>
+<td align="center">-26.4</td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">-1000</td>
+<td align="center">Yes</td>
+<td align="center"></td>
+<td align="center">8</td>
+<td align="center">16.5</td>
+<td align="center">81.9</td>
+<td align="center">56.9</td>
+<td align="center">-508</td>
+<td align="center">-28.9</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">-1000</td>
+<td align="center">Yield</td>
+<td align="center"><em>Follower</em></td>
+<td align="center">8</td>
+<td align="center">16</td>
+<td align="center">81.9</td>
+<td align="center">53.0</td>
+<td align="center">-508</td>
+<td align="center">-91.0</td>
+</tr>
+</tbody>
+</table>
+<p>The situation for drivers of vehicle 1 and 2 is different. There is no conflict upstream of the bottlenect for <span class="math inline">\(-1000 &lt; x &lt; -500\)</span> feet. The trajectories over this range overlap but there is no conflict because the vehicles are traveling in separate lanes. After <span class="math inline">\(x\)</span> = -500 feet, a conflict exists. Vehicle 1 becomes the <em>leader</em> of this pair of vehicles. Its trajectory is similar to vehicle 0 in the sense that the driver travels forward unimpeded. Note its speeds through the merge zone are <span class="math inline">\(u_{start}\)</span> = 62.2 fps and <span class="math inline">\(u_{end}\)</span> = 53.0 fps, respectively.</p>
+<p><img src="performance_files/figure-html/brksummary-1.png" width="576" /></p>
+<p>Vehicle 2, the <em>follower</em>, decelerates from a speed of <span class="math inline">\(u_{start}\)</span> = 81.9 fps to <span class="math inline">\(u_{end}\)</span> = 53.0 fps. The latter speed of 53.0 fps is exactly the same speed as vehicle 1 at <span class="math inline">\(t_{end}\)</span> = 16 seconds. The distance between the two vehicles at this time is the safe headway distance <span class="math inline">\(h_{safe}\)</span> = 64.6 feet. The red and blue solid circles draw attention to this fact. The red <span class="math inline">\(t-x\)</span> trajectory shows the curve to cross the blue trajectory for vehicle 1 at two places. At the first crossing at around <span class="math inline">\(x\)</span> = -250 feet, the following <span class="math inline">\(y-x\)</span> shows the centerline of the two vehicles to be separated by 6 feet. The slopes of the <span class="math inline">\(t-x\)</span> trajectories for vehicles 1 and 2 suggest that vehicle 1 is accelerating and vehicle 2 is decelerating at this point in time.</p>
+<p>The red trajectory shows vehicle 2 to cross the trajectories of vehicles 0 and 1. This does not mean the vehicle is crashing into these vehicles. Its meaning is quite the opposite. It shows that once a vehicle passes the bottleneck <span class="math inline">\(x\)</span> = 0 that drivers tend to accelerate and seek higher speeds. In this instance, the driver of vehicle 2 is passing vehicles 0 and 1 in the opposing lane that is free of traffic.</p>
+<p><img src="performance_files/figure-html/passplot-1.png" width="480" /></p>
+<p>To keep the discussion as simple as possible, we investigated three vehicles. Since their trajectories satisfy the safe headway conditions, all three drivers are driving safely. Now, imagine that vehicle 3 and 4 enter the simulation. Given that these two drivers are self optimizers, they will maintain a safe headways between themselves and the vehicles in front them as we described for car-following. These drivers also have the option to maintain a <span class="math inline">\(1/k\)</span> headway described above. In either case, vehicles 3 and 4 are suspected to driving side-by-side especially as they approach <span class="math inline">\(x = -500\)</span> feet. Using the <span class="math inline">\(1/k\)</span> headway estimation method, they will be located at <span class="math inline">\(x = -1105\)</span> feet at <span class="math inline">\(t = 0\)</span> and the two drivers of vehicles 3 and 4 will be in a position to decide which one take on the role of leader or follower. In other words, we can repeat the analyses as above for vehicles 1 and 2. The net result is the system will remained in a stress condition. The queue will grow and speeds will continue to decline in magnitude. Eventually, the speeds will decline to values to values that we define as congested. We experience the transition, <span class="math inline">\(X = 0 \rightarrow X = 1\)</span>.</p>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

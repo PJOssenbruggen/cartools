@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>The Future</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Cartools</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Driver.html">Drivers</a>
+</li>
+<li>
+  <a href="about.html">Noise</a>
+</li>
+<li>
+  <a href="Ring-Road.html">Ring-Road</a>
+</li>
+<li>
+  <a href="bottleneck.html">Bottleneck</a>
+</li>
+<li>
+  <a href="performance.html">Performance</a>
+</li>
+<li>
+  <a href="lessons.html">Future</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">The Future</h1>
+
+</div>
+
+
+<p><strong>Intelligent Transportion Systems</strong></p>
+<p>As we carefully review the outcomes of the simulations derived from various deterministic and stochastic models, we must conclude that self-optimizing drivers are working against their own self interest of moving forward with no or minimum delay. Contrast the assumptions of the <strong>Zipper Merge</strong> and <strong>Traffic Breakdown Part 6</strong> simulations.</p>
+<p>The <strong>Zipper Merge</strong> simulation assumes that drivers act in concert to align themselves before merging. The analysis suggests that drivers can successful merge at any speed, suggesting that high speed merges can take place. There is no empirical evidence to prove this contention other than observing drivers on a race track.</p>
+<p><strong>Traffic Breakdown Part 6</strong> simulations assume that drivers act individually. Drivers, who have no incentive to give their counterparts room to maneuver, promote delay. This kind of self-serving behavior is not new to traffic operations. It is known as <em>Braess’s Paradox</em> <span class="citation">(Braess, Nagurney, and Walkobinger 2005)</span>. It has been shown both with mathematical modeling and with empirical evidence that closing certain roads in a roadway network can improve service. For example, <span class="citation">Roughgarden and Tardos (2002)</span> reported that total delay using convex programming for a simple idealized network would be one-third greater for a “non-optimum” network than for an “optimum” network.</p>
+<p>Some people may claim that counterintuitive methods as suggested by the <em>Braess’s Paradox</em> approach has no application to traffic breakdown at a bottleneck or at a lane drop. It is far-fetched notion to assume the geometric layout of an interstate freeway interchange, say, can be improved in any meaningful or practical way. Secondly, training drivers to change their habits is social engineering requiring unobtainable behavioral changes. For example, drivers are taught that the right and left freeway lanes are reserved for slower and higher speed travel, respectively. Take any freeway of your chosing and observe that this teaching is not enforced by law enforcement and ignored by the driving public. Tailgating is common practice. Thirdly and finally, critics can claim that the deterministic <strong>Zipper Merge</strong> model disregards traffic volatility, therefore it ignores a most fundamental premise of the work presented here in the <strong>cartools</strong> package.</p>
+<p>These are formidable criticisms. However, we have not considered controlling traffic noise while leaving individual driver behavior alone. How can this be done? An answer may be to apply <em>Intelligent Transportion Systems</em> (<em>ITS</em>) in a <em>smart city environment</em>. Consider this proof of concept:</p>
+<ol style="list-style-type: decimal">
+<li><p>Collect real-time data. Data collected with lidar and radar equipment placed roadside or collected on-board a vehicle with a GPS system. Measures, including location <span class="math inline">\(x_{vehicle}(t)\)</span> and speed <span class="math inline">\(u_{vehicle}(t)\)</span> data will be transmitted wirelessly and stored on a central controller computer.</p></li>
+<li><p>Develop a <strong>brkzipper</strong> forecast algorithm. The algorithm will be created along the lines of the <strong>Zipper Merge</strong> and <strong>Traffic Breakdown Part 6</strong> models. In lieu of simulating zipper and traffic breakdown merges, <strong>brktrials</strong> algorithm will be designed to forecast <span class="math inline">\(\hat{x}_{vehicle}(t)\)</span> locations and <span class="math inline">\(\hat{u}_{vehicle}(t)\)</span> speeds at future times of <span class="math inline">\(\tau\)</span>.</p></li>
+<li><p>Transmit the forecasts back to the vehicles. To be effective, drivers will relinquish control of their vehicles and an on-board control will be used. The on-board systems are contemplated to be automonous units similar in operation to autonomous cruise control (ACC) devices used on contemporary vehicles sold today.</p></li>
+</ol>
+<p><strong>Capacity</strong></p>
+<p>Throughout our discussion of <strong>cartools</strong>, we have intentionally avoided discussing roadway capacity, a topic that has received much attention <span class="citation">(Laflamme and Ossenbruggen 2018)</span>. <span class="citation">Elefteriadou (2014)</span> introduces the subject using the HCM guideline definition as a “maximum obtainable flow rate” or “throughput” and the inadequacy of this definition. We have discussed traffic flow and introduced it as a <em>parsimonius, stochastic model</em>:</p>
+<ul>
+<li><span class="math inline">\(Q(t) = k * U(t)\)</span> where <span class="math inline">\(U(t) = U(k, u, \sigma, h_{safe}, t)\)</span>.</li>
+</ul>
+<p>According to our findings, the roadway capacity is more appropiately defined by traffic density “k,” where we designate as the <em>maximum throughput</em> <span class="math inline">\(k^*\)</span>. Thus, capacity is defined as:</p>
+<ul>
+<li><span class="math inline">\(Q^* = k^* * \bar{u}\)</span></li>
+</ul>
+<p>where <span class="math inline">\(k^*\)</span> is the “true measure” of <em>maximum throughput</em>.</p>
+<p>From a previous discussion, we used the <em>HCM</em> guidelines to specify this value as <span class="math inline">\(k^*\)</span> = 45 vpm. Thus, <span class="math inline">\(Q^* = 45 * 53\)</span> = 2390 vph. The probability of being in a congested state <span class="math inline">\(X = 1\)</span> was estimated to be <span class="math inline">\(\pi(k^* = 45)\)</span> = 0.41.</p>
+<p>We also determined <span class="math inline">\(\pi(k = 50)\)</span> = 0.8 with <span class="math inline">\(Q = 50 * 41\)</span> = 2050 vph. If <em>maximum throughput</em> refers to flow, then <span class="math inline">\(Q^*\)</span> = 2390 vph. However, if <em>maximum throughput</em> refers to density, then <span class="math inline">\(Q^*\)</span> = 2050 vph.</p>
+<p><span class="math inline">\(\pi\)</span> is a performance measure. <span class="math inline">\(\pi(k^* = 45)\)</span> = 0.41 suggests the roadway will be congested at reasonably high value. Maybe <span class="math inline">\(Q^* = k^* * \bar{u} = 40 * 60\)</span> = 2400 where <span class="math inline">\(\pi\)</span> = 0.15 is more</p>
+<p><strong>Package Summary</strong></p>
+<p>A quick read of the <strong>Home Analytical Tools Section</strong> may have given the impression that the goal to create the <strong>cartools</strong> package, a collection of <strong>R</strong> computer algorithms, will be overwhelming difficult to understand and implement. Words, like complex, dynamics, theory, parsimonious, stochastic and model integration can be daunting. No question that designing and operating a transportation system are difficult problems. Hopefully, by disecting the problem into manageable pieces and synthesizing the results from the individual pieces brings clarity to the process. The ultimate aim of using <strong>cartools</strong> package tools is to improve our chances of mitigating congestion and improving performance using the simple mathematical and graphical tools.</p>
+<p><strong>Lessons Learned</strong></p>
+<p><em>What have we learned about traffic performance using the <strong>cartools</strong> package?</em> The most notable lesson learned is:</p>
+<ul>
+<li>By modeling driver behavior with a simple, parsimonious Brownian Bridge model of speed, it is possible to explain and forecast traffic breakdown on a ring-road and at a bottleneck.</li>
+</ul>
+<p>The potential of the <strong>cartools</strong> package as a learning tool has been demonstrated. Hopefully, this platform can be adapted and expanded to help users identify the root cause or causes for other congestion problems.</p>
+<p>My next task is add HTML widgets and animation to the package. Adding these features will allow the user to simply conduct sensitivity analyses on-line. For example, the effects of speed and density on ring-road performance can be explored. Sliders for <span class="math inline">\(u\)</span>, <span class="math inline">\(\sigma\)</span> and <span class="math inline">\(k\)</span> will be provided so a user change them at will. The <strong>cartools</strong> package will instantaneously produce a histogram of headways as illustrated above.</p>
+<p>This package is open to the public, <a href="https://github.com/PJOssenbruggen/Basic" class="uri">https://github.com/PJOssenbruggen/Basic</a>. In other words, I am inviting people to share their experiences with the package with me. See <a href="https://guides.github.com/activities/forking/" class="uri">https://guides.github.com/activities/forking/</a>.</p>
+<p>GitHub promotes this activity. See <a href="https://github.com/explore" class="uri">https://github.com/explore</a>.</p>
+<p><strong>Reference</strong></p>
+<div id="refs" class="references">
+<div id="ref-braess">
+<p>Braess, D., A. Nagurney, and T. Walkobinger. 2005. “On the Paradox of Traffic Planning.” <em>Transportation Science</em> 39 (4):446–50.</p>
+</div>
+<div id="ref-LiliBook">
+<p>Elefteriadou, Lily. 2014. <em>An Introduction to Traffic Flow Theory</em>. New York, New York: Springer.</p>
+</div>
+<div id="ref-Laflamme2018a">
+<p>Laflamme, Eric, and Paul J. Ossenbruggen. 2018. “Estimation of Stochastic Traffic Capacity Using Extreme Value Theory and Censoring.” <em>European Transport Research Review</em> in review.</p>
+</div>
+<div id="ref-Roughgarden:2002">
+<p>Roughgarden, Tim, and Éva Tardos. 2002. “How Bad Is Selfish Routing?” <em>J. ACM</em> 49 (2). New York, NY, USA: ACM:236–59. <a href="https://doi.org/10.1145/506147.506153" class="uri">https://doi.org/10.1145/506147.506153</a>.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
