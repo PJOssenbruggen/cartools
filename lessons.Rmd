@@ -42,7 +42,7 @@ From a previous discussion, we used the _HCM_ guidelines to specify this value a
 
 We also determined $\pi(k = 50)$ = 0.8 with $Q = 50 * 41$ = 2050 vph. If _maximum throughput_ refers to flow, then $Q^*$ = 2390 vph. However, if _maximum throughput_ refers to density, then $Q^*$ = 2050 vph. 
 
-$\pi$ is a performance measure. $\pi(k^* = 45)$ = 0.41 suggests the roadway will be congested at reasonably high value. Maybe $Q^*  = k^* * \bar{u} = 40 * 60$ = 2400 where $\pi$ = 0.15 is more
+$\pi$ is a performance measure. $\pi(k^* = 45)$ = 0.41 suggests the roadway will be congested at reasonably high value. Maybe $Q^*  = k^* * \bar{u} = 40 * 60$ = 2400 where $\pi$ = 0.15 is more appropriate.
 
 __Package Summary__ 
 
