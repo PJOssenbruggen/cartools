@@ -11,7 +11,14 @@ knitr::opts_chunk$set(echo = TRUE)
 library(Basic)
 ```
 
-Now, we turn attention to a bottleneck where there is a lane drop from two to one-lane. To better understand to various factors that can affect a breakdown, we will investigate a "zipper merge." Visual inspection of a $t-x$ trajectory reveals much about the process. While we assume that all drivers are self optimizers in the attempting to minimize delay,  drivers have unique styles. Some are more aggressive than others taking on risks. We will identify drivers by aggressive behavior by inspecting their individual $t-x$ trajectories.
+Now, we turn attention to a bottleneck where there is a lane drop from two to one-lane. 
+
+```{r schematic, message = FALSE, fig.height = 4, fig.width = 5, echo = FALSE}
+par(mfrow = c(1,1))
+schematic()
+```
+
+To better understand to various factors that can affect a breakdown, we will investigate a "zipper merge." Visual inspection of a $t-x$ trajectory reveals much about the process. While we assume that all drivers are self optimizers in the attempting to minimize delay,  drivers have unique styles. Some are more aggressive than others taking on risks. We will identify drivers by aggressive behavior by inspecting their individual $t-x$ trajectories.
 
 __A Zipper Merge__
 
@@ -19,21 +26,17 @@ Imagine that we shrink ourselves down to a size that is sufficiently small to ob
 
 The incoming vehicles on a freeway, on the other hand, are typically neither the same size,  traveling at the speed,  evenly spaced, nor aligned. Instead, vehicles must change speed and carefully merge together to avoid crashing into one another.  Theoretically, it is possible to achieve a zipper merge under both low-speed and high-speed conditions as shown below in the left and right panels. 
 
-```{r zipper,  message = FALSE, fig.height = 4.5, fig.width = 4.5, echo = FALSE}
+```{r zipper, message = FALSE, fig.height = 4, fig.width = 5, echo = FALSE}
 library(gapminder)
 library(dplyr)
 library(gganimate)
 library(ggplot2)
 library(tidyverse)
 par(mfrow = c(1,2), pty = "s")
-
 p2 <- zipper(0,10,25,25,0,250,25,25,0,320,30,25,-50,285)
 p2
-
-
 p1 <- zipper(0,40,90,90,0,4000,90,90,0,4500,90,90,-500, 4250)
 p1
-
 ```
 
 Interestly and despite the differences in speed, the two $t-x$ trajectories have similar shapes.  Vehicles labelled as 1 and 2 are traveling side-by-side in separate lanes when they enter a bottleneck. Vehicle 3 is trailing behind them.   At the end of merge vehicle 1 tails vehicles 2 and 3. All three vehicles are traveling at the same speeds at the beginning and end of the merge. To  depict these individual behaviors, the same time-varying acceleration  function is used for each vehicle trajectory:

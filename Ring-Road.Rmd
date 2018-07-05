@@ -57,7 +57,7 @@ This problem is overcome by replacing the Brownian motion $U(k,t)$ model of driv
 
 * $U(k,t) = u(k) + \sigma(k) * (W(t) - t/\tau * W(\tau))$.
 
-The following two diagrams compare two randomly chosen simulations for $k$ = 50 and 100 vpm, respectively. They are labelled  "Congested Flow at HCM Capacity" (HCM = Highway Capacity Manual) for $k = 50$ vpm and "Heavily Congested" simulations for $k$ = 100 vpm. The values of $u(k)$ and $\sigma(k)$ are obtained from the density-speed plot. First, we inspect the two simulations.
+The following two diagrams compare two randomly chosen simulations for $k$ = 50 and 100 vpm, respectively. They are labelled  "Congested Flow at HCM Capacity" (_HCM_ = _Highway Capacity Manual_) for $k = 50$ vpm and "Heavily Congested" simulations for $k$ = 100 vpm. The values of $u(k)$ and $\sigma(k)$ are obtained from the density-speed plot. First, we inspect the two simulations.
 
 
 ```{r bridge,  message = FALSE, fig.height = 5, fig.width = 10, echo = FALSE}
