@@ -15,13 +15,13 @@ Users are encouraged to freely use any of the material used to create this packa
 
 2. [cartools](https://github.com/PJOssenbruggen/cartools): A repository containing the __R__ code for creating this website with GitHub Pages.
 
-People familar with [R](https://cran.r-project.org) and [RStudio](https://www.rstudio.com) may download, use and share this material as they see fit. Feedback is welcomed.
+People familiar with [R](https://cran.r-project.org) and [RStudio](https://www.rstudio.com) may download, use and share this material as they see fit. Feedback is welcomed.
 
-The primary purpose of this website deals with transporation engineering, operations and management. I would remise in not drawing attention to the major advances made in computer science and statistics that enhance learning.  _Animation_ and _interactive graphics_ bring new perspectives into understanding both old and new ideas. Take a brief look at [gapminder](https://www.gapminder.org/tools/#$chart-type=bubbles) showing an _animated scatter plot_ of life expectancy over the last 200 years and [shiny](http://shiny.rstudio.com/gallery/bus-dashboard.html) showing an _interactive bus route map_. 
+The primary purpose of this website deals with transportation engineering, operations and management. I would remiss in not drawing attention to the major advances made in computer science and statistics that enhance learning.  _Animation_ and _interactive graphics_ bring new perspectives into understanding both old and new ideas. Take a brief look at [gapminder](https://www.gapminder.org/tools/#$chart-type=bubbles) showing an _animated scatter plot_ of life expectancy over the last 200 years and [shiny](http://shiny.rstudio.com/gallery/bus-dashboard.html) showing an _interactive bus route map_. 
 
 Some of these tools are used  for this [GP](https://pjossenbruggen.github.io/GP/about.html) site. Clicking on __Bottleneck__ and __Ring Road__ menu items show a variety of visual images. At the time of this writing, the animated and interactive features have not been initiated on [GP](https://pjossenbruggen.github.io/GP/about.html). These features have been implemented on my local computer and will be made available soon. Now lets turn attention to transportation issues.
 
-"In many industrialized nations today, highways present engineeres and governments with formidable challenges relating to safety, sustainability, environmental impacts, congestion mitigation, and deteriorating infrastructure. As a result, highways are often viewed from a perspective of the many challenges as they present as opposed to the benefits that they provide. [@mannering]" 
+"In many industrialized nations today, highways present engineers and governments with formidable challenges relating to safety, sustainability, environmental impacts, congestion mitigation, and deteriorating infrastructure. As a result, highways are often viewed from a perspective of the many challenges as they present as opposed to the benefits that they provide. [@mannering]" 
 
 __Aims__
  
@@ -42,7 +42,7 @@ The website contains five menu bar items:
 
 __Analytical Tools__
 
-Newtons Laws of dynamics, fundamentals of trafic flow theory (TFT), probabilistic modeling and statistics are used in this package.  The goal is to identify key factors that initiate a traffic breakdown event and cause delay by building upon current knowledge - the "classical methods" of transportation analysis - and the latest advances in computation.  
+Newtons Laws of dynamics, fundamentals of traffic flow theory (TFT), probabilistic modeling and statistics are used in this package.  The goal is to identify key factors that initiate a traffic breakdown event and cause delay by building upon current knowledge - the "classical methods" of transportation analysis - and the latest advances in computation.  
 
 
 

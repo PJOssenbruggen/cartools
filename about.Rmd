@@ -9,7 +9,7 @@ output: html_document
 library(Basic)
 ```
 
-To develop a successful transportaion operation and management plan, there is a clear need for understanding of the process being operated and  managed.  The decision-making framework presented in the __Drivers__ section, _The Learning Process_, will be used here and in subsequent analyses. It is worth repeating that our principal aim   is to explain highway performance realisticly using simple, easy-to-understand models. This is not easy task because traffic data are noisy. 
+To develop a successful transportation operation and management plan, there is a clear need for understanding of the process being operated and  managed.  The decision-making framework presented in the __Drivers__ section, _The Learning Process_, will be used here and in subsequent analyses. It is worth repeating that our principal aim   is to explain highway performance realistically using simple, easy-to-understand models. This is not easy task because traffic data are noisy. 
 
 __A Congested State__
 
@@ -66,8 +66,6 @@ speedboxplot(QUKtdayX)
 title("Box Plot of Density-Speed")
 ```
 
-
-
 __A Logistic Regression Model__
 
 The data set that was used to create the __Box Plot of Density-Speed__ was also used to fit a $\pi(k)$ model, a logistic model of the form, 
@@ -81,7 +79,7 @@ where $\alpha$ = -12.3 and $\beta$ = 0.265. This model replaces the $\pi(n)$ mod
 library(glm2)
 library(ggplot2)
 library(Basic)
-df <- logisticmodel(QUKtdayX)
+df <- logisticmodel(QUKtdayX, TRUE)
 df <- dplyr::as_tibble(df)
 
 ```

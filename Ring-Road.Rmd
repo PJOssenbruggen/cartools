@@ -15,9 +15,9 @@ __A Controlled Experiment__
 
 We continue our model building effort by simulating conditions observed on a  _ring_ or _loop road_. The [YouTube video](https://www.youtube.com/watch?v=7wm-pZp_mi0) shows $n$ = 22 vehicles [@1367-2630-10-3-033001].  The drivers cannot pass one another or enter or exit the loop.  Each driver was instructed to maintain a same constant speed $u$. The drivers cannot follow instructions. After a few sections, the traffic breaks down, i.e., drivers cannot maintain speed $u.$ 
 
-Why? The video shows the vehicles to be traveling at a reasonable speed. Initially, all vehicles are uniformly distributed around the circle. After a few seconds,  the vehicles begin to interact because the one or more drivers cannot maintain  speed $u$. If we track a vehicle, we can see the speed will vary by a slight amount. Since their no room to move laterally, the drivers must follow and react to the situation directly in front of them. This behavior is a classicly called  _car-following._ 
+Why? The video shows the vehicles to be traveling at a reasonable speed. Initially, all vehicles are uniformly distributed around the circle. After a few seconds,  the vehicles begin to interact because the one or more drivers cannot maintain  speed $u$. If we track a vehicle, we can see the speed will vary by a slight amount. Since their no room to move laterally, the drivers must follow and react to the situation directly in front of them. This behavior is a classically called  _car-following._ 
 
-It is hypothesized that the vehicles described in the preceding paragragh are operating  in a _congested state_. The spacing between vehicles, while it appears to be sufficient, is not.  The number of vehicles on the road $n$ is sufficiently large to cause the vehicles to interact. Look at a pair of vehicles. If a _lead vehicle_ decelerates to a slower speed than its _following vehicle_ must slow down to avoid a crash. The following driver is risk averse. This interaction moves upstream causing other _leader-follower vehicle pairs_ to slow down as well.  If there are fewer vehicles, the space between vehicles, the _distance headway_ then an individual driver can decelerate  without affecting the vehicle behind it. The vehicles are operating in a _free-flow state_. 
+It is hypothesized that the vehicles described in the preceding paragraph are operating  in a _congested state_. The spacing between vehicles, while it appears to be sufficient, is not.  The number of vehicles on the road $n$ is sufficiently large to cause the vehicles to interact. Look at a pair of vehicles. If a _lead vehicle_ decelerates to a slower speed than its _following vehicle_ must slow down to avoid a crash. The following driver is risk averse. This interaction moves upstream causing other _leader-follower vehicle pairs_ to slow down as well.  If there are fewer vehicles, the space between vehicles, the _distance headway_ then an individual driver can decelerate  without affecting the vehicle behind it. The vehicles are operating in a _free-flow state_. 
 
 __A Brownian Bridge Model of Speed__
 
@@ -31,8 +31,8 @@ where $u$ is the assigned speed as specified by the experiment and $\sigma$ is a
 
 The next question is how do we assign the model parameters? It is clear that $u$ is the assigned experiment speed but what is its magnitude?  The box plot of speed-density  from our exploratory analyses  showed a connection of speed and density.  The following density-speed plot is a cleaner version of the box plot. 
 
-```{r density-speed,  message = FALSE, fig.height = 5, fig.width = 10, echo = FALSE}
-output <- uk_sdk(QUKtdayX)
+```{r density-speed,  message = FALSE, fig.height = 5, fig.width = 5, echo = FALSE}
+output <- uk_sdk(QUKtdayX, TRUE)
 ```
 
 The traffic density $k$ is controlled by the number of vehicles on the road $n$ and ring-road radius $r$:
@@ -43,15 +43,15 @@ Knowing $k$, select $u$ and $\sigma$. Rewrite $U(t)$ as a function of $k$:
 
 * $U(k,t)  =  u(k) + \sigma(k) * Z$
 
-Assigning $u$ and $\sigma$ are not clear-cut as originally envisioned. In addition to treating speed and speed volatity  as functions of density,  $U(k, t)$ is a _microscale model_ where driver reaction takes place on a time-scale of seconds and  the density-speed plot is a _macroscale model_ derived from 15-minute average data or $\tau$ data.  The scales are incompatable.
+Assigning $u$ and $\sigma$ are not clear-cut as originally envisioned. In addition to treating speed and speed volatility  as functions of density,  $U(k, t)$ is a _microscale model_ where driver reaction takes place on a time-scale of seconds and  the density-speed plot is a _macroscale model_ derived from 15-minute average data or $\tau$ data.  The scales are incompatible.
 
-Second, the stationary time-series $U(k,t)$ model does not adequately explain driver behavior in a rational manner. Define the time-step equal to $\Delta t = t_i - t_{i-1}$.  Given $Z$ takes on both positive and negative values, a simulation can predict vehicle speeds  flip-flopping back and forth from one second to the next. Obviously, a normal driver does not drive sporatically as described by the model. This flaw is rectified by replacing the $\sigma(k) * Z$ term with a Brownian motion term:
+Second, the stationary time-series $U(k,t)$ model does not adequately explain driver behavior in a rational manner. Define the time-step equal to $\Delta t = t_i - t_{i-1}$.  Given $Z$ takes on both positive and negative values, a simulation can predict vehicle speeds  flip-flopping back and forth from one second to the next. Obviously, a normal driver does not drive sporadically as described by the model. This flaw is rectified by replacing the $\sigma(k) * Z$ term with a Brownian motion term:
 
 * $U(k,t) = u(k) + \sigma(k)  * \sqrt{\Delta t} * Z$.
 
 Brownian motion or a Wiener process is defined as $W(\Delta t) = W(\Delta t) - W(0)  \sim \sqrt{\Delta t} * Z$ where $\Delta t$ is a time-step. For our application a general formula is needed, $W(\Delta t) \sim N(0,\sigma^2 \Delta t) \sim \sigma * \sqrt{\Delta t} * N(0,1) \sim \sigma * \sqrt{\Delta t} * Z$ where $\sigma = \sigma(k)$ to simplify the notation.
 
-The Brownian motion $U(k,t)$ model eliminates the sporatic flip-flopping described above but it suffers from being a non-stationaey time-series. A driver will now more smoothly accelerate or decelerate. The model is still unacceptable over extended time periods.  For examples, say $\tau$ = 15 minutes,  speeds can reach extraordinary high or low speeds. Negative speeds indicate vehicles are  driving backward, which of course does not represent reality.
+The Brownian motion $U(k,t)$ model eliminates the sporadic flip-flopping described above but it suffers from being a non-stationary time-series. A driver will now more smoothly accelerate or decelerate. The model is still unacceptable over extended time periods.  For examples, say $\tau$ = 15 minutes,  speeds can reach extraordinary high or low speeds. Negative speeds indicate vehicles are  driving backward, which of course does not represent reality.
 
 This problem is overcome by replacing the Brownian motion $U(k,t)$ model of driver behavior with a __Brownian Bridge model__:
 
@@ -134,7 +134,7 @@ q2 <- output2[[5]][3]
 
 As in the full-scale experiment, the simulated drivers cannot maintain a constant speed or even spacing. After a few seconds, the vehicles begin to interact and form clusters (moving queues) and cannot maintain the constant speeds $u$ is either simulation. 
 
-The volatity effects of $\sigma(k)$ are easily evaluated with visual inspection of the dotted  lines shown in the figures above. The dotted straight line is the trajectory of  the lead vehicle, assuming that its driver could maintain a constant speed $u$ with $\sigma(k)$ = 0. Since $x = u * t$, the slope of the dotted straight line is $u$. Most vehicles in the __rrtrials__ simulation tend to lose speed.
+The volatility effects of $\sigma(k)$ are easily evaluated with visual inspection of the dotted  lines shown in the figures above. The dotted straight line is the trajectory of  the lead vehicle, assuming that its driver could maintain a constant speed $u$ with $\sigma(k)$ = 0. Since $x = u * t$, the slope of the dotted straight line is $u$. Most vehicles in the __rrtrials__ simulation tend to lose speed.
 
 Given these results, __rrtrials__ simulator matches the results observed in the controlled experiment. While there are many variables that are needed to define the results, speed volatility $\sigma$ and the Brownian Bridge $U(k,t)$ are most important.
 

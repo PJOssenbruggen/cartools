@@ -5,7 +5,7 @@ bibliography: CF.bibtex
 
 __Model Types__
 
-We have developed two modeling types to simulate traffic behavior.  Each type realisticly simulates conditions found in the field  using $t-x$ trajectories as the principle means of comparison. The models  are fundamentally different. One is a deterministic model and the other is a stochastic model. The forecasts from the two models compliment one another. Both satisfy the principal aim of developing the __cartools__ package: __To explain highway performance as simply as possible.__  
+We have developed two modeling types to simulate traffic behavior.  Each type realistically simulates conditions found in the field  using $t-x$ trajectories as the principle means of comparison. The models  are fundamentally different. One is a deterministic model and the other is a stochastic model. The forecasts from the two models compliment one another. Both satisfy the principal aim of developing the __cartools__ package: __To explain highway performance as simply as possible.__  
 
 ```{r, include = FALSE, warning = FALSE, message = FALSE, error = FALSE}
 library(Basic)
@@ -76,9 +76,9 @@ The same numerical integration scheme described earlier for determining $x_t$ tr
 
 __Traffic Breakdown Part 2__ 
 
-The importance of maintaining a safe headway cannot be overemphasized. Without this assumption, the $t-x$ trajectory of vehicle 2 could cross the trajectory for vehicle 1. The result is a rear-end crash caused by _tailgating._ This possiblity of  a rear-end crash can occur even when there is a safe headway at $t_{start}$ = 0 and $t_{end}$ = 5. Let's see.
+The importance of maintaining a safe headway cannot be overemphasized. Without this assumption, the $t-x$ trajectory of vehicle 2 could cross the trajectory for vehicle 1. The result is a rear-end crash caused by _tailgating._ This possibility of  a rear-end crash can occur even when there is a safe headway at $t_{start}$ = 0 and $t_{end}$ = 5. Let's see.
 
-The following simulation shows a near-miss caused by _tailgating._ While the trajectories do not cross, the $t-x$ trajectories shows a safe headway violation between three and four seconds. Since drivers are assumed to risk averse, it is not unreasable to assume the driver of the following vehicle will decelerate. In other words, not violate the safe headway assumption. To keep the discussion as simple as possible, the safe sightline assumption for times $0 < t < t_{end}$, discussed in the __Bottleneck__ section,  is not imposed here. 
+The following simulation shows a near-miss caused by _tailgating._ While the trajectories do not cross, the $t-x$ trajectories shows a safe headway violation between three and four seconds. Since drivers are assumed to risk averse, it is not unreasonable to assume the driver of the following vehicle will decelerate. In other words, not violate the safe headway assumption. To keep the discussion as simple as possible, the safe sight-line assumption for times $0 < t < t_{end}$, discussed in the __Bottleneck__ section,  is not imposed here. 
 
 
 ```{r usdzipper2,  message = FALSE, fig.height = 5, fig.width = 10, echo = FALSE}
@@ -110,9 +110,9 @@ __Traffic Breakdown Part 4__
 
 The __Zipper Merge__ graph  demonstrates the importance of upstream vehicle alignment  and the effects of noise of  merging vehicle at a bottleneck over time. The spacing between  vehicles is nonuniform and vehicle grouping is virtually impossible to predict. 
 
-A zipper merge is a special case because the upstream vehicles are aligned in a manner that it is unnecessary for vehicles to change speed. Now, we eliminate this assumption and put drivers under the stress by requiring a speed change of only one vehicle. Since our analysis takes place where the chance of a traffic breakdown is signficant, $k = 50$ vpm, the action of this driver may trigger a breakdown event causing a queue to form that moves upstream from $x$ = 0.    
+A zipper merge is a special case because the upstream vehicles are aligned in a manner that it is unnecessary for vehicles to change speed. Now, we eliminate this assumption and put drivers under the stress by requiring a speed change of only one vehicle. Since our analysis takes place where the chance of a traffic breakdown is significant, $k = 50$ vpm, the action of this driver may trigger a breakdown event causing a queue to form that moves upstream from $x$ = 0.    
 
-To simplify the discussion, the effect of noise will be temporarily removed from the following  "thought experiment." This step may seem odd given the emphasis placed on stochastic modeling. After we complete the analysis, we will be in a better position to understand breakdown. More specifically, explainning and coming closer to reliably predicting  the role that traffic noise plays in triggering breakdown. In other words, determine if traffic noise is a major or minor factor in explaining and predicting breakdown.
+To simplify the discussion, the effect of noise will be temporarily removed from the following  "thought experiment." This step may seem odd given the emphasis placed on stochastic modeling. After we complete the analysis, we will be in a better position to understand breakdown. More specifically, explaining and coming closer to reliably predicting  the role that traffic noise plays in triggering breakdown. In other words, determine if traffic noise is a major or minor factor in explaining and predicting breakdown.
 
 We will continue to observe vehicles from overhead. But this time, we will follow the actions of only two drivers, who are traveling side-by-side in lanes 1 and 2 at  $x = -500$   feet, the beginning of the merge section where freeway tappers down from two to one lane. The side-by-side vehicles, like the rest of the vehicles traveling in the direction of the bottleneck, are traveling at speed $u$ = 55 mph. The driving scenario is similar to one described above before being transformed from a free-flow to congested state, $X = 0 \rightarrow X = 0$. 
 
@@ -138,14 +138,14 @@ passplot(df2, title = "Decelerate and Merge")
 
 ```
 
-Regardless of the action taken, the aim of the decision-maker is achieved. The driver does not disturb the other drivers. No queue is formed. The __accelerate and merge__ driver reaches a maximum speed of 50 mph (103 fps) and the _decelerate and merge__ driver reaches a minimum speed of 40 mph (58 fps). The acceleration and deceleration rates are approximately equal to 7  and -7 ft/sec$^2$, respectively. A maximum comfortable decelerate is considered to be 15 ft/sec$^2$. Since all drivers are maintaining safe headways,  no crash or near miss incidents are predicted. 
+Regardless of the action taken, the aim of the decision-maker is achieved. The driver does not disturb the other drivers. No queue is formed. The __accelerate and merge__ driver reaches a maximum speed of 50 mph (103 fps) and the _decelerate and merge__ driver reaches a minimum speed of 40 mph (58 fps). The acceleration and deceleration rates are approximately equal to 7  and -7 ft/sec$^2$, respectively. A maximum comfortable decelerate is considered to be 15 ft/sec$^2$. Since all drivers are maintaining safe head-ways,  no crash or near miss incidents are predicted. 
 
 
 __Traffic Breakdown Part 5__ 
 
 Ignoring traffic noise is an ideal scenario and totally unrealistic. There is little doubt that the root cause traffic breakdown must consider traffic noise. 
 
-There are other factors that must be considered. Take for example, the safe headway $h_{safe}(u, l_{eff})$ assumption. Drivers are not only self optimizers and risk averse, they seek comfort. We are hard pressed to find a real world situation where two drivers will maintain a safe headway of $h_{safe}$ = 67 feet as shown in the $y-x$ plots $x > 0$, downstream of the bottleneck. Tailgaters may not abide by this rule of keeping three cars lengths between themselves and the vehicle in front of them. Drivers of the lead vehicle will feel more comfortable with $h_{safe}$ = 106 feet, more than six car lengths between the lead and following vehicles, as shown for $x \leq -500$  feet. 
+There are other factors that must be considered. Take for example, the safe headway $h_{safe}(u, l_{eff})$ assumption. Drivers will not only self optimize but will be risk averse, they seek comfort. We are hard pressed to find a real world situation where two drivers will maintain a safe headway of $h_{safe}$ = 67 feet as shown in the $y-x$ plots $x > 0$, downstream of the bottleneck. Tailgaters may not abide by this rule of keeping three cars lengths between themselves and the vehicle in front of them. Drivers of the lead vehicle will feel more comfortable with $h_{safe}$ = 106 feet, more than six car lengths between the lead and following vehicles, as shown for $x \leq -500$  feet. 
 
 This critique of the deterministic model and subsequent model developments brings into question what are the conditions are necessary for a decision-making driver to take action. For $-500 \le x \le 0$ feet, it was assumed that the safe headway $h_{safe}(u, l_{eff})$ assumption was always sufficient. A decision-making driver, who is not comfortable with the rule, has the option to stop and trigger a breakdown event. The challenge is to develop a stochastic model of the form:
 
@@ -174,7 +174,7 @@ colnames(df16) <- c("Vehicle","$x_{0}$", "Conflict","Resolution", "$t_{start}$",
 knitr::kable(df16,  align = "c")
 ```
 
-The situation for drivers of vehicle 1 and 2 is different. There is no conflict upstream of the bottlenect for $-1000 < x < -500$ feet. The trajectories over this range overlap but there is no conflict because the vehicles are traveling in separate lanes. After $x$ = -500 feet, a conflict exists. Vehicle 1 becomes the _leader_ of this pair of vehicles. Its trajectory is similar to vehicle 0 in the sense that the driver travels forward unimpeded. Note its speeds through the merge zone are $u_{start}$ = 62.2 fps and $u_{end}$ = 53.0 fps, respectively.
+The situation for drivers of vehicle 1 and 2 is different. There is no conflict upstream of the bottleneck for $-1000 < x < -500$ feet. The trajectories over this range overlap but there is no conflict because the vehicles are traveling in separate lanes. After $x$ = -500 feet, a conflict exists. Vehicle 1 becomes the _leader_ of this pair of vehicles. Its trajectory is similar to vehicle 0 in the sense that the driver travels forward unimpeded. Note its speeds through the merge zone are $u_{start}$ = 62.2 fps and $u_{end}$ = 53.0 fps, respectively.
  
 
 ```{r brksummary,  message = FALSE, fig.height = 4.5, fig.width = 6, echo = FALSE}
@@ -188,7 +188,7 @@ title(main = "Breakdown")
 
 ```
 
-Vehicle 2, the _follower_, decelerates from a speed of $u_{start}$ = 81.9 fps to $u_{end}$ = 53.0 fps. The latter speed of 53.0 fps is exactly the same speed as vehicle 1 at $t_{end}$ = 16 seconds. The distance between the two vehicles at   this time is the safe headway distance $h_{safe}$ = 64.6 feet. The red and blue solid circles draw attention to this fact. The red $t-x$ trajectory shows the curve to cross the blue trajectory for vehicle 1 at two places. At the first crossing at around $x$ = -250 feet, the following $y-x$ shows the centerline of the two vehicles to be separated by 6 feet. The slopes of the $t-x$ trajectories for vehicles 1 and 2 suggest that vehicle 1 is accelerating and vehicle 2 is decelerating at this point in time.
+Vehicle 2, the _follower_, decelerates from a speed of $u_{start}$ = 81.9 fps to $u_{end}$ = 53.0 fps. The latter speed of 53.0 fps is exactly the same speed as vehicle 1 at $t_{end}$ = 16 seconds. The distance between the two vehicles at   this time is the safe headway distance $h_{safe}$ = 64.6 feet. The red and blue solid circles draw attention to this fact. The red $t-x$ trajectory shows the curve to cross the blue trajectory for vehicle 1 at two places. At the first crossing at around $x$ = -250 feet, the following $y-x$ shows the center-line of the two vehicles to be separated by 6 feet. The slopes of the $t-x$ trajectories for vehicles 1 and 2 suggest that vehicle 1 is accelerating and vehicle 2 is decelerating at this point in time.
 
 The red trajectory  shows vehicle 2 to cross the trajectories of vehicles 0 and 1. This does not mean the vehicle is crashing into these vehicles. Its meaning is quite the opposite. It shows that once a vehicle passes the bottleneck $x$ = 0 that drivers tend to accelerate and seek higher speeds. In this instance, the driver of vehicle 2 is passing vehicles 0 and 1 in the opposing lane that is free of traffic.
 
@@ -203,6 +203,6 @@ passplot(df, title = "Breakdown")
 #print(lst[[2]])
 ```
 
-To keep the discussion as simple as possible, we investigated three vehicles. Since their trajectories satisfy the safe headway conditions, all three drivers are driving safely. Now, imagine that vehicle 3 and 4 enter the simulation. Given that these two drivers are self optimizers, they will maintain a safe headways between themselves and the vehicles in front them as we described for car-following. These drivers also have the option to maintain a $1/k$ headway described above. In either case, vehicles 3 and 4 are suspected to driving side-by-side especially as they approach $x = -500$ feet. Using the $1/k$ headway estimation method, they will be located at $x = -1105$ feet at $t = 0$ and the two drivers of vehicles 3 and 4 will be in a position to decide which one take on the role of leader or follower. In other words, we can repeat the analyses as above for vehicles 1 and 2. The net result is the system will remained in a stress condition. The queue will grow and speeds will continue to decline in magnitude. Eventually, the speeds will decline to values to values that we define as congested. We experience the transition, $X = 0 \rightarrow X = 1$.
+To keep the discussion as simple as possible, we investigated three vehicles. Since their trajectories satisfy the safe headway conditions, all three drivers are driving safely. Now, imagine that vehicle 3 and 4 enter the simulation. Given that the two self-optimizing drivers will maintain a safe head-ways between themselves and the vehicles in front them as we described for car-following. These drivers also have the option to maintain a $1/k$ headway described above. In either case, vehicles 3 and 4 are suspected to driving side-by-side especially as they approach $x = -500$ feet. Using the $1/k$ headway estimation method, they will be located at $x = -1105$ feet at $t = 0$ and the two drivers of vehicles 3 and 4 will be in a position to decide which one take on the role of leader or follower. In other words, we can repeat the analyses as above for vehicles 1 and 2. The net result is the system will remained in a stress condition. The queue will grow and speeds will continue to decline in magnitude. Eventually, the speeds will decline to values to values that we define as congested. We experience the transition, $X = 0 \rightarrow X = 1$.
 
 
