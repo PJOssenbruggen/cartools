@@ -205,4 +205,27 @@ passplot(df, title = "Breakdown")
 
 To keep the discussion as simple as possible, we investigated three vehicles. Since their trajectories satisfy the safe headway conditions, all three drivers are driving safely. Now, imagine that vehicle 3 and 4 enter the simulation. Given that the two self-optimizing drivers will maintain a safe head-ways between themselves and the vehicles in front them as we described for car-following. These drivers also have the option to maintain a $1/k$ headway described above. In either case, vehicles 3 and 4 are suspected to driving side-by-side especially as they approach $x = -500$ feet. Using the $1/k$ headway estimation method, they will be located at $x = -1105$ feet at $t = 0$ and the two drivers of vehicles 3 and 4 will be in a position to decide which one take on the role of leader or follower. In other words, we can repeat the analyses as above for vehicles 1 and 2. The net result is the system will remained in a stress condition. The queue will grow and speeds will continue to decline in magnitude. Eventually, the speeds will decline to values to values that we define as congested. We experience the transition, $X = 0 \rightarrow X = 1$.
 
+__Stochastic Model Predictions__
 
+The following two $t-x$ show effect of traffic volatility on traffic breakdown. The panel of the left shows a queue formation that is quickly moving in the upstream direction, $x < 0$. The panel on the right shows the five vehicles are closely packed.  Speeds decline for the drivers of the following vehicles  downstream of $x > 0$.  The drivers of the lead vehicles experince no decline in service.
+
+The starting conditions are identical for both simulations. The traffic density is $k$ = 50 vpm where the mean speed and standard deviation of speed are $u$ = 41 mph and $\sigma$ = 11 mph, respectively. The starting random seeds for the two simulations are different. 
+
+```{r bottleneck_merge,  message = FALSE, fig.height = 4, fig.width = 8, echo = FALSE}
+par(mfrow = c(1,2))
+library(Basic)
+library(rlist)
+set.seed(127)
+lane <- c(0,1,2,1,2)
+xstart <- c(-900, -995, -1000, -1090, -1100)
+brktrials(30, 41, 11, xstart, -500, 14, lane, 0.5) -> output
+set.seed(1240)
+lane <- c(0,1,2,1,2)
+xstart <- c(-900, -995, -1000, -1090, -1100)
+brktrials(30, 41, 11, xstart, -500, 14, lane, 0.5) -> output
+```
+
+
+High traffic density can be blamed for the loss in performance downstream of $x > 0$. However, individual driver performance appears to be an equally or a more important factor in both simulations. In the left panel, the drivers of the first three vehicles maintain a speed of $u$ = 41 mph The driver of vehicle 4 slows down causing delay for the last vehicle. Contrast this situation to one in the right panel. All five drivers maintain a speed of around $u$ = 41 mph until they reach $x = 300$ feet. The driver of vehicle 2 slows down causing a slowdown for the rest of the drivers.
+
+Conclusion: Traffic noise explains delay. Remove it and all drivers benefit.
