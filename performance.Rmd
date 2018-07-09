@@ -207,7 +207,9 @@ To keep the discussion as simple as possible, we investigated three vehicles. Si
 
 __Stochastic Model Predictions__
 
-The following two $t-x$ show effect of traffic volatility on traffic breakdown. The panel of the left shows a queue formation that is quickly moving in the upstream direction, $x < 0$. The panel on the right shows the five vehicles are closely packed.  Speeds decline for the drivers of the following vehicles  downstream of $x > 0$.  The drivers of the lead vehicles experince no decline in service.
+The following  $t-x$ trajectories show effect of traffic volatility on traffic breakdown. The panel of the left shows a queue formation that is quickly moving in the upstream direction, $x < 0$. The panel on the right shows the five vehicles are closely packed but no queue forms. 
+
+Speeds decline for the drivers of the following vehicles  downstream of $x > 0$.  The drivers of the lead vehicles experince no decline in service.
 
 The starting conditions are identical for both simulations. The traffic density is $k$ = 50 vpm where the mean speed and standard deviation of speed are $u$ = 41 mph and $\sigma$ = 11 mph, respectively. The starting random seeds for the two simulations are different. 
 
