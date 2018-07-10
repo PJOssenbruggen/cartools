@@ -207,11 +207,11 @@ To keep the discussion as simple as possible, we investigated three vehicles. Si
 
 __Stochastic Model Predictions__
 
-The following  $t-x$ trajectories show effect of traffic volatility on traffic breakdown. The panel of the left shows a queue formation that is quickly moving in the upstream direction, $x < 0$. The panel on the right shows the five vehicles are closely packed but no queue forms. 
+The following  $t-x$ trajectories show effect of traffic volatility on traffic breakdown. The panel of the left shows a queue forming that in seconds is moving upstream, $x > 0$. The panel on the right shows the five vehicles are closely packed but no queue forms. 
 
-Speeds decline for the drivers of the following vehicles  downstream of $x > 0$.  The drivers of the lead vehicles experince no decline in service.
+Speeds decline for the drivers of the following vehicles  downstream of $x > 0$ in both simulations.  Despite the volatility, the drivers of the lead vehicles experience no decline in service.
 
-The starting conditions are identical for both simulations. The traffic density is $k$ = 50 vpm where the mean speed and standard deviation of speed are $u$ = 41 mph and $\sigma$ = 11 mph, respectively. The starting random seeds for the two simulations are different. 
+The starting conditions are identical for both simulations. The traffic density is $k$ = 50 vpm where the mean speed and standard deviation of speed are $u$ = 41 mph and $\sigma$ = 11 mph, respectively. The random seeds for the two simulations are different. 
 
 ```{r bottleneck_merge,  message = FALSE, fig.height = 4, fig.width = 8, echo = FALSE}
 par(mfrow = c(1,2))
@@ -228,6 +228,30 @@ brktrials(30, 41, 11, xstart, -500, 14, lane, 0.5) -> output
 ```
 
 
-High traffic density can be blamed for the loss in performance downstream of $x > 0$. However, individual driver performance appears to be an equally or a more important factor in both simulations. In the left panel, the drivers of the first three vehicles maintain a speed of $u$ = 41 mph The driver of vehicle 4 slows down causing delay for the last vehicle. Contrast this situation to one in the right panel. All five drivers maintain a speed of around $u$ = 41 mph until they reach $x = 300$ feet. The driver of vehicle 2 slows down causing a slowdown for the rest of the drivers.
+High traffic density can be blamed for the loss in performance downstream of $x > 0$. However, individual driver performance appears to be an equally or a more important factor in both simulations. In the left panel, the drivers of the first three vehicles maintain a speed of $u$ = 41 mph. The driver of vehicle 4 slows down causing delay for the last vehicle. 
+
+Contrast this situation to one in the right panel. All five drivers maintain a speed of around $u$ = 41 mph until they reach $x = 300$ feet. The driver of vehicle 2 slows down causing a slowdown for the rest of the drivers.
 
 Conclusion: Traffic noise explains delay. Remove it and all drivers benefit.
+
+The following simulations show the importance of traffic density in a __zipper__ merge. Note that start locations of the vehicles are arranged so the drivers are no longer driving side-by-side as the enter the bottleneck. In the simulation on the left, the $t-x$ trajectories is similar to the one directly above it. The only difference between the two simulations is start locations. The random seeds for the two simulations are the same. 
+
+```{r bottleneck_merge2,  message = FALSE, fig.height = 4, fig.width = 8, echo = FALSE}
+par(mfrow = c(1,2))
+library(Basic)
+library(rlist)
+set.seed(127)
+lane <- c(0,1,2,1,2)
+xstart <- c(-950, -1000, -1050, -1100, -1150)
+brktrials(30, 41, 11, xstart, -500, 14, lane, 0.5) -> output
+set.seed(1240)
+lane <- c(0,1,2,1,2)
+xstart <- c(-950, -1050, -1150, -1250, -1350)
+brktrials(30, 41, 11, xstart, -500, 14, lane, 0.5) -> output
+```
+
+The right panel simulation show no delay at the bottleneck, $x = 0$, or upstream of it, $x < 0$. All delay occurs downstream, $x > 0$. 
+
+The conclusion stated above remains intact. Remove traffic noise and all drivers benefit. _The driving  world would be a better place._ 
+
+Do the simulations suggest that expanding the number of lanes downstream of the bottleneck to reduce land traffic density is a good solution? Good question. History shows that it is not. What can be done? Public transportation is one answer.
