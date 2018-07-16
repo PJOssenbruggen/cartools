@@ -182,7 +182,7 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Home</a>
+  <a href="index.html">Purpose</a>
 </li>
 <li>
   <a href="Driver.html">Drivers</a>
@@ -197,10 +197,10 @@ $(document).ready(function () {
   <a href="bottleneck.html">Bottleneck</a>
 </li>
 <li>
-  <a href="performance.html">Performance</a>
+  <a href="performance.html">Breakdown</a>
 </li>
 <li>
-  <a href="lessons.html">Future</a>
+  <a href="lessons.html">Smart Mobility</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -219,10 +219,11 @@ $(document).ready(function () {
 </div>
 
 
+<hr />
 <p>To develop a successful transportation operation and management plan, there is a clear need for understanding of the process being operated and managed. The decision-making framework presented in the <strong>Drivers</strong> section, <em>The Learning Process</em>, will be used here and in subsequent analyses. It is worth repeating that our principal aim is to explain highway performance realistically using simple, easy-to-understand models. This is not easy task because traffic data are noisy.</p>
 <p><strong>A Congested State</strong></p>
-<p>A conceptual model derived from a simple sampling experiment is proposed:</p>
-<p><span class="math inline">\(\pi(n) = P(X = 1|N = n) = P(U &lt; u^*|N = n)\)</span>,</p>
+<p>The following conceptual model derived from a simple sampling experiment has been proposed:</p>
+<p><span class="math inline">\(\pi(n) = P(X = 1|N = n) = P(U &lt; u^*|N = n)\)</span>.</p>
 <p>The model has limitations:</p>
 <ol style="list-style-type: decimal">
 <li>It is impossible tool to use from a traffic engineering point of view.</li>
@@ -234,15 +235,15 @@ $(document).ready(function () {
 <ol style="list-style-type: decimal">
 <li>The <em>fundational relationship</em>, <span class="math inline">\(q = k * u\)</span>, is introduced into the analysis where <span class="math inline">\(u\)</span>, <span class="math inline">\(k\)</span> and <span class="math inline">\(q\)</span> are defined to be traffic speed, measured in miles per hour (mph), traffic density, measured in vehicles per mile per lane (vpm) and traffic flow, measured in vehicles per hour per lane (vph), respectively.</li>
 <li>The findings from a <strong>ring-road</strong> experiment, a controlled experiment, is introduced into the analysis. A critical feature of the experiment is number of vehicles in the investigation is that <span class="math inline">\(n\)</span> is fixed number, a constant.</li>
-<li>Concepts of derived from elementary car following models are introduced into the analysis to account for driver reactions due to changes of traffic behavior over time. Vehicle length or effective length <span class="math inline">\(l_{eff}\)</span>, measured in feet, and safe driving headway <span class="math inline">\(h_{safe} = f(u)\)</span>, measured in feet and function of speed <span class="math inline">\(u\)</span> are also introduced.</li>
+<li>Concepts of derived from elementary car following models are introduced into the analysis to account for driver reactions due to changes of traffic behavior over time. Vehicle length or effective length <span class="math inline">\(l_{eff}\)</span>, measured in feet, and safe driving headway <span class="math inline">\(h_{safe} = f(u, l_{eff})\)</span>, measured in feet and function of speed <span class="math inline">\(u\)</span> are also introduced.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></li>
 </ol>
 <p>It is worth noting that an exploratory data analysis is primary focus used in this section. A logistic regression model, denoted as <span class="math inline">\(\pi(k)\)</span>, will replace <span class="math inline">\(\pi(n)\)</span> where traffic density <span class="math inline">\(k\)</span> is an explanatory variable. Traffic density is defined as the number of vehicles per unit length <span class="math inline">\(l\)</span> or <span class="math inline">\(k = n/l\)</span>.</p>
 <p><strong>Exploratory Data Analysis</strong></p>
-<p>Our first step is to glean as much information as possible from an exploratory data analysis. <em>Raw, real-world data</em>, data collected on the northbound lane on interstate I-93 in Salem, New Hampshire contains 20,656 recordings of <span class="math inline">\(q\)</span>, <span class="math inline">\(k\)</span> and <span class="math inline">\(u\)</span> <span class="citation">Laflamme and Ossenbruggen (2017)</span>. The recording were made over a contiguous period of eight months. The individual observations of <span class="math inline">\(q\)</span>, <span class="math inline">\(k\)</span> and <span class="math inline">\(u\)</span> are estimated as follows: (1) A flow is estimated as <span class="math inline">\(q = m/\tau\)</span> where <span class="math inline">\(m\)</span> is a vehicle count, the total number of vehicles observed over a 15-minute time interval or <span class="math inline">\(\tau\)</span> = 15-minutes. (2) Speed is estimated as space-mean speed where <span class="math inline">\(u = m/(1/\sum u_j)\)</span> where <span class="math inline">\(u_j\)</span> is a radar speed recording for vehicle <span class="math inline">\(j = 1,2,..., m\)</span>. (3) Density is derived from the <em>fundamental relationship</em> of traffic flow <span class="math inline">\(q = k * u\)</span> or <span class="math inline">\(k = q/u\)</span>.</p>
+<p>Our first step is to glean as much information as possible from an exploratory data analysis. <em>Raw, real-world data</em>, data collected on the northbound lane on interstate I-93 in Salem, New Hampshire contains 20,656 recordings of <span class="math inline">\(q\)</span>, <span class="math inline">\(k\)</span> and <span class="math inline">\(u\)</span> <span class="citation">Laflamme and Ossenbruggen (2017)</span>. The recording were made over a contiguous period of eight months. The individual observations of <span class="math inline">\(q\)</span>, <span class="math inline">\(k\)</span> and <span class="math inline">\(u\)</span> are estimated as follows: (1) A flow is estimated as <span class="math inline">\(q = m/\tau\)</span> where <span class="math inline">\(m\)</span> is a vehicle count, the total number of vehicles observed over a 15-minute time interval or <span class="math inline">\(\tau\)</span> = 15-minutes. (2) Speed is estimated as space-mean speed where <span class="math inline">\(u = m/(1/\sum u_j)\)</span> where <span class="math inline">\(u_j\)</span> is a radar speed recording for vehicle <span class="math inline">\(j = 1,2,..., m\)</span>. (3) Density is derived from the <em>fundamental relationship</em> of traffic flow <span class="math inline">\(q = k * u\)</span> or <span class="math inline">\(k = q/u\)</span> <span class="citation">(Daganzo 1997)</span>.</p>
 <p>Next, we look for meaningful relationships using scatter plots and box plots. We also keep in the back of our minds that the <strong>ring-road</strong> experiment that <span class="math inline">\(n\)</span> is fixed and can be easily transformed to a density measurement as <span class="math inline">\(k = n/l\)</span> because the road length <span class="math inline">\(l\)</span> is also a fixed number.</p>
 <p>Once these relationships are revealed, the next steps is to develop mathematical models that capture these relationships. Since the <em>Learning Process</em> is used, models are critically analyzed. The aim is to justify the replacement of the <span class="math inline">\(\pi(n)\)</span> model with a logistic model of traffic density <span class="math inline">\(\pi(k)\)</span>.</p>
 <p><img src="about_files/figure-html/speedplot-1.png" width="384" /></p>
-<p>The <strong>Flow-Speed Plot</strong> reveals much about the traffic at the site. As mentioned many times previously, the data are <em>extremely noisy</em>, making it difficult to reveal clear-cut patterns in the data. By using scaling and color shading of the <span class="math inline">\(k\)</span> dots, the scatter plot becomes enhanced, making it somewhat easier but still difficult to reveal patterns or associations in the data.</p>
+<p>The <strong>Flow-Speed Plot</strong> reveals much about the traffic at the site.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> As mentioned many times previously, the data are <em>extremely noisy</em>, making it difficult to reveal clear-cut patterns in the data. By using scaling and color shading of the <span class="math inline">\(k\)</span> dots, the scatter plot becomes enhanced, making it somewhat easier but still difficult to reveal patterns or associations in the data.</p>
 <p>The scatter plot is most helpful in defining the free-flow and congested states. A critical speed is chosen to be <span class="math inline">\(u^*\)</span> = 50 mph. A <em>free-flow</em> state, <span class="math inline">\(X = 0\)</span>, satisfies the inequality <span class="math inline">\(u &gt; u^*\)</span> and a congested state, <span class="math inline">\(X = 1\)</span>, satisfies the inequality <span class="math inline">\(u \leq u^*\)</span>. The smaller/black dots indicate fewer vehicles per mile than the large/blue dots. Low speeds and high densities, <span class="math inline">\(u \le u^*\)</span> and <span class="math inline">\(k &gt; 70\)</span> vpm, tend to be associated with congested state <span class="math inline">\(X = 1\)</span>.</p>
 <p>Since the “controlled” ring-road experiment used a fixed value of <span class="math inline">\(k\)</span>, the relationship between <span class="math inline">\(k\)</span> and <span class="math inline">\(u\)</span> was explored with the <strong>Box Plot of Density-Speed</strong>. To construct this diagram, the speeds were sorted and placed into bins. For example, the labeled as <span class="math inline">\(k^*\)</span> = 45 vpm consists of observations ranging 42.5 to 47.5 vpm. The <em>Highway Capacity Manual (HCM)</em> defines capacity of a interstate freeway lane to be <span class="math inline">\(k^*\)</span> = 45 vpm.</p>
 <p>Visual inspection reveals that the chance of driving in a free-flow state, <span class="math inline">\(X = 0\)</span>, is greater when <span class="math inline">\(k^* \le 45\)</span> vpm. <span class="math inline">\(X = 1\)</span> speeds are considerably less than 25 mph when <span class="math inline">\(k^* \ge 50\)</span> vpm. It is impossible to explain why so many congested speed observations are located in the <span class="math inline">\(0 &lt; k \le 50\)</span> range. For <span class="math inline">\(k &gt; 50\)</span> vpm, a good case can be made that a congested state will be observed.</p>
@@ -250,15 +251,31 @@ $(document).ready(function () {
 <p><strong>A Logistic Regression Model</strong></p>
 <p>The data set that was used to create the <strong>Box Plot of Density-Speed</strong> was also used to fit a <span class="math inline">\(\pi(k)\)</span> model, a logistic model of the form,</p>
 <p><span class="math inline">\(\pi(k) = \frac{exp(\alpha + \beta * k)}{1 + exp(\alpha + \beta * k)}\)</span></p>
-<p>where <span class="math inline">\(\alpha\)</span> = -12.3 and <span class="math inline">\(\beta\)</span> = 0.265. This model replaces the <span class="math inline">\(\pi(n)\)</span> model above. The data set consists of <span class="math inline">\(i\)</span> = 1,2,…,24 density bins, denoted as <span class="math inline">\(k_i\)</span>, and <span class="math inline">\(p_i\)</span> proportions where <span class="math inline">\(p_i = m_i/n_i\)</span> <span class="math inline">\(m_i\)</span> and <span class="math inline">\(n_i\)</span> are equal to the number of speed observations satisfying the equality <span class="math inline">\(u &lt; u^*\)</span> and to the number of <span class="math inline">\(k_i\)</span> observations in bin <span class="math inline">\(i\)</span>. The <span class="math inline">\(p_i\)</span> values are shown in the following plot as solid circles and the forecasts of <span class="math inline">\(\pi(k_i)\)</span> are shown as open circles. The model fits the data well.</p>
+<p>where <span class="math inline">\(\alpha\)</span> = -12.3 and <span class="math inline">\(\beta\)</span> = 0.265. This model replaces the <span class="math inline">\(\pi(n)\)</span> model above.</p>
+<p>The data set consists of twenty-four density bins or categories <span class="citation">(Agresti 1990)</span>. We denote traffic density as categorical variable <span class="math inline">\(K\)</span> where <span class="math inline">\(K = k\)</span> = 5, 10, …, 120 vpm. The total number of observations in category <span class="math inline">\(k\)</span> is denoted as <span class="math inline">\(n_k\)</span> and the number of speed observations in <span class="math inline">\(k\)</span> satisfying the equality <span class="math inline">\(u &lt; u^*\)</span> is denoted as <span class="math inline">\(m_k\)</span>. The proportion of observations in the congested state <span class="math inline">\(X = 1\)</span> is calculated as <span class="math inline">\(p_k = m_k/n_k\)</span>. The proportion of observations in the free-flow state <span class="math inline">\(X = 0\)</span> is <span class="math inline">\(1 - p_k\)</span>.</p>
+<p>The <span class="math inline">\(p_i\)</span> values are shown in the following plot as solid circles and the forecasts of <span class="math inline">\(\pi(k_i)\)</span> are shown as open circles. The model fits the data well.</p>
 <p><img src="about_files/figure-html/logisticmodel-1.png" width="480" /></p>
-<p>The model forecasts that a freeway will be in a congested state <span class="math inline">\(X = 1\)</span> with a probability of <span class="math inline">\(\pi(k^* = 45)\)</span> = 0.41 at the <span class="math inline">\(k^*\)</span> = 45 vpm. A slight increase in traffic density to 50 shows a significant increase in the forecast, <span class="math inline">\(\pi(k = 50)\)</span> = 0.8. This analysis shows the importance of traffic density in explaining the risk of operating in a congested state.</p>
-<p>The logistic regression model of <span class="math inline">\(\pi(k)\)</span> uses <em>macroscale data</em>, data averaged over 15-minute intervals. Driver reaction to various traffic stimuli takes place in time measured in seconds. To more fully explain and understand the traffic behavior, a <em>microscale model</em>, a time series model of speed <span class="math inline">\(U(t)\)</span> where is measured in second, is introduced.</p>
+<p>The model forecasts that a freeway will be in a congested state <span class="math inline">\(X = 1\)</span> with a probability of <span class="math inline">\(\pi(k^* = 45)\)</span> = 0.41 at the <span class="math inline">\(k^*\)</span> = 45 vpm. A slight increase in traffic density to 50 vpm shows a significant increase in the forecast, <span class="math inline">\(\pi(k = 50)\)</span> = 0.8. The model shows the importance of traffic density in explaining the risk of operating in a congested state.</p>
+<p><strong>Macroscale and Microscale Data and Models</strong></p>
+<p>The logistic regression model of <span class="math inline">\(\pi(k)\)</span> uses <em>macroscale data</em>, data averaged over 15-minute intervals. Driver reaction to various traffic stimuli takes place in time measured in seconds. To more fully explain and understand the traffic behavior, a <em>microscale model</em>, a time series model of speed <span class="math inline">\(U(t)\)</span> where is measured in second, is introduced. See <strong>Ring-Road</strong>.</p>
 <p><strong>Reference</strong></p>
 <div id="refs" class="references">
+<div id="ref-agresti:1990">
+<p>Agresti, Alan. 1990. <em>Categorical Data Analysis</em>. John Wiley &amp; Sons.</p>
+</div>
+<div id="ref-deganzo:1997">
+<p>Daganzo, Carlos F. 1997. <em>Fundamentals of Transportation and Traffic Operations</em>. Permagon.</p>
+</div>
 <div id="ref-Laflamme2017">
 <p>Laflamme, E. M., and P. J. Ossenbruggen. 2017. “Effect of Time-of-Day and the Day-of-the-Week on Congestion and Breakdown: A Case Study at a Bottleneck in Salem, NH.” <em>Journal of Transportation and Traffic Engineering</em> 4 (1).</p>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>A description of the <strong>R</strong> code <strong>hsafe</strong> function and functions named on this website are found in the <strong>cartools</strong> library. There are approximately 50 functions in the library.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>The <strong>cartools</strong> functions <strong>speedplot</strong>, <strong>speedboxplot</strong> and <strong>logisticmodel</strong> are used to create the plots shown on this page.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
 
 

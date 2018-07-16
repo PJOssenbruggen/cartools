@@ -3,6 +3,10 @@ title: "Highway Performance"
 bibliography: CF.bibtex
 ---
 
+***
+[^1]: The __cartools__ functions __usdzipper__, __formqueue__, __freeflowpass__ __passplot__ __brksummary__ and __brktrials2__ are used to create the plots shown on this page.  
+
+
 __Model Types__
 
 We have developed two modeling types to simulate traffic behavior.  Each type realistically simulates conditions found in the field  using $t-x$ trajectories as the principle means of comparison. The models  are fundamentally different. One is a deterministic model and the other is a stochastic model. The forecasts from the two models compliment one another. Both satisfy the principal aim of developing the __cartools__ package: __To explain highway performance as simply as possible.__  
@@ -23,7 +27,7 @@ rownames(df)  <- c("Description", "Stochastic", "Driver Response", "Driver Risk 
 knitr::kable(df,  align = "c")
 ```
 
-The major strength of the  __acceleration model__ is its ability to explain how a driver will vary his or her vehicle speed over time owing to traffic conditions. It features a $\ddot{x}(t)$ model, a _non-linear, deterministic model_. 
+The major strength of the  __acceleration model__ is its ability to explain how a driver will vary his or her vehicle speed over time owing to traffic conditions [@LiliBook]. It features a $\ddot{x}(t)$ model, a _non-linear, deterministic model_. 
 
 The major strength of the __Brownian bridge model of speed__, a stochastic model $U(k,t)$, is its ability to explain the role of traffic noise and role that traffic density $k$ plays in forecasting the probability of being in a congested state, $\pi(k).$ Since the $U(k,t)$ model is derived from a controlled experiment where $k$ is a fixed value, traffic flow, a most important measure of highway performance, is simply defined as a _parsimonius, stochastic model_:
 
@@ -42,21 +46,21 @@ What is a traffic breakdown?  It is as the transition from a free-flow state to 
 
 A traffic breakdown event is complicated because there is a myriad of ways a breakdown can be initiated. Weaving, merging, aggressive driving, and poor roadway design are often blamed. To simplify the discussion, we assume that traffic breakdown will occur at a bottleneck. A  two-lane freeway with uni-directional flow merges into a single lane, the so-called "lane drop" problem. Vehicles are forced to merge. For the present, we concentrate on the first two vehicles that decelerate in traffic described to be highly volatile with high density. 
 
-There is uncertainty associated  specifying a  stochastic speed model. Since the __acceleration__ or deterministic $u(t)$ model explains breakdown, we will add random effects component to it. We obtain:
+There is uncertainty associated  specifying a  stochastic speed model. Since the __acceleration__ or deterministic $u(t)$ model explains breakdown, we will add random effects component to it [@iacus]. We obtain:
 
 * $U(k, a, b, h_{safe}, t) =  u(0) +  a * t - \frac{b}{2} * t^2 + W(\Delta t)$
 
 where $W(\Delta t) \sim N(0, \sigma \Delta t)$ and  $\sigma = \sigma(k)$. Thus, $U(k, a, b, h_{safe}, t)$ is now a stochastic model with an external data link.  Does it explain breakdown?
 
-Here is the scenario. The following $t-u$ and $t-x$ plots are derived from  a simulation using the $U(k, a, b, h_{safe}, t)$ model. The simulation is limited to an investigation  of two vehicles, a lead vehicle and a following vehicle, identified as  1 and 2. It is assumed that the drivers of these vehicles will not change lanes. They car-follow exclusively. There are no drivers outside their driving lane. Thus, conditions that describe a zipper merge do not apply here.  Even with these simplifying assumptions, there is quite a bit going on during a traffic breakdown. 
+Here is the scenario. The following $t-u$ and $t-x$ plots are derived from  a simulation using the $U(k, a, b, h_{safe}, t)$ model.[^1] The simulation is limited to an investigation  of two vehicles, a lead vehicle and a following vehicle, identified as  1 and 2. It is assumed that the drivers of these vehicles will not change lanes. They car-follow exclusively. There are no drivers outside their driving lane. Thus, conditions that describe a zipper merge do not apply here.  Even with these simplifying assumptions, there is quite a bit going on during a traffic breakdown. 
 
-```{r usdzipper,  message = FALSE, fig.height = 5, fig.width = 10, echo = FALSE}
+```{r usdzipper,  message = FALSE, fig.height = 8, fig.width = 10, echo = FALSE}
 par(mfrow = c(1,1))
 set.seed(124)
 output1 <- usdzipper(0, 5, 41, 11.6, 0, 500)
 ```
 
-Since  traffic is highly volatile, the first step is to simulate field conditions. We assume the traffic density is fixed, $k$ = 50 vpm. Thus $\bar{u} \pm \hat{\sigma} = 41 \pm 11.6$ mph. Since $X = 1 \rightarrow X = 0$, the speeds of the two vehicles before and after breakdown must satisfy the constraints $u(t_{start}) > u^*$ and $u(t_{end}) \le u^*$ where the time at the start and end of the simulation are $t_{start}$ = 0 and $t_{end}$ = 5 seconds. These values were estimated by drawing samples from a simulated data set consisting of one hundred draws from the normal distribution of $N(\bar{u} = 41, \hat{\sigma}^2 = 11.6^2)$. Four draws were made from the simulated data. They are shown in the following table. 
+Since  traffic is highly volatile, the first step is to simulate field conditions. We assume the traffic density is fixed, $K = k$ = 50 vpm. Thus $\bar{u} \pm \sigma = 41 \pm 11.6$ mph. Since $X = 1 \rightarrow X = 0$, the speeds of the two vehicles before and after breakdown must satisfy the constraints $u(t_{start}) > u^*$ and $u(t_{end}) \le u^*$ where the time at the start and end of the simulation are $t_{start}$ = 0 and $t_{end}$ = 5 seconds. These values were estimated by drawing samples from a simulated data set consisting of one hundred draws from the normal distribution of $N(\bar{u} = 41, \hat{\sigma}^2 = 11.6^2)$. Four draws were made from the simulated data. They are shown in the following table. 
 
 ``` {r table 2, echo = FALSE, message=FALSE, error=FALSE, warning = FALSE}
 
@@ -198,8 +202,7 @@ library(glm2)
 library(ggplot2)
 library(Basic)
 set.seed(123)
-df  <- lst[[2]]
-passplot(df, title = "Breakdown")
+#passplot(df, title = "Breakdown")
 #print(lst[[2]])
 ```
 
@@ -220,11 +223,7 @@ library(rlist)
 set.seed(127)
 lane <- c(0,1,2,1,2)
 xstart <- c(-900, -995, -1000, -1090, -1100)
-brktrials(30, 41, 11, xstart, -500, 14, lane, 0.5) -> output
-set.seed(1240)
-lane <- c(0,1,2,1,2)
-xstart <- c(-900, -995, -1000, -1090, -1100)
-brktrials(30, 41, 11, xstart, -500, 14, lane, 0.5) -> output
+brktrials2(5, 30, 41, 11, xstart, -500, 14, lane, 0.5, 0) -> output
 ```
 
 
@@ -236,22 +235,9 @@ Conclusion: Traffic noise explains delay. Remove it and all drivers benefit.
 
 The following simulations show the importance of traffic density in a __zipper__ merge. Note that start locations of the vehicles are arranged so the drivers are no longer driving side-by-side as the enter the bottleneck. In the simulation on the left, the $t-x$ trajectories is similar to the one directly above it. The only difference between the two simulations is start locations. The random seeds for the two simulations are the same. 
 
-```{r bottleneck_merge2,  message = FALSE, fig.height = 4, fig.width = 8, echo = FALSE}
-par(mfrow = c(1,2))
-library(Basic)
-library(rlist)
-set.seed(127)
-lane <- c(0,1,2,1,2)
-xstart <- c(-950, -1000, -1050, -1100, -1150)
-brktrials(30, 41, 11, xstart, -500, 14, lane, 0.5) -> output
-set.seed(1240)
-lane <- c(0,1,2,1,2)
-xstart <- c(-950, -1050, -1150, -1250, -1350)
-brktrials(30, 41, 11, xstart, -500, 14, lane, 0.5) -> output
-```
 
 The right panel simulation show no delay at the bottleneck, $x = 0$, or upstream of it, $x < 0$. All delay occurs downstream, $x > 0$. 
 
 The conclusion stated above remains intact. Remove traffic noise and all drivers benefit. _The driving  world would be a better place._ 
 
-Do the simulations suggest that expanding the number of lanes downstream of the bottleneck to reduce land traffic density is a good solution? Good question. History shows that it is not. What can be done? Public transportation is one answer.
+Do the simulations suggest that expanding the number of lanes downstream of the bottleneck to reduce land traffic density is a good solution? Good question. History shows that it is not a good idea. What can be done? Public transportation is one answer.

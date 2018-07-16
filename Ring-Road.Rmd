@@ -3,6 +3,9 @@ title: "Ring-Road Experiment"
 bibliography: "CF.bibtex"
 ---
 
+***
+[^1]: The __cartools__ functions __uk_sdk__, __usdBBridge__ and __rrtrials__ are used to create the plots shown on this page.  
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
@@ -13,9 +16,9 @@ library(Basic)
 
 __A Controlled Experiment__
 
-We continue our model building effort by simulating conditions observed on a  _ring_ or _loop road_. The [YouTube video](https://www.youtube.com/watch?v=7wm-pZp_mi0) shows $n$ = 22 vehicles [@1367-2630-10-3-033001].  The drivers cannot pass one another or enter or exit the loop.  Each driver was instructed to maintain a same constant speed $u$. The drivers cannot follow instructions. After a few sections, the traffic breaks down, i.e., drivers cannot maintain speed $u.$ 
+We continue our model building effort by simulating conditions observed on a  _ring_ or _loop road_. The [YouTube video](https://www.youtube.com/watch?v=7wm-pZp_mi0) shows $n$ = 22 vehicles [@1367-2630-10-3-033001].  The drivers cannot pass one another or enter or exit the loop.  Each driver was instructed to maintain a same constant speed $u$. The drivers cannot follow instructions. After a few seconds, the traffic breaks down, i.e., drivers cannot maintain speed $u.$ 
 
-Why? The video shows the vehicles to be traveling at a reasonable speed. Initially, all vehicles are uniformly distributed around the circle. After a few seconds,  the vehicles begin to interact because the one or more drivers cannot maintain  speed $u$. If we track a vehicle, we can see the speed will vary by a slight amount. Since their no room to move laterally, the drivers must follow and react to the situation directly in front of them. This behavior is a classically called  _car-following._ 
+Why? The video shows the vehicles to be traveling at a reasonable speed. Initially, all vehicles are uniformly distributed around the circle. After a few seconds,  the vehicles begin to interact because the one or more drivers cannot maintain  speed $u$. If we track a vehicle, we can see the speed will vary by a slight amount. Since their no room to move laterally, the drivers must follow and react to the situation directly in front of them. This behavior is a classically called  _car-following_ [@LiliBook] [@trieber]. 
 
 It is hypothesized that the vehicles described in the preceding paragraph are operating  in a _congested state_. The spacing between vehicles, while it appears to be sufficient, is not.  The number of vehicles on the road $n$ is sufficiently large to cause the vehicles to interact. Look at a pair of vehicles. If a _lead vehicle_ decelerates to a slower speed than its _following vehicle_ must slow down to avoid a crash. The following driver is risk averse. This interaction moves upstream causing other _leader-follower vehicle pairs_ to slow down as well.  If there are fewer vehicles, the space between vehicles, the _distance headway_ then an individual driver can decelerate  without affecting the vehicle behind it. The vehicles are operating in a _free-flow state_. 
 
@@ -29,7 +32,7 @@ First, assume  the speed of a vehicle to be the random variable $U(t)$ and assum
 
 where $u$ is the assigned speed as specified by the experiment and $\sigma$ is a standard deviation of speed, $Z  \sim N(0,1)$ is a standard normal probability distribution and time $t$ is measured in seconds.  
 
-The next question is how do we assign the model parameters? It is clear that $u$ is the assigned experiment speed but what is its magnitude?  The box plot of speed-density  from our exploratory analyses  showed a connection of speed and density.  The following density-speed plot is a cleaner version of the box plot. 
+The next question is how do we assign the model parameters? It is clear that $u$ is the assigned experiment speed but what is its magnitude?  The box plot of speed-density  from our exploratory analyses  showed a connection of speed and density.  The following density-speed plot is a cleaner version of the box plot.[^1] 
 
 ```{r density-speed,  message = FALSE, fig.height = 5, fig.width = 5, echo = FALSE}
 output <- uk_sdk(QUKtdayX, TRUE)
@@ -49,9 +52,9 @@ Second, the stationary time-series $U(k,t)$ model does not adequately explain dr
 
 * $U(k,t) = u(k) + \sigma(k)  * \sqrt{\Delta t} * Z$.
 
-Brownian motion or a Wiener process is defined as $W(\Delta t) = W(\Delta t) - W(0)  \sim \sqrt{\Delta t} * Z$ where $\Delta t$ is a time-step. For our application a general formula is needed, $W(\Delta t) \sim N(0,\sigma^2 \Delta t) \sim \sigma * \sqrt{\Delta t} * N(0,1) \sim \sigma * \sqrt{\Delta t} * Z$ where $\sigma = \sigma(k)$ to simplify the notation.
+Brownian motion or a Wiener process is defined as $W(\Delta t) = W(\Delta t) - W(0)  \sim \sqrt{\Delta t} * Z$ where $\Delta t$ is a time-step [@iacus]. For our application a general formula is needed, $W(\Delta t) \sim N(0,\sigma^2 \Delta t) \sim \sigma * \sqrt{\Delta t} * N(0,1) \sim \sigma * \sqrt{\Delta t} * Z$ where $\sigma = \sigma(k)$ to simplify the notation.
 
-The Brownian motion $U(k,t)$ model eliminates the sporadic flip-flopping described above but it suffers from being a non-stationary time-series. A driver will now more smoothly accelerate or decelerate. The model is still unacceptable over extended time periods.  For examples, say $\tau$ = 15 minutes,  speeds can reach extraordinary high or low speeds. Negative speeds indicate vehicles are  driving backward, which of course does not represent reality.
+The Brownian motion $U(k,t)$ model eliminates the sporadic flip-flopping described above but it suffers from being a non-stationary time-series [@vandaele:1983]. A driver will now more smoothly accelerate or decelerate. The model is still unacceptable over extended time periods.  For examples, say $\tau$ = 15 minutes,  speeds can reach extraordinary high or low speeds. Negative speeds indicate vehicles are  driving backward, which of course does not represent reality.
 
 This problem is overcome by replacing the Brownian motion $U(k,t)$ model of driver behavior with a __Brownian Bridge model__:
 

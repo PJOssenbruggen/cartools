@@ -3,6 +3,10 @@ title: "Bottleneck"
 bibliography: "CF.bibtex"
 ---
 
+***
+
+[^1]: The __cartools__ functions __schematic__, __zipper__, __rrtrials__, and __run__ are used to create the plots shown on this page.  
+
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -18,7 +22,7 @@ par(mfrow = c(1,1))
 schematic()
 ```
 
-To better understand to various factors that can affect a breakdown, we will investigate a "zipper merge." Visual inspection of a $t-x$ trajectory reveals much about the process. While we assume that all drivers are self optimizers in the attempting to minimize delay,  drivers have unique styles. Some are more aggressive than others taking on risks. We will identify drivers by aggressive behavior by inspecting their individual $t-x$ trajectories.
+To better understand to various factors that can affect a breakdown, we will investigate a "zipper merge." Visual inspection of a $t-x$ trajectory reveals much about the process.[^1] While we assume that all drivers are self optimizers in the attempting to minimize delay,  drivers have unique styles. Some are more aggressive than others taking on risks. We will identify drivers by aggressive behavior by inspecting their individual $t-x$ trajectories.
 
 __A Zipper Merge__
 

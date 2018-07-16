@@ -3,7 +3,7 @@ output_dir: '.'
 navbar:
   title: Cartools
   left:
-  - text: Home
+  - text: Purpose
     href: index.html
   - text: Drivers
     href: Driver.html
@@ -13,9 +13,9 @@ navbar:
     href: Ring-Road.html
   - text: Bottleneck
     href: bottleneck.html
-  - text: Performance
+  - text: Breakdown
     href: performance.html
-  - text: Future
+  - text: Smart Mobility
     href: lessons.html
 output:
   html_document:

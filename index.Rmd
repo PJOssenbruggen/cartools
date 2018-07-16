@@ -4,10 +4,21 @@ bibliography: "CF.bibtex"
 output: html_document
 ---
 
+***
+
+Paul J. Ossenbruggen, PhD, Civil engineer, pjo@unh.edu
+
+Eric M. Laflamme, PhD, Statistician, emlaflamme@plymouth.edu
+
+Paul C. Ossenbruggen, Computer programmer, possen@quintescent.net
+
+***
+
 ```{r, include = FALSE, warning = FALSE, message = FALSE, error = FALSE}
 ```
 
 __An Open-Source Project__
+
 
 Users are encouraged to freely use any of the material used to create this package. The raw code can be accessed by clinking on the two following links: 
 
@@ -17,18 +28,31 @@ Users are encouraged to freely use any of the material used to create this packa
 
 People familiar with [R](https://cran.r-project.org) and [RStudio](https://www.rstudio.com) may download, use and share this material as they see fit. Feedback is welcomed.
 
-The primary purpose of this website deals with transportation engineering, operations and management. I would remiss in not drawing attention to the major advances made in computer science and statistics that enhance learning.  _Animation_ and _interactive graphics_ bring new perspectives into understanding both old and new ideas. Take a brief look at [gapminder](https://www.gapminder.org/tools/#$chart-type=bubbles) showing an _animated scatter plot_ of life expectancy over the last 200 years and [shiny](http://shiny.rstudio.com/gallery/bus-dashboard.html) showing an _interactive bus route map_. 
+__Purpose__
 
-Some of these tools are used  for this [GP](https://pjossenbruggen.github.io/GP/about.html) site. Clicking on __Bottleneck__ and __Ring Road__ menu items show a variety of visual images. At the time of this writing, the animated and interactive features have not been initiated on [GP](https://pjossenbruggen.github.io/GP/about.html). These features have been implemented on my local computer and will be made available soon. Now lets turn attention to transportation issues.
+The primary purpose of this website deals with transportation engineering, operations and management. I would remiss in not drawing attention to the major advances made in computer science and statistics that enhance learning.  
+
+_Animation_ and _interactive graphics_ bring new perspectives into understanding both old and new ideas. Take a brief look at [gapminder](https://www.gapminder.org/tools/#$chart-type=bubbles) showing an _animated scatter plot_ of life expectancy over the last 200 years and [shiny](http://shiny.rstudio.com/gallery/bus-dashboard.html) showing an _interactive bus route map_. At the time of this writing, the animated and interactive features have not been initiated. These features have been implemented on my local computer and will be made available soon. 
+
+
+__Challenges__
+
+Now lets turn attention to transportation issues.
 
 "In many industrialized nations today, highways present engineers and governments with formidable challenges relating to safety, sustainability, environmental impacts, congestion mitigation, and deteriorating infrastructure. As a result, highways are often viewed from a perspective of the many challenges as they present as opposed to the benefits that they provide. [@mannering]" 
 
 __Aims__
  
-The __cartools__ package is designed for college students studying transportation engineering and for transportation professionals and researchers interested in understanding the complex relationships associated with freeway performance and traffic breakdown. Emphasis is placed on: (1) _Traffic noise or volatility_; (2) _Driver behavior and safety_; and (3) _Stochastic modeling_,  models that explain breakdown and performance.
+The __cartools__ package is designed for college students studying transportation engineering and for transportation professionals and researchers interested in understanding the complex relationships associated with freeway performance and traffic breakdown. Emphasis is placed on: 
+
+* _Traffic noise or volatility_.
+
+* _Driver behavior and safety_. 
+
+* _Stochastic modeling_,  models that explain breakdown and performance.
 
 
-The website contains five menu bar items:
+The website contains six menu bar items:
 
 1. ##### __Drivers:__  _Self Optimizers_. Meeting the challenges.
 
@@ -36,9 +60,11 @@ The website contains five menu bar items:
 
 3. ##### __Ring-Road:__ _Driver behavior and safety_. A "controlled" car-following experiment on a single lane road.
 
-4. #####  __Bottleneck:__ _Stochastic modeling_. Traffic breakdown on a roadway where two-lanes  merge into one.
+4. #####  __Bottleneck:__ _Stochastic modeling_. Traffic merging at a bottleneck where two-lanes  combine to form one lane.
 
-5. #####  __Performance:__ _Highway Performance_. The results of the study and summarized and critiqued.
+5. #####  __Breakdown:__ _Highway Performance_. Traffic breakdown and queue formation at a bottleneck.
+
+6. ##### __Smart Mobility:__ _Intelligent Transportation Systems._ Moving forward with innovative technology.
 
 __Analytical Tools__
 
@@ -48,11 +74,11 @@ Newtons Laws of dynamics, fundamentals of traffic flow theory (TFT), probabilist
 
 The principal aim of this work is to explain highway performance as simply as possible. Topics are introduced in a  step-by-step manner.  The  __cartools__ package is derived and developed from a diverse set of resources:
 
-* Traffic analysis: @banks:1998, @deganzo:1997, @LiliBook, @pjo2017, @1367-2630-10-3-033001, @trieber
+* _Traffic analysis:_ @banks:1998, @deganzo:1997, @LiliBook, @pjo2017, @1367-2630-10-3-033001, @trieber
 
-* Probability and statistics: @agresti:1990, @hosmer, @iacus, @vandaele:1983
+* _Probability and statistics:_ @agresti:1990, @hosmer, @iacus, @vandaele:1983
 
-* Statistical computing and graphics: @cran, @sde,  @wickham, @shiny
+* _Statistical computing and graphics:_ @cran, @sde,  @wickham, @shiny
 
 
 

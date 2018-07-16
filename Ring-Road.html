@@ -182,7 +182,7 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Home</a>
+  <a href="index.html">Purpose</a>
 </li>
 <li>
   <a href="Driver.html">Drivers</a>
@@ -197,10 +197,10 @@ $(document).ready(function () {
   <a href="bottleneck.html">Bottleneck</a>
 </li>
 <li>
-  <a href="performance.html">Performance</a>
+  <a href="performance.html">Breakdown</a>
 </li>
 <li>
-  <a href="lessons.html">Future</a>
+  <a href="lessons.html">Smart Mobility</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -219,9 +219,10 @@ $(document).ready(function () {
 </div>
 
 
+<hr />
 <p><strong>A Controlled Experiment</strong></p>
-<p>We continue our model building effort by simulating conditions observed on a <em>ring</em> or <em>loop road</em>. The <a href="https://www.youtube.com/watch?v=7wm-pZp_mi0">YouTube video</a> shows <span class="math inline">\(n\)</span> = 22 vehicles <span class="citation">(Sugiyama et al. 2008)</span>. The drivers cannot pass one another or enter or exit the loop. Each driver was instructed to maintain a same constant speed <span class="math inline">\(u\)</span>. The drivers cannot follow instructions. After a few sections, the traffic breaks down, i.e., drivers cannot maintain speed <span class="math inline">\(u.\)</span></p>
-<p>Why? The video shows the vehicles to be traveling at a reasonable speed. Initially, all vehicles are uniformly distributed around the circle. After a few seconds, the vehicles begin to interact because the one or more drivers cannot maintain speed <span class="math inline">\(u\)</span>. If we track a vehicle, we can see the speed will vary by a slight amount. Since their no room to move laterally, the drivers must follow and react to the situation directly in front of them. This behavior is a classically called <em>car-following.</em></p>
+<p>We continue our model building effort by simulating conditions observed on a <em>ring</em> or <em>loop road</em>. The <a href="https://www.youtube.com/watch?v=7wm-pZp_mi0">YouTube video</a> shows <span class="math inline">\(n\)</span> = 22 vehicles <span class="citation">(Sugiyama et al. 2008)</span>. The drivers cannot pass one another or enter or exit the loop. Each driver was instructed to maintain a same constant speed <span class="math inline">\(u\)</span>. The drivers cannot follow instructions. After a few seconds, the traffic breaks down, i.e., drivers cannot maintain speed <span class="math inline">\(u.\)</span></p>
+<p>Why? The video shows the vehicles to be traveling at a reasonable speed. Initially, all vehicles are uniformly distributed around the circle. After a few seconds, the vehicles begin to interact because the one or more drivers cannot maintain speed <span class="math inline">\(u\)</span>. If we track a vehicle, we can see the speed will vary by a slight amount. Since their no room to move laterally, the drivers must follow and react to the situation directly in front of them. This behavior is a classically called <em>car-following</em> <span class="citation">(Elefteriadou 2014)</span> <span class="citation">(Trieber and Kesting 2013)</span>.</p>
 <p>It is hypothesized that the vehicles described in the preceding paragraph are operating in a <em>congested state</em>. The spacing between vehicles, while it appears to be sufficient, is not. The number of vehicles on the road <span class="math inline">\(n\)</span> is sufficiently large to cause the vehicles to interact. Look at a pair of vehicles. If a <em>lead vehicle</em> decelerates to a slower speed than its <em>following vehicle</em> must slow down to avoid a crash. The following driver is risk averse. This interaction moves upstream causing other <em>leader-follower vehicle pairs</em> to slow down as well. If there are fewer vehicles, the space between vehicles, the <em>distance headway</em> then an individual driver can decelerate without affecting the vehicle behind it. The vehicles are operating in a <em>free-flow state</em>.</p>
 <p><strong>A Brownian Bridge Model of Speed</strong></p>
 <p>Can we explain this behavior mathematically? Consider the following approach:</p>
@@ -230,7 +231,7 @@ $(document).ready(function () {
 <li><span class="math inline">\(U(t) = u + \sigma Z\)</span></li>
 </ul>
 <p>where <span class="math inline">\(u\)</span> is the assigned speed as specified by the experiment and <span class="math inline">\(\sigma\)</span> is a standard deviation of speed, <span class="math inline">\(Z \sim N(0,1)\)</span> is a standard normal probability distribution and time <span class="math inline">\(t\)</span> is measured in seconds.</p>
-<p>The next question is how do we assign the model parameters? It is clear that <span class="math inline">\(u\)</span> is the assigned experiment speed but what is its magnitude? The box plot of speed-density from our exploratory analyses showed a connection of speed and density. The following density-speed plot is a cleaner version of the box plot.</p>
+<p>The next question is how do we assign the model parameters? It is clear that <span class="math inline">\(u\)</span> is the assigned experiment speed but what is its magnitude? The box plot of speed-density from our exploratory analyses showed a connection of speed and density. The following density-speed plot is a cleaner version of the box plot.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <p><img src="Ring-Road_files/figure-html/density-speed-1.png" width="480" /></p>
 <p>The traffic density <span class="math inline">\(k\)</span> is controlled by the number of vehicles on the road <span class="math inline">\(n\)</span> and ring-road radius <span class="math inline">\(r\)</span>:</p>
 <ul>
@@ -245,8 +246,8 @@ $(document).ready(function () {
 <ul>
 <li><span class="math inline">\(U(k,t) = u(k) + \sigma(k) * \sqrt{\Delta t} * Z\)</span>.</li>
 </ul>
-<p>Brownian motion or a Wiener process is defined as <span class="math inline">\(W(\Delta t) = W(\Delta t) - W(0) \sim \sqrt{\Delta t} * Z\)</span> where <span class="math inline">\(\Delta t\)</span> is a time-step. For our application a general formula is needed, <span class="math inline">\(W(\Delta t) \sim N(0,\sigma^2 \Delta t) \sim \sigma * \sqrt{\Delta t} * N(0,1) \sim \sigma * \sqrt{\Delta t} * Z\)</span> where <span class="math inline">\(\sigma = \sigma(k)\)</span> to simplify the notation.</p>
-<p>The Brownian motion <span class="math inline">\(U(k,t)\)</span> model eliminates the sporadic flip-flopping described above but it suffers from being a non-stationary time-series. A driver will now more smoothly accelerate or decelerate. The model is still unacceptable over extended time periods. For examples, say <span class="math inline">\(\tau\)</span> = 15 minutes, speeds can reach extraordinary high or low speeds. Negative speeds indicate vehicles are driving backward, which of course does not represent reality.</p>
+<p>Brownian motion or a Wiener process is defined as <span class="math inline">\(W(\Delta t) = W(\Delta t) - W(0) \sim \sqrt{\Delta t} * Z\)</span> where <span class="math inline">\(\Delta t\)</span> is a time-step <span class="citation">(Iacus 2008)</span>. For our application a general formula is needed, <span class="math inline">\(W(\Delta t) \sim N(0,\sigma^2 \Delta t) \sim \sigma * \sqrt{\Delta t} * N(0,1) \sim \sigma * \sqrt{\Delta t} * Z\)</span> where <span class="math inline">\(\sigma = \sigma(k)\)</span> to simplify the notation.</p>
+<p>The Brownian motion <span class="math inline">\(U(k,t)\)</span> model eliminates the sporadic flip-flopping described above but it suffers from being a non-stationary time-series <span class="citation">(Vandeale 1983)</span>. A driver will now more smoothly accelerate or decelerate. The model is still unacceptable over extended time periods. For examples, say <span class="math inline">\(\tau\)</span> = 15 minutes, speeds can reach extraordinary high or low speeds. Negative speeds indicate vehicles are driving backward, which of course does not represent reality.</p>
 <p>This problem is overcome by replacing the Brownian motion <span class="math inline">\(U(k,t)\)</span> model of driver behavior with a <strong>Brownian Bridge model</strong>:</p>
 <ul>
 <li><span class="math inline">\(U(k,t) = u(k) + \sigma(k) * (W(t) - t/\tau * W(\tau))\)</span>.</li>
@@ -274,9 +275,27 @@ $(document).ready(function () {
 <p>Given these results, <strong>rrtrials</strong> simulator matches the results observed in the controlled experiment. While there are many variables that are needed to define the results, speed volatility <span class="math inline">\(\sigma\)</span> and the Brownian Bridge <span class="math inline">\(U(k,t)\)</span> are most important.</p>
 <p><strong>Reference</strong></p>
 <div id="refs" class="references">
+<div id="ref-LiliBook">
+<p>Elefteriadou, Lily. 2014. <em>An Introduction to Traffic Flow Theory</em>. New York, New York: Springer.</p>
+</div>
+<div id="ref-iacus">
+<p>Iacus, Stefano. 2008. <em>Simulation and Inference for Stochastic Differential Equations: With R Examples</em>. Springer-Verlag.</p>
+</div>
 <div id="ref-1367-2630-10-3-033001">
 <p>Sugiyama, Yuki, Minoru Fukui, Macoto Kikuchi, Katsuya Hasebe, Akihiro Nakayama, Katsuhiro Nishinari, Shin-ichi Tadaki, and Satoshi Yukawa. 2008. “Traffic Jams Without Bottlenecks—Experimental Evidence for the Physical Mechanism of the Formation of a Jam.” <em>New Journal of Physics</em> 10 (3):033001. <a href="http://stacks.iop.org/1367-2630/10/i=3/a=033001" class="uri">http://stacks.iop.org/1367-2630/10/i=3/a=033001</a>.</p>
 </div>
+<div id="ref-trieber">
+<p>Trieber, Martin, and Arne Kesting. 2013. <em>Traffic Flow Dynamics: Data, Models and Simulation</em>. Springer.</p>
+</div>
+<div id="ref-vandaele:1983">
+<p>Vandeale, Walter. 1983. <em>Applied Time Series and Box-Jenkins Models</em>. Academic Press.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The <strong>cartools</strong> functions <strong>uk_sdk</strong>, <strong>usdBBridge</strong> and <strong>rrtrials</strong> are used to create the plots shown on this page.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
 
 
