@@ -100,4 +100,6 @@ __Macroscale and Microscale Data and Models__
 
 The logistic regression model of $\pi(k)$ uses _macroscale data_, data averaged over 15-minute intervals. Driver reaction to various traffic stimuli takes place in time measured in seconds. To more fully  explain and understand the traffic behavior, a _microscale model_, a  time series model of speed $U(t)$ where is measured in second, is  introduced. See __Ring-Road__.
 
-__Reference__
+
+*** 
+__References__

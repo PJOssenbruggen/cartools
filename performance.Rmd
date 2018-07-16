@@ -1,5 +1,5 @@
 ---
-title: "Highway Performance"
+title: "Explaining Traffic Breakdown"
 bibliography: CF.bibtex
 ---
 
@@ -208,13 +208,24 @@ set.seed(123)
 
 To keep the discussion as simple as possible, we investigated three vehicles. Since their trajectories satisfy the safe headway conditions, all three drivers are driving safely. Now, imagine that vehicle 3 and 4 enter the simulation. Given that the two self-optimizing drivers will maintain a safe head-ways between themselves and the vehicles in front them as we described for car-following. These drivers also have the option to maintain a $1/k$ headway described above. In either case, vehicles 3 and 4 are suspected to driving side-by-side especially as they approach $x = -500$ feet. Using the $1/k$ headway estimation method, they will be located at $x = -1105$ feet at $t = 0$ and the two drivers of vehicles 3 and 4 will be in a position to decide which one take on the role of leader or follower. In other words, we can repeat the analyses as above for vehicles 1 and 2. The net result is the system will remained in a stress condition. The queue will grow and speeds will continue to decline in magnitude. Eventually, the speeds will decline to values to values that we define as congested. We experience the transition, $X = 0 \rightarrow X = 1$.
 
-__Stochastic Model Predictions__
+__Traffic Breakdown 7__
 
-The following  $t-x$ trajectories show effect of traffic volatility on traffic breakdown. The panel of the left shows a queue forming that in seconds is moving upstream, $x > 0$. The panel on the right shows the five vehicles are closely packed but no queue forms. 
+Now, we will introduce two more vehicles to our simulation showing the effects of traffic volatility on traffic breakdown. Unlike the above simulation, we will not allow any vehicles to pass one another  (1) upstream of $x$ = -500 feet where the vehicles start to merge and (2) downstream of $x$ = 0 where the road has one lane. While these restrictions seem harmless enough, but they place an extra burden on the model to follow each leader/follower pair. Like above, each driver is allowed to be a self optimizer and seek a path to minimize his or her travel time.  The following set of $t-x$ trajectories illustrate the situation for one scenario. Changing the random seed will give an entirely different set of trajectories.
 
-Speeds decline for the drivers of the following vehicles  downstream of $x > 0$ in both simulations.  Despite the volatility, the drivers of the lead vehicles experience no decline in service.
+__Driver Conflicts:__ A legend  in the top-left helps describe the different phases of the merge. The trajectory in the top panel, the lead vehicle, which is shown by a solid line and is identified as vehicle 1,  is unconstrained because it arrives at $x$ = -500 feet first and there is no vehicle in front of it. The following vehicles marked 2 and 4 are traveling in lane 1 and the vehicles marked 3 and 5 are traveling in lane 2. The trajectories of vehicles 2 through 5 are shown with broken lines.  These drivers would follow the broken line trajectories if they were the leader.
 
-The starting conditions are identical for both simulations. The traffic density is $k$ = 50 vpm where the mean speed and standard deviation of speed are $u$ = 41 mph and $\sigma$ = 11 mph, respectively. The random seeds for the two simulations are different. 
+Let us investigate each driver in turn. Driver 2 reduces the speed of his vehicle while in the merge zone. Midway through the merge zone the driver accelerates. According to the broken-line trajectory line, the driver 2 would be well downstream of vehicle 1 after it passes location $x$ = 0. This is impossible. Driver  1 blocks driver 2. 
+
+Following the broken-line trajectories of drivers 3 and 4 shows them not to be blocked. Since they are not blocked, they are content in the sense that if either of them were leaders, then they would at the same $x$ locations as given by their broken-line trajectories at time $t$ = 30 seconds. 
+
+Driver 5 is aggressive driver like driver 2. Unlike driver 2, driver 5 desires to accelerate through the merge zone and then slow down and reach approximately the same $x$ location  as driver 2  at time $t$ = 30 seconds. Driver 5 is blocked by driver 3 before her vehicle reaches $x$ = -500 feet the merge zone.
+
+__Lanes 1 and 2:__ The effects of car-following are shown in the trajectories of drivers 4 and 5. Driver 2 blocks driver 4 in lane 1 because driver 2 must slowdown to avoid tailgating imposed by the $h_{safe}$ rule. In a similar manner, driver 3 blocks driver 2 more relentlessly in lane 2.  In eith
+
+__Car Following Constraints:__ The net effect of imposed by the $h_{safe}$ rule are shown here. In addition, the non-linear acceleration model,  $\ddot{x}(t)  = a - b * t$, is used when necessary in the merge zone. The overall effect of imposing constraints on a group of vehicles that are traveling in a volatile manner is to slow  and sort them. The sort order by vehicle number is shown at $t$ = 30 seconds. Notice that the constraints imposed so far suggest that driver 2 will be in the lead downstream of $x$ = 0. A car-following constraint is imposed on driver 2. 
+
+__Model Predictions:__ In the final analysis, driver 1 is the leader followed by drivers 2, 3, 5 and 4 in that order. Speeds decline for  following vehicle drivers 3, 4 and 5 because of driver 2. The queue begins to form at $x$ = -500 feet owing to this driver.  Driver 1 has no or little effect on all the following vehicle drivers for this simulation. In other simulations is common to see queue formation and driver to be initiated in the middle of the merge zone.
+
 
 ```{r bottleneck_merge,  message = FALSE, fig.height = 4, fig.width = 8, echo = FALSE}
 par(mfrow = c(1,2))
@@ -226,18 +237,15 @@ xstart <- c(-900, -995, -1000, -1090, -1100)
 brktrials2(5, 30, 41, 11, xstart, -500, 14, lane, 0.5, 0) -> output
 ```
 
+__Delay:__ 
 
-High traffic density can be blamed for the loss in performance downstream of $x > 0$. However, individual driver performance appears to be an equally or a more important factor in both simulations. In the left panel, the drivers of the first three vehicles maintain a speed of $u$ = 41 mph. The driver of vehicle 4 slows down causing delay for the last vehicle. 
+__Conclusions__ 
 
-Contrast this situation to one in the right panel. All five drivers maintain a speed of around $u$ = 41 mph until they reach $x = 300$ feet. The driver of vehicle 2 slows down causing a slowdown for the rest of the drivers.
+Traffic noise explains delay and queue formation. High traffic density can be blamed for the loss in performance downstream of $x > 0$. 
 
-Conclusion: Traffic noise explains delay. Remove it and all drivers benefit.
+Remove noise and all drivers benefit as described above by the zipper merge of __Part 3__.   Does the simulation suggest that expanding the number of lanes downstream of the bottleneck to reduce land traffic density is a good solution? Good question. History shows that it is not a good idea. What can be done? Public transportation is one answer.
 
-The following simulations show the importance of traffic density in a __zipper__ merge. Note that start locations of the vehicles are arranged so the drivers are no longer driving side-by-side as the enter the bottleneck. In the simulation on the left, the $t-x$ trajectories is similar to the one directly above it. The only difference between the two simulations is start locations. The random seeds for the two simulations are the same. 
+The simulation suggests that _removing or mitigating traffic noise that the driving  world would be a better place._ We look at that possibility by looking at Intelligent Transportation Systems (ITS) and the notion of Smart Cities.
 
-
-The right panel simulation show no delay at the bottleneck, $x = 0$, or upstream of it, $x < 0$. All delay occurs downstream, $x > 0$. 
-
-The conclusion stated above remains intact. Remove traffic noise and all drivers benefit. _The driving  world would be a better place._ 
-
-Do the simulations suggest that expanding the number of lanes downstream of the bottleneck to reduce land traffic density is a good solution? Good question. History shows that it is not a good idea. What can be done? Public transportation is one answer.
+*** 
+__References__

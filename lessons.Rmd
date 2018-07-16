@@ -1,7 +1,9 @@
 ---
-title: "The Future"
+title: "Smart Mobility"
 bibliography: CF.bibtex
 ---
+
+***
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -94,4 +96,6 @@ This package is open to the public, https://github.com/PJOssenbruggen/Basic. In 
 
 GitHub promotes this activity. See https://github.com/explore. 
 
-__Reference__
+
+*** 
+__References__

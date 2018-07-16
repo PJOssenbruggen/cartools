@@ -45,9 +45,9 @@ p1
 
 Interestingly and despite the differences in speed, the two $t-x$ trajectories have similar shapes.  Vehicles labelled as 1 and 2 are traveling side-by-side in separate lanes when they enter a bottleneck. Vehicle 3 is trailing behind them.   At the end of merge vehicle 1 tails vehicles 2 and 3. All three vehicles are traveling at the same speeds at the beginning and end of the merge. To  depict these individual behaviors, the same time-varying acceleration  function is used for each vehicle trajectory:
 
-* $\ddot{x}(t) = a - b * t$
+*  $\ddot{x}(t) = \frac{d^2x}{dt^2} = a - b * t$
 
-where $t$ denotes time in seconds. The constants $a$ and $b$ are estimated by using the boundary conditions. Model calibration is discussed presently. At this point, it is important to understand that each driver has the ability to accelerate and decelerate, change speed, to safely merge and maintain a safe headway distances of $h_{safe}$ at the bottleneck at times $t$ = 10 and 40 seconds shown on their respective panels.
+where $t$ denotes time in seconds [@LiliBook]. The constants $a$ and $b$ are estimated by using the boundary conditions. Model calibration is discussed presently. At this point, it is important to understand that each driver has the ability to accelerate and decelerate, change speed, to safely merge and maintain a safe headway distances of $h_{safe}$ at the bottleneck at times $t$ = 10 and 40 seconds shown on their respective panels.
 
 Consider the low-speed merge on the left that is completed after 10 seconds where all vehicles have the same initial and final speeds of $u$ = 25 mph at $t$ = 0 and 10 seconds, respectively. The drivers of vehicles 2 and 3 are more aggressive than driver 1. Driver 1, who is the least aggressive, decelerates to allow driver 3 to pass. Their trajectories cross and appear to do so with minimum risk of a crash. Both vehicles have slowed to speeds less than 25 mph when their paths cross. At the end of the low-speed merge, all vehicles are traveling at $u$ = 25 mph and have a safe distance headway of $h_{safe}$ = 35 feet, the safe headway distance for this speed. 
 
@@ -138,6 +138,9 @@ cflist <- run(10, 63, 10, 0,  0,  55, 5, 15, 14, c(0, 20),c(-1000, 200))
 title("Breakdown", "Signalized Intersection")
 ```
 
+
+*** 
+__References__
  
 
 

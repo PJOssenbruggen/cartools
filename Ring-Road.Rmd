@@ -143,4 +143,6 @@ Given these results, __rrtrials__ simulator matches the results observed in the 
 
 
 
-__Reference__
+
+*** 
+__References__
