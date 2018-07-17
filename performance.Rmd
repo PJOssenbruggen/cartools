@@ -244,7 +244,7 @@ __Model Predictions:__ In the final analysis, driver 1 is the leader followed by
 
 It is not hard to imagine and to hypothesize that queue formation and driver delay would be initiated in the middle of the merge zone for other simulations. Of course, owing to the volatility of the process, no queue or driver delay will be observed.
 
-__Delay:__ As mentioned, the next step is to conduct an experiment consisting of 100 simulations and report our findings. They are:
+__Delay:__ As mentioned, the next step is to conduct an experiment consisting of 100 simulations and report our findings:
 
 __Conclusions__ 
 
