@@ -210,23 +210,11 @@ To keep the discussion as simple as possible, we investigated three vehicles. Si
 
 __Traffic Breakdown 7__
 
-Now, we will introduce two more vehicles to our simulation showing the effects of traffic volatility on traffic breakdown. Unlike the above simulation, we will not allow any vehicles to pass one another  (1) upstream of $x$ = -500 feet where the vehicles start to merge and (2) downstream of $x$ = 0 where the road has one lane. While these restrictions seem harmless enough, but they place an extra burden on the model to follow each leader/follower pair. Like above, each driver is allowed to be a self optimizer and seek a path to minimize his or her travel time.  The following set of $t-x$ trajectories illustrate the situation for one scenario. Changing the random seed will give an entirely different set of trajectories.
+Now, we will introduce two more vehicles to our simulation showing the effects of traffic volatility on traffic breakdown. Unlike the above simulation and owing to car-following restrictions, we will not allow  vehicles to pass one another.  These restriction are placed upstream and downstream of the merge zone: (1) upstream of $x$ = -500 feet where the vehicles start to merge, and (2) downstream of $x$ = 0 where the roadway is reduced  to one lane. 
 
-__Driver Conflicts:__ A legend  in the top-left helps describe the different phases of the merge. The trajectory in the top panel, the lead vehicle, which is shown by a solid line and is identified as vehicle 1,  is unconstrained because it arrives at $x$ = -500 feet first and there is no vehicle in front of it. The following vehicles marked 2 and 4 are traveling in lane 1 and the vehicles marked 3 and 5 are traveling in lane 2. The trajectories of vehicles 2 through 5 are shown with broken lines.  These drivers would follow the broken line trajectories if they were the leader.
+While these restrictions seem harmless enough, but they place an extra burden on the model in analyzing the interaction of each leader/follower pair. Like above, each driver is allowed to be a self optimizer and seek a path to minimize his or her travel time.  The following set of $t-x$ trajectories illustrate the situation for one simulation. Keep in mind that assigning a different random seed the algorithm will give an entirely different set of trajectories. Presently, we will conduct an experiment consisting of 100 simulations. Right now, we are analyzing one simulation or sample in the experiment.
 
-Let us investigate each driver in turn. Driver 2 reduces the speed of his vehicle while in the merge zone. Midway through the merge zone the driver accelerates. According to the broken-line trajectory line, the driver 2 would be well downstream of vehicle 1 after it passes location $x$ = 0. This is impossible. Driver  1 blocks driver 2. 
-
-Following the broken-line trajectories of drivers 3 and 4 shows them not to be blocked. Since they are not blocked, they are content in the sense that if either of them were leaders, then they would at the same $x$ locations as given by their broken-line trajectories at time $t$ = 30 seconds. 
-
-Driver 5 is aggressive driver like driver 2. Unlike driver 2, driver 5 desires to accelerate through the merge zone and then slow down and reach approximately the same $x$ location  as driver 2  at time $t$ = 30 seconds. Driver 5 is blocked by driver 3 before her vehicle reaches $x$ = -500 feet the merge zone.
-
-__Lanes 1 and 2:__ The effects of car-following are shown in the trajectories of drivers 4 and 5. Driver 2 blocks driver 4 in lane 1 because driver 2 must slowdown to avoid tailgating imposed by the $h_{safe}$ rule. In a similar manner, driver 3 blocks driver 2 more relentlessly in lane 2.  In eith
-
-__Car Following Constraints:__ The net effect of imposed by the $h_{safe}$ rule are shown here. In addition, the non-linear acceleration model,  $\ddot{x}(t)  = a - b * t$, is used when necessary in the merge zone. The overall effect of imposing constraints on a group of vehicles that are traveling in a volatile manner is to slow  and sort them. The sort order by vehicle number is shown at $t$ = 30 seconds. Notice that the constraints imposed so far suggest that driver 2 will be in the lead downstream of $x$ = 0. A car-following constraint is imposed on driver 2. 
-
-__Model Predictions:__ In the final analysis, driver 1 is the leader followed by drivers 2, 3, 5 and 4 in that order. Speeds decline for  following vehicle drivers 3, 4 and 5 because of driver 2. The queue begins to form at $x$ = -500 feet owing to this driver.  Driver 1 has no or little effect on all the following vehicle drivers for this simulation. In other simulations is common to see queue formation and driver to be initiated in the middle of the merge zone.
-
-
+Let us proceed to explain the traffic breakdown process by investigating each panel from top to  bottom. The panel titles and legends  in the top-left  help describe the different phases of a merge. 
 ```{r bottleneck_merge,  message = FALSE, fig.height = 4, fig.width = 8, echo = FALSE}
 par(mfrow = c(1,2))
 library(Basic)
@@ -237,7 +225,26 @@ xstart <- c(-900, -995, -1000, -1090, -1100)
 brktrials2(5, 30, 41, 11, xstart, -500, 14, lane, 0.5, 0) -> output
 ```
 
-__Delay:__ 
+
+__Driver Conflicts:__  The trajectory in the top panel, the lead vehicle, which is shown by a solid line and is identified as vehicle 1 or driver 1. The driver  is unconstrained because his or her vehicle arrives first at $x$ = -500 feet and secondly, there is no vehicle in front of it to impede its progress. 
+
+Vehicles  2 and 4, which are traveling in lane 1, and  vehicles  3 and 5, which are traveling in lane 2, are impeded.  These vehicle would follow the broken-line trajectories if they were not impeded. Let us investigate the conflict of each driver  in turn. Keep in mind that the broken-lines are considered "desire" trajectories, trajectories the driver would follow if they were not impeded.
+
+To avoid a crash, driver 2 must reduce  his or her vehicle speed before entering  the merge zone. Midway through the merge zone the driver can accelerate as shown by its broken-line trajectory. Now treating its broken-line trajectory past the bottleneck at $x$ = 0 as a "desire" line, driver 2 would be well downstream at $t$ = 30 seconds. In fact, it would be located downstream of vehicle 1. This is impossible. Driver  1 blocks driver 2. 
+
+Following the broken-line trajectories of drivers 3 and 4 shows neither of them  are impeded. They are both content with the driving situation presented to them. Why? Treat their trajectories as "desire" lines. Both would reach their desired $x$ locations as shown at time $t$ = 30 seconds.  
+
+Driver 5 is an aggressive driver like driver 2. Unlike driver 2, driver 5 desires to accelerate through the merge zone and then slow down and reach approximately the same $x$ location  as driver 2  at time $t$ = 30 seconds. Driver 5 is blocked by driver 3 before his or her vehicle reaches $x$ = -500 feet the merge zone.
+
+__Lanes 1 and 2:__ The effects of car-following are shown in the drivers 4 and 5 trajectories. Driver 2 blocks driver 4 in lane 1. Driver 4 must slowdown to avoid tailgating, i.e., the $h_{safe}$ rule is imposed on driver 4. For the same reason, driver 5 blocks driver 3 in lane 2. 
+
+__Car Following Constraints:__ The effects of imposing the $h_{safe}$ rule and the non-linear acceleration model,  $\ddot{x}(t)  = a - b * t$, for the merge zone are shown here.  These constraints, which may slow vehicles down, also affects  the order that vehicles travel through the merge zone and proceed downstream. The sort order by vehicle number is shown at $t$ = 30 seconds. At this point in the analysis, the car-following constraint is not imposed on driver 2 as shown by the broken-line. Once this correction is made, all phases of the merge are completed.
+
+__Model Predictions:__ In the final analysis, driver 1 is the leader followed by drivers 2, 3, 5 and 4 in that order. Speeds decline for  following  drivers 3, 4 and 5 because of driver 2 impedes their progress. The queue begins to form at $x$ = -500 feet owing to  driver 2.  Even though driver 1 is the leader, he or she has no or little impact on the following drivers. Driver 2, on the other hand, has a major impact on this merge.
+
+It is not hard to imagine and to hypothesize that queue formation and driver delay would be initiated in the middle of the merge zone for other simulations. Of course, owing to the volatility of the process, no queue or driver delay will be observed.
+
+__Delay:__ As mentioned, the next step is to conduct an experiment consisting of 100 simulations and report our findings. They are:
 
 __Conclusions__ 
 
