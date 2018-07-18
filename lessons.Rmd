@@ -33,36 +33,6 @@ These are formidable criticisms. However, we have not considered controlling tra
 
 3. Transmit the forecasts back to the vehicles. To be effective, drivers will relinquish control of their vehicles and an on-board control will be used. The on-board systems are contemplated to be autonomous units similar in operation to autonomous cruise control (ACC) devices used on contemporary vehicles sold today.
 
-__Capacity__
-
-Throughout our discussion of __cartools__, we have intentionally avoided discussing roadway capacity, a topic that has received much attention. So, what is correct value of capacity? The best answer is "It depends." Consider the _HCM_ guidelines give a range of capacity values from 2250 to 2400 vph on the geometric design associated with the free-mean speed.  [@Laflamme2018a] give a range from 2400 to 2700 vph. Their approach uses an extreme-value value estimation approach and the analysis of maximum daily flow data including censored data. The estimation method helps explain why their capacity range is greater than the _HCM_. 
-
-Using these ranges for comparison, let's look at the estimation of capacity using the results obtained with __cartools.__ Before doing so, consider the definition of capacity that has been refined over the years. @LiliBook defines the _HCM_ capacity  as a "maximum obtainable flow rate."  She recognizes the difficulties of estimating and assigning capacity owing to the volatility of the field data. Using this definition, we will solve the problem by treating it as a maximization problem with an objection function to  "maximize throughput." Thus, we rewrite out  $Q(t)  = k * U(t)$ model where $U(t) = U(k, u, \sigma, h_{safe}, t)$ as:
-
-
-* maximize  $Q^*  = k^* * \bar{u}(k^*)$.
-
-The solution seems  straightforward enough. Select $k^*$. However, we must remind ourselves that we are dealing with volatile field data. As a reminder, the following two plots are reproduced.
-
-
-```{r uk_sdkplot, message = FALSE, fig.height = 4, fig.width = 4, echo = FALSE, warning=FALSE}
-par(mfrow = c(1,1), pty = "s")
-df <- uk_sdk(QUKtdayX,TRUE)
-```
-
-```{r logisticplots, message = FALSE, fig.height = 4, fig.width = 4, echo = FALSE, warning=FALSE}
-par(mfrow = c(1,1), pty = "s")
-df <- logisticmodel(QUKtdayX,TRUE)
-```
-
-The following graph uses this information to aid in the decision-making. "Success" refers to the probability that the roadway is operating in a free-flow state, $P(X = 0) = 1 - \pi$.
-
-```{r capacityplot, message = FALSE, fig.height = 4, fig.width = 4, echo = FALSE, warning=FALSE}
-par(mfrow = c(1,1))
-capacityplot(QUKtdayX)
-```
-
-The "maximum throughput" is  $Q^*$ = 2400 vph  and $P(X = 0)$ = 0.13 at  $k^*$ = 40 vph.  The importance of  $k^*$ is clearly  evident. For example at $k = 45$, $P(X = 0)$ = 0.6 and $Q$ = 2340 vph. At $k > k^*$, the $Q$ and $P(X = 0)$ performance measures suffer.
 
 __Smart Cities and the Internet of Things__
 

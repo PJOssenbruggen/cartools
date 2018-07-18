@@ -200,6 +200,9 @@ $(document).ready(function () {
   <a href="performance.html">Breakdown</a>
 </li>
 <li>
+  <a href="capacity.html">Capacity</a>
+</li>
+<li>
   <a href="lessons.html">Smart Mobility</a>
 </li>
       </ul>
@@ -259,15 +262,6 @@ $(document).ready(function () {
 </tbody>
 </table>
 <p>The major strength of the <strong>acceleration model</strong> is its ability to explain how a driver will vary his or her vehicle speed over time owing to traffic conditions <span class="citation">(Elefteriadou 2014)</span>. It features a <span class="math inline">\(\ddot{x}(t)\)</span> model, a <em>non-linear, deterministic model</em>.</p>
-<p>The major strength of the <strong>Brownian bridge model of speed</strong>, a stochastic model <span class="math inline">\(U(k,t)\)</span>, is its ability to explain the role of traffic noise and role that traffic density <span class="math inline">\(k\)</span> plays in forecasting the probability of being in a congested state, <span class="math inline">\(\pi(k).\)</span> Since the <span class="math inline">\(U(k,t)\)</span> model is derived from a controlled experiment where <span class="math inline">\(k\)</span> is a fixed value, traffic flow, a most important measure of highway performance, is simply defined as a <em>parsimonius, stochastic model</em>:</p>
-<ul>
-<li><span class="math inline">\(Q(t) = k * U(k, u, \sigma, h_{safe}, t)\)</span>.</li>
-</ul>
-<p>To draw attention to the significance of the model in explaining traffic flow with <span class="math inline">\(k\)</span>, we rewrite as:</p>
-<ul>
-<li><span class="math inline">\(Q(t) = k * U(t)\)</span></li>
-</ul>
-<p>where <span class="math inline">\(U(t) = U(k, u, \sigma, h_{safe}, t)\)</span>.</p>
 <p><strong>Traffic Breakdown Part 1</strong></p>
 <p>What is a traffic breakdown? It is as the transition from a free-flow state to a congested state, <span class="math inline">\(X = 1 \rightarrow X = 0\)</span>. The state space notation is simple enough. The groundwork for explaining traffic breakdown was established in the <strong>Car-Following and Traffic Breakdown</strong> section of <strong>Bottleneck</strong>. This approach uses a deterministic model. Explaining traffic breakdown with a stochastic model is most challenging.</p>
 <p>A traffic breakdown event is complicated because there is a myriad of ways a breakdown can be initiated. Weaving, merging, aggressive driving, and poor roadway design are often blamed. To simplify the discussion, we assume that traffic breakdown will occur at a bottleneck. A two-lane freeway with uni-directional flow merges into a single lane, the so-called “lane drop” problem. Vehicles are forced to merge. For the present, we concentrate on the first two vehicles that decelerate in traffic described to be highly volatile with high density.</p>

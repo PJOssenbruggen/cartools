@@ -29,15 +29,6 @@ knitr::kable(df,  align = "c")
 
 The major strength of the  __acceleration model__ is its ability to explain how a driver will vary his or her vehicle speed over time owing to traffic conditions [@LiliBook]. It features a $\ddot{x}(t)$ model, a _non-linear, deterministic model_. 
 
-The major strength of the __Brownian bridge model of speed__, a stochastic model $U(k,t)$, is its ability to explain the role of traffic noise and role that traffic density $k$ plays in forecasting the probability of being in a congested state, $\pi(k).$ Since the $U(k,t)$ model is derived from a controlled experiment where $k$ is a fixed value, traffic flow, a most important measure of highway performance, is simply defined as a _parsimonius, stochastic model_:
-
-* $Q(t)  = k * U(k, u, \sigma, h_{safe}, t)$.
-
-To draw attention to the significance of the model in explaining traffic flow with $k$, we rewrite as:
-
-* $Q(t)  = k * U(t)$
-
-where $U(t) = U(k, u, \sigma, h_{safe}, t)$.
 
 
 __Traffic Breakdown Part 1__ 

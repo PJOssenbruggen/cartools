@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Roadway Capacity</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Cartools</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Purpose</a>
+</li>
+<li>
+  <a href="Driver.html">Drivers</a>
+</li>
+<li>
+  <a href="about.html">Noise</a>
+</li>
+<li>
+  <a href="Ring-Road.html">Ring-Road</a>
+</li>
+<li>
+  <a href="bottleneck.html">Bottleneck</a>
+</li>
+<li>
+  <a href="performance.html">Breakdown</a>
+</li>
+<li>
+  <a href="capacity.html">Capacity</a>
+</li>
+<li>
+  <a href="lessons.html">Smart Mobility</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Roadway Capacity</h1>
+
+</div>
+
+
+<hr />
+<p><strong>Flow and Capacity</strong></p>
+<p>Throughout our discussion of <strong>cartools</strong>, we have intentionally avoided discussing roadway capacity, a topic that has received much attention. In fact, we have not defined traffic flow as yet. The flow is approximated as average flow time traffic density <span class="citation">(Daganzo 1997)</span>:</p>
+<ul>
+<li><span class="math inline">\(q \approx \bar{u} * k\)</span></li>
+</ul>
+<p>where <span class="math inline">\(q\)</span> is treated as a constant value, <span class="math inline">\(\bar{u}\)</span> as a weighted average by vehicle class and <span class="math inline">\(k\)</span> as a constant value. Appearances are deceiving. The relationship is more complicated than it appears. Let us assume all vehicles are of the same class, say passenger cars and <span class="math inline">\(k\)</span> is a constant. The flow <span class="math inline">\(q\)</span> is not a constant. It is a random variable that we denote as <span class="math inline">\(Q\)</span>. thus <span class="math inline">\(Q = q = \bar{u} * k\)</span> where <span class="math inline">\(Q\)</span> is an expected value.</p>
+<p>The definition of capacity that has been refined over the years. <span class="citation">Banks (1998)</span> simply defines capacity as:</p>
+<ul>
+<li><span class="math inline">\(Q^* = 1/\bar{h}_{min}\)</span></li>
+</ul>
+<p>where <span class="math inline">\(Q^*\)</span> is the maximum value of <span class="math inline">\(Q\)</span> and <span class="math inline">\(\bar{h}_{min}\)</span> is the minimum average headway. This estimate, which is applied to highway and rail systems, is appealing owing to its simplicity. <span class="citation">Elefteriadou (2014)</span> defines the <em>HCM</em> capacity as a “maximum obtainable flow rate.” The <span class="math inline">\(Q^*\)</span> relationship satisfies this definition. Both authors recognize the difficulties of estimating and assigning capacity owing to the volatility of the field data.</p>
+<p><strong>Maximize Traffic Throughput</strong></p>
+<p>We estimate <span class="math inline">\(Q^*\)</span> as a maximization problem with an objection function to “maximize throughput.” Thus, we rewrite out <span class="math inline">\(Q(t) = k * U(t)\)</span> model where <span class="math inline">\(U(t) = U(k, u, \sigma, h_{safe}, t)\)</span> as:</p>
+<ul>
+<li>maximize <span class="math inline">\(Q^* = k^* * \bar{u}(k^*)\)</span>.</li>
+</ul>
+<p>A major strength of the <strong>Brownian bridge model of speed</strong>, a stochastic model <span class="math inline">\(U(k,t)\)</span>, is its ability to explain the role of traffic noise and role that traffic density <span class="math inline">\(k\)</span> plays in forecasting the probability of being in a congested state, <span class="math inline">\(\pi(k).\)</span> Since the <span class="math inline">\(U(k,t)\)</span> model is derived from a controlled experiment where <span class="math inline">\(k\)</span> is a fixed value, traffic flow, a most important measure of highway performance, is simply defined as a <em>parsimonius, stochastic model</em>:</p>
+<ul>
+<li><span class="math inline">\(Q(t) = k * U(k, u, \sigma, h_{safe}, t)\)</span>.</li>
+</ul>
+<p>To draw attention to the significance of the model in explaining traffic flow with <span class="math inline">\(k\)</span>, we rewrite as a time-series model:</p>
+<ul>
+<li><span class="math inline">\(Q(t) = k * U(t)\)</span></li>
+</ul>
+<p>where <span class="math inline">\(U(t) = U(k, u, \sigma, h_{safe}, t)\)</span>. The model tacitly incorporates the roadway geometry (a bottleneck) and driver behavior as reflected by <span class="math inline">\(h_{safe}\)</span>. Here is a reminder that the process is volatile and chancy:</p>
+<p><img src="capacity_files/figure-html/uk_sdkplot-1.png" width="384" /></p>
+<p><img src="capacity_files/figure-html/logisticplots-1.png" width="384" /></p>
+<p><strong>Optimum Solution</strong></p>
+<p>The solution seems straightforward enough. Select <span class="math inline">\(k^*\)</span>. The following graph uses this information to aid in the decision-making. “Success” refers to the probability that the roadway is operating in a free-flow state, <span class="math inline">\(P(X = 0) = 1 - \pi\)</span>.</p>
+<p><img src="capacity_files/figure-html/capacityplot-1.png" width="384" /></p>
+<p>The “maximum throughput” is <span class="math inline">\(Q^*\)</span> = 2400 vph and success probability is <span class="math inline">\(P(X = 0)\)</span> = 0.13 at <span class="math inline">\(k^*\)</span> = 40 vph. The HCM specifies <span class="math inline">\(k^*\)</span> as 45 vpm. According to our results, <span class="math inline">\(Q\)</span> = 2340 vph and <span class="math inline">\(P(X = 0)\)</span> = 0.6.</p>
+<p>The importance of <span class="math inline">\(k\)</span> is clearly evident. For <span class="math inline">\(k &gt; k^*\)</span>, the <span class="math inline">\(Q \approx 1800\)</span> vph and <span class="math inline">\(P(X = 0) \rightarrow 0\)</span> performance measures suffer. Good performance is achieved for <span class="math inline">\(k \leq k^*\)</span> = 40 vph.</p>
+<p>So, what is correct value of capacity? The best answer is “It depends.” Consider the <em>HCM</em> guidelines give a range of capacity values from 2250 to 2400 vph. The vale depends on the free-mean speed associated with the geometric design. <span class="citation">(Laflamme and Ossenbruggen 2018)</span> give a range from 2400 to 2700 vph. Their approach uses an extreme-value value estimation approach and the analysis of maximum daily flow data including censored data. This estimation method helps explain why their capacity range is greater than the <em>HCM</em>.</p>
+<hr />
+<p><strong>References</strong></p>
+<div id="refs" class="references">
+<div id="ref-banks:1998">
+<p>Banks, James A. 1998. <em>Introduction to Transportation Engineering</em>. McGraw-Hill.</p>
+</div>
+<div id="ref-deganzo:1997">
+<p>Daganzo, Carlos F. 1997. <em>Fundamentals of Transportation and Traffic Operations</em>. Permagon.</p>
+</div>
+<div id="ref-LiliBook">
+<p>Elefteriadou, Lily. 2014. <em>An Introduction to Traffic Flow Theory</em>. New York, New York: Springer.</p>
+</div>
+<div id="ref-Laflamme2018a">
+<p>Laflamme, Eric, and Paul J. Ossenbruggen. 2018. “Estimation of Stochastic Traffic Capacity Using Extreme Value Theory and Censoring.” <em>European Transport Research Review</em> in review.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
