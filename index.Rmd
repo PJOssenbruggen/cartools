@@ -52,7 +52,7 @@ The __cartools__ package is designed for college students studying transportatio
 * _Stochastic modeling_,  models that explain breakdown and performance.
 
 
-The website contains six menu bar items:
+The website contains the following menu  items:
 
 1. ##### __Drivers:__  _Self Optimizers_. Meeting the challenges.
 
@@ -62,24 +62,22 @@ The website contains six menu bar items:
 
 4. #####  __Bottleneck:__ _Stochastic modeling_. Traffic merging at a bottleneck where two-lanes  combine to form one lane.
 
-5. #####  __Breakdown:__ _Highway Performance_. Traffic breakdown and queue formation at a bottleneck.
+5. #####  __Breakdown:__ _Highway performance_. Traffic breakdown and queue formation at a bottleneck.
 
-6. ##### __Smart Mobility:__ _Intelligent Transportation Systems._ Moving forward with innovative technology.
+6. #####  __Capacity:__ _Highway performance_. Measuring performance as a capacity.
 
-__Analytical Tools__
+7. ##### __Smart Mobility:__ _Intelligent Transportation Systems._ Moving forward with innovative technology.
 
-Newtons Laws of dynamics, fundamentals of traffic flow theory (TFT), probabilistic modeling and statistics are used in this package.  The goal is to identify key factors that initiate a traffic breakdown event and cause delay by building upon current knowledge - the "classical methods" of transportation analysis - and the latest advances in computation.  
+8. ##### __Summary:__  __cartools__ package highlights.
 
 
-
-The principal aim of this work is to explain highway performance as simply as possible. Topics are introduced in a  step-by-step manner.  The  __cartools__ package is derived and developed from a diverse set of resources:
+The principal aim of the __cartools__ package is to explain highway performance as simply as possible. Topics are introduced in a  step-by-step manner.  The  __cartools__ package is derived and developed from a diverse set of resources:
 
 * _Traffic analysis:_ @banks:1998, @deganzo:1997, @LiliBook, @pjo2017, @1367-2630-10-3-033001, @trieber
 
 * _Probability and statistics:_ @agresti:1990, @hosmer, @iacus, @vandaele:1983
 
 * _Statistical computing and graphics:_ @cran, @sde,  @wickham, @shiny
-
 
 
 *** 

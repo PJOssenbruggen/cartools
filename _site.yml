@@ -19,6 +19,8 @@ navbar:
     href: capacity.html
   - text: Smart Mobility
     href: lessons.html
+  - text: Summary
+    href: summary.html
 output:
   html_document:
     theme: flatly
