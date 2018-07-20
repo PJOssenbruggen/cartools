@@ -421,7 +421,8 @@ $(document).ready(function () {
 <p><strong>Traffic Breakdown 7</strong></p>
 <p>Now, we will introduce two more vehicles to our simulation showing the effects of traffic volatility on traffic breakdown. Unlike the above simulation and owing to car-following restrictions, we will not allow vehicles to pass one another. These restriction are placed upstream and downstream of the merge zone: (1) upstream of <span class="math inline">\(x\)</span> = -500 feet where the vehicles start to merge, and (2) downstream of <span class="math inline">\(x\)</span> = 0 where the roadway is reduced to one lane.</p>
 <p>While these restrictions seem harmless enough, but they place an extra burden on the model in analyzing the interaction of each leader/follower pair. Like above, each driver is allowed to be a self optimizer and seek a path to minimize his or her travel time. The following set of <span class="math inline">\(t-x\)</span> trajectories illustrate the situation for one simulation. Keep in mind that assigning a different random seed the algorithm will give an entirely different set of trajectories. Presently, we will conduct an experiment consisting of 100 simulations. Right now, we are analyzing one simulation or sample in the experiment.</p>
-<p>Let us proceed to explain the traffic breakdown process by investigating each panel from top to bottom. The panel titles and legends in the top-left help describe the different phases of a merge. <img src="performance_files/figure-html/bottleneck_merge-1.png" width="768" /></p>
+<p>Let us proceed to explain the traffic breakdown process by investigating each panel from top to bottom. The panel titles and legends in the top-left help describe the different phases of a merge.</p>
+<p><img src="performance_files/figure-html/bottleneck_merge-1.png" width="768" /></p>
 <p><strong>Driver Conflicts:</strong> The trajectory in the top panel, the lead vehicle, which is shown by a solid line and is identified as vehicle 1 or driver 1. The driver is unconstrained because his or her vehicle arrives first at <span class="math inline">\(x\)</span> = -500 feet and secondly, there is no vehicle in front of it to impede its progress.</p>
 <p>Vehicles 2 and 4, which are traveling in lane 1, and vehicles 3 and 5, which are traveling in lane 2, are impeded. These vehicle would follow the broken-line trajectories if they were not impeded. Let us investigate the conflict of each driver in turn. Keep in mind that the broken-lines are considered “desire” trajectories, trajectories the driver would follow if they were not impeded.</p>
 <p>To avoid a crash, driver 2 must reduce his or her vehicle speed before entering the merge zone. Midway through the merge zone the driver can accelerate as shown by its broken-line trajectory. Now treating its broken-line trajectory past the bottleneck at <span class="math inline">\(x\)</span> = 0 as a “desire” line, driver 2 would be well downstream at <span class="math inline">\(t\)</span> = 30 seconds. In fact, it would be located downstream of vehicle 1. This is impossible. Driver 1 blocks driver 2.</p>
@@ -434,7 +435,8 @@ $(document).ready(function () {
 <p><img src="performance_files/figure-html/bottleneck_merge2-1.png" width="768" /></p>
 <p><em>As you can see, the code must be robust to account for volatility in the breakdown process. More debugging is necessary to remove quirky behavior. For instance, some vehicles are incorrectly backing up! My guess is that more the Brownian motion model needs work.</em></p>
 <p><strong>Regardless, the brktrials2 function shows a queue to form in a short period of time and the drivers are affected well upstream of the merge zone.</strong> Realistic? I think so.</p>
-<p><strong>Delay:</strong> As mentioned, the next step is to conduct an experiment consisting of 100 simulations and report our findings:</p>
+<p><strong>Delay:</strong> An experiment consisting of 10 simulations gives the following results. Given the volatility shown immediately above for one simulation, it is no surprise the volatility in speed for 10 simulations is also great. The average speed through the bottleneck merge region dips to a low of 20 mph.</p>
+<p><img src="Rplot.png" /></p>
 <p><strong>Conclusions</strong></p>
 <p>Traffic noise explains delay and queue formation. High traffic density can be blamed for the loss in performance downstream of <span class="math inline">\(x &gt; 0\)</span>.</p>
 <p>Remove noise and all drivers benefit as described above by the zipper merge of <strong>Part 3</strong>. Does the simulation suggest that expanding the number of lanes downstream of the bottleneck to reduce land traffic density is a good solution? Good question. History shows that it is not a good idea. What can be done? Public transportation is one answer.</p>
@@ -452,7 +454,7 @@ $(document).ready(function () {
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>The <strong>cartools</strong> functions <strong>usdzipper</strong>, <strong>formqueue</strong>, <strong>freeflowpass</strong> <strong>passplot</strong> <strong>brksummary</strong> and <strong>brktrials2</strong> are used to create the plots shown on this page.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>The <strong>cartools</strong> functions <strong>usdzipper</strong>, <strong>formqueue</strong>, <strong>freeflowpass</strong> <strong>passplot</strong> <strong>brksummary</strong>, <strong>brktrials2</strong> and <strong>brkdelay</strong> are used to create the plots shown on this page.<a href="#fnref1" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
 

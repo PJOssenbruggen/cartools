@@ -4,7 +4,7 @@ bibliography: CF.bibtex
 ---
 
 ***
-[^1]: The __cartools__ functions __usdzipper__, __formqueue__, __freeflowpass__ __passplot__ __brksummary__ and __brktrials2__ are used to create the plots shown on this page.  
+[^1]: The __cartools__ functions __usdzipper__, __formqueue__, __freeflowpass__ __passplot__ __brksummary__, __brktrials2__ and __brkdelay__ are used to create the plots shown on this page.  
 
 
 __Model Types__
@@ -206,6 +206,7 @@ Now, we will introduce two more vehicles to our simulation showing the effects o
 While these restrictions seem harmless enough, but they place an extra burden on the model in analyzing the interaction of each leader/follower pair. Like above, each driver is allowed to be a self optimizer and seek a path to minimize his or her travel time.  The following set of $t-x$ trajectories illustrate the situation for one simulation. Keep in mind that assigning a different random seed the algorithm will give an entirely different set of trajectories. Presently, we will conduct an experiment consisting of 100 simulations. Right now, we are analyzing one simulation or sample in the experiment.
 
 Let us proceed to explain the traffic breakdown process by investigating each panel from top to  bottom. The panel titles and legends  in the top-left  help describe the different phases of a merge. 
+
 ```{r bottleneck_merge,  message = FALSE, fig.height = 12, fig.width = 8, echo = FALSE}
 par(mfrow = c(1,2))
 library(Basic)
@@ -213,7 +214,7 @@ library(rlist)
 set.seed(127)
 lane <- c(1,1,2,1,2)
 xstart <- c(-900, -995, -1000, -1090, -1100)
-brktrials2(5, 30, 41, 11, xstart, -500, 14, lane, 0.5, 2) -> output
+brktrials2(30, 41, 11, xstart, -500, 14, lane, 0.5, 2) -> output
 ```
 
 
@@ -235,14 +236,14 @@ __Model Predictions:__ In the final analysis, driver 1 is the leader followed by
 
 It is not hard to imagine and to hypothesize that queue formation and driver delay would be initiated in the middle of the merge zone for other simulations. The following simulation of 10 vehicles suggests that the hypothesis has merit.
 
-```{r bottleneck_merge2,  message = FALSE, fig.height = 24, fig.width = 8, echo = FALSE}
+```{r bottleneck_merge2,  message = FALSE, fig.height = 6, fig.width = 8, echo = FALSE}
 par(mfrow = c(1,2))
 library(Basic)
 library(rlist)
-set.seed(127)
+set.seed(124)
 lane <- c(1,1,2,1,2,1,2,1,2,2,1,2,1,2)
 xstart <- c(-900, -995, -1000, -1090, -1100,-1200, -1220, -1320, -1400, -1660,-1490,-1760,-1590,-1830)
-brktrials2(14, 45, 41, 11, xstart, -500, 14, lane, 0.1, 2) -> output
+brktrials2( 45, 41, 11, xstart, -500, 14, lane, 0.1, 1) -> output
 ```
 
 _As you can see, the code must be robust to account for volatility in the breakdown process. More debugging is necessary to remove quirky behavior. For instance, some vehicles are incorrectly backing up! My guess is that more the Brownian motion model needs work._ 
@@ -250,11 +251,21 @@ _As you can see, the code must be robust to account for volatility in the breakd
 __Regardless, the brktrials2 function shows a queue to form in a short period of time and the drivers are affected well upstream of the merge zone.__ Realistic? I think so.
 
 
-__Delay:__ As mentioned, the next step is to conduct an experiment consisting of 100 simulations and report our findings:
+__Delay:__ An experiment consisting of 10 simulations gives the following results. Given the volatility shown immediately above for one simulation, it is no surprise the volatility in speed for 10 simulations is also great. The average speed through the bottleneck merge region dips to a low of 20 mph. 
 
 
+```{r delay,  message = FALSE, fig.height = 6, fig.width = 8, echo = FALSE}
+#par(mfrow = c(1,2))
+#library(Basic)
+#set.seed(127)
+#lane <- c(1,1,2,1,2,1,2,1,2,2,1,2,1,2)
+#start <- c(-900, -995, -1000, -1090, -1100,-1200, -1220, -1320, -1400, -1660,-1490,-1760,-1590,-1830)
+#brkdelay(2, 30, 41, 11, xstart, -500, 14, lane, 0.5) -> output
+
+```
 
 
+![](Rplot.png)
 
 __Conclusions__ 
 
