@@ -11,35 +11,34 @@ knitr::opts_chunk$set(echo = TRUE)
 
  
 
-No question that designing and operating a transportation system is a difficult problem. Hopefully, by dissecting the problem into manageable pieces and synthesizing the  results from the individual pieces brings clarity to the process. 
+No question that designing and operating a transportation system is a difficult problem. Hopefully, by dissecting the problem into manageable pieces and synthesizing them  brings clarity to the process. 
 
-* The goal is to identify key factors that initiate a traffic breakdown event and cause delay by building upon current knowledge - the "classical methods" of transportation analysis - and the latest advances in computation and graphics. 
+* The goal is to identify key factors that initiate a traffic breakdown event and cause delay. We build upon current knowledge using the "classical methods" of transportation analysis and the latest advances in computation and graphics. 
 
 * Newtons Laws of dynamics, fundamentals of traffic flow theory (TFT), probabilistic modeling and statistics are used.  
 
 * Drivers are defined to be self-optimizers and risk averse at the same time. 
 
-* This is age of _Big Data_. Our mathematical model, which rely heavily on empirical evidence, show the importance of data collection. 
+* This is age of _Big Data_. Our mathematical models rely heavily on empirical evidence. The need to carefully collect data is discussed. 
 
 * _ITS_ is a burgeoning field. The __cartools__ package is designed with this in mind.
 
 
-
-
-
 __Lessons Learned__
 
-The ultimate aim of using __cartools__ package tools is to improve our chances of mitigating congestion and improving performance.
+The ultimate aim of using __cartools__ package tools is to improve our chances of mitigating congestion and improving performance. 
 
-_What have we learned about traffic performance using the __cartools__ package?_ The most notable lesson learned is:
+Much emphasis has been placed on "explaining traffic breakdown." What have we learned about traffic performance using the __cartools__ package?_ The most notable lesson learned is:
 
 * By modeling driver behavior with a simple, parsimonious  Brownian Bridge model of speed, it is possible to explain and forecast  traffic  breakdown on a ring-road and at a bottleneck.  
+
+We hope that you agree.
 
 __Package Potential__
 
 The potential of the __cartools__ package as a learning tool has been demonstrated. Hopefully, this platform can be adapted and expanded to help users  identify the root cause or causes for other congestion problems. 
 
-My next task is add HTML widgets and animation  to the package. Adding these features will allow the user to simply conduct sensitivity analyses on-line. For example, the effects of speed  and density on ring-road performance can be explored. Sliders for $u$, $\sigma$ and $k$ will be provided so a user change them at will. The __cartools__ package will instantaneously produce a histogram of head-ways as illustrated above.
+My next task is add HTML widgets and animation  to the package. Adding these features will allow the user to simply conduct sensitivity analyses on-line. For example, the effects of traffic density $k$ on a bottleneck breakdown can be explored. A slider for $k$ will be provided so a user change it at will and explore its impact. 
 
 This package is open to the public, https://github.com/PJOssenbruggen/Basic. In other words, I am inviting people to share their experiences with the package with me. See https://guides.github.com/activities/forking/. 
 
