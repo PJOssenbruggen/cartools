@@ -15,7 +15,7 @@ No question that designing and operating a transportation system is a difficult 
 
 * The goal is to identify key factors that initiate a traffic breakdown event and cause delay. We build upon current knowledge using the "classical methods" of transportation analysis and the latest advances in computation and graphics. 
 
-* Newtons Laws of dynamics, fundamentals of traffic flow theory (TFT), probabilistic modeling and statistics are used.  
+* Newtons Laws of dynamics, fundamentals of traffic flow theory (_TFT_), probabilistic modeling and statistics are used.  
 
 * Drivers are defined to be self-optimizers and risk averse at the same time. 
 
@@ -40,7 +40,7 @@ The potential of the __cartools__ package as a learning tool has been demonstrat
 
 My next task is add HTML widgets and animation  to the package. Adding these features will allow the user to simply conduct sensitivity analyses on-line. For example, the effects of traffic density $k$ on a bottleneck breakdown can be explored. A slider for $k$ will be provided so a user change it at will and explore its impact. 
 
-This package is open to the public, https://github.com/PJOssenbruggen/Basic. In other words, I am inviting people to share their experiences with the package with me. See https://guides.github.com/activities/forking/. 
+This package is open to the public, https://github.com/PJOssenbruggen/Basic. In other words, we are inviting people to share their experiences with the package with us. See https://guides.github.com/activities/forking/. 
 
 GitHub promotes this activity. See https://github.com/explore. 
 
