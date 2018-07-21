@@ -252,7 +252,7 @@ Regardless, the __brktrials2__ function shows queue  formation to be a function 
 
 __Delay:__ How do we summarize this behavior in a meaning way? This is a tough question because it is different to come to grips with the uncertain nature of a single breakdown. For the present, we will look at expected delay from 10 simulations. We  defer questions dealing with queue length and congestion relief, which are connected.
 
-Delay is defined to be a speed drop, an expected value.  The following graph shows the estimated speed drop to be 21 mph. The speed drops on average from 41 mph to about 20 mph. 
+Delay is defined to be a speed drop, an expected value.  The following graph shows the estimated speed drop to be $\Delta t$ = 21 mph. The speed drops on average from 41 mph to about 20 mph. 
 
 
 ```{r delay,  message = FALSE, fig.height = 6, fig.width = 8, echo = FALSE}
@@ -268,7 +268,9 @@ Delay is defined to be a speed drop, an expected value.  The following graph sho
 
 ![](Rplot.png)
 
-Given $\pi(k)$ = 0.8 at $k$ = 50 vpm and $\bar{u} \pm \sigma$ is so wide, the results from two independent analyses taken together suggest a congestion event $X = 1$ will occur around 80$\%$ of the time.  
+Given $\pi(k)$ = 0.8 at $k$ = 50 vpm and $\bar{u} \pm \sigma$ is so wide, the results from the two independent analyses taken together suggest a congestion event $X = 1$ will occur around 80$\%$ of the time. Another way of looking at the prediction is to state the bottleneck will have vehicles operating at speeds 41 mph or more 20$\%$ of the time. 
+
+A nice feature of reporting   $\pi(k)$ and $\Delta t$ together is that  decision-makers have quantifiable facts at their disposal. 
 
 __Conclusions__ 
 
