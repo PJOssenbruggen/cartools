@@ -207,14 +207,16 @@ While these restrictions seem harmless enough, but they place an extra burden on
 
 Let us proceed to explain the traffic breakdown process by investigating each panel from top to  bottom. The panel titles and legends  in the top-left  help describe the different phases of a merge. 
 
-```{r bottleneck_merge,  message = FALSE, fig.height = 12, fig.width = 8, echo = FALSE}
-par(mfrow = c(1,2))
+```{r bottleneck_merge,  message = FALSE, fig.height = 6, fig.width = 8, echo = FALSE}
+par(mfrow = c(1,1))
 library(Basic)
 library(rlist)
-set.seed(127)
-lane <- c(1,1,2,1,2)
-xstart <- c(-900, -995, -1000, -1090, -1100)
-brktrials2(30, 41, 11, xstart, -500, 14, lane, 0.5, 2) -> output
+lst      <- brktrials3(4, 68.4, 4.4, 0, 30, -700, 0.25, FALSE, 14, -500)
+tuxv     <- lst[[1]]
+tuxv.fix <- lst[[2]]
+vehorder <- lst[[2]]
+xfunnel  <- -500
+plotdesire3(tuxv, xfunnel)
 ```
 
 
@@ -236,14 +238,16 @@ __Model Predictions:__ In the final analysis, driver 1 is the leader followed by
 
 It is not hard to imagine and to hypothesize that queue formation and driver delay would be initiated in the middle of the merge zone for other simulations. The following simulation of 10 vehicles suggests that the hypothesis has merit.
 
-```{r bottleneck_merge2,  message = FALSE, fig.height = 6, fig.width = 8, echo = FALSE}
-par(mfrow = c(1,2))
+```{r bottleneck_merge2,  message = FALSE, fig.height = 6, fig.width = 9, echo = FALSE}
+par(mfrow = c(1,1))
 library(Basic)
 library(rlist)
-set.seed(124)
-lane <- c(1,1,2,1,2,1,2,1,2,2,1,2,1,2)
-xstart <- c(-900, -995, -1000, -1090, -1100,-1200, -1220, -1320, -1400, -1660,-1490,-1760,-1590,-1830)
-brktrials2( 45, 41, 11, xstart, -500, 14, lane, 0.1, 1) -> output
+lst      <- brktrials3(4, 68.4, 4.4, 0, 30, -700, 0.25, FALSE, 14, -500)
+tuxv     <- lst[[1]]
+tuxv.fix <- lst[[2]]
+vehorder <- lst[[3]]
+xfunnel  <- -500
+plotmerge3(tuxv.fix, vehorder, xfunnel)
 ```
 
 _As you can see, the code must be robust to account for various interactions that  drivers face when merging  in dense and volatile traffic . More debugging is necessary to remove quirky behavior exhibited in_ __brktrails2.__ _For instance, some vehicles are incorrectly backing up! The Brownian motion model needs to be refined. Our intention is to have a fluid work platform. Therefore, corrections and refinements to the code are expected._ 
@@ -255,18 +259,7 @@ __Delay:__ How do we summarize this behavior in a meaning way? This is a tough q
 Delay is defined to be a speed drop, an expected value.  The following graph shows the estimated speed drop to be $\Delta t$ = 21 mph. The speed drops on average from 41 mph to about 20 mph. 
 
 
-```{r delay,  message = FALSE, fig.height = 6, fig.width = 8, echo = FALSE}
-#par(mfrow = c(1,2))
-#library(Basic)
-#set.seed(127)
-#lane <- c(1,1,2,1,2,1,2,1,2,2,1,2,1,2)
-#start <- c(-900, -995, -1000, -1090, -1100,-1200, -1220, -1320, -1400, -1660,-1490,-1760,-1590,-1830)
-#brkdelay(2, 30, 41, 11, xstart, -500, 14, lane, 0.5) -> output
 
-```
-
-
-![](Rplot.png)
 
 Given $\pi(k)$ = 0.8 at $k$ = 50 vpm and $\bar{u} \pm \sigma$ is so wide, the results from the two independent analyses taken together suggest a congestion event $X = 1$ will occur around 80$\%$ of the time. Another way of looking at the prediction is to state the bottleneck will have vehicles operating at speeds 41 mph or more 20$\%$ of the time. 
 
