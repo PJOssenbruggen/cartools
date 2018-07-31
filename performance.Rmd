@@ -4,7 +4,7 @@ bibliography: CF.bibtex
 ---
 
 ***
-[^1]: The __cartools__ functions __usdzipper__, __formqueue__, __freeflowpass__ __passplot__ __brksummary__, __brktrials2__ and __brkdelay__ are used to create the plots shown on this page.  
+[^1]: The __cartools__ functions __usdzipper__, __formqueue__, __freeflowpass__ __passplot__ __xabmerge3__, __brktrials3__ and __brkdelay__ are used to create the plots shown on this page.  
 
 
 __Model Types__
@@ -201,11 +201,28 @@ To keep the discussion as simple as possible, we investigated three vehicles. Si
 
 __Traffic Breakdown 7__
 
-Now, we will introduce two more vehicles to our simulation showing the effects of traffic volatility on traffic breakdown. Unlike the above simulation and owing to car-following restrictions, we will not allow  vehicles to pass one another.  These restriction are placed upstream and downstream of the merge zone: (1) upstream of $x$ = -500 feet where the vehicles start to merge, and (2) downstream of $x$ = 0 where the roadway is reduced  to one lane. 
+Now, we will introduce another vehicle to our simulation.  Why restrict it to four vehicles? Adding more vehicles is no problem but the $t-x$ trajectories for more than four vehicles becomes different to follow owing to complexity associated with traffic breakdown. __cartools__ is an educational and research tool. Right now, the emphasis is on education so we want a problem that is easy to follow  and at the same time, give a clear-cut explanation on why traffic breaks down. 
 
-While these restrictions seem harmless enough, but they place an extra burden on the model in analyzing the interaction of each leader/follower pair. Like above, each driver is allowed to be a self optimizer and seek a path to minimize his or her travel time.  The following set of $t-x$ trajectories illustrate the situation for one simulation. Keep in mind that assigning a different random seed the algorithm will give an entirely different set of trajectories. Presently, we will conduct an experiment consisting of 10 simulations. Right now, we are analyzing one simulation or sample in the experiment.
+__Model Features and Warnings:__ As we have seen, $t-x$ trajectories  overlap and cross one another. This is permissible in certain situations. We impose car-following restrictions on all vehicles (1) upstream of $x$ = -500 feet where the roadway has two traffic lanes and (2) downstream of $x$ = 0 where the roadway has one lane.  (3) While no car-following restrictions are imposed in the merge zone, $t-x$ trajectories  expected to diverge when the $h_{safe}$ rule is violated.
 
-Let us proceed to explain the traffic breakdown process by investigating each panel from top to  bottom. The panel titles and legends  in the top-left  help describe the different phases of a merge. 
+A reader should be aware that a $t-x$ trajectory is an imperfect tool and it can be misleading when  trajectories  overlap. Look at the first two items. They may seem to have counter intuitive explanations. But really, they are not:
+
+(1) _Upstream $t-x$ trajectories may overlap._ Why? The vehicles are traveling side-by-side and do not occupy the same space.
+
+(2) _Downstream $t-x$ trajectories may not overlap._ Why? Overlapping trajectories suggest that  vehicles have crashed. Moreover, we are looking for downstream trajectories are sufficiently far enough apart to assure that the drivers are driving safely. 
+
+While these restrictions seem harmless enough, they place an extra burden on  model development where traffic volatility is imposed. Fortunately, we  analyze  interaction  leader and follower pairs, thus the analysis becomes more palliative. 
+
+__"Desire-Line" Trajectories:__ At the same time we place restrictions on traffic operation, we want to allow each driver to be a self optimizer and to seek a path to minimize his or her travel time.  To come to grips with this idea, we introduce the notion of a driver "desire-line" trajectory, an ideal scenario for a single driver. It is assumed to be the trajectory that the driver would follow if the driver were driving in a free-flow $X = 0$ state. Accordingly, the $t-x$ trajectory the driver follow as predicted by the __bmfree2__ function. This idea will become clearer as we proceed.
+
+__Problem Statement:__  Assume that the traffic entering the bottleneck is operating in a free-flow $X = 0$ state with traffic densities on lanes 1 and 2 equal to $k_1$ = $k_2$ = 25 vpm. Owing to the lane drop, the downstream density will be double, $k_{downstream}$ = 50 vpm. According to a previous discussion,   an average downstream speed of $u_{downstream}$ = 41 mph is expected. Since $u_{downstream}$ < $u^*$ = 50 mph, the definition of a congested state $X = 1$ is satisfied. We will see if this will happens.
+
+However, remember that being in a congested state using field data is a chance event. $\pi(k)$ = 0.8 = 80$\%$ at $k$ = 50 vpm. Stated another way, downstream vehicles are expected to operate at speeds equal to and greater than 50 mph 20$\%$ of the time. The upstream and downstream $\bar{u} \pm \sigma$ are: 68 $\pm$ 4.4 and 41 $\pm$ 11 mph, respectively.  In other words, we expect a substantial drop in speed and a substantial increase speed volatility measured as a standard deviation when a breakdown occurs.
+
+We also assume that the upstream vehicles are traveling side-by-side in parallel and the condition for a zipper merge is not satisfied. Drivers must adjust their speeds to safely merge. We will investigate this behavior.
+
+_Does our stochastic model adequately explain the triggering of a traffic  breakdown event?_ Our investigations begins by evaluating the  "desire-line" $t-x$ trajectories from one simulation shown below. Assigning a different random seed to the algorithm will give an entirely different set of trajectories. 
+
 
 ```{r bottleneck_merge,  message = FALSE, fig.height = 6, fig.width = 8, echo = FALSE}
 par(mfrow = c(1,1))
@@ -216,27 +233,21 @@ tuxv     <- lst[[1]]
 tuxv.fix <- lst[[2]]
 vehorder <- lst[[2]]
 xfunnel  <- -500
-plotdesire3(tuxv, xfunnel)
+output <- plotdesire3(tuxv, xfunnel)
 ```
 
 
-__Driver Conflicts:__  The trajectory in the top panel, the lead vehicle, which is shown by a solid line and is identified as vehicle 1 or driver 1. The driver  is unconstrained because his or her vehicle arrives first at $x$ = -500 feet and secondly, there is no vehicle in front of it to impede its progress. 
+__Driver Conflicts:__  The "desire-line" trajectories shown above have vehicles 1 and 2 traveling in lane 1 and vehicles 3 and 4 traveling in lane 2.  As mentioned above, (1) upstream $t-x$ trajectories may overlap, (2) downstream trajectories can neither cross nor overlap, and (3) merge zone trajectories are expected to diverge when the $h_{safe}$ rule is violated. Since the downstream trajectories overlap, it is obvious that the drivers must make adjustments to avoid crashing. However, it is not obvious that the $h_{safe}$ rule is violated in the merge zone. The rule is violated, but why?
 
-Vehicles  2 and 4, which are traveling in lane 1, and  vehicles  3 and 5, which are traveling in lane 2, are impeded.  These vehicle would follow the broken-line trajectories if they were not impeded. Let us investigate the conflict of each driver  in turn. Keep in mind that the broken-lines are considered "desire" trajectories, trajectories the driver would follow if they were not impeded.
+Let us investigate driver conflicts by starting with vehicles 1 and 3. The drivers of these vehicles have "desire-line" trajectories that are arguably the same. Both drivers want (desire) to arrive at the same location at time $t$ = 30 seconds. This is impossible because their downstream trajectories overlap. One driver must yield to avoid a crash. It is not obvious at this point which driver will yield. This will be discussed presently.
 
-To avoid a crash, driver 2 must reduce  his or her vehicle speed before entering  the merge zone. Midway through the merge zone the driver can accelerate as shown by its broken-line trajectory. Now treating its broken-line trajectory past the bottleneck at $x$ = 0 as a "desire" line, driver 2 would be well downstream at $t$ = 30 seconds. In fact, it would be located downstream of vehicle 1. This is impossible. Driver  1 blocks driver 2. 
+Now, let us shift our attention to driver 2 of lane 1,  a following vehicle in a car-following situation. Driver 2  is maintaining a safe headway behind  vehicle 1. Similarly, driver 4 of lane 2, a following vehicle, is maintaining a safe headway behind  vehicle 4. 
 
-Following the broken-line trajectories of drivers 3 and 4 shows neither of them  are impeded. They are both content with the driving situation presented to them. Why? Treat their trajectories as "desire" lines. Both would reach their desired $x$ locations as shown at time $t$ = 30 seconds.  
+Like in the previous paragraph, one of the drivers of vehicles 2 and 4 must yield to avoid a downstream crash. The "desire-line" of vehicle 2 shows it driver to be more aggressive than driver 4. Driver 2 wants to pass driver 4. Again, we have a situation where one of these drivers must yield. 
 
-Driver 5 is an aggressive driver like driver 2. Unlike driver 2, driver 5 desires to accelerate through the merge zone and then slow down and reach approximately the same $x$ location  as driver 2  at time $t$ = 30 seconds. Driver 5 is blocked by driver 3 before his or her vehicle reaches $x$ = -500 feet the merge zone.
+__Model Predictions:__ Now, we skip directly to solution and then offer a justification for a solution.
 
-__Lanes 1 and 2:__ The effects of car-following are shown in the drivers 4 and 5 trajectories. Driver 2 blocks driver 4 in lane 1. Driver 4 must slowdown to avoid tailgating, i.e., the $h_{safe}$ rule is imposed on driver 4. For the same reason, driver 5 blocks driver 3 in lane 2. 
-
-__Car Following Constraints:__ The effects of imposing the $h_{safe}$ rule and the non-linear acceleration model,  $\ddot{x}(t)  = a - b * t$, for the merge zone are shown here.  These constraints, which may slow vehicles down, also affects  the order that vehicles travel through the merge zone and proceed downstream. The sort order by vehicle number is shown at $t$ = 30 seconds. At this point in the analysis, the car-following constraint is not imposed on driver 2 as shown by the broken-line. Once this correction is made, all phases of the merge are completed.
-
-__Model Predictions:__ In the final analysis, driver 1 is the leader followed by drivers 2, 3, 5 and 4 in that order. Speeds decline for  following  drivers 3, 4 and 5 because of driver 2 impedes their progress. The queue begins to form at $x$ = -500 feet owing to  driver 2.  Even though driver 1 is the leader, he or she has no or little impact on the following drivers. Driver 2, on the other hand, has a major impact on this merge.
-
-It is not hard to imagine and to hypothesize that queue formation and driver delay would be initiated in the middle of the merge zone for other simulations. The following simulation of 10 vehicles suggests that the hypothesis has merit.
+Vehicle 1 becomes the leader followed by vehicles  3, 4 and 2 in that order at time $t$ = 30 seconds. All driver conflicts are removed and the $h_{safe}$ rule is imposed on all drivers. It is also interesting to observe that driver 4, who was deemed to be more aggressive than driver 2, winds up last. Before investigating this situation, we focus on our main concern, _Does our stochastic model adequately explain the triggering of a traffic  breakdown event?_
 
 ```{r bottleneck_merge2,  message = FALSE, fig.height = 6, fig.width = 9, echo = FALSE}
 par(mfrow = c(1,1))
@@ -247,21 +258,46 @@ tuxv     <- lst[[1]]
 tuxv.fix <- lst[[2]]
 vehorder <- lst[[3]]
 xfunnel  <- -500
-plotmerge3(tuxv.fix, vehorder, xfunnel)
+output2  <- plotmerge3(tuxv.fix, vehorder, xfunnel)
 ```
 
-_As you can see, the code must be robust to account for various interactions that  drivers face when merging  in dense and volatile traffic . More debugging is necessary to remove quirky behavior exhibited in_ __brktrails2.__ _For instance, some vehicles are incorrectly backing up! The Brownian motion model needs to be refined. Our intention is to have a fluid work platform. Therefore, corrections and refinements to the code are expected._ 
+By visual inspection, we can see the slopes of the $t-x$ trajectories or speeds to be declining for each vehicle that pass through the merge zone and pass  point $x$ = 0.  Even though we are observing only four vehicles, we can also see a queue forming.  It moves in the upstream direction as expected. So, a cursory test of our model, the __plotmerge3__  function, suggests the model explains breakdown. Since we are using the  _Learning Process_ of  @box, we subject our model to further testing and offer deeper understanding.
 
-Regardless, the __brktrials2__ function shows queue  formation to be a function of traffic density and traffic volatility. Don't forget that there is a strong association between traffic volatility and driver behavior. We can identify the actions of individual drivers and actions one or two drivers can adversely affect the rest. Does the __brktrials2__ function adequately explain this behavior? Yes, we think so. Can it be improved? Definitely.
+__Car Following Effects:__ The effects of imposing the $h_{safe}$ rule and the non-linear acceleration model,
 
-__Delay:__ How do we summarize this behavior in a meaning way? This is a tough question because it is different to come to grips with the uncertain nature of a single breakdown. For the present, we will look at expected delay from 10 simulations. We  defer questions dealing with queue length and congestion relief, which are connected.
+* $\ddot{x}(t)  = a - b * t$, 
+
+for the merge zone, coupled with the random effects of the Brownian motion model, (1) slow vehicles down and (2) affect  the order in which vehicles pass through the merge zone. While the $t-x$ trajectories appear correct, there is a lot going on  in this simple example. _Obviously, the code must be robust to account for various interactions that  drivers must face when merging  in dense and volatile traffic._ 
+
+Regardless on the mathematical rigor, our model must satisfy the test of _common sense._ So let us pose another question: _Do the simulated drivers behave in a manner that is realistic?_ 
+
+Start with drivers 1 and 3. Driver 1 is shown as to be moving through the merge zone unimpeded. Owing the effects of Brownian motion, driver 1 arrives at $x$ = -500 fractions of a second before driver 3. Therefore, driver 3 yields and slows as shown. That makes sense. 
+
+Driver 3 must make quick decisions as a car-follower. Theoretically,  driver 3 observes and processes the roadway information presented to him or her. To help us describe the situation as simply as possible, the driver is assumed to subconsciously  process  the information as summarized in the "desire-lines" trajectories for vehicles 1 and 3. After processing the information, driver 3 knows a crash is inevitable if no changes are made. Driver 3 slows to a speed that equals the speed of vehicle 1 and decelerates in a manner to be a safe distance behind vehicle 1 when it passes through the bottleneck at $x$ = 0. Again, this makes sense. Driver 3 is risk averse.
+
+The decision-making scheme used by driver 3 required by our mathematical model uses six variables of time, speed and location. They include the time the vehicle arrives at $x = x_{start}$ = -500 feet or $t_{start}$ and the time the driver arrives at $x = x_{end}$ = 0 or $t_{end}$. The speed at these times are $u_{start}$ and $u_{end}$.  These variables are used to create the $t-x$ trajectory shown for vehicle 3 with the __xabmerge3__ function.
+
+Drivers 2 and 4 at this point in the discussion are both car-followers of vehicle 3. Both arrive at $x$ = -500 feet safely behind vehicle 3 as determined by the $h_{safe}$ rule. Vehicle 4 arrives at $x$ = -500 feet slightly before vehicle 2, therefore, driver 4 takes over as the leader and driver 2 as the follower. It follows the reasoning above, so it makes sense.
+
+Driver 4 must make a decision based on the roadway information presented as a follower of vehicle 3. Like above, driver 4 will use the "desire-line" trajectory for vehicles 3 and 2 and find an unsafe situation and make adjustments. Driver 4 is predicted to follow as shown above. The next step is to analyze the situation for vehicle 2, a follower, where vehicle 4 is the leader.  Since the same scheme is used by each seceding driver, there is no need to claim that it is passing our common sense test.  
+
+__Downstream Traffic Behavior:__ We stated above that driver of vehicle 4 is aggressive. How can we explain that downstream of the bottleneck at $x$ = 0 that driver 4 is the least aggressive driver?  At this point, our answer relies on car-following effects, vehicle sorting, and vehicle speeds at $x$ = 0. In other words, upstream conditions of the bottleneck at $x$ = 0.
+
+Further research is needed to better explain downstream traffic behavior. No field data were collected downstream of the bottleneck on I-93, so we must rely on our experiences as drivers. It is a well know fact that once drivers pass through a bottleneck that drivers accelerate and return to free-flow state. Well, we don't have this situation. Downstream of the bottleneck, our roadway is confined to one lane and does not expand to two lanes.  
+
+Right now, the code of  __brktrails3__ is confined to car-following with Brownian motion and no passing downstream of $x$ = 0. This restriction presents some interesting challenges in code writing. For example, queue  formation is assumed to be a function of traffic density and traffic volatility. We cannot forget that there is a strong association between traffic volatility and driver behavior. This is part of __brktrails3__ function for traffic upstream of the bottleneck. Downstream traffic of $x$ = 0, the average speed is determined by $u_{end}$ derived from the analysis of merge zone only. At the same time, we know that $k_{downstream}$ = 50 vpm and have empirical evidence from I-93 upstream field measurements that $\bar{u} \pm \sigma$ equals 41 $\pm$ 11 mph. This information is not introduced into  __brktrails3__ algorithm at this time. Maybe it shouldn't be. 
+
+Recognizing these shortcomings in data collection, the current  __brktrails3__ code, seems to give reasonable results for this simulation over the entire time range from 0 to 30 seconds. 
+
+Does the __brktrials3__ function adequately explain this behavior? Yes, we think so. Can it be improved? Definitely. _Our intention is to have a fluid work platform. Therefore, corrections and refinements to the_ __cartools__  _are expected and suggestions for improvement are welcome._ 
+
+
+
+__Delay:__ How do we summarize this behavior in a meaning way? This is a tough question because it is difficult to come to grips with the uncertain nature of a single breakdown. For the present, we will look at expected delay from 10 simulations. We  defer questions dealing with queue length and congestion relief, which are connected.
 
 Delay is defined to be a speed drop, an expected value.  The following graph shows the estimated speed drop to be $\Delta t$ = 21 mph. The speed drops on average from 41 mph to about 20 mph. 
 
 
-
-
-Given $\pi(k)$ = 0.8 at $k$ = 50 vpm and $\bar{u} \pm \sigma$ is so wide, the results from the two independent analyses taken together suggest a congestion event $X = 1$ will occur around 80$\%$ of the time. Another way of looking at the prediction is to state the bottleneck will have vehicles operating at speeds 41 mph or more 20$\%$ of the time. 
 
 A nice feature of reporting   $\pi(k)$ and $\Delta t$ together is that  decision-makers have quantifiable facts at their disposal. 
 
