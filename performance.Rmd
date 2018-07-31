@@ -201,7 +201,7 @@ To keep the discussion as simple as possible, we investigated three vehicles. Si
 
 __Traffic Breakdown 7__
 
-Now, we will introduce another vehicle to our simulation.  Why restrict it to four vehicles? Adding more vehicles is no problem but the $t-x$ trajectories for more than four vehicles becomes different to follow owing to complexity associated with traffic breakdown. __cartools__ is an educational and research tool. Right now, the emphasis is on education so we want a problem that is easy to follow  and at the same time, give a clear-cut explanation on why traffic breaks down. 
+Now, we will introduce another vehicle to our simulation.  Why restrict it to four vehicles? Adding more vehicles is no problem but the $t-x$ trajectories for more than four vehicles becomes different to follow owing to the complexity associated with traffic breakdown. __cartools__ is an educational and research tool. Right now, the emphasis is on education so we want a problem that is easy to follow  and at the same time, give a clear-cut explanation on why traffic breaks down. 
 
 __Model Features and Warnings:__ As we have seen, $t-x$ trajectories  overlap and cross one another. This is permissible in certain situations. We impose car-following restrictions on all vehicles (1) upstream of $x$ = -500 feet where the roadway has two traffic lanes and (2) downstream of $x$ = 0 where the roadway has one lane.  (3) While no car-following restrictions are imposed in the merge zone, $t-x$ trajectories  expected to diverge when the $h_{safe}$ rule is violated.
 
