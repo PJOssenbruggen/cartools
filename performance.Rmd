@@ -201,9 +201,9 @@ To keep the discussion as simple as possible, we investigated three vehicles. Si
 
 __Traffic Breakdown 7__
 
-Now, we will introduce another vehicle to our simulation.  Why restrict it to four vehicles? Adding more vehicles is no problem but the $t-x$ trajectories for more than four vehicles becomes different to follow owing to the complexity associated with traffic breakdown. __cartools__ is an educational and research tool. Right now, the emphasis is on education so we want a problem that is easy to follow  and at the same time, give a clear-cut explanation on why traffic breaks down. 
+Now, we will introduce another vehicle to our simulation.  Why restrict it to four vehicles? Adding more vehicles is no problem but the $t-x$ trajectories for more than four vehicles becomes different to follow owing to the complexity associated with traffic breakdown. __cartools__ is an educational and research tool. Right now, the emphasis is on education so we want a problem that is easy to follow  and at the same time, give a clear-cut explanation of traffic breakdown. 
 
-__Model Features and Warnings:__ As we have seen, $t-x$ trajectories  overlap and cross one another. This is permissible in certain situations. We impose car-following restrictions on all vehicles (1) upstream of $x$ = -500 feet where the roadway has two traffic lanes and (2) downstream of $x$ = 0 where the roadway has one lane.  (3) While no car-following restrictions are imposed in the merge zone, $t-x$ trajectories  expected to diverge when the $h_{safe}$ rule is violated.
+__Model Features and Warnings:__ As we have seen, $t-x$ trajectories  overlap and cross one another. This is permissible in certain situations. We impose car-following restrictions on all vehicles (1) upstream of $x$ = -500 feet where the roadway has two traffic lanes and (2) downstream of $x$ = 0 where the roadway has one lane.  (3) While no car-following restrictions are imposed in the merge zone, $t-x$ trajectories are expected to diverge when the $h_{safe}$ rule is violated.
 
 A reader should be aware that a $t-x$ trajectory is an imperfect tool and it can be misleading when  trajectories  overlap. Look at the first two items. They may seem to have counter intuitive explanations. But really, they are not:
 
@@ -211,9 +211,9 @@ A reader should be aware that a $t-x$ trajectory is an imperfect tool and it can
 
 (2) _Downstream $t-x$ trajectories may not overlap._ Why? Overlapping trajectories suggest that  vehicles have crashed. Moreover, we are looking for downstream trajectories are sufficiently far enough apart to assure that the drivers are driving safely. 
 
-While these restrictions seem harmless enough, they place an extra burden on  model development where traffic volatility is imposed. Fortunately, we  analyze  interaction  leader and follower pairs, thus the analysis becomes more palliative. 
+While these restrictions seem harmless enough, they place an extra burden on the development of stochastic models. Fortunately, we  analyze  interaction  leader and follower pairs, thus the analysis becomes more palliative. 
 
-__"Desire-Line" Trajectories:__ At the same time we place restrictions on traffic operation, we want to allow each driver to be a self optimizer and to seek a path to minimize his or her travel time.  To come to grips with this idea, we introduce the notion of a driver "desire-line" trajectory, an ideal scenario for a single driver. It is assumed to be the trajectory that the driver would follow if the driver were driving in a free-flow $X = 0$ state. Accordingly, the $t-x$ trajectory the driver follow as predicted by the __bmfree2__ function. This idea will become clearer as we proceed.
+__"Desire-Line" Trajectories:__ At the same time restrictions are placed on traffic operation, we want to allow each driver to be a self optimizer and to seek a path to minimize his or her travel time.  To come to grips with this idea, we introduce the notion of a driver "desire-line" trajectory, an ideal scenario for a driver traveling in free-flow or $X = 0$ state. Accordingly, the $t-x$ trajectory the driver follow as predicted by the __bmfree2__ function. This idea will become clearer as we proceed.
 
 __Problem Statement:__  Assume that the traffic entering the bottleneck is operating in a free-flow $X = 0$ state with traffic densities on lanes 1 and 2 equal to $k_1$ = $k_2$ = 25 vpm. Owing to the lane drop, the downstream density will be double, $k_{downstream}$ = 50 vpm. According to a previous discussion,   an average downstream speed of $u_{downstream}$ = 41 mph is expected. Since $u_{downstream}$ < $u^*$ = 50 mph, the definition of a congested state $X = 1$ is satisfied. We will see if this will happens.
 
@@ -233,7 +233,7 @@ tuxv     <- lst[[1]]
 tuxv.fix <- lst[[2]]
 vehorder <- lst[[2]]
 xfunnel  <- -500
-output <- plotdesire3(tuxv, xfunnel)
+output   <- plotdesire3(tuxv, xfunnel)
 ```
 
 
@@ -251,6 +251,7 @@ Vehicle 1 becomes the leader followed by vehicles  3, 4 and 2 in that order at t
 
 ```{r bottleneck_merge2,  message = FALSE, fig.height = 6, fig.width = 9, echo = FALSE}
 par(mfrow = c(1,1))
+set.seed(123)
 library(Basic)
 library(rlist)
 lst      <- brktrials3(4, 68.4, 4.4, 0, 30, -700, 0.25, FALSE, 14, -500)
@@ -281,24 +282,47 @@ Drivers 2 and 4 at this point in the discussion are both car-followers of vehicl
 
 Driver 4 must make a decision based on the roadway information presented as a follower of vehicle 3. Like above, driver 4 will use the "desire-line" trajectory for vehicles 3 and 2 and find an unsafe situation and make adjustments. Driver 4 is predicted to follow as shown above. The next step is to analyze the situation for vehicle 2, a follower, where vehicle 4 is the leader.  Since the same scheme is used by each seceding driver, there is no need to claim that it is passing our common sense test.  
 
-__Downstream Traffic Behavior:__ We stated above that driver of vehicle 4 is aggressive. How can we explain that downstream of the bottleneck at $x$ = 0 that driver 4 is the least aggressive driver?  At this point, our answer relies on car-following effects, vehicle sorting, and vehicle speeds at $x$ = 0. In other words, upstream conditions of the bottleneck at $x$ = 0.
+__Downstream Traffic Behavior:__ We stated above that driver of vehicle 4 is aggressive. How can we explain that downstream of the bottleneck at $x$ = 0 that driver 4 is the least aggressive driver?  At this point, our answer relies on car-following effects, vehicle sorting, and vehicle speeds at $x$ = 0. In other words, upstream conditions of the bottleneck at $x$ = 0 dictate. Simply stated, the driver is caught in traffic and blocked. Common sense? Yes.
 
-Further research is needed to better explain downstream traffic behavior. No field data were collected downstream of the bottleneck on I-93, so we must rely on our experiences as drivers. It is a well know fact that once drivers pass through a bottleneck that drivers accelerate and return to free-flow state. Well, we don't have this situation. Downstream of the bottleneck, our roadway is confined to one lane and does not expand to two lanes.  
-
-Right now, the code of  __brktrails3__ is confined to car-following with Brownian motion and no passing downstream of $x$ = 0. This restriction presents some interesting challenges in code writing. For example, queue  formation is assumed to be a function of traffic density and traffic volatility. We cannot forget that there is a strong association between traffic volatility and driver behavior. This is part of __brktrails3__ function for traffic upstream of the bottleneck. Downstream traffic of $x$ = 0, the average speed is determined by $u_{end}$ derived from the analysis of merge zone only. At the same time, we know that $k_{downstream}$ = 50 vpm and have empirical evidence from I-93 upstream field measurements that $\bar{u} \pm \sigma$ equals 41 $\pm$ 11 mph. This information is not introduced into  __brktrails3__ algorithm at this time. Maybe it shouldn't be. 
-
-Recognizing these shortcomings in data collection, the current  __brktrails3__ code, seems to give reasonable results for this simulation over the entire time range from 0 to 30 seconds. 
-
-Does the __brktrials3__ function adequately explain this behavior? Yes, we think so. Can it be improved? Definitely. _Our intention is to have a fluid work platform. Therefore, corrections and refinements to the_ __cartools__  _are expected and suggestions for improvement are welcome._ 
+The following forecasts shown below are derived from the same model and  inputs including the same random seed as above. The only difference is  10 vehicles  are analyzed in lieu of four. In this simulation, the first three vehicles 1, 6 and 2 are not delayed and the following  ones are. The speeds in the merge zone of the followers  appear  to be affected most sharply. Let us see.  
 
 
+```{r bottleneck_merge3,  message = FALSE, fig.height = 6, fig.width = 9, echo = FALSE}
+par(mfrow = c(1,1))
+library(Basic)
+library(rlist)
+lst      <- brktrials3(10, 68.4, 4.4, 0, 30, -700, 0.25, FALSE, 14, -500)
+tuxv     <- lst[[1]]
+tuxv.fix <- lst[[2]]
+vehorder <- lst[[3]]
+xfunnel  <- -500
+output3  <- plotmerge3(tuxv.fix, vehorder, xfunnel)
+```
 
-__Delay:__ How do we summarize this behavior in a meaning way? This is a tough question because it is difficult to come to grips with the uncertain nature of a single breakdown. For the present, we will look at expected delay from 10 simulations. We  defer questions dealing with queue length and congestion relief, which are connected.
+__Bottleneck Delay:__ We decided to investigate 10 simulations consisting of 10 vehicles for the situation described above. The results are summarized with a time-series plot of speed averages and standard deviations below. 
 
-Delay is defined to be a speed drop, an expected value.  The following graph shows the estimated speed drop to be $\Delta t$ = 21 mph. The speed drops on average from 41 mph to about 20 mph. 
+```{r bottleneck_merge4,  message = FALSE, fig.height = 6, fig.width = 9, echo = FALSE}
+par(mfrow = c(1,1))
+library(Basic)
+library(rlist)
+lst      <- brkdelay3(10,10, 0, 30, 68.4, 4.4, -700, -500, 14, 0.25)
+
+```
 
 
-A nice feature of reporting   $\pi(k)$ and $\Delta t$ together is that  decision-makers have quantifiable facts at their disposal. 
+The average speeds fall below our critical speed of $u^*$ = 50 mph from about seven seconds from 5 to 12 seconds with an estimated maximum speed drop  of 21 mph at $t$ = 7 seconds.  
+
+The speed volatility is substantial over this period. According to predictions, traffic volatility is even higher after 15 seconds, or on the downstream side of the bottleneck. 
+
+For the present, we  defer questions dealing with queue length and congestion relief. These are tough questions that need more thought and field data. 
+
+
+__Stochastic Model Critique:__ _Do the collection of_ __cartools__ _functions adequately explain this behavior?_ Yes, we think so. Can it be improved? Definitely. _Our intention is to have a fluid work platform. Therefore, corrections and refinements to the_ __cartools__  _are expected and suggestions for improvement are welcome._ 
+
+We understand that further research is needed to better explain downstream traffic behavior. No field data were collected downstream of the bottleneck on I-93, so our driving experiences are used. It is a fact that once drivers pass through a bottleneck that drivers will accelerate and will try to return to a free-flow state. Well, we don't have this situation. Downstream of the bottleneck, our roadway is confined to one lane and does not expand to two lanes.  Regardless, the forecasts from the simulations shown above show this behavior. It passes our common sense test.
+
+For another, the speed drop and high volatility results shown in the __Bottleneck Delay__ plot stem directly mechanisms embedded in  the stochastic model or __brktrials3__ function. We have empirical evidence from I-93  field data that $\bar{u} \pm \sigma$ equals 41 $\pm$ 11 mph. _This information was not introduced into our model or code._   The model forecasts and  empirical evidence match. We are looking into ways to show that this result is not a coindence, but a fact.
+
 
 __Conclusions__ 
 
