@@ -9,7 +9,7 @@ bibliography: CF.bibtex
 
 __Model Types__
 
-We have developed two modeling types to simulate traffic behavior.  Each type realistically simulates conditions found in the field  using $t-x$ trajectories as the principle means of comparison. The models  are fundamentally different. One is a deterministic model and the other is a stochastic model. The forecasts from the two models compliment one another. Both satisfy the principal aim of developing the __cartools__ package: __To explain highway performance as simply as possible.__  
+We have developed two modeling types to simulate traffic behavior.  Each type realistically simulates conditions found in the field  using $t-x$ trajectories as the principle means of comparison. The models  are fundamentally different. One is a deterministic model and the other is a stochastic model. The forecasts from the two models compliment one another. Both satisfy the principal aim of developing the __cartools__ package: To explain highway performance as simply as possible, two model structures have been used:  
 
 ```{r, include = FALSE, warning = FALSE, message = FALSE, error = FALSE}
 library(Basic)
@@ -27,15 +27,18 @@ rownames(df)  <- c("Description", "Stochastic", "Driver Response", "Driver Risk 
 knitr::kable(df,  align = "c")
 ```
 
-The major strength of the  __acceleration model__ is its ability to explain how a driver will vary his or her vehicle speed over time owing to traffic conditions [@LiliBook]. It features a $\ddot{x}(t)$ model, a _non-linear, deterministic model_. 
+A major strength of the  __acceleration model__ is its ability to explain how a driver will vary his or her vehicle speed over time owing to traffic conditions [@LiliBook]. It features a $\ddot{x}(t)$ model, a _non-linear, deterministic model_. A major strength of the __Brownian Bridge model__ is its ability to capture traffic noise. 
+
+By connecting these two models, we can explain traffic breakdown and simulate traffic breakdown events. To appreciate the challenges of  developing our stochastic breakdown model, we follow a step-by-step approach and at the same time, we highlight the special features of each model type. Now, we want synthesize this information in a coherent manner. The final model or __brktrials3__ function, incidentally, is described and critiqued in  __Traffic Breakdown Part 7__. 
+
+_What is a traffic breakdown event?_  It is as the transition from a free-flow state to a congested state, $X = 1 \rightarrow X = 0$. The state space notation is simple enough and should be clear. The groundwork for explaining a traffic breakdown event with the two model structures was established earlier. See menu items: __Drivers__, __Noise__, __Ring-Road__ and __Bottleneck__. 
 
 
 
 __Traffic Breakdown Part 1__ 
 
-What is a traffic breakdown?  It is as the transition from a free-flow state to a congested state, $X = 1 \rightarrow X = 0$. The state space notation is simple enough. The groundwork for explaining traffic breakdown was established in the __Car-Following and Traffic Breakdown__ section of  __Bottleneck__. This approach uses a deterministic model.  Explaining traffic breakdown with a stochastic  model is most challenging.
 
-A traffic breakdown event is complicated because there is a myriad of ways a breakdown can be initiated. Weaving, merging, aggressive driving, and poor roadway design are often blamed. To simplify the discussion, we assume that traffic breakdown will occur at a bottleneck. A  two-lane freeway with uni-directional flow merges into a single lane, the so-called "lane drop" problem. Vehicles are forced to merge. For the present, we concentrate on the first two vehicles that decelerate in traffic described to be highly volatile with high density. 
+Explaining traffic breakdown with a stochastic  model is most challenging. Why? A traffic breakdown event is complicated because there are a myriad of ways a breakdown event can be initiated. Weaving, merging, aggressive driving, and poor roadway design are often blamed. To simplify the discussion, we assume that traffic breakdown will occur at a bottleneck. See the schematic diagram in __Bottleneck__. A  two-lane freeway with uni-directional flow merges into a single lane, the so-called "lane drop" problem. Vehicles are forced to merge. For the present, we concentrate on the first two vehicles that decelerate in traffic described to be highly volatile with high density. 
 
 There is uncertainty associated  specifying a  stochastic speed model. Since the __acceleration__ or deterministic $u(t)$ model explains breakdown, we will add random effects component to it [@iacus]. We obtain:
 
