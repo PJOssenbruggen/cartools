@@ -19,12 +19,13 @@ Paul C. Ossenbruggen, Computer programmer, possen@quintescent.net
 
 __An Open-Source Project__
 
+Users are encouraged to freely use any of the material used to create this package. Clink on the following links to access information about __cartools__:  
 
-Users are encouraged to freely use any of the material used to create this package. The raw code can be accessed by clinking on the two following links: 
+1. [Code](https://github.com/PJOssenbruggen/Basic): This 'GitHub' repository contains the  __cartools__ functions  and data sets.
 
-1. [Basic](https://github.com/PJOssenbruggen/Basic): A repository containing the __R__  functions and data used for analysis.
+2. [Website](https://github.com/PJOssenbruggen/cartools): This 'GitHub Pages' website: (a)  provides instruction for using the __cartools__ code and its various algorithms for solving a variety of transportation problems; and (b) gives justification for using the code to help answer the fundamental question: 
 
-2. [cartools](https://github.com/PJOssenbruggen/cartools): A repository containing the __R__ code for creating this website with GitHub Pages.
+> _How can we mitigate traffic congestion when a traffic breakdown event is so difficult to predict?_
 
 People familiar with [R](https://cran.r-project.org) and [RStudio](https://www.rstudio.com) may download, use and share this material as they see fit. Feedback is welcomed.
 
