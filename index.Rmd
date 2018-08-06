@@ -23,7 +23,7 @@ Users are encouraged to freely use any of the material used to create this packa
 
 1. [Code](https://github.com/PJOssenbruggen/Basic): This 'GitHub' repository contains the  __cartools__ functions  and data sets.
 
-2. [Website](https://github.com/PJOssenbruggen/cartools): This 'GitHub Pages' website: (a)  provides instruction for using the __cartools__ code and its various algorithms for solving a variety of transportation problems; and (b) gives justification for using the code to help answer the fundamental question: 
+2. [Website](https://github.com/PJOssenbruggen/cartools): This 'GitHub Pages' website: (a)  provides instruction for using the __cartools__ code and its various algorithms for solving a variety of transportation problems; and (b) gives justification, a detailed in depth look at basic principles, for using the code to help answer the fundamental question: 
 
 > _How can we mitigate traffic congestion when a traffic breakdown event is so difficult to predict?_
 
