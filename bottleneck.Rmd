@@ -33,7 +33,6 @@ The incoming vehicles on a freeway, on the other hand, are typically neither the
 ```{r zipper, message = FALSE, fig.height = 4, fig.width = 5, echo = FALSE}
 library(gapminder)
 library(dplyr)
-library(gganimate)
 library(ggplot2)
 library(tidyverse)
 par(mfrow = c(1,2), pty = "s")
@@ -72,7 +71,6 @@ The   $t-x$ trajectories below is for the same three drivers described above. In
 
 ```{r CF,  message = FALSE, fig.height = 4, fig.width = 6, echo = FALSE}
 library(dplyr)
-library(gganimate)
 library(gapminder)
 library(ggplot2)
 library(tidyverse)
