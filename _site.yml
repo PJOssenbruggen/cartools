@@ -17,6 +17,8 @@ navbar:
     href: performance.html
   - text: Capacity
     href: capacity.html
+  - text: Crossover  
+    href: crossover.html
   - text: Smart Mobility
     href: lessons.html
   - text: Summary
