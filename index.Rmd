@@ -67,9 +67,11 @@ The website contains the following menu  items:
 
 6. #####  __Capacity:__ _Highway performance_. Measuring performance as a capacity.
 
-7. ##### __Smart Mobility:__ _Intelligent Transportation Systems._ Moving forward with innovative technology.
+7. #####  __Crossover__ _Lane changing_. The potential for queue formation due to weaving.
 
-8. ##### __Summary:__  __cartools__ package highlights.
+8. ##### __Smart Mobility:__ _Intelligent Transportation Systems._ Moving forward with innovative technology.
+
+9. ##### __Summary:__  __cartools__ package highlights.
 
 
 The principal aim of the __cartools__ package is to explain highway performance as simply as possible. Topics are introduced in a  step-by-step manner.  The  __cartools__ package is derived and developed from a diverse set of resources:
