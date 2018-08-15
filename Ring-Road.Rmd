@@ -16,11 +16,52 @@ library(Basic)
 
 __A Controlled Experiment__
 
-We continue our model building effort by simulating conditions observed on a  _ring_ or _loop road_. The [YouTube video](https://www.youtube.com/watch?v=7wm-pZp_mi0) shows $n$ = 22 vehicles [@1367-2630-10-3-033001].  The drivers cannot pass one another or enter or exit the loop.  Each driver was instructed to maintain a same constant speed $u$. The drivers cannot follow instructions. After a few seconds, the traffic breaks down, i.e., drivers cannot maintain speed $u.$ 
+We continue our model building effort by simulating conditions observed on a  _ring_ or _loop road_. The drivers cannot pass one another or enter or exit the loop.  Each driver is instructed to maintain a same constant speed $u$.
+
+```{r road,  message = FALSE, fig.height = 5, fig.width = 10, echo = FALSE}
+r    <- 1
+xseq <- seq(-r,r,0.01)
+y    <- function(r,x) sqrt(r^2 - x^2)
+yseq <- y(r,xseq)
+df1  <- data.frame(x = xseq, y = yseq)
+df2  <- data.frame(x = xseq, y = -1*yseq)
+df   <- rbind(df1,df2)
+r    <- 0.8
+xseq <- seq(-r,r,0.01)
+yseq <- y(r,xseq)
+df3  <- data.frame(x = xseq, y = yseq)
+df4  <- data.frame(x = xseq, y = -1*yseq)
+df5   <- rbind(df3,df4)
+op <- par(mfrow = c(1,1), pty = "s")
+plot(df[,1], df[,2], typ = "n", axes = FALSE, xlab = "", ylab = "")
+polygon(df[,1], df[,2], col = gray(0.8), border = NA)
+lines(df[,1], df[,2], lwd = 2)
+polygon(df5[,1], df5[,2], col = gray(1), border = NA)
+lines(df5[,1], df5[,2], lwd = 2)
+lines(c(-0.99,-0.82), c(0,0), lwd = 2, col = gray(0.8))
+lines(c(-0.79,0.79), c(0,0), lwd = 2, col = gray(1))
+lines(c(0.82,0.99), c(0,0), lwd = 2, col = gray(0.8))
+arrows(.9,0.0,.9,0.65, lwd = 3, angle = 15)
+text(.9,0.65,labels = "u", pos = 3)
+arrows(-.9,0.0,-.9,-0.65, lwd = 3, angle = 15)
+text(-.9,-0.65,labels = "u", pos = 1)
+arrows(0,.9,-0.65,0.9, lwd = 3, angle = 15)
+text(-0.65,0.9, labels = "u", pos = 2)
+arrows(0,-.9,0.65,-0.9, lwd = 3, angle = 15)
+text(0.65,-0.9,labels = "u", pos = 4)
+title(main = "Ring-Road")
+par(op)
+```
+
+
+
+The [YouTube video](https://www.youtube.com/watch?v=7wm-pZp_mi0) shows $n$ = 22 vehicles [@1367-2630-10-3-033001].   The drivers cannot follow instructions. After a few seconds, the traffic breaks down, i.e., drivers cannot maintain speed $u.$ 
 
 Why? The video shows the vehicles to be traveling at a reasonable speed. Initially, all vehicles are uniformly distributed around the circle. After a few seconds,  the vehicles begin to interact because the one or more drivers cannot maintain  speed $u$. If we track a vehicle, we can see the speed will vary by a slight amount. Since their no room to move laterally, the drivers must follow and react to the situation directly in front of them. This behavior is a classically called  _car-following_ [@LiliBook] [@trieber]. 
 
-It is hypothesized that the vehicles described in the preceding paragraph are operating  in a _congested state_. The spacing between vehicles, while it appears to be sufficient, is not.  The number of vehicles on the road $n$ is sufficiently large to cause the vehicles to interact. Look at a pair of vehicles. If a _lead vehicle_ decelerates to a slower speed than its _following vehicle_ must slow down to avoid a crash. The following driver is risk averse. This interaction moves upstream causing other _leader-follower vehicle pairs_ to slow down as well.  If there are fewer vehicles, the space between vehicles, the _distance headway_ then an individual driver can decelerate  without affecting the vehicle behind it. The vehicles are operating in a _free-flow state_. 
+It is hypothesized that the vehicles described in the preceding paragraph are operating  in a _congested state_. The spacing between vehicles, while it appears to be sufficient in the video, is not.  The number of vehicles on the road $n$ is sufficiently large to cause the vehicles to interact. Look at a pair of vehicles. If a _lead vehicle_ decelerates to a slower speed than its _following vehicle_ must slow down to avoid a crash. The following driver is risk averse. This interaction moves upstream causing other _leader-follower vehicle pairs_ to slow down as well.  
+
+If there are fewer vehicles, the space between vehicles, the _distance headway_ then an individual driver can decelerate  without affecting the vehicle behind it. The vehicles are operating in a _free-flow state_. 
 
 __A Brownian Bridge Model of Speed__
 

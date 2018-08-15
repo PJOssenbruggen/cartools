@@ -1,7 +1,7 @@
 name: GP
 output_dir: '.'
 navbar:
-  title: Cartools
+#  title: Cartools
   left:
   - text: Purpose
     href: index.html
@@ -13,6 +13,8 @@ navbar:
     href: Ring-Road.html
   - text: Bottleneck
     href: bottleneck.html
+  - text: Zipper Merge
+    href: zipper.html
   - text: Breakdown
     href: performance.html
   - text: Capacity

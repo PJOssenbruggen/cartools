@@ -177,7 +177,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Cartools</a>
+      <a class="navbar-brand" href="index.html"></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -195,6 +195,9 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="bottleneck.html">Bottleneck</a>
+</li>
+<li>
+  <a href="zipper.html">Zipper Merge</a>
 </li>
 <li>
   <a href="performance.html">Breakdown</a>
@@ -236,8 +239,8 @@ $(document).ready(function () {
 <p><strong>An Open-Source Project</strong></p>
 <p>Users are encouraged to freely use any of the material used to create this package. Clink on the following links to access information about <strong>cartools</strong>:</p>
 <ol style="list-style-type: decimal">
-<li><p><a href="https://github.com/PJOssenbruggen/Basic">Code</a>: This ‘GitHub’ repository contains the <strong>cartools</strong> functions and data sets.</p></li>
-<li><p><a href="https://github.com/PJOssenbruggen/cartools">Website</a>: This ‘GitHub Pages’ website: (a) provides instruction for using the <strong>cartools</strong> code and its various algorithms for solving a variety of transportation problems; and (b) gives justification, a detailed in depth look at basic principles, for using the code to help answer the fundamental question:</p></li>
+<li><p><a href="https://github.com/PJOssenbruggen/Basic/blob/master/vignettes/cartools.Rmd">Code</a>: This ‘GitHub’ repository contains the <strong>cartools</strong> functions and data sets.</p></li>
+<li><p><a href="https://PJOssenbruggen.github.io/cartools/index.html">Website</a>: This ‘GitHub Pages’ website: (a) provides instruction for using the <strong>cartools</strong> code and its various algorithms for solving a variety of transportation problems; and (b) gives justification, a detailed in depth look at basic principles, for using the code to help answer the fundamental question:</p></li>
 </ol>
 <blockquote>
 <p><em>How can we mitigate traffic congestion when a traffic breakdown event is so difficult to predict?</em></p>
@@ -249,6 +252,15 @@ $(document).ready(function () {
 <p><strong>Challenges</strong></p>
 <p>Now lets turn attention to transportation issues.</p>
 <p>“In many industrialized nations today, highways present engineers and governments with formidable challenges relating to safety, sustainability, environmental impacts, congestion mitigation, and deteriorating infrastructure. As a result, highways are often viewed from a perspective of the many challenges as they present as opposed to the benefits that they provide. <span class="citation">(Mannering and Washburn 2017)</span>”</p>
+<p><strong>Focus:</strong></p>
+<blockquote>
+<p>How can we mitigate traffic congestion when a traffic breakdown event is so difficult to predict?</p>
+</blockquote>
+<p><em>Hypothesis:</em> The following variables can (1) explain and (2) predict a traffic breakdown event:</p>
+<p><span class="math inline">\(n\)</span> = traffic count (number of vehicles), measured as a traffic density, <span class="math inline">\(k\)</span> in vehicles per mile (vpm),</p>
+<p><span class="math inline">\(\sigma\)</span> = traffic noise, measured as speed volatility,</p>
+<p><span class="math inline">\(h_{safe} = f(u, l_{eff})\)</span>, a function of speed <span class="math inline">\(u\)</span> and vehicle length <span class="math inline">\(l_{eff}\)</span>, and</p>
+<p>driver behavior and road design (geometry).</p>
 <p><strong>Aims</strong></p>
 <p>The <strong>cartools</strong> package is designed for college students studying transportation engineering and for transportation professionals and researchers interested in understanding the complex relationships associated with freeway performance and traffic breakdown. Emphasis is placed on:</p>
 <ul>

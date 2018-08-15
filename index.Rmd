@@ -21,9 +21,9 @@ __An Open-Source Project__
 
 Users are encouraged to freely use any of the material used to create this package. Clink on the following links to access information about __cartools__:  
 
-1. [Code](https://github.com/PJOssenbruggen/Basic): This 'GitHub' repository contains the  __cartools__ functions  and data sets.
+1. [Code](https://github.com/PJOssenbruggen/Basic/blob/master/vignettes/cartools.Rmd): This 'GitHub' repository contains the  __cartools__ functions  and data sets.
 
-2. [Website](https://github.com/PJOssenbruggen/cartools): This 'GitHub Pages' website: (a)  provides instruction for using the __cartools__ code and its various algorithms for solving a variety of transportation problems; and (b) gives justification, a detailed in depth look at basic principles, for using the code to help answer the fundamental question: 
+2. [Website](https://PJOssenbruggen.github.io/cartools/index.html): This 'GitHub Pages' website: (a)  provides instruction for using the __cartools__ code and its various algorithms for solving a variety of transportation problems; and (b) gives justification, a detailed in depth look at basic principles, for using the code to help answer the fundamental question: 
 
 > _How can we mitigate traffic congestion when a traffic breakdown event is so difficult to predict?_
 
@@ -41,6 +41,21 @@ __Challenges__
 Now lets turn attention to transportation issues.
 
 "In many industrialized nations today, highways present engineers and governments with formidable challenges relating to safety, sustainability, environmental impacts, congestion mitigation, and deteriorating infrastructure. As a result, highways are often viewed from a perspective of the many challenges as they present as opposed to the benefits that they provide. [@mannering]" 
+
+__Focus:__ 
+
+> How can we mitigate traffic congestion when a traffic breakdown event is so difficult to predict?
+
+_Hypothesis:_ The following variables can (1) explain and (2) predict a traffic breakdown event: 
+
+$n$ = traffic count (number of vehicles), measured as a traffic density, $k$ in vehicles per mile (vpm), 
+
+$\sigma$ = traffic noise, measured as speed volatility, 
+
+$h_{safe} = f(u, l_{eff})$, a function of speed $u$ and vehicle length $l_{eff}$, and
+
+driver behavior and road design (geometry). 
+
 
 __Aims__
  
@@ -81,6 +96,7 @@ The principal aim of the __cartools__ package is to explain highway performance 
 * _Probability and statistics:_ @agresti:1990, @hosmer, @iacus, @vandaele:1983
 
 * _Statistical computing and graphics:_ @cran, @sde,  @wickham, @shiny
+
 
 
 *** 

@@ -177,7 +177,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Cartools</a>
+      <a class="navbar-brand" href="index.html"></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -195,6 +195,9 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="bottleneck.html">Bottleneck</a>
+</li>
+<li>
+  <a href="zipper.html">Zipper Merge</a>
 </li>
 <li>
   <a href="performance.html">Breakdown</a>
@@ -230,9 +233,12 @@ $(document).ready(function () {
 
 <hr />
 <p><strong>A Controlled Experiment</strong></p>
-<p>We continue our model building effort by simulating conditions observed on a <em>ring</em> or <em>loop road</em>. The <a href="https://www.youtube.com/watch?v=7wm-pZp_mi0">YouTube video</a> shows <span class="math inline">\(n\)</span> = 22 vehicles <span class="citation">(Sugiyama et al. 2008)</span>. The drivers cannot pass one another or enter or exit the loop. Each driver was instructed to maintain a same constant speed <span class="math inline">\(u\)</span>. The drivers cannot follow instructions. After a few seconds, the traffic breaks down, i.e., drivers cannot maintain speed <span class="math inline">\(u.\)</span></p>
+<p>We continue our model building effort by simulating conditions observed on a <em>ring</em> or <em>loop road</em>. The drivers cannot pass one another or enter or exit the loop. Each driver is instructed to maintain a same constant speed <span class="math inline">\(u\)</span>.</p>
+<p><img src="Ring-Road_files/figure-html/road-1.png" width="960" /></p>
+<p>The <a href="https://www.youtube.com/watch?v=7wm-pZp_mi0">YouTube video</a> shows <span class="math inline">\(n\)</span> = 22 vehicles <span class="citation">(Sugiyama et al. 2008)</span>. The drivers cannot follow instructions. After a few seconds, the traffic breaks down, i.e., drivers cannot maintain speed <span class="math inline">\(u.\)</span></p>
 <p>Why? The video shows the vehicles to be traveling at a reasonable speed. Initially, all vehicles are uniformly distributed around the circle. After a few seconds, the vehicles begin to interact because the one or more drivers cannot maintain speed <span class="math inline">\(u\)</span>. If we track a vehicle, we can see the speed will vary by a slight amount. Since their no room to move laterally, the drivers must follow and react to the situation directly in front of them. This behavior is a classically called <em>car-following</em> <span class="citation">(Elefteriadou 2014)</span> <span class="citation">(Trieber and Kesting 2013)</span>.</p>
-<p>It is hypothesized that the vehicles described in the preceding paragraph are operating in a <em>congested state</em>. The spacing between vehicles, while it appears to be sufficient, is not. The number of vehicles on the road <span class="math inline">\(n\)</span> is sufficiently large to cause the vehicles to interact. Look at a pair of vehicles. If a <em>lead vehicle</em> decelerates to a slower speed than its <em>following vehicle</em> must slow down to avoid a crash. The following driver is risk averse. This interaction moves upstream causing other <em>leader-follower vehicle pairs</em> to slow down as well. If there are fewer vehicles, the space between vehicles, the <em>distance headway</em> then an individual driver can decelerate without affecting the vehicle behind it. The vehicles are operating in a <em>free-flow state</em>.</p>
+<p>It is hypothesized that the vehicles described in the preceding paragraph are operating in a <em>congested state</em>. The spacing between vehicles, while it appears to be sufficient in the video, is not. The number of vehicles on the road <span class="math inline">\(n\)</span> is sufficiently large to cause the vehicles to interact. Look at a pair of vehicles. If a <em>lead vehicle</em> decelerates to a slower speed than its <em>following vehicle</em> must slow down to avoid a crash. The following driver is risk averse. This interaction moves upstream causing other <em>leader-follower vehicle pairs</em> to slow down as well.</p>
+<p>If there are fewer vehicles, the space between vehicles, the <em>distance headway</em> then an individual driver can decelerate without affecting the vehicle behind it. The vehicles are operating in a <em>free-flow state</em>.</p>
 <p><strong>A Brownian Bridge Model of Speed</strong></p>
 <p>Can we explain this behavior mathematically? Consider the following approach:</p>
 <p>First, assume the speed of a vehicle to be the random variable <span class="math inline">\(U(t)\)</span> and assume the process is defined by a stationary time-series model of the form:</p>
