@@ -23,9 +23,8 @@ Users are encouraged to freely use any of the material used to create this packa
 
 1. [Code](https://github.com/PJOssenbruggen/Basic/blob/master/vignettes/cartools.Rmd): This 'GitHub' repository contains the  __cartools__ functions  and data sets.
 
-2. [Website](https://PJOssenbruggen.github.io/cartools/index.html): This 'GitHub Pages' website: (a)  provides instruction for using the __cartools__ code and its various algorithms for solving a variety of transportation problems; and (b) gives justification, a detailed in depth look at basic principles, for using the code to help answer the fundamental question: 
+2. [Website](https://PJOssenbruggen.github.io/cartools/index.html): This 'GitHub Pages' website: (a)  provides instruction for using the __cartools__ code and its various algorithms for solving a variety of transportation problems; and (b) gives justification, a detailed in depth look at basic principles, for using the code to help answer the fundamental questions. Real-world problems are investigated.  
 
-> _How can we mitigate traffic congestion when a traffic breakdown event is so difficult to predict?_
 
 People familiar with [R](https://cran.r-project.org) and [RStudio](https://www.rstudio.com) may download, use and share this material as they see fit. Feedback is welcomed.
 
@@ -35,40 +34,23 @@ The primary purpose of this website deals with transportation engineering, opera
 
 _Animation_ and _interactive graphics_ bring new perspectives into understanding both old and new ideas. Take a brief look at [gapminder](https://www.gapminder.org/tools/#$chart-type=bubbles) showing an _animated scatter plot_ of life expectancy over the last 200 years and [shiny](http://shiny.rstudio.com/gallery/bus-dashboard.html) showing an _interactive bus route map_. At the time of this writing, the animated and interactive features have not been initiated. These features have been implemented on my local computer and will be made available soon. 
 
-
 __Challenges__
 
 Now lets turn attention to transportation issues.
 
 "In many industrialized nations today, highways present engineers and governments with formidable challenges relating to safety, sustainability, environmental impacts, congestion mitigation, and deteriorating infrastructure. As a result, highways are often viewed from a perspective of the many challenges as they present as opposed to the benefits that they provide. [@mannering]" 
 
-__Focus:__ 
+__Focus:__ The __cartools__ package and this website focus on traffic congestion mitigation. We pose a most perplexing question: 
 
 > How can we mitigate traffic congestion when a traffic breakdown event is so difficult to predict?
 
-_Hypothesis:_ The following variables can (1) explain and (2) predict a traffic breakdown event: 
+A roadway can operate normally on one day and on the next day, be congested. Obviously, traffic conditions change from day-to-day, They  also change on a finer time-scale from second-to-second. In __cartools__, we treat these uncertainties or chance events with probability. The trick is to identity those factors that can reliably predict a _traffic breakdown event_, an event when the average speed will falls below some pre-defined level. 
 
-$n$ = traffic count (number of vehicles), measured as a traffic density, $k$ in vehicles per mile (vpm), 
+The list of factors that explains a traffic breakdown event is long. In due time, we explore these factors. But for now, consider one of these factors, _driver behavior_. Drivers are described as safe, aggressive (speeders, tailgaters), reckless (text while driving), inattentive and so on. We will see that under ideal conditions, drivers, who are determined to maintain a specified speed, are unable to do so. Human frailty is part of the driver behavior mix. 
 
-$\sigma$ = traffic noise, measured as speed volatility, 
+Obviously, solving the traffic breakdown puzzle requires a comprehensive knowledge of the individual elements of the driver behavior mix and those factors that influence driver behavior and traffic demand:  traffic management, law enforcement,  roadway design,  monetary (out-of-pocket) and human costs (crash risk), transport mode competition and technology.  
 
-$h_{safe} = f(u, l_{eff})$, a function of speed $u$ and vehicle length $l_{eff}$, and
-
-driver behavior and road design (geometry). 
-
-
-__Aims__
- 
-The __cartools__ package is designed for college students studying transportation engineering and for transportation professionals and researchers interested in understanding the complex relationships associated with freeway performance and traffic breakdown. Emphasis is placed on: 
-
-* _Traffic noise or volatility_.
-
-* _Driver behavior and safety_. 
-
-* _Stochastic modeling_,  models that explain breakdown and performance.
-
-
-The website contains the following menu  items:
+In __cartools__, the strategy is to break this puzzle into more manageable parts, explore each part, and then reassemble the parts in a meaningful way. Fundamental principles of transportation, probability, statistics  and visual imagery, graphics, are the principle means of exploring a part or an assembly of parts with __cartools__. The website contains the following menu  items, which we call the _manageable parts_:
 
 1. ##### __Drivers:__  _Self Optimizers_. Meeting the challenges.
 
@@ -91,7 +73,7 @@ The website contains the following menu  items:
 10. ##### __Summary:__  __cartools__ package highlights.
 
 
-The principal aim of the __cartools__ package is to explain highway performance as simply as possible. Topics are introduced in a  step-by-step manner.  The  __cartools__ package is derived and developed from a diverse set of resources:
+The principal aim of the __cartools__ package is to explain highway performance as simply as possible. These topics are introduced in a  step-by-step manner.  The  __cartools__ package is derived and developed from a diverse set of resources:
 
 * _Traffic analysis:_ @banks:1998, @deganzo:1997, @LiliBook, @pjo2017, @1367-2630-10-3-033001, @trieber
 

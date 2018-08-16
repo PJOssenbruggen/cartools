@@ -240,11 +240,8 @@ $(document).ready(function () {
 <p>Users are encouraged to freely use any of the material used to create this package. Clink on the following links to access information about <strong>cartools</strong>:</p>
 <ol style="list-style-type: decimal">
 <li><p><a href="https://github.com/PJOssenbruggen/Basic/blob/master/vignettes/cartools.Rmd">Code</a>: This ‘GitHub’ repository contains the <strong>cartools</strong> functions and data sets.</p></li>
-<li><p><a href="https://PJOssenbruggen.github.io/cartools/index.html">Website</a>: This ‘GitHub Pages’ website: (a) provides instruction for using the <strong>cartools</strong> code and its various algorithms for solving a variety of transportation problems; and (b) gives justification, a detailed in depth look at basic principles, for using the code to help answer the fundamental question:</p></li>
+<li><p><a href="https://PJOssenbruggen.github.io/cartools/index.html">Website</a>: This ‘GitHub Pages’ website: (a) provides instruction for using the <strong>cartools</strong> code and its various algorithms for solving a variety of transportation problems; and (b) gives justification, a detailed in depth look at basic principles, for using the code to help answer the fundamental questions. Real-world problems are investigated.</p></li>
 </ol>
-<blockquote>
-<p><em>How can we mitigate traffic congestion when a traffic breakdown event is so difficult to predict?</em></p>
-</blockquote>
 <p>People familiar with <a href="https://cran.r-project.org">R</a> and <a href="https://www.rstudio.com">RStudio</a> may download, use and share this material as they see fit. Feedback is welcomed.</p>
 <p><strong>Purpose</strong></p>
 <p>The primary purpose of this website deals with transportation engineering, operations and management. I would remiss in not drawing attention to the major advances made in computer science and statistics that enhance learning.</p>
@@ -252,23 +249,14 @@ $(document).ready(function () {
 <p><strong>Challenges</strong></p>
 <p>Now lets turn attention to transportation issues.</p>
 <p>“In many industrialized nations today, highways present engineers and governments with formidable challenges relating to safety, sustainability, environmental impacts, congestion mitigation, and deteriorating infrastructure. As a result, highways are often viewed from a perspective of the many challenges as they present as opposed to the benefits that they provide. <span class="citation">(Mannering and Washburn 2017)</span>”</p>
-<p><strong>Focus:</strong></p>
+<p><strong>Focus:</strong> The <strong>cartools</strong> package and this website focus on traffic congestion mitigation. We pose a most perplexing question:</p>
 <blockquote>
 <p>How can we mitigate traffic congestion when a traffic breakdown event is so difficult to predict?</p>
 </blockquote>
-<p><em>Hypothesis:</em> The following variables can (1) explain and (2) predict a traffic breakdown event:</p>
-<p><span class="math inline">\(n\)</span> = traffic count (number of vehicles), measured as a traffic density, <span class="math inline">\(k\)</span> in vehicles per mile (vpm),</p>
-<p><span class="math inline">\(\sigma\)</span> = traffic noise, measured as speed volatility,</p>
-<p><span class="math inline">\(h_{safe} = f(u, l_{eff})\)</span>, a function of speed <span class="math inline">\(u\)</span> and vehicle length <span class="math inline">\(l_{eff}\)</span>, and</p>
-<p>driver behavior and road design (geometry).</p>
-<p><strong>Aims</strong></p>
-<p>The <strong>cartools</strong> package is designed for college students studying transportation engineering and for transportation professionals and researchers interested in understanding the complex relationships associated with freeway performance and traffic breakdown. Emphasis is placed on:</p>
-<ul>
-<li><p><em>Traffic noise or volatility</em>.</p></li>
-<li><p><em>Driver behavior and safety</em>.</p></li>
-<li><p><em>Stochastic modeling</em>, models that explain breakdown and performance.</p></li>
-</ul>
-<p>The website contains the following menu items:</p>
+<p>A roadway can operate normally on one day and on the next day, be congested. Obviously, traffic conditions change from day-to-day, They also change on a finer time-scale from second-to-second. In <strong>cartools</strong>, we treat these uncertainties or chance events with probability. The trick is to identity those factors that can reliably predict a <em>traffic breakdown event</em>, an event when the average speed will falls below some pre-defined level.</p>
+<p>The list of factors that explains a traffic breakdown event is long. In due time, we explore these factors. But for now, consider one of these factors, <em>driver behavior</em>. Drivers are described as safe, aggressive (speeders, tailgaters), reckless (text while driving), inattentive and so on. We will see that under ideal conditions, drivers, who are determined to maintain a specified speed, are unable to do so. Human frailty is part of the driver behavior mix.</p>
+<p>Obviously, solving the traffic breakdown puzzle requires a comprehensive knowledge of the individual elements of the driver behavior mix and those factors that influence driver behavior and traffic demand: traffic management, law enforcement, roadway design, monetary (out-of-pocket) and human costs (crash risk), transport mode competition and technology.</p>
+<p>In <strong>cartools</strong>, the strategy is to break this puzzle into more manageable parts, explore each part, and then reassemble the parts in a meaningful way. Fundamental principles of transportation, probability, statistics and visual imagery, graphics, are the principle means of exploring a part or an assembly of parts with <strong>cartools</strong>. The website contains the following menu items, which we call the <em>manageable parts</em>:</p>
 <ol style="list-style-type: decimal">
 <li><h5 id="drivers-self-optimizers.-meeting-the-challenges."><strong>Drivers:</strong> <em>Self Optimizers</em>. Meeting the challenges.</h5></li>
 <li><h5 id="noise-traffic-noise-or-volatility.-exploratory-data-analysis-of-a-congested-freeway-bottleneck."><strong>Noise:</strong> <em>Traffic noise or volatility</em>. Exploratory data analysis of a congested freeway bottleneck.</h5></li>
@@ -281,7 +269,7 @@ $(document).ready(function () {
 <li><h5 id="smart-mobility-intelligent-transportation-systems.-moving-forward-with-innovative-technology."><strong>Smart Mobility:</strong> <em>Intelligent Transportation Systems.</em> Moving forward with innovative technology.</h5></li>
 <li><h5 id="summary-cartools-package-highlights."><strong>Summary:</strong> <strong>cartools</strong> package highlights.</h5></li>
 </ol>
-<p>The principal aim of the <strong>cartools</strong> package is to explain highway performance as simply as possible. Topics are introduced in a step-by-step manner. The <strong>cartools</strong> package is derived and developed from a diverse set of resources:</p>
+<p>The principal aim of the <strong>cartools</strong> package is to explain highway performance as simply as possible. These topics are introduced in a step-by-step manner. The <strong>cartools</strong> package is derived and developed from a diverse set of resources:</p>
 <ul>
 <li><p><em>Traffic analysis:</em> <span class="citation">Banks (1998)</span>, <span class="citation">Daganzo (1997)</span>, <span class="citation">Elefteriadou (2014)</span>, <span class="citation">Ossenbruggen (2017)</span>, <span class="citation">Sugiyama et al. (2008)</span>, <span class="citation">Trieber and Kesting (2013)</span></p></li>
 <li><p><em>Probability and statistics:</em> <span class="citation">Agresti (1990)</span>, <span class="citation">Hosmer and Lemeshow (1989)</span>, <span class="citation">Iacus (2008)</span>, <span class="citation">Vandeale (1983)</span></p></li>

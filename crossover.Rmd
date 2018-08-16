@@ -4,7 +4,6 @@ bibliography: "CF.bibtex"
 ---
 
 ***
-
 [^1]: The __cartools__ functions __crossconflict__, __safecrossover__ and __plotcrossover__ are used to create the plots shown on this page. 
 
 ```{r setup, include=FALSE}
@@ -34,7 +33,7 @@ To avoid a crash, the driver on lane 2 yields as shown. Driver 2 slows down and 
 
 What is a "safe distance?" Since we don't have field measures, we base our assumption and justify it based our experience as a driver. The distance headway is assumed to be 28 feet or two car lengths. In other words, the distance between the back bumper of the lead vehicle and  front bumper of our vehicle is one vehicle length or 14 feet. Some people may criticize it as being too close given the speeds of two vehicles are 67 mph. However, the relative speed between vehicles  is zero.  Are the critics right in claiming that we are not cautious enough? 
 
-```{r plotcrossover, echo=FALSE, fig.height=6, fig.width=6, message=TRUE, warning=TRUE}
+```{r plotcrossover, echo=FALSE, fig.height=5, fig.width=5, message=TRUE, warning=TRUE}
 par(mfrow = c(1,1))
 library(Basic)
 library(ggplot2)
@@ -50,6 +49,50 @@ __Traffic Breakdown and Queue Formation__
 While we slowdown "safely," the potential for a traffic breakdown resulting from a crossover by one or two vehicles is evident. Imagine if more vehicles were on the road and our vehicle in lane 2 decelerated as described. Its effect would progress upstream, causing following vehicles to slow. 
 
 The code will be upgraded to include more following vehicles. At the same time, the code for creating the __Conflict__ and __Safe Crossover__ overhead diagrams will be updated. Vehicles  do not follow straight-line trajectories, but curved ones. 
+
+__Roadway Geometry__
+
+```{r roadentrance,  message = FALSE, fig.height = 6, fig.width = 10, echo = FALSE}
+x <- c(0,2,2,0,24,26,28,52,50,50,52,28,26,24,0)/40
+xfeet <- x*40
+y <- c(0,1000,4000,5000,5000,4000,5000,5000,4000,1000,0,0,1000,0,0)/200
+df <- data.frame(x,y,xfeet)
+op <- par(mfrow = c(1,1), pty = "s")
+plot(df[,1], df[,2], typ = "n", axes = FALSE, xlab = "", ylab = "", xlim = c(0, 2.5))
+polygon(df[,1], df[,2], col = gray(0.8), border = NA)
+lines(df[1:4,1],df[1:4,2])
+lines(df[5:7,1],df[5:7,2])
+lines(df[8:11,1],df[8:11,2])
+lines(df[12:14,1],df[12:14,2])
+df1 <- data.frame(x = c(12,14,14,12)/40, y = c(0,5,20,25))
+lines(df1[1:4,1],df1[1:4,2], lty = 2)
+df2 <- data.frame(x = c(40,38,38,40)/40, y = c(0,5,20,25))
+lines(df2[,1],df2[,2], lty = 2)
+df3 <- data.frame(x = c(6,8,8,6)/40, y = c(0,5,20,25))
+lines(df3[,1],df3[,2], lty = 1, lwd = 3, col = "orange" )
+df4 <- data.frame(x = c(18,20,20,18)/40, y = c(0,5,20,25))
+lines(df4[,1],df4[,2], lty = 1, lwd = 3, col = "blue" )
+df5 <- data.frame(x = c(34,32,32,34)/40, y = c(0,5,20,25))
+lines(df5[,1],df5[,2], lty = 1, lwd = 3, col = "green" )
+df6 <- data.frame(x = c(46,44,44,46)/40, y = c(0,5,20,25))
+lines(df6[,1],df6[,2], lty = 1, lwd = 3, col = "red" )
+points(0.65, 13, col = "red", pch = 8, cex = 3)
+points(0.35, 13, col = "red", pch = 8, cex = 1.5)
+points(0.95, 5, col = "red", pch = 8, cex = 1.5)
+points(0.65, 13, col = "red", pch = 16, cex = 2.5)
+points(0.35, 13, col = "red", pch = 16, cex = 1.5)
+points(0.95, 5, col = "red", pch = 16, cex = 1.5)
+lines(df[c(6,13),1],df[c(6,13),2], lty = 2)
+legend("topright",legend = c("weave conflicts"),
+       pch = 16, col = "red", lty = 8, bty = "n")
+title(main = "Bottleneck")
+axis(side = 1, at = c(0.15), labels = "Lane 1", line = -0.5)
+axis(side = 3, at = c(0.45), labels = "Lane 2", line = -0.5)
+axis(side = 1, at = c(0.85), labels = "Lane 3", line = -0.5)
+axis(side = 3, at = c(1.15), labels = "Lane 4", line = -0.5)
+par(op)
+
+```
 
 *** 
 __References__
