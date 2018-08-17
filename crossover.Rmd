@@ -119,7 +119,7 @@ Construction of the viaduct began in the late 1950's and early 60's. Much has ch
 
 Both options under consider are costly. No question that the driving public and taxpayers expect a dramatic decrease in traffic congestion in Syracuse.  Transportation engineers are working toward this end. Regardless, it is interesting in passing to note that one transportation engineering textbook in twelve, listed "traffic congestion" in the index. @banks:1998 states traffic congestion exists when traffic demand exceeds roadway capacity and is found in the problem occurs on urban highway systems, particularly on major highways and intersections on arterial streets. This is certainly the case in Syracuse.
 
-Engineers also want to minimize the construction costs. The taxpaying public should be pleased that students are learning "building information modeling."  BIM allows engineers to spend more time evaluating what-if scenarios to optimize the design and less time generating construction documentation [@bim]. Incorporating the information derived from computer __cartools__ simulations into BIM is a possibility that should be explored.
+Engineers also want to minimize roadway construction costs. The taxpaying public should be pleased that students are learning "building information modeling."  BIM allows engineers to spend more time evaluating what-if scenarios to optimize the design and less time generating construction documentation [@bim]. Incorporating the information derived from computer __cartools__ simulations into BIM is a possibility that should be explored.
 
 There are three benefits associated with the proposed traffic data collection effort: (1) prepare a LOS report, (2) improve BIM, and (3) test __cartools__.
 
