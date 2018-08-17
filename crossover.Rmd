@@ -68,7 +68,7 @@ The so-called I-81 bottleneck is non-traditional. There are four lanes upstream 
 
 ![I-81 bottleneck](I-81bottleneck.jpeg.001.jpeg)
 
-The schematic diagram shows a large red circle indicating the location or a "forced"  weave and driver conflict. Two "forced" weave conflicts are present: (1) drivers entering I-81 from the ramp traveling  west,  and (2) drivers on already on I-81 traveling east. These drivers are forced to change lanes and must proceed with utmost care to avoid crashing. Two smaller red circles are shown as "voluntary" weave locations.  These drivers change lanes in an effort to minimize their travel time. 
+The schematic diagram shows a large red circle indicating the location or a "forced"  weave and driver conflict. Two "forced" weave conflicts are present: (1) drivers entering I-81 from the ramp traveling  west,  and (2) drivers  already on I-81 traveling east. These drivers are forced to change lanes and must proceed with utmost care to avoid crashing. Two smaller red circles are shown as "voluntary" weave locations.  These drivers change lanes in an effort to minimize their travel time. 
 
 
 
@@ -105,7 +105,7 @@ points(0.95, 5, col = "red", pch = 16, cex = 1.5)
 lines(df[c(6,13),1],df[c(6,13),2], lty = 2)
 legend("topright",legend = c("weave conflicts"),
        pch = 16, col = "red", lty = 8, bty = "n")
-title(main = "Bottleneck")
+title(main = "I-81 Bottleneck")
 axis(side = 1, at = c(0.15), labels = "Lane 1", line = -0.5)
 axis(side = 3, at = c(0.45), labels = "Lane 2", line = -0.5)
 axis(side = 1, at = c(0.85), labels = "Lane 3", line = -0.5)
@@ -119,9 +119,9 @@ Construction of the viaduct began in the late 1950's and early 60's. Much has ch
 
 Both options under consider are costly. No question that the driving public and taxpayers expect a dramatic decrease in traffic congestion in Syracuse.  Transportation engineers are working toward this end. Regardless, it is interesting in passing to note that one transportation engineering textbook in twelve, listed "traffic congestion" in the index. @banks:1998 states traffic congestion exists when traffic demand exceeds roadway capacity and is found in the problem occurs on urban highway systems, particularly on major highways and intersections on arterial streets. This is certainly the case in Syracuse.
 
-Engineers also want to minimize the construction costs. The taxpaying public should be pleased that students are learning "building information modeling."  BIM allows engineers to spend more time evaluating what-if scenarios to optimize the design and less time generating construction documentation [@bim]. Incorporating the information derived from computer __cartools__ simulations into BIM is a possibility that should explored.
+Engineers also want to minimize the construction costs. The taxpaying public should be pleased that students are learning "building information modeling."  BIM allows engineers to spend more time evaluating what-if scenarios to optimize the design and less time generating construction documentation [@bim]. Incorporating the information derived from computer __cartools__ simulations into BIM is a possibility that should be explored.
 
-There are three benefits of traffic data collection: (1) prepare a LOS report, (2) improve BIM, and (3) test __cartools__.
+There are three benefits associated with the proposed traffic data collection effort: (1) prepare a LOS report, (2) improve BIM, and (3) test __cartools__.
 
 
 
