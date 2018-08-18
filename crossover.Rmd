@@ -31,7 +31,7 @@ df <- cartools::safecrossover(67,14)
 
 To avoid a crash, the driver on lane 2 yields as shown. Driver 2 slows down and allows driver 1 to pass in front of his/her vehicle. Driver 1 maintains a speed of 67 mph.  A crash is avoided. Here we show the driver in the following vehicle to crossover a "safe distance" behind the leader. 
 
-What is a "safe distance?" Since we don't have field measures, we base our assumption and justify it based our experience as a driver. The distance headway is assumed to be 28 feet or two car lengths. In other words, the distance between the back bumper of the lead vehicle and  front bumper of our vehicle is one vehicle length or 14 feet. Some people may criticize it as being too close given the speeds of two vehicles are 67 mph. However, the relative speed between vehicles  is zero.  Are the critics right in claiming that we are not cautious enough? 
+What is a "safe distance?" Since we don't have field measures, we base our assumption and justify it based our experience as  drivers. The distance headway is assumed to be 28 feet or two car lengths. In other words, the distance between the back bumper of the lead vehicle and  front bumper of our vehicle is one vehicle length or 14 feet. Some people may criticize it as being too close given the speeds of two vehicles are 67 mph. However, the relative speed between vehicles  is zero.  
 
 ```{r plotcrossover, echo=FALSE, fig.height=5, fig.width=5, message=TRUE, warning=TRUE}
 par(mfrow = c(1,1))
@@ -40,7 +40,7 @@ library(ggplot2)
 cartools::plotcrossover(67,14)
 ```
 
-To address the issue, we will investigate our speed and acceleration using the $t-x$ trajectory shown above. Note that the speeds on the plot are shown in feet per second. The relative size of the speed bullets give the impression that we may decelerating at a high rate, suggesting that we may be introducing unsafe condition. At around $t$ = 5 seconds, our speed drops to 56 mph (82 fps) and at around $t$ = 7.5, our speed reaches a maximum of 78 mph (115 fps).  Our acceleration is approximately 8.8 feet per second-square. The accelerate rate is considered comfortable, so we argue that our weave is safe. After all, we are assuming that we are not under the influence of alcohol or drugs, which is obviously against the law.
+Are the critics right in claiming that we are not cautious enough?  To address the issue, we will investigate our speed and acceleration using the $t-x$ trajectory shown above. Note that the speeds on the plot are shown in feet per second. The relative size of the speed bullets give the impression that we may decelerating at a high rate, suggesting that we may be introducing unsafe condition. At around $t$ = 5 seconds, our speed drops to 56 mph (82 fps) and at around $t$ = 7.5, our speed reaches a maximum of 78 mph (115 fps).  Our acceleration is approximately 8.8 feet per second-square. The accelerate rate is considered comfortable, so we argue that our weave is safe. After all, we are assuming that we are not under the influence of alcohol or drugs, which is obviously against the law.
 
 By the way, a more cautious driver of lane 2 may slow to 56 mph and remain in the lane. 
 
@@ -115,7 +115,9 @@ par(op)
 
 __A LOS Report and BIM__
 
-Construction of the viaduct began in the late 1950's and early 60's. Much has changed since this time and much can be learned from the past.  Consider using side fire radar to collect vehicle count $n$, speed $u$, vehicle class data at the three sites show above. These data would certainly go along way in testing our __cartools__ methodology to explain and predict traffic breakdown at a bottleneck.  These data can also be used to prepare a I-81 Viaduct level-of-service (LOS) report. A LOS report will complement the NYSDOT I-81 Viaduct Project report that used annual average daily flow as a principal means of reporting LOS. 
+Construction of the viaduct began in the late 1950's and early 60's. Much has changed since this time and much can be learned from the past.  
+
+Consider using side fire radar to collect vehicle count $n$, speed $u$, vehicle class data at the three sites show above. These data would certainly go along way in testing our __cartools__ methodology to explain and predict traffic breakdown at a bottleneck.  These data can also be used to prepare a I-81 Viaduct Level-Of-Service  report. A LOS report will complement the NYSDOT I-81 Viaduct Project report that used annual average daily flow as a principal means of reporting LOS. 
 
 Both options under consider are costly. No question that the driving public and taxpayers expect a dramatic decrease in traffic congestion in Syracuse.  Transportation engineers are working toward this end. Regardless, it is interesting in passing to note that one transportation engineering textbook in twelve, listed "traffic congestion" in the index. @banks:1998 states traffic congestion exists when traffic demand exceeds roadway capacity and is found in the problem occurs on urban highway systems, particularly on major highways and intersections on arterial streets. This is certainly the case in Syracuse.
 
