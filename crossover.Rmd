@@ -1,6 +1,7 @@
 ---
 title: "Crossover"
 bibliography: "CF.bibtex"
+output: html_document
 ---
 
 ***
@@ -115,7 +116,7 @@ par(op)
 
 __A LOS Report and BIM__
 
-Construction of the viaduct began in the late 1950's and early 60's. Much has changed since this time and much can be learned from the past.  
+Construction of the viaduct began in the late 1950's and early 60's. Much has changed since this time and much can be learned from the past. Now, congestion mitigation is a top priority [@cmp2011].
 
 Consider using side fire radar to collect vehicle count $n$, speed $u$, vehicle class data at the three sites show above. These data would certainly go along way in testing our __cartools__ methodology to explain and predict traffic breakdown at a bottleneck.  These data can also be used to prepare a I-81 Viaduct Level-Of-Service  report. A LOS report will complement the NYSDOT I-81 Viaduct Project report that used annual average daily flow as a principal means of reporting LOS. 
 
