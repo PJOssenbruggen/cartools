@@ -64,7 +64,7 @@ The current operation state of the viaduct  can be gleaned from the following ph
 
 
 
-The so-called I-81 bottleneck is non-traditional. There are four lanes upstream and downstream of the so-called bottleneck, therefore it is not declared to be a bottleneck associated with a lane drop.  Its label is  from the fact that there is an excessive amount of weaving between the entrance and downstream fork in the roadway.  
+The so-called I-81 bottleneck is non-traditional. There are four lanes upstream and downstream of the so-called bottleneck, therefore it is not declared to be a bottleneck associated with a lane drop.  Its label is  from the fact that there is an excessive amount of weaving between the entrance and downstream fork on the roadway.  
 
 ![I-81 bottleneck](I-81bottleneck.jpeg.001.jpeg)
 
