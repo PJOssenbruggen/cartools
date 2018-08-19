@@ -1,7 +1,6 @@
 ---
 title: "Crossover"
 bibliography: "CF.bibtex"
-output: html_document
 ---
 
 ***
