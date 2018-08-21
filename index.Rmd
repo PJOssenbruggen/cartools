@@ -19,7 +19,7 @@ Paul C. Ossenbruggen, Computer programmer, possen@quintescent.net
 
 __An Open-Source Project__
 
-Users are encouraged to freely use any of the material used to create this package. Clink on the following links to access information about __cartools__:  
+Users are encouraged to freely use any of the material used to create this package. Click on the following links to access information about __cartools__:  
 
 1. [Code](https://github.com/PJOssenbruggen/Basic/blob/master/vignettes/cartools.Rmd): This 'GitHub' repository contains the  __cartools__ functions  and data sets.
 
